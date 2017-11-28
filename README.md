@@ -51,7 +51,7 @@
 
 - Ruby
 - Ruby on Rails
-- PostgreSQL
+- PostgreSQL (本カリキュラムではHerokuを使うため)
 
 サーバについては以下を利用していただきたいです。
 
@@ -160,13 +160,13 @@
 - GitHub上でPRを作成してレビューしてもらいましょう
   - 今後、PRが大きくなりそうだったらPRを2回以上に分けることを検討しましょう
 
-### ステップ8: テスト（feature spec）を書こう
+### ステップ8: テスト（request spec）を書こう
 
 - specを書くための準備をしましょう
   - `spec/spec_helper.rb` 、 `spec/rails_helper.rb` を用意しましょう
-- feature specをタスク機能に対して書きましょう
-- Circle CIなどのCIツールを導入して、Slackに通知するようにしましょう
-  - オプションですが、メンターが利便性のために追加しても可です
+- request specをタスク機能に対して書きましょう
+- Circle CIなどのCIツールを導入して、Slackに通知するようにしましょう（オプション）
+  - メンターが利便性のために追加しても可です
 - 参考書籍：https://leanpub.com/everydayrailsrspec-jp
 
 ### ステップ9: Railsのi18nを使ってアプリの日本語部分を共通化しましょう
