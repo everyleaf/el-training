@@ -1,2 +1,13 @@
-<h1>Todos#index</h1>
-<p>Find me in app/views/todos/index.html.erb</p>
+<h1>Todo List</h1>
+<table border="1">
+	<tr>
+		<th>Title</th>
+		<th>Content</th>
+	</tr>
+	<% @todos.each do |todo| %>
+		<tr>
+			<th><%= todo.title %></th>
+			<th><%= todo.content %></th>
+		</tr>
+	<% end %>
+</table>
