@@ -4,13 +4,18 @@ class TodosController < ApplicationController
   end
 	
 	def new
+		@todo = Todo.new
 	end
 
 	def create
 		@todo = Todo.new
 		@todo.title = params[:title]
 		@todo.content = params[:content]
-		@todo.save
-		redirect_to('/todos/index')
+		if @todo.save
+			flash[:notice] = "New todo has been created."
+			redirect_to('/todos/index')
+		else
+			render 'new'
+		end
 	end
 end
