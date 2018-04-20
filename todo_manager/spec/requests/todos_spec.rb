@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Todos", type: :request do
-  describe "GET /" do
-    it "works! (now write some real specs)" do
+  describe "Check Home (index) page" do
+    it "should have the content 'Todo List'" do
       get '/'
-      expect(response).to have_http_status(200)
+      expect(page).to have_content('Todo List')
     end
   end
 end
