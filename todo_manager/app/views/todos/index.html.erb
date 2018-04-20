@@ -1,14 +1,14 @@
 <h2>Todo List</h2>
 <%= link_to("Create","/todos/new") %>
 <table border="1">
-	<tr>
-		<th>Title</th>
-		<th>Content</th>
-	</tr>
-	<% @todos.each do |todo| %>
-		<tr>
-			<th><%= link_to(todo.title, "/todos/#{todo.id}/detail") %></th>
-			<th><%= todo.content %></th>
-		</tr>
-	<% end %>
+  <tr>
+    <th>Title</th>
+    <th>Content</th>
+  </tr>
+  <% @todos.each do |todo| %>
+    <tr>
+      <th><%= link_to(todo.title, "/todos/#{todo.id}/detail") %></th>
+      <th><%= todo.content %></th>
+    </tr>
+  <% end %>
 </table>
