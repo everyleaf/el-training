@@ -10,6 +10,9 @@
   </head>
 
   <body>
+		<header>
+			<h1><%= link_to("Todo Manager", "/") %></h1>
+		</header>
 		<% if flash[:notice] %>
 			<%= flash[:notice] %>
 		<% end %>
