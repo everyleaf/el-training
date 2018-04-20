@@ -18,4 +18,8 @@ class TodosController < ApplicationController
 			render 'new'
 		end
 	end
+
+	def detail
+		@todo = Todo.find_by(id: params[:id])
+	end
 end

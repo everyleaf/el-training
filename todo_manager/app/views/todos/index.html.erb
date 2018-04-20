@@ -7,7 +7,7 @@
 	</tr>
 	<% @todos.each do |todo| %>
 		<tr>
-			<th><%= todo.title %></th>
+			<th><%= link_to(todo.title, "#{todo.id}/detail") %></th>
 			<th><%= todo.content %></th>
 		</tr>
 	<% end %>
