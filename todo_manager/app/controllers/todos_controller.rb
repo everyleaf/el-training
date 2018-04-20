@@ -22,4 +22,20 @@ class TodosController < ApplicationController
 	def detail
 		@todo = Todo.find_by(id: params[:id])
 	end
+
+	def edit
+		@todo = Todo.find_by(id: params[:id])
+	end	
+
+	def update
+		@todo = Todo.find_by(id: params[:id])
+		@todo.title = params[:title]
+		@todo.content = params[:content]
+		if @todo.save
+			flash[:notice] = "Todo has been updated."
+			redirect_to("/todos/#{@todo.id}/detail")
+		else
+			render 'edit'
+		end
+	end
 end

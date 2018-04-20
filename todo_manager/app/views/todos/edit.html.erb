@@ -1,0 +1,11 @@
+<h1>Edit Todo</h1>
+<% @todo.errors.full_messages.each do |message| %>
+	<%= message %>
+<% end %>
+<%= form_tag("/todos/#{@todo.id}/update") do %>
+	<p>Title</p>
+	<input name="title" value="<%= @todo.title %>">
+	<p>Content</p>
+	<textarea name="content"><%= @todo.content %></textarea>
+	<input type="submit" value="update">
+<% end %>
