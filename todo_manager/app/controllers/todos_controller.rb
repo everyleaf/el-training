@@ -13,7 +13,7 @@ class TodosController < ApplicationController
 		@todo.content = params[:content]
 		if @todo.save
 			flash[:notice] = "New todo has been created."
-			redirect_to('/todos/index')
+			redirect_to('/')
 		else
 			render 'new'
 		end
@@ -43,6 +43,6 @@ class TodosController < ApplicationController
 		@todo = Todo.find_by(id: params[:id])
 		@todo.destroy
 		flash[:notice] = "Todo has been deleted."
-		redirect_to("/todos/index")
+		redirect_to("/")
 	end
 end
