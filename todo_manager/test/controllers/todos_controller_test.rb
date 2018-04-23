@@ -5,5 +5,4 @@ class TodosControllerTest < ActionDispatch::IntegrationTest
     get todos_index_url
     assert_response :success
   end
-
 end
