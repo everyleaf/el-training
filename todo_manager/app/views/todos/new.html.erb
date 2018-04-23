@@ -1,0 +1,11 @@
+<h2>Create Todo</h2>
+<% @todo.errors.full_messages.each do |message| %>
+  <%= message %>
+<% end %>
+<%= form_tag('/todos/create') do %>
+  <p>Title</p>
+  <input name="title">
+  <p>Content</p>
+  <textarea name="content"></textarea>
+  <input type="submit" value="create">
+<% end %>

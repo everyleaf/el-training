@@ -1,0 +1,4 @@
+<h2><%= @todo.title %></h2>
+<%= @todo.content %>
+<%= link_to('edit', "/todos/#{@todo.id}/edit") %>
+<%= link_to('destroy', "/todos/#{@todo.id}/destroy", {method: 'post'}) %>
