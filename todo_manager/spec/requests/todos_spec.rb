@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Todos', type: :request do
-  let(:todo) {create(:todo)}
-
   shared_examples_for 'have a header' do
     describe 'header' do
       it 'should have a header and the index link' do
