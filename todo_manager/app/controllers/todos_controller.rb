@@ -8,11 +8,9 @@ class TodosController < ApplicationController
   end
 
   def create
-    @todo = Todo.new
-    @todo.title = params[:title]
-    @todo.content = params[:content]
+    @todo = Todo.new(title: params[:title], content: params[:content])
     if @todo.save
-      flash[:notice] = "New todo has been created."
+      flash[:notice] = 'New todo has been created.'
       redirect_to('/')
     else
       render 'new'
@@ -32,7 +30,7 @@ class TodosController < ApplicationController
     @todo.title = params[:title]
     @todo.content = params[:content]
     if @todo.save
-      flash[:notice] = "Todo has been updated."
+      flash[:notice] = 'Todo has been updated.'
       redirect_to("/todos/#{@todo.id}/detail")
     else
       render 'edit'
@@ -41,8 +39,12 @@ class TodosController < ApplicationController
 
   def destroy
     @todo = Todo.find_by(id: params[:id])
-    @todo.destroy
-    flash[:notice] = "Todo has been deleted."
-    redirect_to("/")
+    if @todo.destroy
+      flash[:notice] = 'Todo has been deleted.'
+      redirect_to('/')
+    else
+      flash[:notice] = 'Failed to destroy todo.'
+      render 'detail'
+    end
   end
 end
