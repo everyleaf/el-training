@@ -26,11 +26,11 @@ RSpec.describe 'Todos', type: :request do
     end
 
     it 'should have the create link' do
-      expect(page).to have_link('Create', href: '/todos/new')
+      expect(page).to have_link(I18n.t('dictionary.create'), href: '/todos/new')
     end
 
     describe 'create page' do
-      before { click_on 'Create' }
+      before { click_on I18n.t('dictionary.create') }
 
       it_behaves_like 'have a header'
 
@@ -42,7 +42,7 @@ RSpec.describe 'Todos', type: :request do
         context 'title is nil' do
           before do
             fill_in 'content', with: 'fuga'
-            click_on 'create'
+            click_on I18n.t('dictionary.create')
           end
 
           it 'should back to the create page' do
@@ -62,7 +62,7 @@ RSpec.describe 'Todos', type: :request do
           before do
             fill_in 'title', with: 'hoge'
             fill_in 'content', with: 'fuga'
-            click_on 'create'
+            click_on I18n.t('dictionary.create')
           end
 
           it_behaves_like 'have a header'
@@ -91,12 +91,12 @@ RSpec.describe 'Todos', type: :request do
             end
 
             it 'should have the edit and destroy link' do
-              expect(page).to have_link('edit')
-              expect(page).to have_link('destroy')
+              expect(page).to have_link(I18n.t('dictionary.edit'))
+              expect(page).to have_link(I18n.t('dictionary.destroy'))
             end
 
             describe 'edit page' do
-              before { click_on 'edit' }
+              before { click_on I18n.t('dictionary.edit') }
 
               it_behaves_like 'have a header'
 
@@ -113,7 +113,7 @@ RSpec.describe 'Todos', type: :request do
                 context 'title is nil' do
                   before do
                     fill_in 'title', with: ''
-                    click_on 'update'
+                    click_on I18n.t('dictionary.update')
                   end
 
                   it_behaves_like 'have a header'
@@ -135,7 +135,7 @@ RSpec.describe 'Todos', type: :request do
                   before do
                     fill_in 'title', with: 'Edited title'
                     fill_in 'content', with: 'Edited content'
-                    click_on 'update'
+                    click_on I18n.t('dictionary.update')
                   end
 
                   it_behaves_like 'have a header'
@@ -157,7 +157,7 @@ RSpec.describe 'Todos', type: :request do
             end
 
             describe 'destroy action' do
-              before { click_on 'destroy' }
+              before { click_on I18n.t('dictionary.destroy') }
 
               it 'should be index page after deleting todo' do
                 expect(current_path).to eq '/'

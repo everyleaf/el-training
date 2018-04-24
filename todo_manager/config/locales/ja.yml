@@ -4,6 +4,10 @@ ja:
   dictionary:
     title: タスク名
     content: 内容
+    create: 作成
+    edit: 編集
+    update: 更新
+    destroy: 削除
 
   activerecord:
     errors:
