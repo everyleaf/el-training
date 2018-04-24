@@ -49,7 +49,7 @@ RSpec.describe 'Todos', type: :request do
             expect(current_path).to eq '/todos/create'
           end
 
-          it 'should show a flash message' do
+          it 'should show an error message' do
             expect(page).to have_content("Title can't be blank")
           end
 
@@ -122,7 +122,7 @@ RSpec.describe 'Todos', type: :request do
                     expect(page).to have_content('Edit Todo')
                   end
 
-                  it 'should show a flash message' do
+                  it 'should show an error message' do
                     expect(page).to have_content("Title can't be blank")
                   end
 
