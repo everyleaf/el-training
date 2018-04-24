@@ -72,7 +72,7 @@ RSpec.describe 'Todos', type: :request do
           end
 
           it 'should show a flash message' do
-            expect(page).to have_content('New todo has been created.')
+            expect(page).to have_content(I18n.t('flash.todos.create'))
           end
 
           it 'should show the created todo' do
@@ -150,7 +150,7 @@ RSpec.describe 'Todos', type: :request do
                   end
 
                   it 'should show a flash message' do
-                    expect(page).to have_content('Todo has been updated.')
+                    expect(page).to have_content(I18n.t('flash.todos.update'))
                   end
                 end
               end
@@ -169,7 +169,7 @@ RSpec.describe 'Todos', type: :request do
               end
 
               it 'should show a flash message' do
-                expect(page).to have_content('Todo has been deleted.')
+                expect(page).to have_content(I18n.t('flash.todos.destroy.success'))
               end
             end
           end

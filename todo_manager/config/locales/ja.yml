@@ -9,6 +9,14 @@ ja:
     update: 更新
     destroy: 削除
 
+  flash:
+    todos:
+      create: タスクを作成しました。
+      update: タスクを更新しました。
+      destroy:
+        success: タスクを削除しました。
+        failure: タスクの削除に失敗しました。
+
   todos:
     index:
       title: タスク一覧

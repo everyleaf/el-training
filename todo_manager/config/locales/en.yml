@@ -40,6 +40,14 @@ en:
     update: Update
     destroy: Destroy
 
+  flash:
+    todos:
+      create: New todo has been created.
+      update: Todo has been updated.
+      destroy:
+        success: Todo has been deleted.
+        failure: Failed to delete todo.
+
   todos:
     index:
       title: Todo List
