@@ -1,4 +1,4 @@
-<h2><%= @todo.title %></h2>
+<h3><%= @todo.title %></h3>
 <%= @todo.content %>
 <%= link_to(t('dictionary.edit'), "/todos/#{@todo.id}/edit") %>
 <%= link_to(t('dictionary.destroy'), "/todos/#{@todo.id}/destroy", {method: 'post'}) %>
