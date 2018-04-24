@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Todos', type: :request do
+  let!(:todo) { create(:todo)}
+
   shared_examples_for 'have a header' do
     describe 'header' do
       it 'should have a header and the index link' do
@@ -14,6 +16,10 @@ RSpec.describe 'Todos', type: :request do
     it_behaves_like 'have a header'
     it "should have the word 'Todo List'" do
       expect(page).to have_content('Todo List')
+    end
+    it "should have the todo" do
+      expect(page).to have_content('Sample title')
+      expect(page).to have_content('Sample content')
     end
     it 'should have the create link' do
       expect(page).to have_link('Create', href: '/todos/new')
@@ -29,7 +35,7 @@ RSpec.describe 'Todos', type: :request do
       describe 'create new todo' do
         context 'title is nil' do
           before do
-            fill_in 'content', with: 'hoge'
+            fill_in 'content', with: 'fuga'
             click_on 'create'
           end
           it 'should back to the create page' do
@@ -39,14 +45,14 @@ RSpec.describe 'Todos', type: :request do
             expect(page).to have_content("Title can't be blank")
           end
           it 'should keep the content' do
-            expect(page).to have_field('content', with: 'hoge')
+            expect(page).to have_field('content', with: 'fuga')
           end
         end
 
         context 'title is not nil' do
           before do
-            fill_in 'title', with: 'Sample title'
-            fill_in 'content', with: 'Sample content'
+            fill_in 'title', with: 'hoge'
+            fill_in 'content', with: 'fuga'
             click_on 'create'
           end
           it_behaves_like 'have a header'
@@ -57,8 +63,8 @@ RSpec.describe 'Todos', type: :request do
             expect(page).to have_content('New todo has been created.')
           end
           it 'should show the created todo' do
-            expect(page).to have_link('Sample title')
-            expect(page).to have_content('Sample content')
+            expect(page).to have_link('hoge')
+            expect(page).to have_content('fuga')
           end
 
           describe 'detail page' do
@@ -109,8 +115,8 @@ RSpec.describe 'Todos', type: :request do
                     click_on 'update'
                   end
                   it_behaves_like 'have a header'
-                  it 'should be detail page after updating' do
-                    expect(current_path).to include "/detail"
+                  it 'should be detail page after updating todo' do
+                    expect(current_path).to eq "/todos/#{todo.id}/detail"
                   end
                   it 'should show the updated content' do
                     expect(page).to have_content('Edited title')
@@ -125,6 +131,9 @@ RSpec.describe 'Todos', type: :request do
 
             describe 'destroy action' do
               before { click_on 'destroy' }
+              it 'should be index page after deleting todo' do
+                expect(current_path).to eq '/'
+              end
               it 'should delete todo' do
                 expect(page).to_not have_link('Sample Title')
                 expect(page).to_not have_content('Sample Content')
