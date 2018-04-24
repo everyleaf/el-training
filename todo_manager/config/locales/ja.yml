@@ -1,6 +1,10 @@
 ja:
   title: タスク管理ツール
 
+  dictionary:
+    title: タスク名
+    content: 内容
+
   activerecord:
     errors:
       messages:

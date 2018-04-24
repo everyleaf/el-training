@@ -31,3 +31,7 @@
 
 en:
   title: Todo Manager
+
+  dictionary:
+    title: Title
+    content: Content

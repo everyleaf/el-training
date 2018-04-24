@@ -2,8 +2,8 @@
 <%= link_to('Create','/todos/new') %>
 <table border="1">
   <tr>
-    <th>Title</th>
-    <th>Content</th>
+    <th><%= t('dictionary.title') %></th>
+    <th><%= t('dictionary.content') %></th>
   </tr>
   <% @todos.each do |todo| %>
     <tr>
