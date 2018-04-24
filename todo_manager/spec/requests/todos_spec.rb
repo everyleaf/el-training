@@ -50,7 +50,7 @@ RSpec.describe 'Todos', type: :request do
           end
 
           it 'should show an error message' do
-            expect(page).to have_content("Title can't be blank")
+            expect(page).to have_content("Title #{I18n.t('errors.messages.blank')}")
           end
 
           it 'should keep the content' do
@@ -123,7 +123,7 @@ RSpec.describe 'Todos', type: :request do
                   end
 
                   it 'should show an error message' do
-                    expect(page).to have_content("Title can't be blank")
+                    expect(page).to have_content("Title #{I18n.t('errors.messages.blank')}")
                   end
 
                   it 'should keep the content' do
