@@ -9,6 +9,14 @@ ja:
     update: 更新
     destroy: 削除
 
+  todos:
+    index:
+      title: タスク一覧
+    new:
+      title: タスク作成
+    edit:
+      title: タスク編集
+
   activerecord:
     errors:
       messages:

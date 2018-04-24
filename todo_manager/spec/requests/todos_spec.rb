@@ -17,7 +17,7 @@ RSpec.describe 'Todos', type: :request do
     it_behaves_like 'have a header'
 
     it "should have the word 'Todo List'" do
-      expect(page).to have_content('Todo List')
+      expect(page).to have_content(I18n.t('todos.index.title'))
     end
 
     it "should have the todo" do
@@ -35,7 +35,7 @@ RSpec.describe 'Todos', type: :request do
       it_behaves_like 'have a header'
 
       it "should have the word 'Create Todo'" do
-        expect(page).to have_content('Create Todo')
+        expect(page).to have_content(I18n.t('todos.new.title'))
       end
 
       describe 'create new todo' do
@@ -101,7 +101,7 @@ RSpec.describe 'Todos', type: :request do
               it_behaves_like 'have a header'
 
               it "should have the content 'Edit Todo', title and content of the todo" do
-                expect(page).to have_content('Edit Todo')
+                expect(page).to have_content(I18n.t('todos.edit.title'))
               end
 
               it 'should have the title and content of the todo' do
@@ -119,7 +119,7 @@ RSpec.describe 'Todos', type: :request do
                   it_behaves_like 'have a header'
 
                   it 'should back to the edit page' do
-                    expect(page).to have_content('Edit Todo')
+                    expect(page).to have_content(I18n.t('todos.edit.title'))
                   end
 
                   it 'should show an error message' do

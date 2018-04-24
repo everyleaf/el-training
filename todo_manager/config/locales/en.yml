@@ -39,3 +39,11 @@ en:
     edit: Edit
     update: Update
     destroy: Destroy
+
+  todos:
+    index:
+      title: Todo List
+    new:
+      title: Create Todo
+    edit:
+      title: Edit Todo
