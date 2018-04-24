@@ -1,4 +1,6 @@
 ja:
+  title: タスク管理ツール
+
   activerecord:
     errors:
       messages:

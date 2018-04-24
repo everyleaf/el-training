@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TodoManager</title>
+    <title><%= t('title') %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,7 +11,7 @@
 
   <body>
     <header>
-      <h1><%= link_to('Todo Manager', '/') %></h1>
+      <h1><%= link_to(t('title'), '/') %></h1>
     </header>
     <% if flash[:notice] %>
       <%= flash[:notice] %>

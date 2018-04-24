@@ -6,7 +6,7 @@ RSpec.describe 'Todos', type: :request do
   shared_examples_for 'have a header' do
     describe 'header' do
       it 'should have a header and the index link' do
-        expect(page).to have_link('Todo Manager', href: '/')
+        expect(page).to have_link(I18n.t('title'), href: '/')
       end
     end
   end
