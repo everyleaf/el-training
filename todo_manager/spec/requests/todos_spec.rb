@@ -21,8 +21,19 @@ RSpec.describe 'Todos', type: :request do
     end
 
     it "should have the todo" do
-      expect(page).to have_content('Sample title')
-      expect(page).to have_content('Sample content')
+      expect(page).to have_content(todo.title)
+      expect(page).to have_content(todo.content)
+    end
+
+    it "should show the todo ordered by created_at as desc" do
+      create(:todo, title: 'test1', content: 'one', created_at: 1.hours.since, updated_at: 1.hours.since)
+      create(:todo, title: 'test2', content: 'two', created_at: 2.hours.since, updated_at: 2.hours.since)
+      create(:todo, title: 'test3', content: 'three', created_at: 3.hours.since, updated_at: 3.hours.since)
+      visit '/'
+      trs = page.all('tr')
+      expect(trs[1]).to have_content('three')
+      expect(trs[2]).to have_content('two')
+      expect(trs[3]).to have_content('one')
     end
 
     it 'should have the create link' do
@@ -81,13 +92,13 @@ RSpec.describe 'Todos', type: :request do
           end
 
           describe 'detail page' do
-            before { click_on 'Sample title' }
+            before { click_on todo.title }
 
             it_behaves_like 'have a header'
 
             it 'should have the title and content of the todo' do
-              expect(page).to have_content('Sample title')
-              expect(page).to have_content('Sample content')
+              expect(page).to have_content(todo.title)
+              expect(page).to have_content(todo.content)
             end
 
             it 'should have the edit and destroy link' do
@@ -105,8 +116,8 @@ RSpec.describe 'Todos', type: :request do
               end
 
               it 'should have the title and content of the todo' do
-                expect(page).to have_field('title', with: 'Sample title')
-                expect(page).to have_field('content', with: 'Sample content')
+                expect(page).to have_field('title', with: todo.title)
+                expect(page).to have_field('content', with: todo.content)
               end
 
               describe 'update the todo' do
@@ -127,7 +138,7 @@ RSpec.describe 'Todos', type: :request do
                   end
 
                   it 'should keep the content' do
-                    expect(page).to have_field('content', with: 'Sample content')
+                    expect(page).to have_field('content', with: todo.content)
                   end
                 end
 
@@ -164,8 +175,8 @@ RSpec.describe 'Todos', type: :request do
               end
 
               it 'should delete todo' do
-                expect(page).to_not have_link('Sample Title')
-                expect(page).to_not have_content('Sample Content')
+                expect(page).to_not have_link(todo.title)
+                expect(page).to_not have_content(todo.content)
               end
 
               it 'should show a flash message' do
