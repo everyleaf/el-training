@@ -30,4 +30,28 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  title: Todo Manager
+
+  dictionary:
+    title: Title
+    content: Content
+    create: Create
+    edit: Edit
+    update: Update
+    destroy: Destroy
+
+  flash:
+    todos:
+      create: New todo has been created.
+      update: Todo has been updated.
+      destroy:
+        success: Todo has been deleted.
+        failure: Failed to delete todo.
+
+  todos:
+    index:
+      title: Todo List
+    new:
+      title: Create Todo
+    edit:
+      title: Edit Todo

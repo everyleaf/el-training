@@ -1,9 +1,9 @@
-<h2>Todo List</h2>
-<%= link_to('Create','/todos/new') %>
+<h2><%= t('.title') %></h2>
+<%= link_to(t('dictionary.create'),'/todos/new') %>
 <table border="1">
   <tr>
-    <th>Title</th>
-    <th>Content</th>
+    <th><%= t('dictionary.title') %></th>
+    <th><%= t('dictionary.content') %></th>
   </tr>
   <% @todos.each do |todo| %>
     <tr>

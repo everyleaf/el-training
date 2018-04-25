@@ -6,7 +6,7 @@ RSpec.describe 'Todos', type: :request do
   shared_examples_for 'have a header' do
     describe 'header' do
       it 'should have a header and the index link' do
-        expect(page).to have_link('Todo Manager', href: '/')
+        expect(page).to have_link(I18n.t('title'), href: '/')
       end
     end
   end
@@ -17,7 +17,7 @@ RSpec.describe 'Todos', type: :request do
     it_behaves_like 'have a header'
 
     it "should have the word 'Todo List'" do
-      expect(page).to have_content('Todo List')
+      expect(page).to have_content(I18n.t('todos.index.title'))
     end
 
     it "should have the todo" do
@@ -26,31 +26,31 @@ RSpec.describe 'Todos', type: :request do
     end
 
     it 'should have the create link' do
-      expect(page).to have_link('Create', href: '/todos/new')
+      expect(page).to have_link(I18n.t('dictionary.create'), href: '/todos/new')
     end
 
     describe 'create page' do
-      before { click_on 'Create' }
+      before { click_on I18n.t('dictionary.create') }
 
       it_behaves_like 'have a header'
 
       it "should have the word 'Create Todo'" do
-        expect(page).to have_content('Create Todo')
+        expect(page).to have_content(I18n.t('todos.new.title'))
       end
 
       describe 'create new todo' do
         context 'title is nil' do
           before do
             fill_in 'content', with: 'fuga'
-            click_on 'create'
+            click_on I18n.t('dictionary.create')
           end
 
           it 'should back to the create page' do
             expect(current_path).to eq '/todos/create'
           end
 
-          it 'should show a flash message' do
-            expect(page).to have_content("Title can't be blank")
+          it 'should show an error message' do
+            expect(page).to have_content("Title #{I18n.t('errors.messages.blank')}")
           end
 
           it 'should keep the content' do
@@ -62,7 +62,7 @@ RSpec.describe 'Todos', type: :request do
           before do
             fill_in 'title', with: 'hoge'
             fill_in 'content', with: 'fuga'
-            click_on 'create'
+            click_on I18n.t('dictionary.create')
           end
 
           it_behaves_like 'have a header'
@@ -72,7 +72,7 @@ RSpec.describe 'Todos', type: :request do
           end
 
           it 'should show a flash message' do
-            expect(page).to have_content('New todo has been created.')
+            expect(page).to have_content(I18n.t('flash.todos.create'))
           end
 
           it 'should show the created todo' do
@@ -91,17 +91,17 @@ RSpec.describe 'Todos', type: :request do
             end
 
             it 'should have the edit and destroy link' do
-              expect(page).to have_link('edit')
-              expect(page).to have_link('destroy')
+              expect(page).to have_link(I18n.t('dictionary.edit'))
+              expect(page).to have_link(I18n.t('dictionary.destroy'))
             end
 
             describe 'edit page' do
-              before { click_on 'edit' }
+              before { click_on I18n.t('dictionary.edit') }
 
               it_behaves_like 'have a header'
 
               it "should have the content 'Edit Todo', title and content of the todo" do
-                expect(page).to have_content('Edit Todo')
+                expect(page).to have_content(I18n.t('todos.edit.title'))
               end
 
               it 'should have the title and content of the todo' do
@@ -113,17 +113,17 @@ RSpec.describe 'Todos', type: :request do
                 context 'title is nil' do
                   before do
                     fill_in 'title', with: ''
-                    click_on 'update'
+                    click_on I18n.t('dictionary.update')
                   end
 
                   it_behaves_like 'have a header'
 
                   it 'should back to the edit page' do
-                    expect(page).to have_content('Edit Todo')
+                    expect(page).to have_content(I18n.t('todos.edit.title'))
                   end
 
-                  it 'should show a flash message' do
-                    expect(page).to have_content("Title can't be blank")
+                  it 'should show an error message' do
+                    expect(page).to have_content("Title #{I18n.t('errors.messages.blank')}")
                   end
 
                   it 'should keep the content' do
@@ -135,7 +135,7 @@ RSpec.describe 'Todos', type: :request do
                   before do
                     fill_in 'title', with: 'Edited title'
                     fill_in 'content', with: 'Edited content'
-                    click_on 'update'
+                    click_on I18n.t('dictionary.update')
                   end
 
                   it_behaves_like 'have a header'
@@ -150,14 +150,14 @@ RSpec.describe 'Todos', type: :request do
                   end
 
                   it 'should show a flash message' do
-                    expect(page).to have_content('Todo has been updated.')
+                    expect(page).to have_content(I18n.t('flash.todos.update'))
                   end
                 end
               end
             end
 
             describe 'destroy action' do
-              before { click_on 'destroy' }
+              before { click_on I18n.t('dictionary.destroy') }
 
               it 'should be index page after deleting todo' do
                 expect(current_path).to eq '/'
@@ -169,7 +169,7 @@ RSpec.describe 'Todos', type: :request do
               end
 
               it 'should show a flash message' do
-                expect(page).to have_content('Todo has been deleted.')
+                expect(page).to have_content(I18n.t('flash.todos.destroy.success'))
               end
             end
           end
