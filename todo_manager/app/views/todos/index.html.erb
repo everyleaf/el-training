@@ -4,7 +4,7 @@
   <tr>
     <th><%= t('dictionary.title') %></th>
     <th><%= t('dictionary.content') %></th>
-    <th><%= t('dictionary.deadline') %></th>
+    <th><%= link_to(t('dictionary.deadline'), root_path(sort: 'deadline', direction: @direction)) %></th>
   </tr>
   <% @todos.each do |todo| %>
     <tr>
