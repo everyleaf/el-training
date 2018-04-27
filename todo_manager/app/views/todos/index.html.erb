@@ -1,14 +1,18 @@
 <h2><%= t('.title') %></h2>
-<%= link_to(t('dictionary.create'),'/todos/new') %>
+<%= link_to(t('dictionary.create'), '/todos/new') %>
 <table border="1">
   <tr>
     <th><%= t('dictionary.title') %></th>
     <th><%= t('dictionary.content') %></th>
+    <th><%= link_to(t('dictionary.deadline'), root_path(sort: 'deadline', direction: @direction)) %></th>
   </tr>
   <% @todos.each do |todo| %>
     <tr>
       <th><%= link_to(todo.title, "/todos/#{todo.id}/detail") %></th>
       <th><%= todo.content %></th>
+      <th style="color:<%= p 'red' if !todo.deadline.nil? and todo.deadline < Time.current %>">
+        <%= l(todo.deadline, format: :long) if !todo.deadline.nil? %>
+      </th>
     </tr>
   <% end %>
 </table>

@@ -8,6 +8,7 @@ ja:
     edit: 編集
     update: 更新
     destroy: 削除
+    deadline: 終了期限
 
   flash:
     todos:
@@ -224,6 +225,7 @@ ja:
   time:
     am: 午前
     formats:
-      default: "%Y/%m/%d %H:%M:%S"
-      long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
-      short: "%y/%m/%d %H:%M"
+      default: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
+      long: "%Y/%m/%d %H:%M"
+      short: "%m/%d %H:%M"
+    pm: 午後

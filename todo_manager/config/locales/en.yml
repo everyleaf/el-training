@@ -39,6 +39,7 @@ en:
     edit: Edit
     update: Update
     destroy: Destroy
+    deadline: Deadline
 
   flash:
     todos:
