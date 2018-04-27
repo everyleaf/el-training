@@ -9,6 +9,12 @@ ja:
     update: 更新
     destroy: 削除
     deadline: 終了期限
+    search: 検索
+
+  status:
+    id0: 未着手
+    id1: 着手中
+    id2: 完了
 
   flash:
     todos:
