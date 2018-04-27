@@ -1,6 +1,6 @@
 class TodosController < ApplicationController
   def index
-    @direction = params[:direction] == 'desc' ? 'asc' : 'desc'
+    @direction = params[:direction]
     @todos = Todo.all.order("#{Todo.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'} #{@direction}")
     render 'index'
   end
