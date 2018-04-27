@@ -1,9 +1,11 @@
 class TodosController < ApplicationController
   def index
     @search = params[:search]
-    todos = Todo.where('title like ?', "%#{@search}%")
+    @status = params[:status].nil? ? '' : params[:status]
+    todos = Todo.where('title like ? and status_id = ?', "%#{@search}%", @status)
     @direction = !params[:direction].nil? ? params[:direction] : 'desc'
-    @todos = todos.order("#{Todo.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'} #{@direction}")
+    @sort = params[:sort]
+    @todos = todos.order("#{Todo.column_names.include?(@sort) ? @sort : 'created_at'} #{@direction}")
     render 'index'
   end
 
