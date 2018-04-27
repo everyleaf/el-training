@@ -7,7 +7,7 @@ RSpec.describe Todo, type: :model do
         it "can't be created" do
           expect { Todo.create!(title: '') }.to raise_error(ActiveRecord::RecordInvalid)
           # Tomonobu-san's style
-          expect(Todo.create(title: '').valid?).to be false
+          expect(Todo.new(title: '').valid?).to be false
         end
       end
 
