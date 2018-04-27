@@ -10,7 +10,7 @@
     <tr>
       <th><%= link_to(todo.title, "/todos/#{todo.id}/detail") %></th>
       <th><%= todo.content %></th>
-      <th style="color:<%= p 'red' if !todo.deadline.nil? and todo.deadline < Time.now %>">
+      <th style="color:<%= p 'red' if !todo.deadline.nil? and todo.deadline < Time.current %>">
         <%= l(todo.deadline, format: :long) if !todo.deadline.nil? %>
       </th>
     </tr>

@@ -7,7 +7,7 @@ class TodosController < ApplicationController
 
   def new
     @todo = Todo.new
-    @todo.deadline = Time.now.tomorrow.strftime('%Y-%m-%dT%H:%M')
+    @todo.deadline = Time.current.tomorrow.strftime('%Y-%m-%dT%H:%M')
   end
 
   def create
