@@ -1,16 +1,22 @@
 <h2><%= t('.title') %></h2>
+<%= form_tag('/') do %>
+  <input name="search">
+  <input type="submit" value="<%= t('dictionary.search') %>">
+<% end %>
 <%= link_to(t('dictionary.create'), '/todos/new') %>
 <table border="1">
   <tr>
+    <th><%= t('dictionary.status') %></th>
     <th><%= t('dictionary.title') %></th>
     <th><%= t('dictionary.content') %></th>
-    <th><%= link_to(t('dictionary.deadline'), root_path(sort: 'deadline', direction: @direction == 'desc' ? 'asc' : 'desc')) %></th>
+    <th><%= link_to(t('dictionary.deadline'), root_path(sort: 'deadline', direction: @direction == 'desc' ? 'asc' : 'desc', search: @search.nil? ? nil : @search)) %></th>
   </tr>
   <% @todos.each do |todo| %>
     <tr>
+      <th><%= t("status.id#{todo.status_id}") %></th>
       <th><%= link_to(todo.title, "/todos/#{todo.id}/detail") %></th>
       <th><%= todo.content %></th>
-      <th style="color:<%= p 'red' if !todo.deadline.nil? and todo.deadline < Time.current %>">
+      <th style="color:<%= 'red' if !todo.deadline.nil? and todo.deadline < Time.current %>">
         <%= l(todo.deadline, format: :long) if !todo.deadline.nil? %>
       </th>
     </tr>
