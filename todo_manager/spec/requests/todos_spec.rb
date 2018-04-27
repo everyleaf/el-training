@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Todos', type: :request do
-  let!(:todo) {create(:todo)}
+  let!(:todo) { create(:todo) }
 
   shared_examples_for 'have a header' do
     describe 'header' do
@@ -12,7 +12,7 @@ RSpec.describe 'Todos', type: :request do
   end
 
   describe 'Home (index) page' do
-    before {visit '/'}
+    before { visit '/' }
 
     it_behaves_like 'have a header'
 
@@ -64,7 +64,7 @@ RSpec.describe 'Todos', type: :request do
     end
 
     describe 'create page' do
-      before {click_on I18n.t('dictionary.create')}
+      before { click_on I18n.t('dictionary.create') }
 
       it_behaves_like 'have a header'
 
@@ -122,7 +122,7 @@ RSpec.describe 'Todos', type: :request do
           end
 
           describe 'detail page' do
-            before {click_on todo.title}
+            before { click_on todo.title }
 
             it_behaves_like 'have a header'
 
@@ -138,7 +138,7 @@ RSpec.describe 'Todos', type: :request do
             end
 
             describe 'edit page' do
-              before {click_on I18n.t('dictionary.edit')}
+              before { click_on I18n.t('dictionary.edit') }
 
               it_behaves_like 'have a header'
 
@@ -206,7 +206,7 @@ RSpec.describe 'Todos', type: :request do
             end
 
             describe 'destroy action' do
-              before {click_on I18n.t('dictionary.destroy')}
+              before { click_on I18n.t('dictionary.destroy') }
 
               it 'should be index page after deleting todo' do
                 expect(current_path).to eq '/'
