@@ -9,6 +9,7 @@ ja:
     update: 更新
     destroy: 削除
     deadline: 終了期限
+    status: ステータス
     search: 検索
 
   status:

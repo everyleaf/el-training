@@ -40,6 +40,7 @@ en:
     update: Update
     destroy: Destroy
     deadline: Deadline
+    status: Status
     search: Search
 
   status:
