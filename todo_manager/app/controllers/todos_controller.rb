@@ -36,6 +36,7 @@ class TodosController < ApplicationController
     @todo = Todo.find_by(id: params[:id])
     @todo.title = params[:title]
     @todo.content = params[:content]
+    @todo.status_id = params[:todo][:status_id]
     @todo.deadline = params[:deadline]
     if @todo.save
       flash[:notice] = I18n.t('flash.todos.update')
