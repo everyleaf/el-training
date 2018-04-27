@@ -11,6 +11,7 @@ ja:
     deadline: 終了期限
     status: ステータス
     search: 検索
+    all: 全て
 
   status:
     id0: 未着手

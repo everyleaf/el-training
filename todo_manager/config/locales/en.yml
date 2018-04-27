@@ -42,6 +42,7 @@ en:
     deadline: Deadline
     status: Status
     search: Search
+    all: All
 
   status:
     id0: Unstarted
