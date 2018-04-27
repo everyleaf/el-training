@@ -1,5 +1,5 @@
 <h2><%= t('.title') %></h2>
-<%= button_to(t('dictionary.all'), root_path(sort: @sort, direction: @direction, search: @search, status: '')) %>
+<%= button_to(t('dictionary.all'), root_path(sort: @sort, direction: @direction, search: @search, status: '%')) %>
 <%= button_to(t('status.id0'), root_path(sort: @sort, direction: @direction, search: @search, status: 0)) %>
 <%= button_to(t('status.id1'), root_path(sort: @sort, direction: @direction, search: @search, status: 1)) %>
 <%= button_to(t('status.id2'), root_path(sort: @sort, direction: @direction, search: @search, status: 2)) %>
