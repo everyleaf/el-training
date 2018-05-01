@@ -13,6 +13,11 @@ ja:
     search: 検索
     all: 全て
 
+  priority:
+    id0: 低
+    id1: 中
+    id2: 高
+
   status:
     id0: 未着手
     id1: 着手中

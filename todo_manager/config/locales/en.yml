@@ -44,6 +44,11 @@ en:
     search: Search
     all: All
 
+  priority:
+    id0: low
+    id1: middle
+    id2: high
+
   status:
     id0: Unstarted
     id1: Working
