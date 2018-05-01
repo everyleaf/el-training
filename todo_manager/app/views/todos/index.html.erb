@@ -5,6 +5,9 @@
 <%= button_to(t('status.id2'), root_path(sort: @sort, direction: @direction, search: @search, status: 2)) %>
 <%= form_tag('/') do %>
   <input type="search" name="search">
+  <input type="hidden" name="sort" value="<%= @sort %>">
+  <input type="hidden" name="direction" value="<%= @direction %>">
+  <input type="hidden" name="status" value="<%= @status %>">
   <input type="submit" value="<%= t('dictionary.search') %>">
 <% end %>
 <%= link_to(t('dictionary.create'), '/todos/new') %>
