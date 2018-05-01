@@ -39,23 +39,149 @@ RSpec.describe 'Todos', type: :request do
 
     describe 'sort todos by deadline' do
       before do
-        create(:todo, deadline: 2.days.since)
-        create(:todo, deadline: 3.days.since)
+        create(:todo, title: 'hoge', status_id: 1, deadline: 2.days.since)
+        create(:todo, title: 'hoge', status_id: 1, deadline: 3.days.since)
         click_on I18n.t('dictionary.deadline')
       end
-      it 'is in asc' do
-        trs = page.all('tr')
-        expect(trs[1]).to have_content(1.day.since.strftime('%Y/%m/%d %H:%M'))
-        expect(trs[2]).to have_content(2.days.since.strftime('%Y/%m/%d %H:%M'))
-        expect(trs[3]).to have_content(3.days.since.strftime('%Y/%m/%d %H:%M'))
+      context 'in asc' do
+        it 'should be ordered' do
+          trs = page.all('tr')
+          expect(trs[1]).to have_content(1.day.since.strftime('%Y/%m/%d %H:%M'))
+          expect(trs[2]).to have_content(2.days.since.strftime('%Y/%m/%d %H:%M'))
+          expect(trs[3]).to have_content(3.days.since.strftime('%Y/%m/%d %H:%M'))
+        end
+
+        it 'should be refined by status_id' do
+          click_on(I18n.t('status.id1'))
+          trs = page.all('tr')
+          expect(trs[1]).to have_content(2.days.since.strftime('%Y/%m/%d %H:%M'))
+          expect(trs[2]).to have_content(3.days.since.strftime('%Y/%m/%d %H:%M'))
+        end
+
+        it 'should be refined by title' do
+          fill_in 'search', with: 'hoge'
+          click_on(I18n.t('dictionary.search'))
+          trs = page.all('tr')
+          expect(trs[1]).to have_content(2.days.since.strftime('%Y/%m/%d %H:%M'))
+          expect(trs[2]).to have_content(3.days.since.strftime('%Y/%m/%d %H:%M'))
+        end
       end
 
-      it 'is in desc' do
-        click_on I18n.t('dictionary.deadline')
-        trs = page.all('tr')
-        expect(trs[1]).to have_content(3.day.since.strftime('%Y/%m/%d %H:%M'))
-        expect(trs[2]).to have_content(2.days.since.strftime('%Y/%m/%d %H:%M'))
-        expect(trs[3]).to have_content(1.days.since.strftime('%Y/%m/%d %H:%M'))
+      context 'in desc' do
+        before { click_on I18n.t('dictionary.deadline') }
+        it 'should be ordered' do
+          trs = page.all('tr')
+          expect(trs[1]).to have_content(3.days.since.strftime('%Y/%m/%d %H:%M'))
+          expect(trs[2]).to have_content(2.days.since.strftime('%Y/%m/%d %H:%M'))
+          expect(trs[3]).to have_content(1.day.since.strftime('%Y/%m/%d %H:%M'))
+        end
+
+        it 'should be refined by status_id' do
+          click_on(I18n.t('status.id1'))
+          trs = page.all('tr')
+          expect(trs.count).to eq 3
+          expect(trs[1]).to have_content(3.days.since.strftime('%Y/%m/%d %H:%M'))
+          expect(trs[2]).to have_content(2.days.since.strftime('%Y/%m/%d %H:%M'))
+        end
+
+        it 'should be refined by title' do
+          fill_in 'search', with: 'hoge'
+          click_on(I18n.t('dictionary.search'))
+          trs = page.all('tr')
+          expect(trs.count).to eq 3
+          expect(trs[1]).to have_content(3.days.since.strftime('%Y/%m/%d %H:%M'))
+          expect(trs[2]).to have_content(2.days.since.strftime('%Y/%m/%d %H:%M'))
+        end
+      end
+    end
+
+    describe 'refine search' do
+      context 'with status_id' do
+        before do
+          create(:todo, status_id: 1)
+          create(:todo, status_id: 2)
+        end
+        it 'can be refined by status_id: 0' do
+          click_on I18n.t('status.id0')
+          trs = page.all('tr')
+          trs.each do |tr|
+            expect(tr).not_to have_content(I18n.t('status.id1'))
+            expect(tr).not_to have_content(I18n.t('status.id2'))
+          end
+          expect(trs.last).to have_content(I18n.t('status.id0'))
+        end
+
+        it 'can be refined by status_id: 1' do
+          click_on I18n.t('status.id1')
+          trs = page.all('tr')
+          trs.each do |tr|
+            expect(tr).not_to have_content(I18n.t('status.id0'))
+            expect(tr).not_to have_content(I18n.t('status.id2'))
+          end
+          expect(trs.last).to have_content(I18n.t('status.id1'))
+        end
+
+        it 'can be refined by status_id: 2' do
+          click_on I18n.t('status.id2')
+          trs = page.all('tr')
+          trs.each do |tr|
+            expect(tr).not_to have_content(I18n.t('status.id0'))
+            expect(tr).not_to have_content(I18n.t('status.id1'))
+          end
+          expect(trs.last).to have_content(I18n.t('status.id2'))
+        end
+
+        it 'shows all status when clicking all' do
+          click_on I18n.t('dictionary.all')
+          trs = page.all('tr')
+          expect(trs.count).to eq 4
+        end
+      end
+
+      context 'with title' do
+        it 'can be refined by title' do
+          create(:todo, title: 'hoge')
+          fill_in 'search', with: 'hoge'
+          click_on I18n.t('dictionary.search')
+          trs = page.all('tr')
+          trs.each do |tr|
+            expect(tr).not_to have_content(todo.title)
+          end
+          expect(trs.last).to have_content('hoge')
+        end
+      end
+
+      context 'with both status_id and title' do
+        before do
+          create(:todo, title: 'hoge', status_id: 0)
+          create(:todo, title: 'fuga', status_id: 0)
+          create(:todo, title: 'hoge', status_id: 1)
+          create(:todo, title: 'fuga', status_id: 1)
+          create(:todo, title: 'hoge', status_id: 2)
+          create(:todo, title: 'fuga', status_id: 2)
+          fill_in 'search', with: 'hoge'
+          click_on I18n.t('dictionary.search')
+        end
+        it 'can be refined by status_id: 0 and title' do
+          click_on I18n.t('status.id0')
+          @trs = page.all('tr')
+          expect(@trs.count).to eq 2
+          expect(@trs.last).to have_content('hoge')
+        end
+
+        it 'can be refined by status_id: 1 and title' do
+          click_on I18n.t('status.id1')
+          @trs = page.all('tr')
+          expect(@trs.count).to eq 2
+          expect(@trs.last).to have_content('hoge')
+        end
+
+        it 'can be refined by status_id: 2 and title' do
+          click_on I18n.t('status.id2')
+          @trs = page.all('tr')
+          expect(@trs.count).to eq 2
+          expect(@trs.last).to have_content('hoge')
+        end
       end
     end
 
