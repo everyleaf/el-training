@@ -18,7 +18,7 @@ RSpec.describe 'Todos', type: :request do
     it_behaves_like 'have a header'
 
     it "should have the word 'Todo List'" do
-      is_expected.to have_content(I18n.t('todos.index.title'))
+      is_expected.to have_content(I18n.t('views.todos.index.title'))
     end
 
     it 'should have the todo' do
@@ -49,24 +49,24 @@ RSpec.describe 'Todos', type: :request do
       context 'in asc' do
         it 'should be ordered' do
           trs = page.all('tr')
-          expect(trs[1]).to have_content(1.day.since.strftime('%Y/%m/%d %H:%M'))
-          expect(trs[2]).to have_content(2.days.since.strftime('%Y/%m/%d %H:%M'))
-          expect(trs[3]).to have_content(3.days.since.strftime('%Y/%m/%d %H:%M'))
+          expect(trs[1]).to have_content(I18n.l(1.day.since, format: :long))
+          expect(trs[2]).to have_content(I18n.l(2.days.since, format: :long))
+          expect(trs[3]).to have_content(I18n.l(3.days.since, format: :long))
         end
 
         it 'should be refined by status_id' do
           click_on(I18n.t('status.id1'))
           trs = page.all('tr')
-          expect(trs[1]).to have_content(2.days.since.strftime('%Y/%m/%d %H:%M'))
-          expect(trs[2]).to have_content(3.days.since.strftime('%Y/%m/%d %H:%M'))
+          expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
+          expect(trs[2]).to have_content(I18n.l(3.days.since, format: :long))
         end
 
         it 'should be refined by title' do
           fill_in 'search', with: 'hoge'
           click_on(I18n.t('dictionary.search'))
           trs = page.all('tr')
-          expect(trs[1]).to have_content(2.days.since.strftime('%Y/%m/%d %H:%M'))
-          expect(trs[2]).to have_content(3.days.since.strftime('%Y/%m/%d %H:%M'))
+          expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
+          expect(trs[2]).to have_content(I18n.l(3.days.since, format: :long))
         end
       end
 
@@ -75,17 +75,17 @@ RSpec.describe 'Todos', type: :request do
 
         it 'should be ordered' do
           trs = page.all('tr')
-          expect(trs[1]).to have_content(3.days.since.strftime('%Y/%m/%d %H:%M'))
-          expect(trs[2]).to have_content(2.days.since.strftime('%Y/%m/%d %H:%M'))
-          expect(trs[3]).to have_content(1.day.since.strftime('%Y/%m/%d %H:%M'))
+          expect(trs[1]).to have_content(I18n.l(3.days.since, format: :long))
+          expect(trs[2]).to have_content(I18n.l(2.days.since, format: :long))
+          expect(trs[3]).to have_content(I18n.l(1.day.since, format: :long))
         end
 
         it 'should be refined by status_id' do
           click_on(I18n.t('status.id1'))
           trs = page.all('tr')
           expect(trs.count).to eq 3
-          expect(trs[1]).to have_content(3.days.since.strftime('%Y/%m/%d %H:%M'))
-          expect(trs[2]).to have_content(2.days.since.strftime('%Y/%m/%d %H:%M'))
+          expect(trs[1]).to have_content(I18n.l(3.days.since, format: :long))
+          expect(trs[2]).to have_content(I18n.l(2.days.since, format: :long))
         end
 
         it 'should be refined by title' do
@@ -93,8 +93,8 @@ RSpec.describe 'Todos', type: :request do
           click_on(I18n.t('dictionary.search'))
           trs = page.all('tr')
           expect(trs.count).to eq 3
-          expect(trs[1]).to have_content(3.days.since.strftime('%Y/%m/%d %H:%M'))
-          expect(trs[2]).to have_content(2.days.since.strftime('%Y/%m/%d %H:%M'))
+          expect(trs[1]).to have_content(I18n.l(3.days.since, format: :long))
+          expect(trs[2]).to have_content(I18n.l(2.days.since, format: :long))
         end
       end
     end
@@ -268,7 +268,7 @@ RSpec.describe 'Todos', type: :request do
       it_behaves_like 'have a header'
 
       it "should have the word 'Create Todo'" do
-        is_expected.to have_content(I18n.t('todos.new.title'))
+        is_expected.to have_content(I18n.t('views.todos.new.title'))
       end
 
       it 'should have the select box for the priority' do
@@ -304,7 +304,7 @@ RSpec.describe 'Todos', type: :request do
             fill_in 'title', with: 'hoge'
             fill_in 'content', with: 'fuga'
             select I18n.t('priority.id0'), from: 'todo[priority_id]'
-            fill_in 'deadline', with: '2099-08-01T12:00'
+            fill_in 'deadline', with: Time.zone.parse('2099-08-01 12:00')
             click_on I18n.t('dictionary.create')
           end
 
@@ -322,7 +322,7 @@ RSpec.describe 'Todos', type: :request do
             is_expected.to have_link('hoge')
             is_expected.to have_content('fuga')
             is_expected.to have_content(I18n.t('priority.id0'))
-            is_expected.to have_content('2099/08/01 12:00')
+            is_expected.to have_content(I18n.l(Time.zone.parse('2099-08-01 12:00'), format: :long))
           end
 
           describe 'detail page' do
@@ -349,7 +349,7 @@ RSpec.describe 'Todos', type: :request do
               it_behaves_like 'have a header'
 
               it "should have the content 'Edit Todo', title and content of the todo" do
-                is_expected.to have_content(I18n.t('todos.edit.title'))
+                is_expected.to have_content(I18n.t('views.todos.edit.title'))
               end
 
               it 'should have the value' do
@@ -374,7 +374,7 @@ RSpec.describe 'Todos', type: :request do
                   it_behaves_like 'have a header'
 
                   it 'should back to the edit page' do
-                    is_expected.to have_content(I18n.t('todos.edit.title'))
+                    is_expected.to have_content(I18n.t('views.todos.edit.title'))
                   end
 
                   it 'should show an error message' do
@@ -395,7 +395,7 @@ RSpec.describe 'Todos', type: :request do
                     fill_in 'content', with: 'Edited content'
                     select I18n.t('priority.id0'), from: 'todo[priority_id]'
                     select I18n.t('status.id2'), from: 'todo[status_id]'
-                    fill_in 'deadline', with: '2099-08-01T12:00'
+                    fill_in 'deadline', with: Time.zone.parse('2099-08-01 12:00')
                     click_on I18n.t('dictionary.update')
                   end
 
@@ -410,7 +410,7 @@ RSpec.describe 'Todos', type: :request do
                     is_expected.to have_content('Edited content')
                     is_expected.to have_content(I18n.t('priority.id0'))
                     is_expected.to have_content(I18n.t('status.id2'))
-                    is_expected.to have_content('2099/08/01 12:00')
+                    is_expected.to have_content(I18n.l(Time.zone.parse('2099/08/01 12:00'), format: :long))
                   end
 
                   it 'should show a flash message' do
