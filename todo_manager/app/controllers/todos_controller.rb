@@ -5,7 +5,7 @@ class TodosController < ApplicationController
     todos = Todo.where('title like ? and status_id like ?', "%#{@search}%", @status)
     @direction = ['asc', 'desc'].include?(params[:direction]) ? params[:direction] : 'desc'
     @sort = ['created_at', 'deadline', 'priority_id'].include?(params[:sort]) ? params[:sort] : 'created_at'
-    @todos = todos.order("#{@sort} #{@direction}")
+    @todos = todos.page(params[:page]).per(10).order("#{@sort} #{@direction}")
     render 'index'
   end
 
