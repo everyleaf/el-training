@@ -408,7 +408,7 @@ RSpec.describe 'Todos', type: :request do
                   end
 
                   it 'should show a flash message' do
-                    expect(page).to have_content(I18n.t('flash.todos.update'))
+                    is_expected.to have_content(I18n.t('flash.todos.update'))
                   end
                 end
               end
@@ -427,7 +427,7 @@ RSpec.describe 'Todos', type: :request do
               end
 
               it 'should show a flash message' do
-                expect(page).to have_content(I18n.t('flash.todos.destroy.success'))
+                is_expected.to have_content(I18n.t('flash.todos.destroy.success'))
               end
             end
           end
