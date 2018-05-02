@@ -12,13 +12,15 @@
 <% end %>
 <%= link_to(t('dictionary.create'), '/todos/new') %>
 <table border="1">
-  <tr>
-    <th><%= link_to(t('dictionary.priority'), root_path(sort: 'priority_id', direction: @direction == 'desc' ? 'asc' : 'desc', search: @search, status: @status)) %></th>
-    <th><%= t('dictionary.status') %></th>
-    <th><%= t('dictionary.title') %></th>
-    <th><%= t('dictionary.content') %></th>
-    <th><%= link_to(t('dictionary.deadline'), root_path(sort: 'deadline', direction: @direction == 'desc' ? 'asc' : 'desc', search: @search, status: @status)) %></th>
-  </tr>
+  <thead>
+    <tr>
+      <th><%= link_to(t('dictionary.priority'), root_path(sort: 'priority_id', direction: @direction == 'desc' ? 'asc' : 'desc', search: @search, status: @status)) %></th>
+      <th><%= t('dictionary.status') %></th>
+      <th><%= t('dictionary.title') %></th>
+      <th><%= t('dictionary.content') %></th>
+      <th><%= link_to(t('dictionary.deadline'), root_path(sort: 'deadline', direction: @direction == 'desc' ? 'asc' : 'desc', search: @search, status: @status)) %></th>
+    </tr>
+  </thead>
   <% @todos.each do |todo| %>
     <tr>
       <th><%= t("priority.id#{todo.priority_id}") %></th>
