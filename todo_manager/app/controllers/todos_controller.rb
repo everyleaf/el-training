@@ -15,7 +15,7 @@ class TodosController < ApplicationController
   end
 
   def create
-    @todo = Todo.new(title: params[:title], content: params[:content], deadline: params[:deadline])
+    @todo = Todo.new(title: params[:title], content: params[:content], priority_id: params[:todo][:priority_id], deadline: params[:deadline])
     if @todo.save
       flash[:notice] = I18n.t('flash.todos.create')
       redirect_to('/')
@@ -36,6 +36,7 @@ class TodosController < ApplicationController
     @todo = Todo.find_by(id: params[:id])
     @todo.title = params[:title]
     @todo.content = params[:content]
+    @todo.priority_id = params[:todo][:priority_id]
     @todo.status_id = params[:todo][:status_id]
     @todo.deadline = params[:deadline]
     if @todo.save

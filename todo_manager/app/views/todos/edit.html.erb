@@ -7,6 +7,8 @@
   <input name="title" value="<%= @todo.title %>">
   <p><%= t('dictionary.content') %></p>
   <textarea name="content"><%= @todo.content %></textarea>
+  <p><%= t('dictionary.priority') %></p>
+  <%= select :todo, :priority_id, [[t('priority.id0'), 0], [t('priority.id1'), 1], [t('priority.id2'), 2]], selected: @todo.priority_id %>
   <p><%= t('dictionary.status') %></p>
   <%= select :todo, :status_id, [[t('status.id0'), 0], [t('status.id1'), 1], [t('status.id2'), 2]], selected: @todo.status_id %>
   <p><%= t('dictionary.deadline') %></p>

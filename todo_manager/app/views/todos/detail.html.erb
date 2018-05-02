@@ -1,5 +1,6 @@
 <h3><%= @todo.title %></h3>
 <p><%= @todo.content %></p>
+<p><%= "#{t('dictionary.priority')} #{t("priority.id#{@todo.priority_id}")}" %></p>
 <p><%= t("status.id#{@todo.status_id}") %></p>
 <% if !@todo.deadline.nil? %>
   <p><%= "#{t('dictionary.deadline')} #{l(@todo.deadline, format: :long)}" %></p>
