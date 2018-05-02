@@ -21,12 +21,12 @@ RSpec.describe 'Todos', type: :request do
       is_expected.to have_content(I18n.t('todos.index.title'))
     end
 
-    describe 'have the todo' do
-      it { is_expected.to have_content(todo.title) }
-      it { is_expected.to have_content(todo.content) }
-      it { is_expected.to have_content(I18n.t("priority.id#{todo.priority_id}")) }
-      it { is_expected.to have_content(I18n.t("status.id#{todo.status_id}")) }
-      it { is_expected.to have_content(I18n.l(todo.deadline, format: :long)) }
+    it 'should have the todo' do
+      is_expected.to have_content(todo.title)
+      is_expected.to have_content(todo.content)
+      is_expected.to have_content(I18n.t("priority.id#{todo.priority_id}"))
+      is_expected.to have_content(I18n.t("status.id#{todo.status_id}"))
+      is_expected.to have_content(I18n.l(todo.deadline, format: :long))
     end
 
     it 'should show the todo ordered by created_at as desc' do
@@ -231,22 +231,28 @@ RSpec.describe 'Todos', type: :request do
           context 'status_id: 0' do
             before { click_on I18n.t('status.id0') }
             let(:trs) { page.all('tr') }
-            it { expect(trs.count).to eq 2 }
-            it { expect(trs.last).to have_content('hoge') }
+            it do
+              expect(trs.count).to eq 2
+              expect(trs.last).to have_content('hoge')
+            end
           end
 
           context 'status_id: 1' do
             before { click_on I18n.t('status.id1') }
             let(:trs) { page.all('tr') }
-            it { expect(trs.count).to eq 2 }
-            it { expect(trs.last).to have_content('hoge') }
+            it do
+              expect(trs.count).to eq 2
+              expect(trs.last).to have_content('hoge')
+            end
           end
 
           context 'status_id: 2' do
             before { click_on I18n.t('status.id2') }
             let(:trs) { page.all('tr') }
-            it { expect(trs.count).to eq 2 }
-            it { expect(trs.last).to have_content('hoge') }
+            it do
+              expect(trs.count).to eq 2
+              expect(trs.last).to have_content('hoge')
+            end
           end
         end
       end
@@ -286,10 +292,10 @@ RSpec.describe 'Todos', type: :request do
             is_expected.to have_content("Title #{I18n.t('errors.messages.blank')}")
           end
 
-          describe 'keep the value' do
-            it { is_expected.to have_field('content', with: 'fuga') }
-            it { is_expected.to have_select('todo[priority_id]', selected: I18n.t('priority.id0')) }
-            it { is_expected.to have_field('deadline', with: '2099-08-01T12:00') }
+          it 'should keep the value' do
+            is_expected.to have_field('content', with: 'fuga')
+            is_expected.to have_select('todo[priority_id]', selected: I18n.t('priority.id0'))
+            is_expected.to have_field('deadline', with: '2099-08-01T12:00')
           end
         end
 
@@ -312,11 +318,11 @@ RSpec.describe 'Todos', type: :request do
             is_expected.to have_content(I18n.t('flash.todos.create'))
           end
 
-          describe 'show the created todo' do
-            it { is_expected.to have_link('hoge') }
-            it { is_expected.to have_content('fuga') }
-            it { is_expected.to have_content(I18n.t('priority.id0')) }
-            it { is_expected.to have_content('2099/08/01 12:00') }
+          it 'should show the created todo' do
+            is_expected.to have_link('hoge')
+            is_expected.to have_content('fuga')
+            is_expected.to have_content(I18n.t('priority.id0'))
+            is_expected.to have_content('2099/08/01 12:00')
           end
 
           describe 'detail page' do
@@ -324,17 +330,17 @@ RSpec.describe 'Todos', type: :request do
 
             it_behaves_like 'have a header'
 
-            describe 'have the value' do
-              it { is_expected.to have_content(todo.title) }
-              it { is_expected.to have_content(todo.content) }
-              it { is_expected.to have_content(I18n.t('priority.id1')) }
-              it { is_expected.to have_content(I18n.t('status.id0')) }
-              it { is_expected.to have_content(I18n.l(todo.deadline, format: :long)) }
+            it 'should have the value' do
+              is_expected.to have_content(todo.title)
+              is_expected.to have_content(todo.content)
+              is_expected.to have_content(I18n.t('priority.id1'))
+              is_expected.to have_content(I18n.t('status.id0'))
+              is_expected.to have_content(I18n.l(todo.deadline, format: :long))
             end
 
-            describe 'have the link' do
-              it { is_expected.to have_link(I18n.t('dictionary.edit')) }
-              it { is_expected.to have_link(I18n.t('dictionary.destroy')) }
+            it 'should have the link' do
+              is_expected.to have_link(I18n.t('dictionary.edit'))
+              is_expected.to have_link(I18n.t('dictionary.destroy'))
             end
 
             describe 'edit page' do
@@ -346,12 +352,12 @@ RSpec.describe 'Todos', type: :request do
                 is_expected.to have_content(I18n.t('todos.edit.title'))
               end
 
-              describe 'have the value' do
-                it { is_expected.to have_field('title', with: todo.title) }
-                it { is_expected.to have_field('content', with: todo.content) }
-                it { is_expected.to have_select('todo[priority_id]', selected: I18n.t("priority.id#{todo.priority_id}")) }
-                it { is_expected.to have_select('todo[status_id]', selected: I18n.t("status.id#{todo.status_id}")) }
-                it { is_expected.to have_field('deadline', with: todo.deadline.strftime('%Y-%m-%dT%H:%M')) }
+              it 'should have the value' do
+                is_expected.to have_field('title', with: todo.title)
+                is_expected.to have_field('content', with: todo.content)
+                is_expected.to have_select('todo[priority_id]', selected: I18n.t("priority.id#{todo.priority_id}"))
+                is_expected.to have_select('todo[status_id]', selected: I18n.t("status.id#{todo.status_id}"))
+                is_expected.to have_field('deadline', with: todo.deadline.strftime('%Y-%m-%dT%H:%M'))
               end
 
               describe 'update the todo' do
@@ -375,11 +381,11 @@ RSpec.describe 'Todos', type: :request do
                     is_expected.to have_content("Title #{I18n.t('errors.messages.blank')}")
                   end
 
-                  describe 'keep the edited value' do
-                    it { is_expected.to have_field('content', with: 'Edited content') }
-                    it { is_expected.to have_select('todo[priority_id]', selected: I18n.t('priority.id0')) }
-                    it { is_expected.to have_select('todo[status_id]', selected: I18n.t('status.id2')) }
-                    it { is_expected.to have_field('deadline', with: '2099-08-01T12:00') }
+                  it 'should keep the edited value' do
+                    is_expected.to have_field('content', with: 'Edited content')
+                    is_expected.to have_select('todo[priority_id]', selected: I18n.t('priority.id0'))
+                    is_expected.to have_select('todo[status_id]', selected: I18n.t('status.id2'))
+                    is_expected.to have_field('deadline', with: '2099-08-01T12:00')
                   end
                 end
 
@@ -399,12 +405,12 @@ RSpec.describe 'Todos', type: :request do
                     expect(current_path).to eq "/todos/#{todo.id}/detail"
                   end
 
-                  describe 'show the updated content' do
-                    it { is_expected.to have_content('Edited title') }
-                    it { is_expected.to have_content('Edited content') }
-                    it { is_expected.to have_content(I18n.t('priority.id0')) }
-                    it { is_expected.to have_content(I18n.t('status.id2')) }
-                    it { is_expected.to have_content('2099/08/01 12:00') }
+                  it 'should show the updated content' do
+                    is_expected.to have_content('Edited title')
+                    is_expected.to have_content('Edited content')
+                    is_expected.to have_content(I18n.t('priority.id0'))
+                    is_expected.to have_content(I18n.t('status.id2'))
+                    is_expected.to have_content('2099/08/01 12:00')
                   end
 
                   it 'should show a flash message' do
@@ -421,9 +427,9 @@ RSpec.describe 'Todos', type: :request do
                 expect(current_path).to eq '/'
               end
 
-              describe 'delete todo' do
-                it { is_expected.to_not have_link(todo.title) }
-                it { is_expected.to_not have_content(todo.content) }
+              it 'should delete todo' do
+                is_expected.to_not have_link(todo.title)
+                is_expected.to_not have_content(todo.content)
               end
 
               it 'should show a flash message' do
