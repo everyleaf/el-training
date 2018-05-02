@@ -227,25 +227,27 @@ RSpec.describe 'Todos', type: :request do
           click_on I18n.t('dictionary.search')
         end
 
-        it 'can be refined by status_id: 0 and title' do
-          click_on I18n.t('status.id0')
-          @trs = page.all('tr')
-          expect(@trs.count).to eq 2
-          expect(@trs.last).to have_content('hoge')
-        end
+        describe 'refined by status_id and title' do
+          context 'status_id: 0' do
+            before { click_on I18n.t('status.id0') }
+            let(:trs) { page.all('tr') }
+            it { expect(trs.count).to eq 2 }
+            it { expect(trs.last).to have_content('hoge') }
+          end
 
-        it 'can be refined by status_id: 1 and title' do
-          click_on I18n.t('status.id1')
-          @trs = page.all('tr')
-          expect(@trs.count).to eq 2
-          expect(@trs.last).to have_content('hoge')
-        end
+          context 'status_id: 1' do
+            before { click_on I18n.t('status.id1') }
+            let(:trs) { page.all('tr') }
+            it { expect(trs.count).to eq 2 }
+            it { expect(trs.last).to have_content('hoge') }
+          end
 
-        it 'can be refined by status_id: 2 and title' do
-          click_on I18n.t('status.id2')
-          @trs = page.all('tr')
-          expect(@trs.count).to eq 2
-          expect(@trs.last).to have_content('hoge')
+          context 'status_id: 2' do
+            before { click_on I18n.t('status.id2') }
+            let(:trs) { page.all('tr') }
+            it { expect(trs.count).to eq 2 }
+            it { expect(trs.last).to have_content('hoge') }
+          end
         end
       end
     end
