@@ -21,6 +21,7 @@
       <th><%= link_to(t('dictionary.deadline'), root_path(sort: 'deadline', direction: @direction == 'desc' ? 'asc' : 'desc', search: @search, status: @status)) %></th>
     </tr>
   </thead>
+  <tbody>
   <% @todos.each do |todo| %>
     <tr>
       <th><%= t("priority.id#{todo.priority_id}") %></th>
@@ -32,5 +33,6 @@
       </th>
     </tr>
   <% end %>
+  </tbody>
   <%= paginate @todos %>
 </table>
