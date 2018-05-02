@@ -12,6 +12,7 @@ ja:
     status: ステータス
     search: 検索
     all: 全て
+    priority: 優先度
 
   priority:
     id0: 低

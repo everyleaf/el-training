@@ -43,6 +43,7 @@ en:
     status: Status
     search: Search
     all: All
+    priority: Priority
 
   priority:
     id0: low
