@@ -34,11 +34,13 @@ class TodosController < ApplicationController
 
   def update
     @todo = Todo.find_by(id: params[:id])
-    @todo.title = params[:title]
-    @todo.content = params[:content]
-    @todo.priority_id = params[:todo][:priority_id]
-    @todo.status_id = params[:todo][:status_id]
-    @todo.deadline = params[:deadline]
+    @todo.assign_attributes({
+        title: params[:title],
+        content: params[:content],
+        priority_id: params[:todo][:priority_id],
+        status_id: params[:todo][:status_id],
+        deadline: params[:deadline]
+    })
     if @todo.save
       flash[:notice] = I18n.t('flash.todos.update')
       redirect_to("/todos/#{@todo.id}/detail")
