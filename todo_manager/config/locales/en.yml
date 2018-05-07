@@ -40,6 +40,14 @@ en:
     update: Update
     destroy: Destroy
     deadline: Deadline
+    status: Status
+    search: Search
+    all: All
+
+  status:
+    id0: Unstarted
+    id1: Working
+    id2: Complete
 
   flash:
     todos:

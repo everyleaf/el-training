@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= t('title') %></title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title><%= t('title') %></title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <header>
-      <h1><%= link_to(t('title'), '/') %></h1>
-    </header>
-    <% if flash[:notice] %>
-      <%= flash[:notice] %>
-    <% end %>
-    <%= yield %>
-  </body>
+<body>
+<header>
+  <h1><%= link_to(t('title'), '/') %></h1>
+</header>
+<% if flash[:notice] %>
+  <%= flash[:notice] %>
+<% end %>
+<%= yield %>
+</body>
 </html>

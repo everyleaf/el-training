@@ -1,7 +1,11 @@
 class TodosController < ApplicationController
   def index
-    @direction = params[:direction] == 'desc' ? 'asc' : 'desc'
-    @todos = Todo.all.order("#{Todo.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'} #{@direction}")
+    @search = params[:search]
+    @status = params[:status].nil? ? '%' : params[:status]
+    todos = Todo.where('title like ? and status_id like ?', "%#{@search}%", @status)
+    @direction = !params[:direction].nil? ? params[:direction] : 'desc'
+    @sort = params[:sort]
+    @todos = todos.order("#{Todo.column_names.include?(@sort) ? @sort : 'created_at'} #{@direction}")
     render 'index'
   end
 
@@ -32,6 +36,7 @@ class TodosController < ApplicationController
     @todo = Todo.find_by(id: params[:id])
     @todo.title = params[:title]
     @todo.content = params[:content]
+    @todo.status_id = params[:todo][:status_id]
     @todo.deadline = params[:deadline]
     if @todo.save
       flash[:notice] = I18n.t('flash.todos.update')
