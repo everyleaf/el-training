@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2018_05_01_083010) do
     t.datetime "deadline"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["status_id", "title"], name: "index_todos_on_status_id_and_title"
+    t.index ["status_id"], name: "index_todos_on_status_id"
   end
 
 end
