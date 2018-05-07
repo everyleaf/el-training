@@ -15,14 +15,14 @@ ja:
     priority: 優先度
 
   priority:
-    id0: 低
-    id1: 中
-    id2: 高
+    low: 低
+    middle: 中
+    high: 高
 
   status:
-    id0: 未着手
-    id1: 着手中
-    id2: 完了
+    unstarted: 未着手
+    working: 着手中
+    completed: 完了
 
   flash:
     todos:

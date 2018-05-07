@@ -46,14 +46,14 @@ en:
     priority: Priority
 
   priority:
-    id0: low
-    id1: middle
-    id2: high
+    low: Low
+    middle: Middle
+    high: High
 
   status:
-    id0: Unstarted
-    id1: Working
-    id2: Complete
+    unstarted: Unstarted
+    working: Working
+    completed: Completed
 
   flash:
     todos:
