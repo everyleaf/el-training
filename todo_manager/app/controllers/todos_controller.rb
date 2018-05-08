@@ -1,10 +1,10 @@
 class TodosController < ApplicationController
   def index
     @search = params[:search]
-    @status = ['0', '1', '2'].include?(params[:status]) ? params[:status] : '%'
-    todos = Todo.where('title like ? and status_id like ?', "%#{@search}%", @status)
-    @direction = ['asc', 'desc'].include?(params[:direction]) ? params[:direction] : 'desc'
-    @sort = ['created_at', 'deadline', 'priority_id'].include?(params[:sort]) ? params[:sort] : 'created_at'
+    @status = Todo.status_ids[params[:status]].nil? ? nil : params[:status]
+    todos = Todo.where('title like ? and status_id like ?', "%#{@search}%", @status.nil? ? '%' : Todo.status_ids[@status])
+    @direction = %w(asc desc).include?(params[:direction]) ? params[:direction] : 'desc'
+    @sort = %w(created_at deadline priority_id).include?(params[:sort]) ? params[:sort] : 'created_at'
     @todos = todos.page(params[:page]).per(10).order("#{@sort} #{@direction}")
     render 'index'
   end
@@ -34,11 +34,13 @@ class TodosController < ApplicationController
 
   def update
     @todo = Todo.find_by(id: params[:id])
-    @todo.title = params[:title]
-    @todo.content = params[:content]
-    @todo.priority_id = params[:todo][:priority_id]
-    @todo.status_id = params[:todo][:status_id]
-    @todo.deadline = params[:deadline]
+    @todo.assign_attributes({
+        title: params[:title],
+        content: params[:content],
+        priority_id: params[:todo][:priority_id],
+        status_id: params[:todo][:status_id],
+        deadline: params[:deadline]
+    })
     if @todo.save
       flash[:notice] = I18n.t('flash.todos.update')
       redirect_to("/todos/#{@todo.id}/detail")

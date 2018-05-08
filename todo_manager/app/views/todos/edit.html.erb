@@ -8,9 +8,9 @@
   <p><%= t('dictionary.content') %></p>
   <textarea name="content"><%= @todo.content %></textarea>
   <p><%= t('dictionary.priority') %></p>
-  <%= select :todo, :priority_id, [[t('priority.id0'), 0], [t('priority.id1'), 1], [t('priority.id2'), 2]], selected: @todo.priority_id %>
+  <%= select :todo, :priority_id, [[t('priority.low'), 'low'], [t('priority.middle'), 'middle'], [t('priority.high'), 'high']], selected: @todo.priority_id %>
   <p><%= t('dictionary.status') %></p>
-  <%= select :todo, :status_id, [[t('status.id0'), 0], [t('status.id1'), 1], [t('status.id2'), 2]], selected: @todo.status_id %>
+  <%= select :todo, :status_id, [[t('status.unstarted'), 'unstarted'], [t('status.working'), 'working'], [t('status.completed'), 'completed']], selected: @todo.status_id %>
   <p><%= t('dictionary.deadline') %></p>
   <input type="datetime-local" name="deadline" value="<%= @todo.deadline.strftime('%Y-%m-%dT%H:%M') if !@todo.deadline.nil? %>">
   <input type="submit" value="<%= t('dictionary.update') %>">
