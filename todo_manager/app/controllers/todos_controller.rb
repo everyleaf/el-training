@@ -1,11 +1,11 @@
 class TodosController < ApplicationController
   def index
     @search = params[:search]
-    @status = params[:status].nil? ? '%' : params[:status]
-    todos = Todo.where('title like ? and status_id like ?', "%#{@search}%", @status)
-    @direction = !params[:direction].nil? ? params[:direction] : 'desc'
-    @sort = params[:sort]
-    @todos = todos.order("#{Todo.column_names.include?(@sort) ? @sort : 'created_at'} #{@direction}")
+    @status = Todo.status_ids[params[:status]].nil? ? nil : params[:status]
+    todos = Todo.where('title like ? and status_id like ?', "%#{@search}%", @status.nil? ? '%' : Todo.status_ids[@status])
+    @direction = %w(asc desc).include?(params[:direction]) ? params[:direction] : 'desc'
+    @sort = %w(created_at deadline priority_id).include?(params[:sort]) ? params[:sort] : 'created_at'
+    @todos = todos.order("#{@sort} #{@direction}")
     render 'index'
   end
 
@@ -15,7 +15,7 @@ class TodosController < ApplicationController
   end
 
   def create
-    @todo = Todo.new(title: params[:title], content: params[:content], deadline: params[:deadline])
+    @todo = Todo.new(title: params[:title], content: params[:content], priority_id: params[:todo][:priority_id], deadline: params[:deadline])
     if @todo.save
       flash[:notice] = I18n.t('flash.todos.create')
       redirect_to('/')
@@ -34,10 +34,13 @@ class TodosController < ApplicationController
 
   def update
     @todo = Todo.find_by(id: params[:id])
-    @todo.title = params[:title]
-    @todo.content = params[:content]
-    @todo.status_id = params[:todo][:status_id]
-    @todo.deadline = params[:deadline]
+    @todo.assign_attributes({
+        title: params[:title],
+        content: params[:content],
+        priority_id: params[:todo][:priority_id],
+        status_id: params[:todo][:status_id],
+        deadline: params[:deadline]
+    })
     if @todo.save
       flash[:notice] = I18n.t('flash.todos.update')
       redirect_to("/todos/#{@todo.id}/detail")

@@ -1,8 +1,8 @@
 <h2><%= t('.title') %></h2>
-<%= button_to(t('dictionary.all'), root_path(sort: @sort, direction: @direction, search: @search, status: '%')) %>
-<%= button_to(t('status.id0'), root_path(sort: @sort, direction: @direction, search: @search, status: 0)) %>
-<%= button_to(t('status.id1'), root_path(sort: @sort, direction: @direction, search: @search, status: 1)) %>
-<%= button_to(t('status.id2'), root_path(sort: @sort, direction: @direction, search: @search, status: 2)) %>
+<%= button_to(t('dictionary.all'), root_path(sort: @sort, direction: @direction, search: @search, status: '')) %>
+<%= button_to(t('status.unstarted'), root_path(sort: @sort, direction: @direction, search: @search, status: 'unstarted')) %>
+<%= button_to(t('status.working'), root_path(sort: @sort, direction: @direction, search: @search, status: 'working')) %>
+<%= button_to(t('status.completed'), root_path(sort: @sort, direction: @direction, search: @search, status: 'completed')) %>
 <%= form_tag('/') do %>
   <input type="search" name="search">
   <input type="hidden" name="sort" value="<%= @sort %>">
@@ -13,6 +13,7 @@
 <%= link_to(t('dictionary.create'), '/todos/new') %>
 <table border="1">
   <tr>
+    <th><%= link_to(t('dictionary.priority'), root_path(sort: 'priority_id', direction: @direction == 'desc' ? 'asc' : 'desc', search: @search, status: @status)) %></th>
     <th><%= t('dictionary.status') %></th>
     <th><%= t('dictionary.title') %></th>
     <th><%= t('dictionary.content') %></th>
@@ -20,7 +21,8 @@
   </tr>
   <% @todos.each do |todo| %>
     <tr>
-      <th><%= t("status.id#{todo.status_id}") %></th>
+      <th><%= t("priority.#{todo.priority_id}") %></th>
+      <th><%= t("status.#{todo.status_id}") %></th>
       <th><%= link_to(todo.title, "/todos/#{todo.id}/detail") %></th>
       <th><%= todo.content %></th>
       <th style="color:<%= 'red' if !todo.deadline.nil? and todo.deadline < Time.current %>">

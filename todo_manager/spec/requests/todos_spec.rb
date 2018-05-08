@@ -2,11 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'Todos', type: :request do
   let!(:todo) { create(:todo) }
+  subject { page }
 
   shared_examples_for 'have a header' do
     describe 'header' do
       it 'should have a header and the index link' do
-        expect(page).to have_link(I18n.t('title'), href: '/')
+        is_expected.to have_link(I18n.t('title'), href: '/')
       end
     end
   end
@@ -17,13 +18,15 @@ RSpec.describe 'Todos', type: :request do
     it_behaves_like 'have a header'
 
     it "should have the word 'Todo List'" do
-      expect(page).to have_content(I18n.t('todos.index.title'))
+      is_expected.to have_content(I18n.t('todos.index.title'))
     end
 
     it 'should have the todo' do
-      expect(page).to have_content(todo.title)
-      expect(page).to have_content(todo.content)
-      expect(page).to have_content(I18n.l(todo.deadline, format: :long))
+      is_expected.to have_content(todo.title)
+      is_expected.to have_content(todo.content)
+      is_expected.to have_content(I18n.t("priority.#{todo.priority_id}"))
+      is_expected.to have_content(I18n.t("status.#{todo.status_id}"))
+      is_expected.to have_content(I18n.l(todo.deadline, format: :long))
     end
 
     it 'should show the todo ordered by created_at as desc' do
@@ -52,7 +55,7 @@ RSpec.describe 'Todos', type: :request do
         end
 
         it 'should be refined by status_id' do
-          click_on(I18n.t('status.id1'))
+          click_on(I18n.t('status.working'))
           trs = page.all('tr')
           expect(trs[1]).to have_content(2.days.since.strftime('%Y/%m/%d %H:%M'))
           expect(trs[2]).to have_content(3.days.since.strftime('%Y/%m/%d %H:%M'))
@@ -69,6 +72,7 @@ RSpec.describe 'Todos', type: :request do
 
       context 'in desc' do
         before { click_on I18n.t('dictionary.deadline') }
+
         it 'should be ordered' do
           trs = page.all('tr')
           expect(trs[1]).to have_content(3.days.since.strftime('%Y/%m/%d %H:%M'))
@@ -77,7 +81,7 @@ RSpec.describe 'Todos', type: :request do
         end
 
         it 'should be refined by status_id' do
-          click_on(I18n.t('status.id1'))
+          click_on(I18n.t('status.working'))
           trs = page.all('tr')
           expect(trs.count).to eq 3
           expect(trs[1]).to have_content(3.days.since.strftime('%Y/%m/%d %H:%M'))
@@ -95,40 +99,100 @@ RSpec.describe 'Todos', type: :request do
       end
     end
 
+    describe 'sort todos by priority' do
+      before do
+        create(:todo, title: 'hoge', priority_id: 0, status_id: 1)
+        create(:todo, title: 'hoge', priority_id: 2, status_id: 1)
+        click_on I18n.t('dictionary.priority')
+      end
+      context 'in asc' do
+        it 'should be ordered' do
+          trs = page.all('tr')
+          expect(trs[1]).to have_content(I18n.t('priority.low'))
+          expect(trs[2]).to have_content(I18n.t('priority.middle'))
+          expect(trs[3]).to have_content(I18n.t('priority.high'))
+        end
+
+        it 'should be refined by status_id' do
+          click_on(I18n.t('status.working'))
+          trs = page.all('tr')
+          expect(trs[1]).to have_content(I18n.t('priority.low'))
+          expect(trs[2]).to have_content(I18n.t('priority.high'))
+        end
+
+        it 'should be refined by title' do
+          fill_in 'search', with: 'hoge'
+          click_on(I18n.t('dictionary.search'))
+          trs = page.all('tr')
+          expect(trs[1]).to have_content(I18n.t('priority.low'))
+          expect(trs[2]).to have_content(I18n.t('priority.high'))
+        end
+      end
+
+      context 'in desc' do
+        before { click_on I18n.t('dictionary.priority') }
+
+        it 'should be ordered' do
+          trs = page.all('tr')
+          expect(trs[1]).to have_content(I18n.t('priority.high'))
+          expect(trs[2]).to have_content(I18n.t('priority.middle'))
+          expect(trs[3]).to have_content(I18n.t('priority.low'))
+        end
+
+        it 'should be refined by status_id' do
+          click_on(I18n.t('status.working'))
+          trs = page.all('tr')
+          expect(trs.count).to eq 3
+          expect(trs[1]).to have_content(I18n.t('priority.high'))
+          expect(trs[2]).to have_content(I18n.t('priority.low'))
+        end
+
+        it 'should be refined by title' do
+          fill_in 'search', with: 'hoge'
+          click_on(I18n.t('dictionary.search'))
+          trs = page.all('tr')
+          expect(trs.count).to eq 3
+          expect(trs[1]).to have_content(I18n.t('priority.high'))
+          expect(trs[2]).to have_content(I18n.t('priority.low'))
+        end
+      end
+    end
+
     describe 'refine search' do
       context 'with status_id' do
         before do
           create(:todo, status_id: 1)
           create(:todo, status_id: 2)
         end
+
         it 'can be refined by status_id: 0' do
-          click_on I18n.t('status.id0')
+          click_on I18n.t('status.unstarted')
           trs = page.all('tr')
           trs.each do |tr|
-            expect(tr).not_to have_content(I18n.t('status.id1'))
-            expect(tr).not_to have_content(I18n.t('status.id2'))
+            expect(tr).not_to have_content(I18n.t('status.working'))
+            expect(tr).not_to have_content(I18n.t('status.completed'))
           end
-          expect(trs.last).to have_content(I18n.t('status.id0'))
+          expect(trs.last).to have_content(I18n.t('status.unstarted'))
         end
 
         it 'can be refined by status_id: 1' do
-          click_on I18n.t('status.id1')
+          click_on I18n.t('status.working')
           trs = page.all('tr')
           trs.each do |tr|
-            expect(tr).not_to have_content(I18n.t('status.id0'))
-            expect(tr).not_to have_content(I18n.t('status.id2'))
+            expect(tr).not_to have_content(I18n.t('status.unstarted'))
+            expect(tr).not_to have_content(I18n.t('status.completed'))
           end
-          expect(trs.last).to have_content(I18n.t('status.id1'))
+          expect(trs.last).to have_content(I18n.t('status.working'))
         end
 
         it 'can be refined by status_id: 2' do
-          click_on I18n.t('status.id2')
+          click_on I18n.t('status.completed')
           trs = page.all('tr')
           trs.each do |tr|
-            expect(tr).not_to have_content(I18n.t('status.id0'))
-            expect(tr).not_to have_content(I18n.t('status.id1'))
+            expect(tr).not_to have_content(I18n.t('status.unstarted'))
+            expect(tr).not_to have_content(I18n.t('status.working'))
           end
-          expect(trs.last).to have_content(I18n.t('status.id2'))
+          expect(trs.last).to have_content(I18n.t('status.completed'))
         end
 
         it 'shows all status when clicking all' do
@@ -162,31 +226,40 @@ RSpec.describe 'Todos', type: :request do
           fill_in 'search', with: 'hoge'
           click_on I18n.t('dictionary.search')
         end
-        it 'can be refined by status_id: 0 and title' do
-          click_on I18n.t('status.id0')
-          @trs = page.all('tr')
-          expect(@trs.count).to eq 2
-          expect(@trs.last).to have_content('hoge')
-        end
 
-        it 'can be refined by status_id: 1 and title' do
-          click_on I18n.t('status.id1')
-          @trs = page.all('tr')
-          expect(@trs.count).to eq 2
-          expect(@trs.last).to have_content('hoge')
-        end
+        describe 'refined by status_id and title' do
+          context 'status_id: 0' do
+            before { click_on I18n.t('status.unstarted') }
+            let(:trs) { page.all('tr') }
+            it do
+              expect(trs.count).to eq 2
+              expect(trs.last).to have_content('hoge')
+            end
+          end
 
-        it 'can be refined by status_id: 2 and title' do
-          click_on I18n.t('status.id2')
-          @trs = page.all('tr')
-          expect(@trs.count).to eq 2
-          expect(@trs.last).to have_content('hoge')
+          context 'status_id: 1' do
+            before { click_on I18n.t('status.working') }
+            let(:trs) { page.all('tr') }
+            it do
+              expect(trs.count).to eq 2
+              expect(trs.last).to have_content('hoge')
+            end
+          end
+
+          context 'status_id: 2' do
+            before { click_on I18n.t('status.completed') }
+            let(:trs) { page.all('tr') }
+            it do
+              expect(trs.count).to eq 2
+              expect(trs.last).to have_content('hoge')
+            end
+          end
         end
       end
     end
 
     it 'should have the create link' do
-      expect(page).to have_link(I18n.t('dictionary.create'), href: '/todos/new')
+      is_expected.to have_link(I18n.t('dictionary.create'), href: '/todos/new')
     end
 
     describe 'create page' do
@@ -195,13 +268,18 @@ RSpec.describe 'Todos', type: :request do
       it_behaves_like 'have a header'
 
       it "should have the word 'Create Todo'" do
-        expect(page).to have_content(I18n.t('todos.new.title'))
+        is_expected.to have_content(I18n.t('todos.new.title'))
+      end
+
+      it 'should have the select box for the priority' do
+        is_expected.to have_select('todo[priority_id]', options: I18n.t('priority').values)
       end
 
       describe 'create new todo' do
         context 'title is nil' do
           before do
             fill_in 'content', with: 'fuga'
+            select I18n.t('priority.low'), from: 'todo[priority_id]'
             fill_in 'deadline', with: '2099-08-01T12:00'
             click_on I18n.t('dictionary.create')
           end
@@ -211,15 +289,13 @@ RSpec.describe 'Todos', type: :request do
           end
 
           it 'should show an error message' do
-            expect(page).to have_content("Title #{I18n.t('errors.messages.blank')}")
+            is_expected.to have_content("Title #{I18n.t('errors.messages.blank')}")
           end
 
-          it 'should keep the content' do
-            expect(page).to have_field('content', with: 'fuga')
-          end
-
-          it 'should keep the deadline' do
-            expect(page).to have_field('deadline', with: '2099-08-01T12:00')
+          it 'should keep the value' do
+            is_expected.to have_field('content', with: 'fuga')
+            is_expected.to have_select('todo[priority_id]', selected: I18n.t('priority.low'))
+            is_expected.to have_field('deadline', with: '2099-08-01T12:00')
           end
         end
 
@@ -227,6 +303,7 @@ RSpec.describe 'Todos', type: :request do
           before do
             fill_in 'title', with: 'hoge'
             fill_in 'content', with: 'fuga'
+            select I18n.t('priority.low'), from: 'todo[priority_id]'
             fill_in 'deadline', with: '2099-08-01T12:00'
             click_on I18n.t('dictionary.create')
           end
@@ -238,13 +315,14 @@ RSpec.describe 'Todos', type: :request do
           end
 
           it 'should show a flash message' do
-            expect(page).to have_content(I18n.t('flash.todos.create'))
+            is_expected.to have_content(I18n.t('flash.todos.create'))
           end
 
           it 'should show the created todo' do
-            expect(page).to have_link('hoge')
-            expect(page).to have_content('fuga')
-            expect(page).to have_content('2099/08/01 12:00')
+            is_expected.to have_link('hoge')
+            is_expected.to have_content('fuga')
+            is_expected.to have_content(I18n.t('priority.low'))
+            is_expected.to have_content('2099/08/01 12:00')
           end
 
           describe 'detail page' do
@@ -252,15 +330,17 @@ RSpec.describe 'Todos', type: :request do
 
             it_behaves_like 'have a header'
 
-            it 'should have the title, content and deadline of the todo' do
-              expect(page).to have_content(todo.title)
-              expect(page).to have_content(todo.content)
-              expect(page).to have_content(I18n.l(todo.deadline, format: :long))
+            it 'should have the value' do
+              is_expected.to have_content(todo.title)
+              is_expected.to have_content(todo.content)
+              is_expected.to have_content(I18n.t('priority.middle'))
+              is_expected.to have_content(I18n.t('status.unstarted'))
+              is_expected.to have_content(I18n.l(todo.deadline, format: :long))
             end
 
-            it 'should have the edit and destroy link' do
-              expect(page).to have_link(I18n.t('dictionary.edit'))
-              expect(page).to have_link(I18n.t('dictionary.destroy'))
+            it 'should have the link' do
+              is_expected.to have_link(I18n.t('dictionary.edit'))
+              is_expected.to have_link(I18n.t('dictionary.destroy'))
             end
 
             describe 'edit page' do
@@ -269,38 +349,43 @@ RSpec.describe 'Todos', type: :request do
               it_behaves_like 'have a header'
 
               it "should have the content 'Edit Todo', title and content of the todo" do
-                expect(page).to have_content(I18n.t('todos.edit.title'))
+                is_expected.to have_content(I18n.t('todos.edit.title'))
               end
 
-              it 'should have the title, content and deadline of the todo' do
-                expect(page).to have_field('title', with: todo.title)
-                expect(page).to have_field('content', with: todo.content)
-                expect(page).to have_field('deadline', with: todo.deadline.strftime('%Y-%m-%dT%H:%M'))
+              it 'should have the value' do
+                is_expected.to have_field('title', with: todo.title)
+                is_expected.to have_field('content', with: todo.content)
+                is_expected.to have_select('todo[priority_id]', selected: I18n.t("priority.#{todo.priority_id}"))
+                is_expected.to have_select('todo[status_id]', selected: I18n.t("status.#{todo.status_id}"))
+                is_expected.to have_field('deadline', with: todo.deadline.strftime('%Y-%m-%dT%H:%M'))
               end
 
               describe 'update the todo' do
                 context 'title is nil' do
                   before do
                     fill_in 'title', with: ''
+                    fill_in 'content', with: 'Edited content'
+                    select I18n.t('priority.low'), from: 'todo[priority_id]'
+                    select I18n.t('status.completed'), from: 'todo[status_id]'
+                    fill_in 'deadline', with: '2099-08-01T12:00'
                     click_on I18n.t('dictionary.update')
                   end
 
                   it_behaves_like 'have a header'
 
                   it 'should back to the edit page' do
-                    expect(page).to have_content(I18n.t('todos.edit.title'))
+                    is_expected.to have_content(I18n.t('todos.edit.title'))
                   end
 
                   it 'should show an error message' do
-                    expect(page).to have_content("Title #{I18n.t('errors.messages.blank')}")
+                    is_expected.to have_content("Title #{I18n.t('errors.messages.blank')}")
                   end
 
-                  it 'should keep the content and deadline' do
-                    expect(page).to have_field('content', with: todo.content)
-                  end
-
-                  it 'should keep the deadline' do
-                    expect(page).to have_field('deadline', with: todo.deadline.strftime('%Y-%m-%dT%H:%M'))
+                  it 'should keep the edited value' do
+                    is_expected.to have_field('content', with: 'Edited content')
+                    is_expected.to have_select('todo[priority_id]', selected: I18n.t('priority.low'))
+                    is_expected.to have_select('todo[status_id]', selected: I18n.t('status.completed'))
+                    is_expected.to have_field('deadline', with: '2099-08-01T12:00')
                   end
                 end
 
@@ -308,6 +393,8 @@ RSpec.describe 'Todos', type: :request do
                   before do
                     fill_in 'title', with: 'Edited title'
                     fill_in 'content', with: 'Edited content'
+                    select I18n.t('priority.low'), from: 'todo[priority_id]'
+                    select I18n.t('status.completed'), from: 'todo[status_id]'
                     fill_in 'deadline', with: '2099-08-01T12:00'
                     click_on I18n.t('dictionary.update')
                   end
@@ -319,13 +406,15 @@ RSpec.describe 'Todos', type: :request do
                   end
 
                   it 'should show the updated content' do
-                    expect(page).to have_content('Edited title')
-                    expect(page).to have_content('Edited content')
-                    expect(page).to have_content('2099/08/01 12:00')
+                    is_expected.to have_content('Edited title')
+                    is_expected.to have_content('Edited content')
+                    is_expected.to have_content(I18n.t('priority.low'))
+                    is_expected.to have_content(I18n.t('status.completed'))
+                    is_expected.to have_content('2099/08/01 12:00')
                   end
 
                   it 'should show a flash message' do
-                    expect(page).to have_content(I18n.t('flash.todos.update'))
+                    is_expected.to have_content(I18n.t('flash.todos.update'))
                   end
                 end
               end
@@ -339,12 +428,12 @@ RSpec.describe 'Todos', type: :request do
               end
 
               it 'should delete todo' do
-                expect(page).to_not have_link(todo.title)
-                expect(page).to_not have_content(todo.content)
+                is_expected.to_not have_link(todo.title)
+                is_expected.to_not have_content(todo.content)
               end
 
               it 'should show a flash message' do
-                expect(page).to have_content(I18n.t('flash.todos.destroy.success'))
+                is_expected.to have_content(I18n.t('flash.todos.destroy.success'))
               end
             end
           end
