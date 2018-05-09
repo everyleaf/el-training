@@ -32,13 +32,21 @@ ja:
         success: タスクを削除しました。
         failure: タスクの削除に失敗しました。
 
-  todos:
-    index:
-      title: タスク一覧
-    new:
-      title: タスク作成
-    edit:
-      title: タスク編集
+  views:
+    todos:
+      index:
+        title: タスク一覧
+      new:
+        title: タスク作成
+      edit:
+        title: タスク編集
+
+    pagination:
+      first: '<<'
+      last: '>>'
+      next: 次
+      previous: 前
+      truncate: ...
 
   activerecord:
     errors:

@@ -1,4 +1,4 @@
-<h2><%= t('.title') %></h2>
+<h2><%= t('views.todos.index.title') %></h2>
 <%= button_to(t('dictionary.all'), root_path(sort: @sort, direction: @direction, search: @search, status: '')) %>
 <%= button_to(t('status.unstarted'), root_path(sort: @sort, direction: @direction, search: @search, status: 'unstarted')) %>
 <%= button_to(t('status.working'), root_path(sort: @sort, direction: @direction, search: @search, status: 'working')) %>
@@ -12,13 +12,16 @@
 <% end %>
 <%= link_to(t('dictionary.create'), '/todos/new') %>
 <table border="1">
-  <tr>
-    <th><%= link_to(t('dictionary.priority'), root_path(sort: 'priority_id', direction: @direction == 'desc' ? 'asc' : 'desc', search: @search, status: @status)) %></th>
-    <th><%= t('dictionary.status') %></th>
-    <th><%= t('dictionary.title') %></th>
-    <th><%= t('dictionary.content') %></th>
-    <th><%= link_to(t('dictionary.deadline'), root_path(sort: 'deadline', direction: @direction == 'desc' ? 'asc' : 'desc', search: @search, status: @status)) %></th>
-  </tr>
+  <thead>
+    <tr>
+      <th><%= link_to(t('dictionary.priority'), root_path(sort: 'priority_id', direction: @direction == 'desc' ? 'asc' : 'desc', search: @search, status: @status)) %></th>
+      <th><%= t('dictionary.status') %></th>
+      <th><%= t('dictionary.title') %></th>
+      <th><%= t('dictionary.content') %></th>
+      <th><%= link_to(t('dictionary.deadline'), root_path(sort: 'deadline', direction: @direction == 'desc' ? 'asc' : 'desc', search: @search, status: @status)) %></th>
+    </tr>
+  </thead>
+  <tbody>
   <% @todos.each do |todo| %>
     <tr>
       <th><%= t("priority.#{todo.priority_id}") %></th>
@@ -30,4 +33,6 @@
       </th>
     </tr>
   <% end %>
+  </tbody>
+  <%= paginate @todos %>
 </table>

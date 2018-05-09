@@ -63,10 +63,19 @@ en:
         success: Todo has been deleted.
         failure: Failed to delete todo.
 
-  todos:
-    index:
-      title: Todo List
-    new:
-      title: Create Todo
-    edit:
-      title: Edit Todo
+  views:
+    todos:
+      index:
+        title: Todo List
+      new:
+        title: Create Todo
+      edit:
+        title: Edit Todo
+
+    pagination:
+      first: '<<'
+      last: '>>'
+      next: Next
+      previous: Prev
+      truncate: ...
+
