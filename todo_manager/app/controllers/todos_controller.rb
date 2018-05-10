@@ -1,4 +1,6 @@
 class TodosController < ApplicationController
+  before_action :authenticate_user
+
   def index
     @search = params[:search]
     @status = Todo.status_ids[params[:status]].nil? ? nil : params[:status]
