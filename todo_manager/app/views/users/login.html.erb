@@ -1,0 +1,10 @@
+<h2><%= t('views.users.login.title') %></h2>
+<%= @error_message if @error_message %>
+
+<%= form_tag('/login') do %>
+  <p><%= t('dictionary.name') %></p>
+  <input name="name">
+  <p><%= t('dictionary.password') %></p>
+  <input type="password" name="password">
+  <input type="submit" value="<%= t('dictionary.login') %>">
+<% end %>
