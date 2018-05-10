@@ -13,6 +13,10 @@ ja:
     search: 検索
     all: 全て
     priority: 優先度
+    name: 名前
+    password: パスワード
+    login: ログイン
+    logout: ログアウト
 
   priority:
     low: 低
@@ -32,6 +36,14 @@ ja:
         success: タスクを削除しました。
         failure: タスクの削除に失敗しました。
 
+    users:
+      login:
+        success: ログインしました。
+        failure: 名前またはパスワードが間違っています。
+        must: ログインが必要です。
+        already: すでにログインしています。
+      logout: ログアウトしました。
+
   views:
     todos:
       index:
@@ -40,6 +52,10 @@ ja:
         title: タスク作成
       edit:
         title: タスク編集
+
+    users:
+      login:
+        title: ログイン
 
     pagination:
       first: '<<'
