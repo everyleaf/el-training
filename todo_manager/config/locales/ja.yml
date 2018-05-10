@@ -43,6 +43,8 @@ ja:
         must: ログインが必要です。
         already: すでにログインしています。
       logout: ログアウトしました。
+      authorization:
+        failure: 権限がありません。
 
   views:
     todos:

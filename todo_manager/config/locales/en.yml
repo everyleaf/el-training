@@ -74,6 +74,8 @@ en:
         must: You have to log in.
         already: You have already logged in.
       logout: You have logged out successfully.
+      authorization:
+        failure: You don't have permission.
 
   views:
     todos:
