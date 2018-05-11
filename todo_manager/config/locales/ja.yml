@@ -17,6 +17,7 @@ ja:
     password: パスワード
     login: ログイン
     logout: ログアウト
+    signup: 登録
 
   priority:
     low: 低
@@ -37,6 +38,7 @@ ja:
         failure: タスクの削除に失敗しました。
 
     users:
+      signup: ユーザ登録が完了しました。
       login:
         success: ログインしました。
         failure: 名前またはパスワードが間違っています。
@@ -58,6 +60,8 @@ ja:
     users:
       login:
         title: ログイン
+      signup:
+        title: 新規登録
 
     pagination:
       first: '<<'
@@ -67,6 +71,19 @@ ja:
       truncate: ...
 
   activerecord:
+    models:
+      todo: タスク
+      user: ユーザ
+
+    attributes:
+      todo:
+        title: タスク名
+        content: 内容
+
+      user:
+        name: 名前
+        password: パスワード
+
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"
@@ -173,7 +190,7 @@ ja:
       second: 秒
       year: 年
   errors:
-    format: "%{attribute} %{message}"
+    format: "%{attribute}%{message}"
     messages:
       accepted: を受諾してください
       blank: を入力してください

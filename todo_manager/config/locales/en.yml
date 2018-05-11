@@ -48,6 +48,7 @@ en:
     password: Password
     login: Login
     logout: Logout
+    signup: Signup
 
   priority:
     low: Low
@@ -68,6 +69,7 @@ en:
         failure: Failed to delete todo.
 
     users:
+      signup: You have signed up successfully.
       login:
         success: You have logged in successfully.
         failure: Your name or password is wrong.
@@ -88,7 +90,9 @@ en:
 
     users:
       login:
-        title: Login
+        title: Log in
+      signup:
+        title: Sign up
 
     pagination:
       first: '<<'

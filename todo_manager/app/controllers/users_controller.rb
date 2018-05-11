@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :forbid_login_user, {only: %i(login login_post)}
+  before_action :forbid_login_user, {only: %i(new create login login_post)}
 
   def login
   end
@@ -23,5 +23,17 @@ class UsersController < ApplicationController
   end
 
   def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(name: params[:name], password: params[:password])
+    if @user.save
+      session[:user_id] = @user.id
+      flash[:notice] = I18n.t('flash.users.signup')
+      redirect_to('/')
+    else
+      render('users/new')
+    end
   end
 end
