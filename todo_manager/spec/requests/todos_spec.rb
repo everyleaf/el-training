@@ -25,53 +25,117 @@ RSpec.describe 'Todos', type: :request do
         is_expected.to have_content(I18n.t('flash.users.login.must'))
       end
 
-      it 'should have a header and the login link' do
-        is_expected.to have_link(I18n.t('title'), href: '/login')
-      end
-
       it 'should be login page' do
         expect(current_path).to eq '/login'
       end
 
-      context 'name is wrong' do
-        before do
-          fill_in 'name', with: 'aaaa'
-          fill_in 'password', with: user.password
-          click_button I18n.t('dictionary.login')
+      it 'should have a header and the login link and the signup link' do
+        is_expected.to have_link(I18n.t('title'), href: '/login')
+        is_expected.to have_link(I18n.t('dictionary.signup'), href: '/signup')
+        is_expected.to have_link(I18n.t('dictionary.login'), href: '/login')
+      end
+
+      describe 'signup' do
+        before { click_link I18n.t('dictionary.signup') }
+
+        it 'should be signup page' do
+          expect(current_path).to eq '/signup'
         end
 
-        it "can't be logged in" do
-          is_expected.to have_content(I18n.t('flash.users.login.failure'))
-          expect(current_path).to eq '/login'
+        context 'same name already exists' do
+          before do
+            fill_in 'name', with: user.name
+            fill_in 'password', with: 'hoge'
+            click_button I18n.t('dictionary.signup')
+          end
+
+          it "can't be created and show error messages" do
+            expect(current_path).to eq '/users/create'
+            is_expected.to have_content(I18n.t('errors.format', attribute: User.human_attribute_name(:name), message: I18n.t('errors.messages.taken')))
+          end
+        end
+
+        context 'name is nil' do
+          before do
+            fill_in 'password', with: 'hoge'
+            click_button I18n.t('dictionary.signup')
+          end
+
+          it "can't be created and show error messages" do
+            expect(current_path).to eq '/users/create'
+            is_expected.to have_content(I18n.t('errors.format', attribute: User.human_attribute_name(:name), message: I18n.t('errors.messages.empty')))
+          end
+        end
+
+        context 'password is nil' do
+          before do
+            fill_in 'name', with: 'name'
+            click_button I18n.t('dictionary.signup')
+          end
+
+          it "can't be created and show error messages" do
+            expect(current_path).to eq '/users/create'
+            is_expected.to have_content(I18n.t('errors.format', attribute: User.human_attribute_name(:password), message: I18n.t('errors.messages.empty')))
+          end
+        end
+
+        context 'unique name' do
+          before do
+            fill_in 'name', with: 'unique'
+            fill_in 'password', with: 'password'
+            click_button I18n.t('dictionary.signup')
+          end
+
+          it 'can be created' do
+            expect(current_path).to eq '/'
+            is_expected.to have_content(I18n.t('flash.users.signup'))
+          end
+
+          it_behaves_like 'have a header'
         end
       end
 
-      context 'password is wrong' do
-        before do
-          fill_in 'name', with: user.name
-          fill_in 'password', with: 'aaaa'
-          click_button I18n.t('dictionary.login')
+      describe 'login' do
+        context 'name is wrong' do
+          before do
+            fill_in 'name', with: 'aaaa'
+            fill_in 'password', with: user.password
+            click_button I18n.t('dictionary.login')
+          end
+
+          it "can't be logged in" do
+            is_expected.to have_content(I18n.t('flash.users.login.failure'))
+            expect(current_path).to eq '/login'
+          end
         end
 
-        it "can't be logged in" do
-          is_expected.to have_content(I18n.t('flash.users.login.failure'))
-          expect(current_path).to eq '/login'
-        end
-      end
+        context 'password is wrong' do
+          before do
+            fill_in 'name', with: user.name
+            fill_in 'password', with: 'aaaa'
+            click_button I18n.t('dictionary.login')
+          end
 
-      context 'name and password are true' do
-        before do
-          fill_in 'name', with: user.name
-          fill_in 'password', with: user.password
-          click_button I18n.t('dictionary.login')
-        end
-
-        it 'can be logged in' do
-          is_expected.to have_content(I18n.t('flash.users.login.success'))
-          expect(current_path).to eq '/'
+          it "can't be logged in" do
+            is_expected.to have_content(I18n.t('flash.users.login.failure'))
+            expect(current_path).to eq '/login'
+          end
         end
 
-        it_behaves_like 'have a header'
+        context 'name and password are true' do
+          before do
+            fill_in 'name', with: user.name
+            fill_in 'password', with: user.password
+            click_button I18n.t('dictionary.login')
+          end
+
+          it 'can be logged in' do
+            is_expected.to have_content(I18n.t('flash.users.login.success'))
+            expect(current_path).to eq '/'
+          end
+
+          it_behaves_like 'have a header'
+        end
       end
     end
 
