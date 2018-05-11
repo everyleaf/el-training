@@ -11,9 +11,9 @@
 
 <body>
 <header>
-  <h1><%= link_to(t('title'), @current_user ? '/' : '/login') %></h1>
+  <h1><%= link_to(t('title'), current_user ? '/' : '/login') %></h1>
   <ul>
-    <% if @current_user %>
+    <% if current_user %>
       <li>
         <%= link_to(t('dictionary.logout'), '/logout', { method: :post }) %>
       </li>
