@@ -7,8 +7,12 @@ RSpec.describe 'Todos', type: :request do
 
   shared_examples_for 'have a header' do
     describe 'header' do
-      it 'should have a header and the index link' do
+      it 'should have a header with the index link' do
         is_expected.to have_link(I18n.t('title'), href: '/')
+      end
+
+      it 'should have a logout link' do
+        is_expected.to have_link(I18n.t('dictionary.logout'), href: '/logout')
       end
     end
   end
@@ -81,6 +85,17 @@ RSpec.describe 'Todos', type: :request do
 
       it "should show the 'Todo List' page" do
         is_expected.to have_content(I18n.t('views.todos.index.title'))
+      end
+
+      describe 'log out' do
+        before do
+          click_on I18n.t('dictionary.logout')
+        end
+
+        it 'should be logged out' do
+          is_expected.to have_content(I18n.t('flash.users.logout'))
+          expect(current_path).to eq '/login'
+        end
       end
 
       it 'should show only the todo created by oneself' do
