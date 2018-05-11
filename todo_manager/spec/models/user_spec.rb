@@ -18,6 +18,13 @@ RSpec.describe User, type: :model do
         end
       end
     end
+
+    describe 'name' do
+      it 'should be unique' do
+        expect { create(:user, name: 'hoge', password: 'aaa') }.not_to raise_error
+        expect { create(:user, name: 'hoge', password: 'bbb') }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
   end
 
   describe 'authenticate' do

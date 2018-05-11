@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Todos', type: :request do
   let!(:todo) { create(:todo) }
+  let!(:user) { todo.user }
   subject { page }
 
   shared_examples_for 'have a header' do
@@ -15,15 +16,62 @@ RSpec.describe 'Todos', type: :request do
   describe 'Home (index) page' do
     before { visit '/' }
     context 'before login' do
+
+      it 'should show a flash' do
+        is_expected.to have_content(I18n.t('flash.users.login.must'))
+      end
+
       it 'should have a header and the login link' do
         is_expected.to have_link(I18n.t('title'), href: '/login')
       end
 
+      it 'should be login page' do
+        expect(current_path).to eq '/login'
+      end
 
+      context 'name is wrong' do
+        before do
+          fill_in 'name', with: 'aaaa'
+          fill_in 'password', with: user.password
+          click_button I18n.t('dictionary.login')
+        end
+
+        it "can't be logged in" do
+          is_expected.to have_content(I18n.t('flash.users.login.failure'))
+          expect(current_path).to eq '/login'
+        end
+      end
+
+      context 'password is wrong' do
+        before do
+          fill_in 'name', with: user.name
+          fill_in 'password', with: 'aaaa'
+          click_button I18n.t('dictionary.login')
+        end
+
+        it "can't be logged in" do
+          is_expected.to have_content(I18n.t('flash.users.login.failure'))
+          expect(current_path).to eq '/login'
+        end
+      end
+
+      context 'name and password are true' do
+        before do
+          fill_in 'name', with: user.name
+          fill_in 'password', with: user.password
+          click_button I18n.t('dictionary.login')
+        end
+
+        it 'can be logged in' do
+          is_expected.to have_content(I18n.t('flash.users.login.success'))
+          expect(current_path).to eq '/'
+        end
+
+        it_behaves_like 'have a header'
+      end
     end
 
     context 'after login' do
-      let!(:user) { todo.user }
       before do
         visit '/login'
         fill_in 'name', with: user.name
@@ -31,22 +79,19 @@ RSpec.describe 'Todos', type: :request do
         click_button I18n.t('dictionary.login')
       end
 
-      it_behaves_like 'have a header'
-
-      it 'should log in' do
-        is_expected.to have_content(I18n.t('flash.users.login.success'))
-      end
-
       it "should show the 'Todo List' page" do
         is_expected.to have_content(I18n.t('views.todos.index.title'))
       end
 
-      it 'should have the todo' do
+      it 'should show only the todo created by oneself' do
         is_expected.to have_content(todo.title)
         is_expected.to have_content(todo.content)
         is_expected.to have_content(I18n.t("priority.#{todo.priority_id}"))
         is_expected.to have_content(I18n.t("status.#{todo.status_id}"))
         is_expected.to have_content(I18n.l(todo.deadline, format: :long))
+        another_user = create(:user, name: 'another')
+        another_todo = create(:todo, title: 'another_todo', user_id: another_user.id)
+        is_expected.not_to have_content(another_todo.title)
       end
 
       it 'should show the todo ordered by created_at as desc' do
