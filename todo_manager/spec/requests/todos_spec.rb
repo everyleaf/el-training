@@ -124,7 +124,7 @@ RSpec.describe 'Todos', type: :request do
         before do
           create(:todo, title: 'hoge', user_id: user.id, status_id: 1, deadline: 2.days.since)
           create(:todo, title: 'hoge', user_id: user.id, status_id: 1, deadline: 3.days.since)
-          click_on I18n.t('dictionary.deadline')
+          click_link I18n.t('dictionary.deadline')
         end
         context 'in asc' do
           it 'should be ordered' do
@@ -135,7 +135,7 @@ RSpec.describe 'Todos', type: :request do
           end
 
           it 'should be refined by status_id' do
-            click_on(I18n.t('status.working'))
+            click_button(I18n.t('status.working'))
             trs = page.all('tbody tr')
             expect(trs[0]).to have_content(I18n.l(2.days.since, format: :long))
             expect(trs[1]).to have_content(I18n.l(3.days.since, format: :long))
@@ -143,7 +143,7 @@ RSpec.describe 'Todos', type: :request do
 
           it 'should be refined by title' do
             fill_in 'search', with: 'hoge'
-            click_on(I18n.t('dictionary.search'))
+            click_button(I18n.t('dictionary.search'))
             trs = page.all('tbody tr')
             expect(trs[0]).to have_content(I18n.l(2.days.since, format: :long))
             expect(trs[1]).to have_content(I18n.l(3.days.since, format: :long))
@@ -151,7 +151,7 @@ RSpec.describe 'Todos', type: :request do
         end
 
         context 'in desc' do
-          before { click_on I18n.t('dictionary.deadline') }
+          before { click_link I18n.t('dictionary.deadline') }
 
           it 'should be ordered' do
             trs = page.all('tbody tr')
@@ -161,7 +161,7 @@ RSpec.describe 'Todos', type: :request do
           end
 
           it 'should be refined by status_id' do
-            click_on(I18n.t('status.working'))
+            click_button(I18n.t('status.working'))
             trs = page.all('tbody tr')
             expect(trs).to all(have_content(I18n.t('status.working')))
             expect(trs[0]).to have_content(I18n.l(3.days.since, format: :long))
@@ -170,7 +170,7 @@ RSpec.describe 'Todos', type: :request do
 
           it 'should be refined by title' do
             fill_in 'search', with: 'hoge'
-            click_on(I18n.t('dictionary.search'))
+            click_button(I18n.t('dictionary.search'))
             trs = page.all('tbody tr')
             expect(trs).to all(have_content('hoge'))
             expect(trs[0]).to have_content(I18n.l(3.days.since, format: :long))
@@ -183,7 +183,7 @@ RSpec.describe 'Todos', type: :request do
         before do
           create(:todo, title: 'hoge', user_id: user.id, priority_id: 0, status_id: 1)
           create(:todo, title: 'hoge', user_id: user.id, priority_id: 2, status_id: 1)
-          click_on I18n.t('dictionary.priority')
+          click_link I18n.t('dictionary.priority')
         end
         context 'in asc' do
           it 'should be ordered' do
@@ -194,7 +194,7 @@ RSpec.describe 'Todos', type: :request do
           end
 
           it 'should be refined by status_id' do
-            click_on(I18n.t('status.working'))
+            click_button(I18n.t('status.working'))
             trs = page.all('tbody tr')
             expect(trs).to all(have_content(I18n.t('status.working')))
             expect(trs[0]).to have_content(I18n.t('priority.low'))
@@ -358,7 +358,7 @@ RSpec.describe 'Todos', type: :request do
             end
 
             it 'should show an error message' do
-              is_expected.to have_content("Title #{I18n.t('errors.messages.blank')}")
+              is_expected.to have_content(I18n.t('errors.format', attribute: Todo.human_attribute_name(:title), message: I18n.t('errors.messages.blank')))
             end
 
             it 'should keep the value' do
@@ -447,7 +447,7 @@ RSpec.describe 'Todos', type: :request do
                     end
 
                     it 'should show an error message' do
-                      is_expected.to have_content("Title #{I18n.t('errors.messages.blank')}")
+                      is_expected.to have_content(I18n.t('errors.format', attribute: Todo.human_attribute_name(:title), message: I18n.t('errors.messages.blank')))
                     end
 
                     it 'should keep the edited value' do
