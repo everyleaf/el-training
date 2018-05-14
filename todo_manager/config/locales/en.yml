@@ -44,6 +44,10 @@ en:
     search: Search
     all: All
     priority: Priority
+    name: Name
+    password: Password
+    login: Login
+    logout: Logout
 
   priority:
     low: Low
@@ -63,6 +67,16 @@ en:
         success: Todo has been deleted.
         failure: Failed to delete todo.
 
+    users:
+      login:
+        success: You have logged in successfully.
+        failure: Your name or password is wrong.
+        must: You have to log in.
+        already: You have already logged in.
+      logout: You have logged out successfully.
+      authorization:
+        failure: You don't have permission.
+
   views:
     todos:
       index:
@@ -71,6 +85,10 @@ en:
         title: Create Todo
       edit:
         title: Edit Todo
+
+    users:
+      login:
+        title: Login
 
     pagination:
       first: '<<'

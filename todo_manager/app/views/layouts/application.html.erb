@@ -11,11 +11,20 @@
 
 <body>
 <header>
-  <h1><%= link_to(t('title'), '/') %></h1>
+  <h1><%= link_to(t('title'), current_user ? '/' : '/login') %></h1>
+  <ul>
+    <% if current_user %>
+      <li>
+        <%= link_to(t('dictionary.logout'), '/logout', { method: :post }) %>
+      </li>
+    <% else %>
+      <li>
+        <%= link_to(t('dictionary.login'), '/login') %>
+      </li>
+    <% end %>
+  </ul>
 </header>
-<% if flash[:notice] %>
-  <%= flash[:notice] %>
-<% end %>
+<%= flash[:notice] if flash[:notice] %>
 <%= yield %>
 </body>
 </html>

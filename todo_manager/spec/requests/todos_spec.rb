@@ -2,427 +2,508 @@ require 'rails_helper'
 
 RSpec.describe 'Todos', type: :request do
   let!(:todo) { create(:todo) }
+  let!(:user) { todo.user }
   subject { page }
 
   shared_examples_for 'have a header' do
     describe 'header' do
-      it 'should have a header and the index link' do
+      it 'should have a header with the index link' do
         is_expected.to have_link(I18n.t('title'), href: '/')
+      end
+
+      it 'should have a logout link' do
+        is_expected.to have_link(I18n.t('dictionary.logout'), href: '/logout')
       end
     end
   end
 
   describe 'Home (index) page' do
     before { visit '/' }
+    context 'before login' do
 
-    it_behaves_like 'have a header'
-
-    it "should have the word 'Todo List'" do
-      is_expected.to have_content(I18n.t('views.todos.index.title'))
-    end
-
-    it 'should have the todo' do
-      is_expected.to have_content(todo.title)
-      is_expected.to have_content(todo.content)
-      is_expected.to have_content(I18n.t("priority.#{todo.priority_id}"))
-      is_expected.to have_content(I18n.t("status.#{todo.status_id}"))
-      is_expected.to have_content(I18n.l(todo.deadline, format: :long))
-    end
-
-    it 'should show the todo ordered by created_at as desc' do
-      create(:todo, title: 'test1', content: 'one', created_at: 1.hours.since, updated_at: 1.hours.since)
-      create(:todo, title: 'test2', content: 'two', created_at: 2.hours.since, updated_at: 2.hours.since)
-      create(:todo, title: 'test3', content: 'three', created_at: 3.hours.since, updated_at: 3.hours.since)
-      visit '/'
-      trs = page.all('tbody tr')
-      expect(trs[0]).to have_content('three')
-      expect(trs[1]).to have_content('two')
-      expect(trs[2]).to have_content('one')
-    end
-
-    describe 'sort todos by deadline' do
-      before do
-        create(:todo, title: 'hoge', status_id: 1, deadline: 2.days.since)
-        create(:todo, title: 'hoge', status_id: 1, deadline: 3.days.since)
-        click_on I18n.t('dictionary.deadline')
-      end
-      context 'in asc' do
-        it 'should be ordered' do
-          trs = page.all('tbody tr')
-          expect(trs[0]).to have_content(I18n.l(1.day.since, format: :long))
-          expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
-          expect(trs[2]).to have_content(I18n.l(3.days.since, format: :long))
-        end
-
-        it 'should be refined by status_id' do
-          click_on(I18n.t('status.working'))
-          trs = page.all('tbody tr')
-          expect(trs[0]).to have_content(I18n.l(2.days.since, format: :long))
-          expect(trs[1]).to have_content(I18n.l(3.days.since, format: :long))
-        end
-
-        it 'should be refined by title' do
-          fill_in 'search', with: 'hoge'
-          click_on(I18n.t('dictionary.search'))
-          trs = page.all('tbody tr')
-          expect(trs[0]).to have_content(I18n.l(2.days.since, format: :long))
-          expect(trs[1]).to have_content(I18n.l(3.days.since, format: :long))
-        end
+      it 'should show a flash' do
+        is_expected.to have_content(I18n.t('flash.users.login.must'))
       end
 
-      context 'in desc' do
-        before { click_on I18n.t('dictionary.deadline') }
-
-        it 'should be ordered' do
-          trs = page.all('tbody tr')
-          expect(trs[0]).to have_content(I18n.l(3.days.since, format: :long))
-          expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
-          expect(trs[2]).to have_content(I18n.l(1.day.since, format: :long))
-        end
-
-        it 'should be refined by status_id' do
-          click_on(I18n.t('status.working'))
-          trs = page.all('tbody tr')
-          expect(trs).to all(have_content(I18n.t('status.working')))
-          expect(trs[0]).to have_content(I18n.l(3.days.since, format: :long))
-          expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
-        end
-
-        it 'should be refined by title' do
-          fill_in 'search', with: 'hoge'
-          click_on(I18n.t('dictionary.search'))
-          trs = page.all('tbody tr')
-          expect(trs).to all(have_content('hoge'))
-          expect(trs[0]).to have_content(I18n.l(3.days.since, format: :long))
-          expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
-        end
-      end
-    end
-
-    describe 'sort todos by priority' do
-      before do
-        create(:todo, title: 'hoge', priority_id: 0, status_id: 1)
-        create(:todo, title: 'hoge', priority_id: 2, status_id: 1)
-        click_on I18n.t('dictionary.priority')
-      end
-      context 'in asc' do
-        it 'should be ordered' do
-          trs = page.all('tbody tr')
-          expect(trs[0]).to have_content(I18n.t('priority.low'))
-          expect(trs[1]).to have_content(I18n.t('priority.middle'))
-          expect(trs[2]).to have_content(I18n.t('priority.high'))
-        end
-
-        it 'should be refined by status_id' do
-          click_on(I18n.t('status.working'))
-          trs = page.all('tbody tr')
-          expect(trs).to all(have_content(I18n.t('status.working')))
-          expect(trs[0]).to have_content(I18n.t('priority.low'))
-          expect(trs[1]).to have_content(I18n.t('priority.high'))
-        end
-
-        it 'should be refined by title' do
-          fill_in 'search', with: 'hoge'
-          click_on(I18n.t('dictionary.search'))
-          trs = page.all('tbody tr')
-          expect(trs).to all(have_content('hoge'))
-          expect(trs[0]).to have_content(I18n.t('priority.low'))
-          expect(trs[1]).to have_content(I18n.t('priority.high'))
-        end
+      it 'should have a header and the login link' do
+        is_expected.to have_link(I18n.t('title'), href: '/login')
       end
 
-      context 'in desc' do
-        before { click_on I18n.t('dictionary.priority') }
-
-        it 'should be ordered' do
-          trs = page.all('tbody tr')
-          expect(trs[0]).to have_content(I18n.t('priority.high'))
-          expect(trs[1]).to have_content(I18n.t('priority.middle'))
-          expect(trs[2]).to have_content(I18n.t('priority.low'))
-        end
-
-        it 'should be refined by status_id' do
-          click_on(I18n.t('status.working'))
-          trs = page.all('tbody tr')
-          expect(trs).to all(have_content(I18n.t('status.working')))
-          expect(trs[0]).to have_content(I18n.t('priority.high'))
-          expect(trs[1]).to have_content(I18n.t('priority.low'))
-        end
-
-        it 'should be refined by title' do
-          fill_in 'search', with: 'hoge'
-          click_on(I18n.t('dictionary.search'))
-          trs = page.all('tbody tr')
-          expect(trs.count).to eq 2
-          expect(trs).to all(have_content('hoge'))
-          expect(trs[0]).to have_content(I18n.t('priority.high'))
-          expect(trs[1]).to have_content(I18n.t('priority.low'))
-        end
+      it 'should be login page' do
+        expect(current_path).to eq '/login'
       end
-    end
 
-    describe 'refine search' do
-      context 'with status_id' do
+      context 'name is wrong' do
         before do
-          create(:todo, status_id: 1)
-          create(:todo, status_id: 2)
+          fill_in 'name', with: 'aaaa'
+          fill_in 'password', with: user.password
+          click_button I18n.t('dictionary.login')
         end
 
-        it 'can be refined by status_id: 0' do
-          click_on I18n.t('status.unstarted')
-          trs = page.all('tbody tr')
-          expect(trs).to all(have_content(I18n.t('status.unstarted')))
-        end
-
-        it 'can be refined by status_id: 1' do
-          click_on I18n.t('status.working')
-          trs = page.all('tbody tr')
-          expect(trs).to all(have_content(I18n.t('status.working')))
-        end
-
-        it 'can be refined by status_id: 2' do
-          click_on I18n.t('status.completed')
-          trs = page.all('tbody tr')
-          expect(trs).to all(have_content(I18n.t('status.completed')))
-        end
-
-        it 'shows all status when clicking all' do
-          click_on I18n.t('dictionary.all')
-          trs = page.all('tr')
-          expect(trs.count).to eq 4
+        it "can't be logged in" do
+          is_expected.to have_content(I18n.t('flash.users.login.failure'))
+          expect(current_path).to eq '/login'
         end
       end
 
-      context 'with title' do
-        it 'can be refined by title' do
-          create(:todo, title: 'hoge')
-          create(:todo, title: 'fuga')
-          fill_in 'search', with: 'hoge'
-          click_on I18n.t('dictionary.search')
-          trs = page.all('tbody tr')
-          expect(trs).to all(have_content('hoge'))
-        end
-      end
-
-      context 'with both status_id and title' do
+      context 'password is wrong' do
         before do
-          create(:todo, title: 'hoge', status_id: 0)
-          create(:todo, title: 'fuga', status_id: 0)
-          create(:todo, title: 'hoge', status_id: 1)
-          create(:todo, title: 'fuga', status_id: 1)
-          create(:todo, title: 'hoge', status_id: 2)
-          create(:todo, title: 'fuga', status_id: 2)
-          fill_in 'search', with: 'hoge'
-          click_on I18n.t('dictionary.search')
+          fill_in 'name', with: user.name
+          fill_in 'password', with: 'aaaa'
+          click_button I18n.t('dictionary.login')
         end
 
-        describe 'refined by status_id and title' do
-          context 'status_id: 0' do
-            before { click_on I18n.t('status.unstarted') }
-            let(:trs) { page.all('tbody tr') }
-            it do
-              expect(trs).to all(have_content('hoge'))
-              expect(trs).to all(have_content(I18n.t('status.unstarted')))
-            end
-          end
-
-          context 'status_id: 1' do
-            before { click_on I18n.t('status.working') }
-            let(:trs) { page.all('tbody tr') }
-            it do
-              expect(trs).to all(have_content('hoge'))
-              expect(trs).to all(have_content(I18n.t('status.working')))
-            end
-          end
-
-          context 'status_id: 2' do
-            before { click_on I18n.t('status.completed') }
-            let(:trs) { page.all('tbody tr') }
-            it do
-              expect(trs).to all(have_content('hoge'))
-              expect(trs).to all(have_content(I18n.t('status.completed')))
-            end
-          end
+        it "can't be logged in" do
+          is_expected.to have_content(I18n.t('flash.users.login.failure'))
+          expect(current_path).to eq '/login'
         end
+      end
+
+      context 'name and password are true' do
+        before do
+          fill_in 'name', with: user.name
+          fill_in 'password', with: user.password
+          click_button I18n.t('dictionary.login')
+        end
+
+        it 'can be logged in' do
+          is_expected.to have_content(I18n.t('flash.users.login.success'))
+          expect(current_path).to eq '/'
+        end
+
+        it_behaves_like 'have a header'
       end
     end
 
-    it 'should have the create link' do
-      is_expected.to have_link(I18n.t('dictionary.create'), href: '/todos/new')
-    end
-
-    describe 'create page' do
-      before { click_on I18n.t('dictionary.create') }
-
-      it_behaves_like 'have a header'
-
-      it "should have the word 'Create Todo'" do
-        is_expected.to have_content(I18n.t('views.todos.new.title'))
+    context 'after login' do
+      before do
+        visit '/login'
+        fill_in 'name', with: user.name
+        fill_in 'password', with: user.password
+        click_button I18n.t('dictionary.login')
       end
 
-      it 'should have the select box for the priority' do
-        is_expected.to have_select('todo[priority_id]', options: I18n.t('priority').values)
+      it "should show the 'Todo List' page" do
+        is_expected.to have_content(I18n.t('views.todos.index.title'))
       end
 
-      describe 'create new todo' do
-        context 'title is nil' do
-          before do
-            fill_in 'content', with: 'fuga'
-            select I18n.t('priority.low'), from: 'todo[priority_id]'
-            fill_in 'deadline', with: '2099-08-01T12:00'
-            click_on I18n.t('dictionary.create')
+      describe 'log out' do
+        before do
+          click_on I18n.t('dictionary.logout')
+        end
+
+        it 'should be logged out' do
+          is_expected.to have_content(I18n.t('flash.users.logout'))
+          expect(current_path).to eq '/login'
+        end
+      end
+
+      it 'should show only the todo created by oneself' do
+        is_expected.to have_content(todo.title)
+        is_expected.to have_content(todo.content)
+        is_expected.to have_content(I18n.t("priority.#{todo.priority_id}"))
+        is_expected.to have_content(I18n.t("status.#{todo.status_id}"))
+        is_expected.to have_content(I18n.l(todo.deadline, format: :long))
+        another_user = create(:user, name: 'another')
+        another_todo = create(:todo, title: 'another_todo', user_id: another_user.id)
+        is_expected.not_to have_content(another_todo.title)
+      end
+
+      it 'should show the todo ordered by created_at as desc' do
+        create(:todo, title: 'test1', content: 'one', user_id: user.id, created_at: 1.hours.since, updated_at: 1.hours.since)
+        create(:todo, title: 'test2', content: 'two', user_id: user.id, created_at: 2.hours.since, updated_at: 2.hours.since)
+        create(:todo, title: 'test3', content: 'three', user_id: user.id, created_at: 3.hours.since, updated_at: 3.hours.since)
+        visit '/'
+        trs = page.all('tbody tr')
+        expect(trs[0]).to have_content('three')
+        expect(trs[1]).to have_content('two')
+        expect(trs[2]).to have_content('one')
+      end
+
+      describe 'sort todos by deadline' do
+        before do
+          create(:todo, title: 'hoge', user_id: user.id, status_id: 1, deadline: 2.days.since)
+          create(:todo, title: 'hoge', user_id: user.id, status_id: 1, deadline: 3.days.since)
+          click_on I18n.t('dictionary.deadline')
+        end
+        context 'in asc' do
+          it 'should be ordered' do
+            trs = page.all('tbody tr')
+            expect(trs[0]).to have_content(I18n.l(1.day.since, format: :long))
+            expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
+            expect(trs[2]).to have_content(I18n.l(3.days.since, format: :long))
           end
 
-          it 'should back to the create page' do
-            expect(current_path).to eq '/todos/create'
+          it 'should be refined by status_id' do
+            click_on(I18n.t('status.working'))
+            trs = page.all('tbody tr')
+            expect(trs[0]).to have_content(I18n.l(2.days.since, format: :long))
+            expect(trs[1]).to have_content(I18n.l(3.days.since, format: :long))
           end
 
-          it 'should show an error message' do
-            is_expected.to have_content("Title #{I18n.t('errors.messages.blank')}")
-          end
-
-          it 'should keep the value' do
-            is_expected.to have_field('content', with: 'fuga')
-            is_expected.to have_select('todo[priority_id]', selected: I18n.t('priority.low'))
-            is_expected.to have_field('deadline', with: '2099-08-01T12:00')
+          it 'should be refined by title' do
+            fill_in 'search', with: 'hoge'
+            click_on(I18n.t('dictionary.search'))
+            trs = page.all('tbody tr')
+            expect(trs[0]).to have_content(I18n.l(2.days.since, format: :long))
+            expect(trs[1]).to have_content(I18n.l(3.days.since, format: :long))
           end
         end
 
-        context 'title is not nil' do
+        context 'in desc' do
+          before { click_on I18n.t('dictionary.deadline') }
+
+          it 'should be ordered' do
+            trs = page.all('tbody tr')
+            expect(trs[0]).to have_content(I18n.l(3.days.since, format: :long))
+            expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
+            expect(trs[2]).to have_content(I18n.l(1.day.since, format: :long))
+          end
+
+          it 'should be refined by status_id' do
+            click_on(I18n.t('status.working'))
+            trs = page.all('tbody tr')
+            expect(trs).to all(have_content(I18n.t('status.working')))
+            expect(trs[0]).to have_content(I18n.l(3.days.since, format: :long))
+            expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
+          end
+
+          it 'should be refined by title' do
+            fill_in 'search', with: 'hoge'
+            click_on(I18n.t('dictionary.search'))
+            trs = page.all('tbody tr')
+            expect(trs).to all(have_content('hoge'))
+            expect(trs[0]).to have_content(I18n.l(3.days.since, format: :long))
+            expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
+          end
+        end
+      end
+
+      describe 'sort todos by priority' do
+        before do
+          create(:todo, title: 'hoge', user_id: user.id, priority_id: 0, status_id: 1)
+          create(:todo, title: 'hoge', user_id: user.id, priority_id: 2, status_id: 1)
+          click_on I18n.t('dictionary.priority')
+        end
+        context 'in asc' do
+          it 'should be ordered' do
+            trs = page.all('tbody tr')
+            expect(trs[0]).to have_content(I18n.t('priority.low'))
+            expect(trs[1]).to have_content(I18n.t('priority.middle'))
+            expect(trs[2]).to have_content(I18n.t('priority.high'))
+          end
+
+          it 'should be refined by status_id' do
+            click_on(I18n.t('status.working'))
+            trs = page.all('tbody tr')
+            expect(trs).to all(have_content(I18n.t('status.working')))
+            expect(trs[0]).to have_content(I18n.t('priority.low'))
+            expect(trs[1]).to have_content(I18n.t('priority.high'))
+          end
+
+          it 'should be refined by title' do
+            fill_in 'search', with: 'hoge'
+            click_on(I18n.t('dictionary.search'))
+            trs = page.all('tbody tr')
+            expect(trs).to all(have_content('hoge'))
+            expect(trs[0]).to have_content(I18n.t('priority.low'))
+            expect(trs[1]).to have_content(I18n.t('priority.high'))
+          end
+        end
+
+        context 'in desc' do
+          before { click_on I18n.t('dictionary.priority') }
+
+          it 'should be ordered' do
+            trs = page.all('tbody tr')
+            expect(trs[0]).to have_content(I18n.t('priority.high'))
+            expect(trs[1]).to have_content(I18n.t('priority.middle'))
+            expect(trs[2]).to have_content(I18n.t('priority.low'))
+          end
+
+          it 'should be refined by status_id' do
+            click_on(I18n.t('status.working'))
+            trs = page.all('tbody tr')
+            expect(trs).to all(have_content(I18n.t('status.working')))
+            expect(trs[0]).to have_content(I18n.t('priority.high'))
+            expect(trs[1]).to have_content(I18n.t('priority.low'))
+          end
+
+          it 'should be refined by title' do
+            fill_in 'search', with: 'hoge'
+            click_on(I18n.t('dictionary.search'))
+            trs = page.all('tbody tr')
+            expect(trs.count).to eq 2
+            expect(trs).to all(have_content('hoge'))
+            expect(trs[0]).to have_content(I18n.t('priority.high'))
+            expect(trs[1]).to have_content(I18n.t('priority.low'))
+          end
+        end
+      end
+
+      describe 'refine search' do
+        context 'with status_id' do
           before do
-            fill_in 'title', with: 'hoge'
-            fill_in 'content', with: 'fuga'
-            select I18n.t('priority.low'), from: 'todo[priority_id]'
-            fill_in 'deadline', with: Time.zone.parse('2099-08-01 12:00')
-            click_on I18n.t('dictionary.create')
+            create(:todo, user_id: user.id, status_id: 1)
+            create(:todo, user_id: user.id, status_id: 2)
           end
 
-          it_behaves_like 'have a header'
-
-          it 'should be index page after creating' do
-            expect(current_path).to eq '/'
+          it 'can be refined by status_id: 0' do
+            click_on I18n.t('status.unstarted')
+            trs = page.all('tbody tr')
+            expect(trs).to all(have_content(I18n.t('status.unstarted')))
           end
 
-          it 'should show a flash message' do
-            is_expected.to have_content(I18n.t('flash.todos.create'))
+          it 'can be refined by status_id: 1' do
+            click_on I18n.t('status.working')
+            trs = page.all('tbody tr')
+            expect(trs).to all(have_content(I18n.t('status.working')))
           end
 
-          it 'should show the created todo' do
-            is_expected.to have_link('hoge')
-            is_expected.to have_content('fuga')
-            is_expected.to have_content(I18n.t('priority.low'))
-            is_expected.to have_content(I18n.l(Time.zone.parse('2099-08-01 12:00'), format: :long))
+          it 'can be refined by status_id: 2' do
+            click_on I18n.t('status.completed')
+            trs = page.all('tbody tr')
+            expect(trs).to all(have_content(I18n.t('status.completed')))
           end
 
-          describe 'detail page' do
-            before { click_on todo.title }
+          it 'shows all status when clicking all' do
+            click_on I18n.t('dictionary.all')
+            trs = page.all('tr')
+            expect(trs.count).to eq 4
+          end
+        end
+
+        context 'with title' do
+          it 'can be refined by title' do
+            create(:todo, user_id: user.id, title: 'hoge')
+            create(:todo, user_id: user.id, title: 'fuga')
+            fill_in 'search', with: 'hoge'
+            click_on I18n.t('dictionary.search')
+            trs = page.all('tbody tr')
+            expect(trs).to all(have_content('hoge'))
+          end
+        end
+
+        context 'with both status_id and title' do
+          before do
+            create(:todo, user_id: user.id, title: 'hoge', status_id: 0)
+            create(:todo, user_id: user.id, title: 'fuga', status_id: 0)
+            create(:todo, user_id: user.id, title: 'hoge', status_id: 1)
+            create(:todo, user_id: user.id, title: 'fuga', status_id: 1)
+            create(:todo, user_id: user.id, title: 'hoge', status_id: 2)
+            create(:todo, user_id: user.id, title: 'fuga', status_id: 2)
+            fill_in 'search', with: 'hoge'
+            click_on I18n.t('dictionary.search')
+          end
+
+          describe 'refined by status_id and title' do
+            context 'status_id: 0' do
+              before { click_on I18n.t('status.unstarted') }
+              let(:trs) { page.all('tbody tr') }
+              it do
+                expect(trs).to all(have_content('hoge'))
+                expect(trs).to all(have_content(I18n.t('status.unstarted')))
+              end
+            end
+
+            context 'status_id: 1' do
+              before { click_on I18n.t('status.working') }
+              let(:trs) { page.all('tbody tr') }
+              it do
+                expect(trs).to all(have_content('hoge'))
+                expect(trs).to all(have_content(I18n.t('status.working')))
+              end
+            end
+
+            context 'status_id: 2' do
+              before { click_on I18n.t('status.completed') }
+              let(:trs) { page.all('tbody tr') }
+              it do
+                expect(trs).to all(have_content('hoge'))
+                expect(trs).to all(have_content(I18n.t('status.completed')))
+              end
+            end
+          end
+        end
+      end
+
+      it 'should have the create link' do
+        is_expected.to have_link(I18n.t('dictionary.create'), href: '/todos/new')
+      end
+
+      describe 'create page' do
+        before { click_on I18n.t('dictionary.create') }
+
+        it_behaves_like 'have a header'
+
+        it "should have the word 'Create Todo'" do
+          is_expected.to have_content(I18n.t('views.todos.new.title'))
+        end
+
+        it 'should have the select box for the priority' do
+          is_expected.to have_select('todo[priority_id]', options: I18n.t('priority').values)
+        end
+
+        describe 'create new todo' do
+          context 'title is nil' do
+            before do
+              fill_in 'content', with: 'fuga'
+              select I18n.t('priority.low'), from: 'todo[priority_id]'
+              fill_in 'deadline', with: '2099-08-01T12:00'
+              click_on I18n.t('dictionary.create')
+            end
+
+            it 'should back to the create page' do
+              expect(current_path).to eq '/todos/create'
+            end
+
+            it 'should show an error message' do
+              is_expected.to have_content("Title #{I18n.t('errors.messages.blank')}")
+            end
+
+            it 'should keep the value' do
+              is_expected.to have_field('content', with: 'fuga')
+              is_expected.to have_select('todo[priority_id]', selected: I18n.t('priority.low'))
+              is_expected.to have_field('deadline', with: '2099-08-01T12:00')
+            end
+          end
+
+          context 'title is not nil' do
+            before do
+              fill_in 'title', with: 'hoge'
+              fill_in 'content', with: 'fuga'
+              select I18n.t('priority.low'), from: 'todo[priority_id]'
+              fill_in 'deadline', with: Time.zone.parse('2099-08-01 12:00')
+              click_on I18n.t('dictionary.create')
+            end
 
             it_behaves_like 'have a header'
 
-            it 'should have the value' do
-              is_expected.to have_content(todo.title)
-              is_expected.to have_content(todo.content)
-              is_expected.to have_content(I18n.t('priority.middle'))
-              is_expected.to have_content(I18n.t('status.unstarted'))
-              is_expected.to have_content(I18n.l(todo.deadline, format: :long))
+            it 'should be index page after creating' do
+              expect(current_path).to eq '/'
             end
 
-            it 'should have the link' do
-              is_expected.to have_link(I18n.t('dictionary.edit'))
-              is_expected.to have_link(I18n.t('dictionary.destroy'))
+            it 'should show a flash message' do
+              is_expected.to have_content(I18n.t('flash.todos.create'))
             end
 
-            describe 'edit page' do
-              before { click_on I18n.t('dictionary.edit') }
+            it 'should show the created todo' do
+              is_expected.to have_link('hoge')
+              is_expected.to have_content('fuga')
+              is_expected.to have_content(I18n.t('priority.low'))
+              is_expected.to have_content(I18n.l(Time.zone.parse('2099-08-01 12:00'), format: :long))
+            end
+
+            describe 'detail page' do
+              before { click_on todo.title }
 
               it_behaves_like 'have a header'
 
-              it "should have the content 'Edit Todo', title and content of the todo" do
-                is_expected.to have_content(I18n.t('views.todos.edit.title'))
-              end
-
               it 'should have the value' do
-                is_expected.to have_field('title', with: todo.title)
-                is_expected.to have_field('content', with: todo.content)
-                is_expected.to have_select('todo[priority_id]', selected: I18n.t("priority.#{todo.priority_id}"))
-                is_expected.to have_select('todo[status_id]', selected: I18n.t("status.#{todo.status_id}"))
-                is_expected.to have_field('deadline', with: todo.deadline.strftime('%Y-%m-%dT%H:%M'))
+                is_expected.to have_content(todo.title)
+                is_expected.to have_content(todo.content)
+                is_expected.to have_content(I18n.t('priority.middle'))
+                is_expected.to have_content(I18n.t('status.unstarted'))
+                is_expected.to have_content(I18n.l(todo.deadline, format: :long))
               end
 
-              describe 'update the todo' do
-                context 'title is nil' do
-                  before do
-                    fill_in 'title', with: ''
-                    fill_in 'content', with: 'Edited content'
-                    select I18n.t('priority.low'), from: 'todo[priority_id]'
-                    select I18n.t('status.completed'), from: 'todo[status_id]'
-                    fill_in 'deadline', with: '2099-08-01T12:00'
-                    click_on I18n.t('dictionary.update')
-                  end
+              it 'should have the link' do
+                is_expected.to have_link(I18n.t('dictionary.edit'))
+                is_expected.to have_link(I18n.t('dictionary.destroy'))
+              end
 
-                  it_behaves_like 'have a header'
+              describe 'edit page' do
+                before { click_on I18n.t('dictionary.edit') }
 
-                  it 'should back to the edit page' do
-                    is_expected.to have_content(I18n.t('views.todos.edit.title'))
-                  end
+                it_behaves_like 'have a header'
 
-                  it 'should show an error message' do
-                    is_expected.to have_content("Title #{I18n.t('errors.messages.blank')}")
-                  end
-
-                  it 'should keep the edited value' do
-                    is_expected.to have_field('content', with: 'Edited content')
-                    is_expected.to have_select('todo[priority_id]', selected: I18n.t('priority.low'))
-                    is_expected.to have_select('todo[status_id]', selected: I18n.t('status.completed'))
-                    is_expected.to have_field('deadline', with: '2099-08-01T12:00')
-                  end
+                it "should have the content 'Edit Todo', title and content of the todo" do
+                  is_expected.to have_content(I18n.t('views.todos.edit.title'))
                 end
 
-                context 'title is not nil' do
-                  before do
-                    fill_in 'title', with: 'Edited title'
-                    fill_in 'content', with: 'Edited content'
-                    select I18n.t('priority.low'), from: 'todo[priority_id]'
-                    select I18n.t('status.completed'), from: 'todo[status_id]'
-                    fill_in 'deadline', with: Time.zone.parse('2099-08-01 12:00')
-                    click_on I18n.t('dictionary.update')
+                it 'should have the value' do
+                  is_expected.to have_field('title', with: todo.title)
+                  is_expected.to have_field('content', with: todo.content)
+                  is_expected.to have_select('todo[priority_id]', selected: I18n.t("priority.#{todo.priority_id}"))
+                  is_expected.to have_select('todo[status_id]', selected: I18n.t("status.#{todo.status_id}"))
+                  is_expected.to have_field('deadline', with: todo.deadline.strftime('%Y-%m-%dT%H:%M'))
+                end
+
+                describe 'update the todo' do
+                  context 'title is nil' do
+                    before do
+                      fill_in 'title', with: ''
+                      fill_in 'content', with: 'Edited content'
+                      select I18n.t('priority.low'), from: 'todo[priority_id]'
+                      select I18n.t('status.completed'), from: 'todo[status_id]'
+                      fill_in 'deadline', with: '2099-08-01T12:00'
+                      click_on I18n.t('dictionary.update')
+                    end
+
+                    it_behaves_like 'have a header'
+
+                    it 'should back to the edit page' do
+                      is_expected.to have_content(I18n.t('views.todos.edit.title'))
+                    end
+
+                    it 'should show an error message' do
+                      is_expected.to have_content("Title #{I18n.t('errors.messages.blank')}")
+                    end
+
+                    it 'should keep the edited value' do
+                      is_expected.to have_field('content', with: 'Edited content')
+                      is_expected.to have_select('todo[priority_id]', selected: I18n.t('priority.low'))
+                      is_expected.to have_select('todo[status_id]', selected: I18n.t('status.completed'))
+                      is_expected.to have_field('deadline', with: '2099-08-01T12:00')
+                    end
                   end
 
-                  it_behaves_like 'have a header'
+                  context 'title is not nil' do
+                    before do
+                      fill_in 'title', with: 'Edited title'
+                      fill_in 'content', with: 'Edited content'
+                      select I18n.t('priority.low'), from: 'todo[priority_id]'
+                      select I18n.t('status.completed'), from: 'todo[status_id]'
+                      fill_in 'deadline', with: Time.zone.parse('2099-08-01 12:00')
+                      click_on I18n.t('dictionary.update')
+                    end
 
-                  it 'should be detail page after updating todo' do
-                    expect(current_path).to eq "/todos/#{todo.id}/detail"
-                  end
+                    it_behaves_like 'have a header'
 
-                  it 'should show the updated content' do
-                    is_expected.to have_content('Edited title')
-                    is_expected.to have_content('Edited content')
-                    is_expected.to have_content(I18n.t('priority.low'))
-                    is_expected.to have_content(I18n.t('status.completed'))
-                    is_expected.to have_content(I18n.l(Time.zone.parse('2099/08/01 12:00'), format: :long))
-                  end
+                    it 'should be detail page after updating todo' do
+                      expect(current_path).to eq "/todos/#{todo.id}/detail"
+                    end
 
-                  it 'should show a flash message' do
-                    is_expected.to have_content(I18n.t('flash.todos.update'))
+                    it 'should show the updated content' do
+                      is_expected.to have_content('Edited title')
+                      is_expected.to have_content('Edited content')
+                      is_expected.to have_content(I18n.t('priority.low'))
+                      is_expected.to have_content(I18n.t('status.completed'))
+                      is_expected.to have_content(I18n.l(Time.zone.parse('2099/08/01 12:00'), format: :long))
+                    end
+
+                    it 'should show a flash message' do
+                      is_expected.to have_content(I18n.t('flash.todos.update'))
+                    end
                   end
                 end
               end
-            end
 
-            describe 'destroy action' do
-              before { click_on I18n.t('dictionary.destroy') }
+              describe 'destroy action' do
+                before { click_on I18n.t('dictionary.destroy') }
 
-              it 'should be index page after deleting todo' do
-                expect(current_path).to eq '/'
-              end
+                it 'should be index page after deleting todo' do
+                  expect(current_path).to eq '/'
+                end
 
-              it 'should delete todo' do
-                is_expected.to_not have_link(todo.title)
-                is_expected.to_not have_content(todo.content)
-              end
+                it 'should delete todo' do
+                  is_expected.to_not have_link(todo.title)
+                  is_expected.to_not have_content(todo.content)
+                end
 
-              it 'should show a flash message' do
-                is_expected.to have_content(I18n.t('flash.todos.destroy.success'))
+                it 'should show a flash message' do
+                  is_expected.to have_content(I18n.t('flash.todos.destroy.success'))
+                end
               end
             end
           end

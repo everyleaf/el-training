@@ -2,18 +2,27 @@ require 'rails_helper'
 
 RSpec.describe Todo, type: :model do
   describe 'validation' do
-    describe 'title' do
+    describe 'user' do
       context 'is nil' do
-        it "can't be created" do
-          expect { Todo.create!(title: '') }.to raise_error(ActiveRecord::RecordInvalid)
-          # Tomonobu-san's style
-          expect(Todo.new(title: '').valid?).to be false
+        it 'should be false' do
+          expect(Todo.new(title: 'hoge').valid?).to be false
         end
       end
 
       context 'is not nil' do
-        it 'can be created' do
-          expect { Todo.create!(title: 'hoge') }.not_to raise_error
+        describe 'title' do
+          let!(:user) { create(:user) }
+          context 'is nil' do
+            it 'should be false' do
+              expect(user.todos.new(title: '').valid?).to be false
+            end
+          end
+
+          context 'is not nil' do
+            it 'should be ok' do
+              expect(user.todos.new(title: 'hoge').valid?).not_to be false
+            end
+          end
         end
       end
     end

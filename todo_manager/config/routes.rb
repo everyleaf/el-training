@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  post 'login', to: 'users#login_post'
+  get 'login', to: 'users#login'
+  post 'logout', to: 'users#logout'
+  get 'signup', to: 'users#new'
+
   root 'todos#index'
   post '/', to: 'todos#index'
   get 'todos/new'
