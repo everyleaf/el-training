@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :forbid_login_user, {only: %i(new create login login_post)}
+  before_action :forbid_login_user, { only: %i(new create login login_post) }
 
   def login
   end
@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       redirect_to('/')
     else
       @error_message = I18n.t('flash.users.login.failure')
-      render('users/login')
+      render 'login'
     end
   end
 
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
       flash[:notice] = I18n.t('flash.users.signup')
       redirect_to('/')
     else
-      render('users/new')
+      render 'new'
     end
   end
 end

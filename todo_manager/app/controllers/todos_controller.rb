@@ -1,6 +1,6 @@
 class TodosController < ApplicationController
   before_action :authenticate_user
-  before_action :ensure_correct_user, {only: %i(detail edit update destroy)}
+  before_action :ensure_correct_user, { only: %i(detail edit update destroy) }
 
   def index
     @search = params[:search]
@@ -38,11 +38,11 @@ class TodosController < ApplicationController
   def update
     @todo = Todo.find_by(id: params[:id])
     @todo.assign_attributes({
-        title: params[:title],
-        content: params[:content],
-        priority_id: params[:todo][:priority_id],
-        status_id: params[:todo][:status_id],
-        deadline: params[:deadline]
+      title: params[:title],
+      content: params[:content],
+      priority_id: params[:todo][:priority_id],
+      status_id: params[:todo][:status_id],
+      deadline: params[:deadline]
     })
     if @todo.save
       flash[:notice] = I18n.t('flash.todos.update')
@@ -58,14 +58,14 @@ class TodosController < ApplicationController
       flash[:notice] = I18n.t('flash.todos.destroy.success')
       redirect_to('/')
     else
-      flash[:notice] = I18n.t('flash.todos.destroy.failure')
+      flash.now[:notice] = I18n.t('flash.todos.destroy.failure')
       render 'detail'
     end
   end
 
   def ensure_correct_user
     @todo = Todo.find_by(id: params[:id])
-    if @current_user.id != @todo.user_id
+    if @current_user.user_type != 'admin' && @current_user.id != @todo.user_id
       flash[:notice] = I18n.t('flash.users.authorization.failure')
       redirect_to('/')
     end
