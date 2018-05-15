@@ -1,0 +1,15 @@
+<h2><%= t('views.admin.new.title') %></h2>
+
+<% @user.errors.full_messages.each do |message| %>
+  <%= message %>
+<% end %>
+
+<%= form_tag('/admin') do %>
+  <p><%= t('dictionary.name') %></p>
+  <input name="name" value="<%= @user.name %>">
+  <p><%= t('dictionary.password') %></p>
+  <input type="password" name="password">
+  <p><%= t('dictionary.role') %></p>
+  <%= select :user, :user_type, [[t('role.admin'), 'admin'], [t('role.normal'), 'normal']], selected: @user.user_type %>
+  <input type="submit" value="<%= t('dictionary.signup') %>">
+<% end %>

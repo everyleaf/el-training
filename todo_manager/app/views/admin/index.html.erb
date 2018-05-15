@@ -1,0 +1,25 @@
+<h2><%= t('views.admin.index.title') %></h2>
+<%= link_to(t('dictionary.create'), '/admin/new') %>
+<table border="1">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th><%= t('dictionary.name') %></th>
+    <th><%= t('dictionary.role') %></th>
+    <th><%= t('dictionary.number_of_tasks') %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |user| %>
+    <tr>
+      <th><%= user.id %></th>
+      <th><%= link_to(user.name, "/admin/#{user.id}") %></th>
+      <th style="color:<%= 'red' if user.user_type == 'admin' %>">
+        <%= I18n.t("role.#{user.user_type}") %>
+      </th>
+      <th><%= link_to(user.todos.count, "/admin/#{user.id}/todos") %></th>
+    </tr>
+  <% end %>
+  </tbody>
+  <%= paginate @users %>
+</table>
