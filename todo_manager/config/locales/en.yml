@@ -101,7 +101,7 @@ en:
       index:
         title: Todo List
       new:
-        title: Create Todo
+        title: New Todo
       edit:
         title: Edit Todo
 
@@ -120,6 +120,8 @@ en:
         title: Edit User
       todos:
         title: "'s Todo List"
+      new_todos:
+        title: "'s New Todo"
 
     pagination:
       first: '<<'

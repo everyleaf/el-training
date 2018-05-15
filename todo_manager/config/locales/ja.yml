@@ -89,6 +89,8 @@ ja:
         title: ユーザ編集
       todos:
         title: のタスク一覧
+      new_todos:
+        title: のタスク作成
 
     pagination:
       first: '<<'
