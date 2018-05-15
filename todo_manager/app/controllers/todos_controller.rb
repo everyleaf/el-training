@@ -3,12 +3,7 @@ class TodosController < ApplicationController
   before_action :ensure_correct_user, only: %i(detail edit update destroy)
 
   def index
-    @search = params[:search]
-    @status = Todo.status_ids[params[:status]].nil? ? nil : params[:status]
-    todos = Todo.where('title like ? and status_id like ? and user_id = ?', "%#{@search}%", @status.nil? ? '%' : Todo.status_ids[@status], current_user.id)
-    @direction = %w(asc desc).include?(params[:direction]) ? params[:direction] : 'desc'
-    @sort = %w(created_at deadline priority_id).include?(params[:sort]) ? params[:sort] : 'created_at'
-    @todos = todos.page(params[:page]).order("#{@sort} #{@direction}")
+    get_todos(current_user)
     render 'index'
   end
 
