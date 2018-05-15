@@ -11,10 +11,10 @@
 
 <body>
 <header>
-  <h1><%= link_to(t('title'), @current_user ? '/' : '/login') %></h1>
+  <h1><%= link_to(t('title'), current_user ? '/' : '/login') %></h1>
   <ul>
-    <% if @current_user %>
-      <% if @current_user.user_type == 'admin' %>
+    <% if current_user %>
+      <% if current_user.user_type == 'admin' %>
         <li>
           <%= link_to(t('dictionary.management'), '/admin') %>
         </li>

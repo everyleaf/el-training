@@ -50,7 +50,7 @@ class AdminController < ApplicationController
   def destroy
     @user = User.find_by(id: params[:id])
 
-    if @user.id != @current_user.id && @user.destroy
+    if @user.id != current_user.id && @user.destroy
       flash[:notice] = I18n.t('flash.users.destroy.success')
       redirect_to('/admin')
     else
@@ -88,7 +88,7 @@ class AdminController < ApplicationController
   end
 
   def authorize_user
-    if @current_user.user_type != 'admin'
+    if current_user.user_type != 'admin'
       flash[:notice] = I18n.t('flash.users.authorization.failure')
       redirect_to('/')
     end
