@@ -46,9 +46,14 @@ en:
     priority: Priority
     name: Name
     password: Password
+    new_password: New Password
     login: Login
     logout: Logout
     signup: Signup
+    management: User Management
+    role: Role
+    show: Show
+    number_of_tasks: No. of tasks
 
   priority:
     low: Low
@@ -60,13 +65,17 @@ en:
     working: Working
     completed: Completed
 
+  role:
+    admin: Admin
+    normal: User
+
   flash:
     todos:
       create: New todo has been created.
       update: Todo has been updated.
       destroy:
-        success: Todo has been deleted.
-        failure: Failed to delete todo.
+        success: The todo has been deleted.
+        failure: Failed to delete the todo.
 
     users:
       signup: You have signed up successfully.
@@ -78,6 +87,14 @@ en:
       logout: You have logged out successfully.
       authorization:
         failure: You don't have permission.
+      create: The user has been created.
+      destroy:
+        success: The user has been deleted.
+        failure: Failed to delete the user.
+      update: The user information has been updated.
+
+    confirmation:
+      delete: Are you sure to delete it?
 
   views:
     todos:
@@ -93,6 +110,16 @@ en:
         title: Log in
       signup:
         title: Sign up
+
+    admin:
+      index:
+        title: User List
+      new:
+        title: Create User
+      edit:
+        title: Edit User
+      todos:
+        title: "'s Todo List"
 
     pagination:
       first: '<<'
