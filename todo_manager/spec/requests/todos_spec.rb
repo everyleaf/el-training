@@ -185,32 +185,32 @@ RSpec.describe 'Todos', type: :request do
       end
 
       describe 'sort todos by deadline' do
+        let!(:todo2) { create(:todo, title: 'hoge', user_id: user.id, status_id: 1, deadline: 2.days.since) }
+        let!(:todo3) { create(:todo, title: 'hoge', user_id: user.id, status_id: 1, deadline: 3.days.since) }
         before do
-          create(:todo, title: 'hoge', user_id: user.id, status_id: 1, deadline: 2.days.since)
-          create(:todo, title: 'hoge', user_id: user.id, status_id: 1, deadline: 3.days.since)
           click_link I18n.t('dictionary.deadline')
         end
         context 'in asc' do
           it 'should be ordered' do
             trs = page.all('tbody tr')
-            expect(trs[0]).to have_content(I18n.l(1.day.since, format: :long))
-            expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
-            expect(trs[2]).to have_content(I18n.l(3.days.since, format: :long))
+            expect(trs[0]).to have_content(I18n.l(todo.deadline, format: :long))
+            expect(trs[1]).to have_content(I18n.l(todo2.deadline, format: :long))
+            expect(trs[2]).to have_content(I18n.l(todo3.deadline, format: :long))
           end
 
           it 'should be refined by status_id' do
             click_button(I18n.t('status.working'))
             trs = page.all('tbody tr')
-            expect(trs[0]).to have_content(I18n.l(2.days.since, format: :long))
-            expect(trs[1]).to have_content(I18n.l(3.days.since, format: :long))
+            expect(trs[0]).to have_content(I18n.l(todo2.deadline, format: :long))
+            expect(trs[1]).to have_content(I18n.l(todo3.deadline, format: :long))
           end
 
           it 'should be refined by title' do
             fill_in 'search', with: 'hoge'
             click_button(I18n.t('dictionary.search'))
             trs = page.all('tbody tr')
-            expect(trs[0]).to have_content(I18n.l(2.days.since, format: :long))
-            expect(trs[1]).to have_content(I18n.l(3.days.since, format: :long))
+            expect(trs[0]).to have_content(I18n.l(todo2.deadline, format: :long))
+            expect(trs[1]).to have_content(I18n.l(todo3.deadline, format: :long))
           end
         end
 
@@ -219,17 +219,17 @@ RSpec.describe 'Todos', type: :request do
 
           it 'should be ordered' do
             trs = page.all('tbody tr')
-            expect(trs[0]).to have_content(I18n.l(3.days.since, format: :long))
-            expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
-            expect(trs[2]).to have_content(I18n.l(1.day.since, format: :long))
+            expect(trs[0]).to have_content(I18n.l(todo3.deadline, format: :long))
+            expect(trs[1]).to have_content(I18n.l(todo2.deadline, format: :long))
+            expect(trs[2]).to have_content(I18n.l(todo.deadline, format: :long))
           end
 
           it 'should be refined by status_id' do
             click_button(I18n.t('status.working'))
             trs = page.all('tbody tr')
             expect(trs).to all(have_content(I18n.t('status.working')))
-            expect(trs[0]).to have_content(I18n.l(3.days.since, format: :long))
-            expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
+            expect(trs[0]).to have_content(I18n.l(todo3.deadline, format: :long))
+            expect(trs[1]).to have_content(I18n.l(todo2.deadline, format: :long))
           end
 
           it 'should be refined by title' do
@@ -237,8 +237,8 @@ RSpec.describe 'Todos', type: :request do
             click_button(I18n.t('dictionary.search'))
             trs = page.all('tbody tr')
             expect(trs).to all(have_content('hoge'))
-            expect(trs[0]).to have_content(I18n.l(3.days.since, format: :long))
-            expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
+            expect(trs[0]).to have_content(I18n.l(todo3.deadline, format: :long))
+            expect(trs[1]).to have_content(I18n.l(todo2.deadline, format: :long))
           end
         end
       end
