@@ -15,8 +15,14 @@ ja:
     priority: 優先度
     name: 名前
     password: パスワード
+    new_password: 新しいパスワード
     login: ログイン
     logout: ログアウト
+    signup: 登録
+    management: ユーザ管理
+    role: 役割
+    show: 表示
+    number_of_tasks: タスク数
 
   priority:
     low: 低
@@ -28,6 +34,10 @@ ja:
     working: 着手中
     completed: 完了
 
+  role:
+    admin: 管理者
+    normal: 利用者
+
   flash:
     todos:
       create: タスクを作成しました。
@@ -37,6 +47,7 @@ ja:
         failure: タスクの削除に失敗しました。
 
     users:
+      signup: ユーザ登録が完了しました。
       login:
         success: ログインしました。
         failure: 名前またはパスワードが間違っています。
@@ -45,6 +56,14 @@ ja:
       logout: ログアウトしました。
       authorization:
         failure: 権限がありません。
+      create: ユーザを作成しました。
+      destroy:
+        success: ユーザを削除しました。
+        failure: ユーザの削除に失敗しました。
+      update: ユーザ情報を更新しました。
+
+    confirmation:
+      delete: 本当に削除してもよろしいですか？
 
   views:
     todos:
@@ -58,6 +77,20 @@ ja:
     users:
       login:
         title: ログイン
+      signup:
+        title: 新規登録
+
+    admin:
+      index:
+        title: ユーザ一覧
+      new:
+        title: ユーザ作成
+      edit:
+        title: ユーザ編集
+      todos:
+        title: のタスク一覧
+      new_todos:
+        title: のタスク作成
 
     pagination:
       first: '<<'
@@ -67,6 +100,19 @@ ja:
       truncate: ...
 
   activerecord:
+    models:
+      todo: タスク
+      user: ユーザ
+
+    attributes:
+      todo:
+        title: タスク名
+        content: 内容
+
+      user:
+        name: 名前
+        password: パスワード
+
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"
@@ -173,7 +219,7 @@ ja:
       second: 秒
       year: 年
   errors:
-    format: "%{attribute} %{message}"
+    format: "%{attribute}%{message}"
     messages:
       accepted: を受諾してください
       blank: を入力してください

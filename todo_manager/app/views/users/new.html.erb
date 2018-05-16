@@ -1,2 +1,13 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<h2><%= t('views.users.signup.title') %></h2>
+
+<% @user.errors.full_messages.each do |message| %>
+  <%= message %>
+<% end %>
+
+<%= form_tag('/users/create') do %>
+  <p><%= t('dictionary.name') %></p>
+  <input name="name" value="<%= @user.name %>">
+  <p><%= t('dictionary.password') %></p>
+  <input type="password" name="password">
+  <input type="submit" value="<%= t('dictionary.signup') %>">
+<% end %>

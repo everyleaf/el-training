@@ -6,12 +6,10 @@ RSpec.describe 'Todos', type: :request do
   subject { page }
 
   shared_examples_for 'have a header' do
-    describe 'header' do
-      it 'should have a header with the index link' do
+    describe 'header of normal user' do
+      it 'should have a header with todo list link and logout link without admin link' do
         is_expected.to have_link(I18n.t('title'), href: '/')
-      end
-
-      it 'should have a logout link' do
+        is_expected.not_to have_link(I18n.t('dictionary.management'), href: '/admin')
         is_expected.to have_link(I18n.t('dictionary.logout'), href: '/logout')
       end
     end
@@ -25,53 +23,249 @@ RSpec.describe 'Todos', type: :request do
         is_expected.to have_content(I18n.t('flash.users.login.must'))
       end
 
-      it 'should have a header and the login link' do
-        is_expected.to have_link(I18n.t('title'), href: '/login')
-      end
-
       it 'should be login page' do
         expect(current_path).to eq '/login'
       end
 
-      context 'name is wrong' do
-        before do
-          fill_in 'name', with: 'aaaa'
-          fill_in 'password', with: user.password
-          click_button I18n.t('dictionary.login')
+      it 'should have a header and the login link and the signup link' do
+        is_expected.to have_link(I18n.t('title'), href: '/login')
+        is_expected.to have_link(I18n.t('dictionary.signup'), href: '/signup')
+        is_expected.to have_link(I18n.t('dictionary.login'), href: '/login')
+      end
+
+      describe 'signup' do
+        before { click_link I18n.t('dictionary.signup') }
+
+        it 'should be signup page' do
+          expect(current_path).to eq '/signup'
         end
 
-        it "can't be logged in" do
-          is_expected.to have_content(I18n.t('flash.users.login.failure'))
-          expect(current_path).to eq '/login'
+        context 'same name already exists' do
+          before do
+            fill_in 'name', with: user.name
+            fill_in 'password', with: 'hoge'
+            click_button I18n.t('dictionary.signup')
+          end
+
+          it "can't be created and show error messages" do
+            expect(current_path).to eq '/users/create'
+            is_expected.to have_content(I18n.t('errors.format', attribute: User.human_attribute_name(:name), message: I18n.t('errors.messages.taken')))
+          end
+        end
+
+        context 'name is nil' do
+          before do
+            fill_in 'password', with: 'hoge'
+            click_button I18n.t('dictionary.signup')
+          end
+
+          it "can't be created and show error messages" do
+            expect(current_path).to eq '/users/create'
+            is_expected.to have_content(I18n.t('errors.format', attribute: User.human_attribute_name(:name), message: I18n.t('errors.messages.empty')))
+          end
+        end
+
+        context 'password is nil' do
+          before do
+            fill_in 'name', with: 'name'
+            click_button I18n.t('dictionary.signup')
+          end
+
+          it "can't be created and show error messages" do
+            expect(current_path).to eq '/users/create'
+            is_expected.to have_content(I18n.t('errors.format', attribute: User.human_attribute_name(:password), message: I18n.t('errors.messages.empty')))
+          end
+        end
+
+        context 'unique name' do
+          before do
+            fill_in 'name', with: 'unique'
+            fill_in 'password', with: 'password'
+            click_button I18n.t('dictionary.signup')
+          end
+
+          it 'can be created' do
+            expect(current_path).to eq '/'
+            is_expected.to have_content(I18n.t('flash.users.signup'))
+          end
+
+          it_behaves_like 'have a header'
         end
       end
 
-      context 'password is wrong' do
-        before do
-          fill_in 'name', with: user.name
-          fill_in 'password', with: 'aaaa'
-          click_button I18n.t('dictionary.login')
+      describe 'login' do
+        context 'name is wrong' do
+          before do
+            fill_in 'name', with: 'aaaa'
+            fill_in 'password', with: user.password
+            click_button I18n.t('dictionary.login')
+          end
+
+          it "can't be logged in" do
+            is_expected.to have_content(I18n.t('flash.users.login.failure'))
+            expect(current_path).to eq '/login'
+          end
         end
 
-        it "can't be logged in" do
-          is_expected.to have_content(I18n.t('flash.users.login.failure'))
-          expect(current_path).to eq '/login'
-        end
-      end
+        context 'password is wrong' do
+          before do
+            fill_in 'name', with: user.name
+            fill_in 'password', with: 'aaaa'
+            click_button I18n.t('dictionary.login')
+          end
 
-      context 'name and password are true' do
-        before do
-          fill_in 'name', with: user.name
-          fill_in 'password', with: user.password
-          click_button I18n.t('dictionary.login')
-        end
-
-        it 'can be logged in' do
-          is_expected.to have_content(I18n.t('flash.users.login.success'))
-          expect(current_path).to eq '/'
+          it "can't be logged in" do
+            is_expected.to have_content(I18n.t('flash.users.login.failure'))
+            expect(current_path).to eq '/login'
+          end
         end
 
-        it_behaves_like 'have a header'
+        context 'name and password are true' do
+          context 'normal user' do
+            before do
+              fill_in 'name', with: user.name
+              fill_in 'password', with: user.password
+              click_button I18n.t('dictionary.login')
+            end
+
+            it 'can be logged in' do
+              is_expected.to have_content(I18n.t('flash.users.login.success'))
+              expect(current_path).to eq '/'
+            end
+
+            it_behaves_like 'have a header'
+          end
+
+          context 'admin user' do
+            let!(:admin) { create(:user, name: 'admin_user', password: 'pass', user_type: 'admin') }
+            before do
+              fill_in 'name', with: admin.name
+              fill_in 'password', with: 'pass'
+              click_button I18n.t('dictionary.login')
+            end
+
+            it 'can be logged in' do
+              is_expected.to have_content(I18n.t('flash.users.login.success'))
+              expect(current_path).to eq '/'
+            end
+
+            it 'should have a header with admin link' do
+              is_expected.to have_link(I18n.t('title'), href: '/')
+
+              is_expected.to have_link(I18n.t('dictionary.management'), href: '/admin')
+
+              is_expected.to have_link(I18n.t('dictionary.logout'), href: '/logout')
+            end
+
+            describe 'admin' do
+              before { click_link I18n.t('dictionary.management') }
+              it 'should show user lists' do
+                is_expected.to have_content(I18n.t('views.admin.index.title'))
+              end
+
+              it 'should have the create link' do
+                is_expected.to have_link(I18n.t('dictionary.create'), href: '/admin/new')
+              end
+
+              it 'should show ID, name, role and No. of todos' do
+                theads = page.first('thead tr')
+                expect(theads).to have_content('ID')
+                expect(theads).to have_content(I18n.t('dictionary.name'))
+                expect(theads).to have_content(I18n.t('dictionary.role'))
+                expect(theads).to have_content(I18n.t('dictionary.number_of_tasks'))
+              end
+
+              it 'should have users' do
+                tbodies = page.all('tbody tr')
+                expect(tbodies[0]).to have_content(user.id)
+                expect(tbodies[0]).to have_content(user.name)
+                expect(tbodies[0]).to have_content(I18n.t("role.#{user.user_type}"))
+                expect(tbodies[0]).to have_content(user.todos.count)
+                expect(tbodies[1]).to have_content(admin.id)
+                expect(tbodies[1]).to have_content(admin.name)
+                expect(tbodies[1]).to have_content(I18n.t("role.#{admin.user_type}"))
+                expect(tbodies[1]).to have_content(admin.todos.count)
+              end
+
+              describe 'show user' do
+                before { click_link user.name }
+
+                it 'should show user profile' do
+                  expect(current_path).to eq "/admin/#{user.id}"
+                  is_expected.to have_link(I18n.t('dictionary.edit'), href: "/admin/#{user.id}/edit")
+                  is_expected.to have_button(I18n.t('dictionary.destroy'))
+                end
+
+                describe 'edit user' do
+                  before { click_link I18n.t('dictionary.edit') }
+
+                  it { expect(current_path).to eq "/admin/#{user.id}/edit" }
+                end
+
+                describe 'destroy user', js: true do
+                  context 'accept' do
+                    before do
+                      page.accept_confirm I18n.t('flash.confirmation.delete') do
+                        click_button I18n.t('dictionary.destroy')
+                      end
+                    end
+
+                    it 'should delete user and show success notice and user list page' do
+                      is_expected.to have_content(I18n.t('flash.users.destroy.success'))
+                      expect(current_path).to eq '/admin'
+                      is_expected.not_to have_content(user.name)
+                    end
+                  end
+
+                  context 'dismiss' do
+                    before do
+                      page.dismiss_confirm I18n.t('flash.confirmation.delete') do
+                        click_button I18n.t('dictionary.destroy')
+                      end
+                    end
+
+                    it { expect(current_path).to eq "/admin/#{user.id}" }
+                  end
+                end
+              end
+
+              describe 'show todos' do
+                before { click_on user.todos.count }
+
+                it "should be user's todo list page" do
+                  expect(current_path).to eq "/admin/#{user.id}/todos"
+                  tbodies = page.first('tbody tr')
+                  expect(tbodies).to have_content(user.todos.first.title)
+                  expect(tbodies).to have_content(user.todos.first.content)
+                end
+
+                context 'show todo profile page' do
+                  before { click_on user.todos.first.title }
+
+                  it { expect(current_path).to eq "/todos/#{user.todos.first.id}/detail" }
+                end
+              end
+
+              describe 'create user' do
+                before do
+                  click_link I18n.t('dictionary.create')
+                  fill_in 'name', with: 'hogehoge'
+                  fill_in 'password', with: 'fugafuga'
+                end
+
+                it 'should show create user page' do
+                  is_expected.to have_content(I18n.t('views.admin.new.title'))
+                end
+
+                it 'should create new user' do
+                  click_button I18n.t('dictionary.create')
+                  is_expected.to have_content(I18n.t('flash.users.create'))
+                  is_expected.to have_content('hogehoge')
+                end
+              end
+            end
+          end
+        end
       end
     end
 
@@ -121,60 +315,58 @@ RSpec.describe 'Todos', type: :request do
       end
 
       describe 'sort todos by deadline' do
-        before do
-          create(:todo, title: 'hoge', user_id: user.id, status_id: 1, deadline: 2.days.since)
-          create(:todo, title: 'hoge', user_id: user.id, status_id: 1, deadline: 3.days.since)
-          click_on I18n.t('dictionary.deadline')
-        end
+        let!(:todo2) { create(:todo, title: 'hoge', user_id: user.id, status_id: 1, deadline: 2.days.since) }
+        let!(:todo3) { create(:todo, title: 'hoge', user_id: user.id, status_id: 1, deadline: 3.days.since) }
+        before { click_link I18n.t('dictionary.deadline') }
         context 'in asc' do
           it 'should be ordered' do
             trs = page.all('tbody tr')
-            expect(trs[0]).to have_content(I18n.l(1.day.since, format: :long))
-            expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
-            expect(trs[2]).to have_content(I18n.l(3.days.since, format: :long))
+            expect(trs[0]).to have_content(I18n.l(todo.deadline, format: :long))
+            expect(trs[1]).to have_content(I18n.l(todo2.deadline, format: :long))
+            expect(trs[2]).to have_content(I18n.l(todo3.deadline, format: :long))
           end
 
           it 'should be refined by status_id' do
-            click_on(I18n.t('status.working'))
+            click_button(I18n.t('status.working'))
             trs = page.all('tbody tr')
-            expect(trs[0]).to have_content(I18n.l(2.days.since, format: :long))
-            expect(trs[1]).to have_content(I18n.l(3.days.since, format: :long))
+            expect(trs[0]).to have_content(I18n.l(todo2.deadline, format: :long))
+            expect(trs[1]).to have_content(I18n.l(todo3.deadline, format: :long))
           end
 
           it 'should be refined by title' do
             fill_in 'search', with: 'hoge'
-            click_on(I18n.t('dictionary.search'))
+            click_button(I18n.t('dictionary.search'))
             trs = page.all('tbody tr')
-            expect(trs[0]).to have_content(I18n.l(2.days.since, format: :long))
-            expect(trs[1]).to have_content(I18n.l(3.days.since, format: :long))
+            expect(trs[0]).to have_content(I18n.l(todo2.deadline, format: :long))
+            expect(trs[1]).to have_content(I18n.l(todo3.deadline, format: :long))
           end
         end
 
         context 'in desc' do
-          before { click_on I18n.t('dictionary.deadline') }
+          before { click_link I18n.t('dictionary.deadline') }
 
           it 'should be ordered' do
             trs = page.all('tbody tr')
-            expect(trs[0]).to have_content(I18n.l(3.days.since, format: :long))
-            expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
-            expect(trs[2]).to have_content(I18n.l(1.day.since, format: :long))
+            expect(trs[0]).to have_content(I18n.l(todo3.deadline, format: :long))
+            expect(trs[1]).to have_content(I18n.l(todo2.deadline, format: :long))
+            expect(trs[2]).to have_content(I18n.l(todo.deadline, format: :long))
           end
 
           it 'should be refined by status_id' do
-            click_on(I18n.t('status.working'))
+            click_button(I18n.t('status.working'))
             trs = page.all('tbody tr')
             expect(trs).to all(have_content(I18n.t('status.working')))
-            expect(trs[0]).to have_content(I18n.l(3.days.since, format: :long))
-            expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
+            expect(trs[0]).to have_content(I18n.l(todo3.deadline, format: :long))
+            expect(trs[1]).to have_content(I18n.l(todo2.deadline, format: :long))
           end
 
           it 'should be refined by title' do
             fill_in 'search', with: 'hoge'
-            click_on(I18n.t('dictionary.search'))
+            click_button(I18n.t('dictionary.search'))
             trs = page.all('tbody tr')
             expect(trs).to all(have_content('hoge'))
-            expect(trs[0]).to have_content(I18n.l(3.days.since, format: :long))
-            expect(trs[1]).to have_content(I18n.l(2.days.since, format: :long))
+            expect(trs[0]).to have_content(I18n.l(todo3.deadline, format: :long))
+            expect(trs[1]).to have_content(I18n.l(todo2.deadline, format: :long))
           end
         end
       end
@@ -183,7 +375,7 @@ RSpec.describe 'Todos', type: :request do
         before do
           create(:todo, title: 'hoge', user_id: user.id, priority_id: 0, status_id: 1)
           create(:todo, title: 'hoge', user_id: user.id, priority_id: 2, status_id: 1)
-          click_on I18n.t('dictionary.priority')
+          click_link I18n.t('dictionary.priority')
         end
         context 'in asc' do
           it 'should be ordered' do
@@ -194,7 +386,7 @@ RSpec.describe 'Todos', type: :request do
           end
 
           it 'should be refined by status_id' do
-            click_on(I18n.t('status.working'))
+            click_button(I18n.t('status.working'))
             trs = page.all('tbody tr')
             expect(trs).to all(have_content(I18n.t('status.working')))
             expect(trs[0]).to have_content(I18n.t('priority.low'))
@@ -358,7 +550,7 @@ RSpec.describe 'Todos', type: :request do
             end
 
             it 'should show an error message' do
-              is_expected.to have_content("Title #{I18n.t('errors.messages.blank')}")
+              is_expected.to have_content(I18n.t('errors.format', attribute: Todo.human_attribute_name(:title), message: I18n.t('errors.messages.blank')))
             end
 
             it 'should keep the value' do
@@ -447,7 +639,7 @@ RSpec.describe 'Todos', type: :request do
                     end
 
                     it 'should show an error message' do
-                      is_expected.to have_content("Title #{I18n.t('errors.messages.blank')}")
+                      is_expected.to have_content(I18n.t('errors.format', attribute: Todo.human_attribute_name(:title), message: I18n.t('errors.messages.blank')))
                     end
 
                     it 'should keep the edited value' do

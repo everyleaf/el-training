@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
+  resources :admin
+  get 'admin/:id/todos', to: 'admin#todos'
+  post 'admin/:id/todos', to: 'admin#todos'
+  get 'admin/:id/new', to: 'admin#new_todos'
+  post 'admin/:id/create', to: 'admin#create_todos'
+
   post 'login', to: 'users#login_post'
   get 'login', to: 'users#login'
   post 'logout', to: 'users#logout'
   get 'signup', to: 'users#new'
+  post 'users/create'
 
   root 'todos#index'
   post '/', to: 'todos#index'

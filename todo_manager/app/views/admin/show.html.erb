@@ -1,0 +1,4 @@
+<h3><%= @user.name %></h3>
+<p><%= "#{t('dictionary.role')} #{t("role.#{@user.user_type}")}" %></p>
+<%= link_to(t('dictionary.edit'), "/admin/#{@user.id}/edit") %>
+<%= button_to(t('dictionary.destroy'), "/admin/#{@user.id}", method: :delete, data: { confirm: t('flash.confirmation.delete') }) %>

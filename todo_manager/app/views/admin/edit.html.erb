@@ -1,0 +1,17 @@
+<h2><%= t('views.admin.edit.title') %></h2>
+<% @user.errors.full_messages.each do |message| %>
+  <%= message %>
+<% end %>
+<%= form_tag("/admin/#{@user.id}", method: :patch) do %>
+  <p><%= t('dictionary.name') %></p>
+  <input name="name" value="<%= @user.name %>">
+  <p><%= t('dictionary.role') %></p>
+  <% if @user.user_type == 'admin' && User.where(user_type: 'admin').count <= 1 %>
+    <%= t('role.admin') %>
+  <% else %>
+    <%= select :user, :user_type, [[t('role.admin'), 'admin'], [t('role.normal'), 'normal']], selected: @user.user_type %>
+  <% end %>
+  <p><%= t('dictionary.new_password') %></p>
+  <input type="password" name="password">
+  <br><input type="submit" value="<%= t('dictionary.update') %>">
+<% end %>
