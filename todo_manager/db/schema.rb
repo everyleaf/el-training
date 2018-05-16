@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_09_080020) do
+ActiveRecord::Schema.define(version: 2018_05_16_001140) do
+
+  create_table "labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "todo_to_labels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "todo_id"
+    t.bigint "label_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["label_id"], name: "index_todo_to_labels_on_label_id"
+    t.index ["todo_id"], name: "index_todo_to_labels_on_todo_id"
+  end
 
   create_table "todos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", null: false
@@ -33,5 +48,7 @@ ActiveRecord::Schema.define(version: 2018_05_09_080020) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "todo_to_labels", "labels"
+  add_foreign_key "todo_to_labels", "todos"
   add_foreign_key "todos", "users"
 end
