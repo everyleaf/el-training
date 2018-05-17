@@ -120,6 +120,12 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+
+
+  error500: 申し訳ございませんが、エラーが発生しています。
+  error404: このページは存在していません。
+  error404_explanation: もしかするとアドレスを打ち間違えているか、ページが移動しているかもしれません。
+
   date:
     abbr_day_names:
     - 日

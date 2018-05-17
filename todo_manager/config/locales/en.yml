@@ -131,3 +131,8 @@ en:
       previous: Prev
       truncate: ...
 
+
+  error500: We're sorry, but something went wrong.
+  error404: The page you were looking for doesn't exist.
+  error404_explanation: You may have mistyped the address or the page may have moved.
+
