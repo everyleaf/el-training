@@ -9,15 +9,24 @@ class TodosController < ApplicationController
 
   def new
     @todo = Todo.new
+    3.times { @todo.labels.build }
     @todo.deadline = Time.current.tomorrow.strftime('%Y-%m-%dT%H:%M')
   end
 
   def create
-    @todo = current_user.todos.new(title: params[:title], content: params[:content], priority_id: params[:todo][:priority_id], deadline: params[:deadline])
+    @todo = current_user.todos.new(
+      title: params[:title],
+      content: params[:content],
+      priority_id: params[:todo][:priority_id],
+      deadline: params[:deadline])
+
+    set_labels('create')
+
     if @todo.save
       flash[:notice] = I18n.t('flash.todos.create')
       redirect_to('/')
     else
+      (3 - @todo.labels.size).times { @todo.labels.build }
       render 'new'
     end
   end
@@ -28,6 +37,7 @@ class TodosController < ApplicationController
 
   def edit
     @todo = Todo.find_by(id: params[:id])
+    (3 - @todo.labels.count).times { @todo.labels.build }
   end
 
   def update
@@ -39,10 +49,14 @@ class TodosController < ApplicationController
       status_id: params[:todo][:status_id],
       deadline: params[:deadline]
     })
+
+    set_labels('update')
+
     if @todo.save
       flash[:notice] = I18n.t('flash.todos.update')
       redirect_to("/todos/#{@todo.id}/detail")
     else
+      (3 - @todo.labels.size).times { @todo.labels.build }
       render 'edit'
     end
   end
@@ -65,4 +79,5 @@ class TodosController < ApplicationController
       redirect_to('/')
     end
   end
+
 end

@@ -68,16 +68,25 @@ class AdminController < ApplicationController
   def new_todos
     @user = User.find_by(id: params[:id])
     @todo = Todo.new
+    3.times { @todo.labels.build }
     @todo.deadline = Time.current.tomorrow.strftime('%Y-%m-%dT%H:%M')
   end
 
   def create_todos
     @user = User.find_by(id: params[:id])
-    @todo = @user.todos.new(title: params[:title], content: params[:content], priority_id: params[:todo][:priority_id], deadline: params[:deadline])
+    @todo = @user.todos.new(
+      title: params[:title],
+      content: params[:content],
+      priority_id: params[:todo][:priority_id],
+      deadline: params[:deadline])
+
+    set_labels('create')
+
     if @todo.save
       flash[:notice] = I18n.t('flash.todos.create')
       redirect_to("/admin/#{params[:id]}/todos")
     else
+      (3 - @todo.labels.size).times { @todo.labels.build }
       render 'new_todos'
     end
   end
