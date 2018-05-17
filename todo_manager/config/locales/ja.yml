@@ -23,6 +23,7 @@ ja:
     role: 役割
     show: 表示
     number_of_tasks: タスク数
+    label: ラベル
 
   priority:
     low: 低

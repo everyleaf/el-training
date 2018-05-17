@@ -54,6 +54,7 @@ en:
     role: Role
     show: Show
     number_of_tasks: No. of tasks
+    label: Label
 
   priority:
     low: Low
