@@ -7,7 +7,7 @@
   <input type="hidden" name="sort" value="<%= @sort %>">
   <input type="hidden" name="direction" value="<%= @direction %>">
   <input type="hidden" name="status" value="<%= @status %>">
-  <input type="hidden" name="label" value="<%= @label %>"
+  <input type="hidden" name="label" value="<%= @label %>">
   <%= submit_tag(t('dictionary.search')) %>
 <% end %>
 <%= link_to(t('dictionary.create'), request.path_info == root_path ? '/todos/new' : './new') %>
