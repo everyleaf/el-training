@@ -19,5 +19,8 @@ Rails.application.routes.draw do
   get 'todos/:id/edit', to: 'todos#edit'
   post 'todos/:id/update', to: 'todos#update'
   post 'todos/:id/destroy', to: 'todos#destroy'
+
+  get '*not_found', to: 'application#_render_404'
+  post '*not_found', to: 'application#_render_404'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
