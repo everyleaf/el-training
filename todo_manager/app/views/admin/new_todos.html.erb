@@ -1,15 +1,2 @@
 <h2><%= "#{@user.name}#{t('views.admin.new_todos.title')}" %></h2>
-<% @todo.errors.full_messages.each do |message| %>
-  <%= message %>
-<% end %>
-<%= form_tag("/admin/#{@user.id}/create") do %>
-  <p><%= t('dictionary.title') %></p>
-  <input name="title" value="<%= @todo.title %>">
-  <p><%= t('dictionary.content') %></p>
-  <textarea name="content"><%= @todo.content %></textarea>
-  <p><%= t('dictionary.priority') %></p>
-  <%= select :todo, :priority_id, [[t('priority.low'), 'low'], [t('priority.middle'), 'middle'], [t('priority.high'), 'high']], selected: @todo.priority_id %>
-  <p><%= t('dictionary.deadline') %></p>
-  <input type="datetime-local" name="deadline" min="<%= Time.current.strftime('%Y-%m-%dT%H:%M') %>" value="<%= @todo.deadline.strftime('%Y-%m-%dT%H:%M') if !@todo.deadline.nil? %>">
-  <input type="submit" value="<%= t('dictionary.create') %>">
-<% end %>
+<%= render 'shared/todos_form', pages: "/admin/#{@user.id}/create" %>

@@ -1,8 +1,6 @@
 <h2><%= t('views.users.signup.title') %></h2>
 
-<% @user.errors.full_messages.each do |message| %>
-  <%= message %>
-<% end %>
+<%= render 'shared/user_errors' %>
 
 <%= form_tag('/users/create') do %>
   <p><%= t('dictionary.name') %></p>

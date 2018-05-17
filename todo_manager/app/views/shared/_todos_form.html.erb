@@ -1,0 +1,29 @@
+<% @todo.errors.full_messages.each do |message| %>
+  <%= message %>
+<% end %>
+<%= form_tag(pages) do %>
+  <p><%= t('dictionary.title') %></p>
+  <input name="title" value="<%= @todo.title %>">
+  <p><%= t('dictionary.content') %></p>
+  <textarea name="content"><%= @todo.content %></textarea>
+  <p><%= t('dictionary.priority') %></p>
+  <%= select :todo, :priority_id, [[t('priority.low'), 'low'], [t('priority.middle'), 'middle'], [t('priority.high'), 'high']], selected: @todo.priority_id %>
+  <% if pages == "/todos/#{@todo.id}/update" %>
+    <p><%= t('dictionary.status') %></p>
+    <%= select :todo, :status_id, [[t('status.unstarted'), 'unstarted'], [t('status.working'), 'working'], [t('status.completed'), 'completed']], selected: @todo.status_id %>
+  <% end %>
+  <p><%= t('dictionary.label') %></p>
+  <% @todo.labels.each_with_index do |label, i| %>
+    <% if Label.find_by(name: label[:name]).nil? %>
+      <input type="text" value="<%= label[:name] %>" name="labels[x<%= i + 1 %>][name]" id="labels_<%= i + 1 %>_name">
+    <% else %>
+      <%= fields_for "labels[]", label do |label_field| %>
+        <%= label_field.text_field :name %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <p><%= t('dictionary.deadline') %></p>
+  <input type="datetime-local" name="deadline" value="<%= @todo.deadline.strftime('%Y-%m-%dT%H:%M') if !@todo.deadline.nil? %>">
+  <br>
+  <%= submit_tag(t("dictionary.#{pages == "/todos/#{@todo.id}/update" ? 'update' : 'create'}")) %>
+<% end %>

@@ -1,7 +1,7 @@
 <h2><%= t('views.admin.edit.title') %></h2>
-<% @user.errors.full_messages.each do |message| %>
-  <%= message %>
-<% end %>
+
+<%= render 'shared/user_errors' %>
+
 <%= form_tag("/admin/#{@user.id}", method: :patch) do %>
   <p><%= t('dictionary.name') %></p>
   <input name="name" value="<%= @user.name %>">

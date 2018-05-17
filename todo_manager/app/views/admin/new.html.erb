@@ -1,8 +1,6 @@
 <h2><%= t('views.admin.new.title') %></h2>
 
-<% @user.errors.full_messages.each do |message| %>
-  <%= message %>
-<% end %>
+<%= render 'shared/user_errors' %>
 
 <%= form_tag('/admin') do %>
   <p><%= t('dictionary.name') %></p>
