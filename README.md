@@ -18,4 +18,4 @@
 ## Language Supports
 
 - 繁体字(zh_TW)
-  - https://github.com/jodeci/el-training （@jodeci 様ありがとうございます！）
+  - https://github.com/5xruby/5xtraining （@jodeci 様ありがとうございます！）
