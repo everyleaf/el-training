@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  task_id: 1
+  Date: 2018-09-07
+  schedule: MyString
+  end_time: 2018-09-07 17:09:54
+  status: MyString
+
+two:
+  task_id: 1
+  Date: 2018-09-07
+  schedule: MyString
+  end_time: 2018-09-07 17:09:54
+  status: MyString
