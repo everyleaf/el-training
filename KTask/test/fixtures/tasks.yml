@@ -2,16 +2,12 @@
 
 one:
   user_id: 1
-  task_title: MyString
-  task_content: MyString
-  create_time: 2018-09-10 13:24:40
-  modify_time: 2018-09-10 13:24:40
+  title: MyString
+  content: MyString
   status: MyString
 
 two:
   user_id: 1
-  task_title: MyString
-  task_content: MyString
-  create_time: 2018-09-10 13:24:40
-  modify_time: 2018-09-10 13:24:40
+  title: MyString
+  content: MyString
   status: MyString
