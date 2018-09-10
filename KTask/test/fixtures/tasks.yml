@@ -1,15 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  task_id: 1
-  Date: 2018-09-07
-  schedule: MyString
-  end_time: 2018-09-07 17:09:54
+  user_id: 1
+  task_title: MyString
+  task_content: MyString
+  create_time: 2018-09-10 13:24:40
+  modify_time: 2018-09-10 13:24:40
   status: MyString
 
 two:
-  task_id: 1
-  Date: 2018-09-07
-  schedule: MyString
-  end_time: 2018-09-07 17:09:54
+  user_id: 1
+  task_title: MyString
+  task_content: MyString
+  create_time: 2018-09-10 13:24:40
+  modify_time: 2018-09-10 13:24:40
   status: MyString
