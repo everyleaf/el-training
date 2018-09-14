@@ -17,7 +17,13 @@
 
 <p>
   <strong>Status:</strong>
-  <%= @task.status %>
+  <% if @task.status == "yet" %>
+    未着手
+  <% elsif @task.status == "do" %>
+    着手
+  <% elsif @task.status == "done" %>
+    完了
+  <% end %>
 </p>
 
 <p>
