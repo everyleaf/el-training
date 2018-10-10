@@ -72,6 +72,23 @@
 
 ## 課題ステップ
 
+### ステップ0: chrome-extensionをインストールしよう
+
+実はこのtrainingは株式会社万葉が作ったものが元となっていて、間違えて本家のリポジトリに向かってPRを作るという事件が何回か起きてしまいました。
+この悲劇を繰り返さないためにページが自動でリダイレクトされるchrome-extensionをインストールしましょう。
+
+#### 1-1: chrome-extensionをcloneする
+
+`git clone git@github.com:Fablic/fablic-chrome-extension.git`
+
+#### 1-2: chrome-extensionをインストールする
+
+chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKGithubSupportToolをドラッグ&ドロップでインストールしましょう。
+
+#### 1-3: 株式会社万葉に感謝しつつトレーニングを始める
+
+[本家のリポジトリ](https://github.com/everyleaf/el-training)
+
 ### ステップ1: Railsの開発環境を構築しよう
 
 #### 1-1: Rubyのインストール
