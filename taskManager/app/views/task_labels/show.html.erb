@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Task:</strong>
+  <%= @task_label.task_id %>
+</p>
+
+<p>
+  <strong>Label:</strong>
+  <%= @task_label.label_id %>
+</p>
+
+<%= link_to 'Edit', edit_task_label_path(@task_label) %> |
+<%= link_to 'Back', task_labels_path %>

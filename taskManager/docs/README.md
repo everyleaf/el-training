@@ -204,3 +204,131 @@ mysql> show databases;
 8 rows in set (0.00 sec)
 ```
 
+## STEP6
+タスクを管理するためのCRUDを作成します。 まずは名前と詳細だけが登録できるシンプルな構成で作りましょう。
+- [X]  rails generate コマンドでタスクのCRUDに必要なモデルクラスを作成しましょう
+- [X] マイグレーションを作成し、これを用いてテーブルを作成しましょう
+- [X] マイグレーションは1つ前の状態に戻せることを担保できていることが大切です！ redo を流して確認する癖をつけましょう
+- [X] rails c コマンドでモデル経由でデータベースに接続できることを確認しましょう
+      この時に試しにActiveRecordでレコードを作成してみる
+      
+### rails generateコマンドでモデルクラスを作成する
+
+### user table (ユーザテーブル)
+
+```
+$ rails generate scaffold User mail:string user_name:string encrypted_password:string
+```
+-p付けるとドライランモードで実施できる。
+
+実行結果
+```
+$ rails generate scaffold User mail:string user_name:string encrypted_password:string
+   Running via Spring preloader in process 29740
+         invoke  active_record
+         create    db/migrate/20181010024132_create_users.rb
+         create    app/models/user.rb
+         invoke    test_unit
+         create      test/models/user_test.rb
+         create      test/fixtures/users.yml
+         invoke  resource_route
+          route    resources :users
+         invoke  scaffold_controller
+         create    app/controllers/users_controller.rb
+         invoke    erb
+         create      app/views/users
+         create      app/views/users/index.html.erb
+         create      app/views/users/edit.html.erb
+         create      app/views/users/show.html.erb
+         create      app/views/users/new.html.erb
+         create      app/views/users/_form.html.erb
+         invoke    test_unit
+         create      test/controllers/users_controller_test.rb
+         create      test/system/users_test.rb
+         invoke    helper
+         create      app/helpers/users_helper.rb
+         invoke      test_unit
+         invoke    jbuilder
+         create      app/views/users/index.json.jbuilder
+         create      app/views/users/show.json.jbuilder
+         create      app/views/users/_user.json.jbuilder
+         invoke  assets
+         invoke    coffee
+         create      app/assets/javascripts/users.coffee
+         invoke    scss
+         create      app/assets/stylesheets/users.scss
+         invoke  scss
+         create    app/assets/stylesheets/scaffolds.scss
+```
+
+```
+$ rails generate scaffold Task task_name:string description:text user_id:integer deadline:date priority:integer status:integer -p
+$ rails generate scaffold Label label_name:string -p
+$ rails generate scaffold Task_label task_id:integer label_id:integer -p
+
+```
+
+https://railsguides.jp/command_line.html
+
+### マイグレーションを作成し、これを用いてテーブルを作成しましょう
+```
+rails db:migrate
+
+mysql> show tables;
++----------------------------------------------+
+| Tables_in_hajimeaiizuka_task_manager_develop |
++----------------------------------------------+
+| ar_internal_metadata                         |
+| labels                                       |
+| schema_migrations                            |
+| task_labels                                  |
+| tasks                                        |
+| users                                        |
++----------------------------------------------+
+6 rows in set (0.00 sec)
+```
+
+### マイグレーションは1つ前の状態に戻せることを担保できていることが大切です！ redo を流して確認する癖をつけましょう
+
+- db/migrate/...の中身を修正
+
+- versionの確認
+```
+rails db:migrate:status
+```
+
+- redoでテーブル構成修正
+```
+$ rails db:migrate:redo VERSION=20181010024132
+```
+
+- rails c コマンドでモデル経由でデータベースに接続できることを確認しましょう
+
+参考: https://ruby-rails.hatenadiary.com/entry/20140724/1406142120
+```
+$ rails c
+Running via Spring preloader in process 38049
+Loading development environment (Rails 5.2.1)
+irb(main):001:0> user = User.new
+
+   (0.3ms)  SET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483
+=> #<User id: nil, mail: nil, user_name: nil, encrypted_password: nil, created_at: nil, updated_at: nil>
+
+irb(main):002:0> user.attributes = {mail: "hajime_iizuka@fablic.co.jp", user_name: "飯塚 一", encrypted_password: "fdasfsafdsafsafdsa"}
+=> {:mail=>"hajime_iizuka@fablic.co.jp", :user_name=>"飯塚 一", :encrypted_password=>"fdasfsafdsafsafdsa"}
+
+irb(main):003:0> user.save
+   (0.2ms)  BEGIN
+  User Create (0.3ms)  INSERT INTO `users` (`mail`, `user_name`, `encrypted_password`, `created_at`, `updated_at`) VALUES ('hajime_iizuka@fablic.co.jp', '飯塚 一', 'fdaafdsafsafdsa', '2018-10-10 04:01:44', '2018-10-10 04:01:44')
+   (1.6ms)  COMMIT
+=> true
+
+
+mysql> select * from users;
++----+----------------------------+------------+--------------------+---------------------+---------------------+
+| id | mail                       | user_name  | encrypted_password | created_at          | updated_at          |
++----+----------------------------+------------+--------------------+---------------------+---------------------+
+|  1 | hajime_iizuka@fablic.co.jp | 飯塚 一    | fdasfsafdsafsafdsa | 2018-10-10 04:01:44 | 2018-10-10 04:01:44 |
++----+----------------------------+------------+--------------------+---------------------+---------------------+
+1 row in set (0.00 sec)
+```
