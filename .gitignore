@@ -1,0 +1,4 @@
+# git対象外にするリスト
+taskManager/vendor/bundle/
+.idea/
+.DS_Store
