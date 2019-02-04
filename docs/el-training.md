@@ -46,6 +46,7 @@
 - Ruby
 - Ruby on Rails
 - PostgreSQL
+- 【オプション要件】Dockerを利用して開発環境を構築する
 
 サーバについては以下を利用していただきたいです。
 
