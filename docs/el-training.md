@@ -121,7 +121,8 @@
 - リポジトリを作成しましょう
   - アカウントがない場合は取得しましょう
   - ~~その上で空のリポジトリを作成しましょう~~
-  - [環境構築用リポジトリ](https://github.com/buysell-technologies/ruby-on-rails-pg-on-docker)を自分のアカウントにfolkしてくる
+  - [環境構築用リポジトリ](https://github.com/buysell-technologies/ruby-on-rails-pg-on-docker)を自分のアカウントにfolkしてきましょう
+  - リポジトリの設定から、自分で考えたリポジトリ名に変更しましょう
 
 ### ステップ3: Railsプロジェクトを作成しよう
 - folkしたリポジトリのREADMEに従い、docker上で環境構築をしましょう
