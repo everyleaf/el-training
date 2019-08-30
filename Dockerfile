@@ -14,7 +14,7 @@ RUN apt-get update -qq && \
       python3 \
       less
 
-ENV APP_ROOT /open_api_training
+ENV APP_ROOT /training
 RUN mkdir /$APP_ROOT
 WORKDIR /$APP_ROOT
 
