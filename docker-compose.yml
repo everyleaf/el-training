@@ -1,0 +1,21 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: root
+    ports:
+      - "3316:3306"
+    volumes:
+      - ./db/mysql/volumes:/var/lib/mysql
+
+  api:
+    build: .
+    command: bash -c "bundle exec rails db:create && bundle exec rails db:migrate && rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/open_api_training
+    ports:
+      - "3001:3000"
+    links:
+      - db
