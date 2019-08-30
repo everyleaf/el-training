@@ -122,6 +122,10 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 
 ### ステップ3: Railsプロジェクトを作成しよう
 
+- 作業ディレクトリに移動します
+    ```sh
+    cd myapp
+    ```
 - 下記コマンドでアプリケーションに最低限必要なディレクトリやファイルを作成しましょう
     ```sh
     docker-compose run api rails new . --force --database=mysql
