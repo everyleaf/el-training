@@ -1,6 +1,7 @@
 FROM ruby:2.6
 
 ENV LANG C.UTF-8
+ENV NODE_VERSION 12
 
 RUN apt-get update -qq && \
     apt-get install -y \
