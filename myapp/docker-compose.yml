@@ -8,14 +8,21 @@ services:
     ports:
       - "3316:3306"
     volumes:
-      - ../db/mysql/volumes:/var/lib/mysql
+      - db-data:/var/lib/mysql
 
   api:
     build: .
     command: bash -c "bundle exec rails db:create && bundle exec rails db:migrate && rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/myapp
+      - bundle-install:/usr/local/bundle:delegated
+      - rails-tmp:/myapp/tmp
     ports:
       - "3001:3000"
     links:
       - db
+
+volumes:
+  db-data: ../volumes/mysql
+  rails-tmp: ../volumes/rails
+  bundle-install: ../volumes/gems
