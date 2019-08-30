@@ -60,6 +60,7 @@
 - Ruby
 - Ruby on Rails
 - MySQL
+- Docker Compose
 
 ※ 性能要求・セキュリティ要求は特に定めませんが、一般的な品質で作ってください。
   あまりにサイトのレスポンスが悪い場合は改善をしていただきます
@@ -84,42 +85,36 @@
 実はこのtrainingは株式会社万葉が作ったものが元となっていて、間違えて本家のリポジトリに向かってPRを作るという事件が何回か起きてしまいました。
 この悲劇を繰り返さないためにページが自動でリダイレクトされるchrome-extensionをインストールしましょう。
 
-#### 1-1: chrome-extensionをcloneする
+#### 0-1: chrome-extensionをcloneする
 
 `git clone git@github.com:Fablic/fablic-chrome-extension.git`
 
-#### 1-2: chrome-extensionをインストールする
+#### 0-2: chrome-extensionをインストールする
 
 chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKGithubSupportToolをドラッグ&ドロップでインストールしましょう。
 
-#### 1-3: 株式会社万葉に感謝しつつトレーニングを始める
+#### 0-3: 株式会社万葉に感謝しつつトレーニングを始める
 
 [本家のリポジトリ](https://github.com/everyleaf/el-training)
 
-### ステップ1: Railsの開発環境を構築しよう
+### ステップ1: 開発環境を構築しよう
 
-#### 1-1: Rubyのインストール
+#### 1-1. Dockerのインストール
 
-- [rbenv](https://github.com/rbenv/rbenv)を利用して最新バージョンのRubyをインストールしてください
-- `ruby -v` コマンドでRubyのバージョンが表示されることを確認してください
+- 公式サイトからDockerのアカウントを作ってログインし、DockerHubからダウンロードしてインストールしましょう
+    - https://hub.docker.com/editions/community/docker-ce-desktop-mac
+- `docker-compose -v` コマンドでバージョンが表示されることを確認してください
 
-#### 1-2: Railsのインストール
 
-- GemコマンドでRailsをインストールしましょう
-- 最新バージョンのRailsをインストールしてください
-- `rails -v` コマンドでRailsのバージョンが表示されることを確認してください
-
-#### 1-3: データベース（MySQL）のインストール
-
-- 手元のOSでMySQLをインストールしましょう
-  - macOSの場合は `brew` などでインストールしてください
-
-### ステップ2: GitHubにリポジトリを作成しよう
+#### 1-2. Gitのインストール
 
 - 手元にGitをインストールしましょう
   - macOSの場合は `brew` などでインストールしてください
+    - macOSは初めからインストールされていますが、最新版をインストールすることをお薦めします
   - `gitconfig` でユーザ名、メールアドレスを登録しましょう
-- アプリ名を考えましょう
+
+### ステップ2: リポジトリの初期設定をしよう
+
 - ブランチを作成しましょう
   - masterブランチを元に自分のアカウント名と同じ名前で作成してください
     - `git checkout -b github_account_name origin/master`
@@ -127,13 +122,73 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 
 ### ステップ3: Railsプロジェクトを作成しよう
 
-- `rails new` コマンドでアプリケーションに最低限必要なディレクトリやファイルを作成しましょう
+- 下記コマンドでアプリケーションに最低限必要なディレクトリやファイルを作成しましょう
+    ```sh
+    docker-compose run api rails new . --force --database=mysql --skip-bundle  
+    ```
 - `rails new` してできたプロジェクトのディレクトリ（アプリ名のディレクトリ）の直下に `docs` というディレクトリを作り、この文書ファイルをコミットしましょう
   - このアプリの仕様を管理下に置き、いつでも見られるようにするためです
+- `config/database.yml`を以下のように書き換えて、アプリから接続できるようにしましょう
+    ```yml
+    default: &default
+      adapter: mysql2
+      encoding: utf8mb4
+      pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+      username: root
+      password: password # ここを修正
+      host: db # ここを修正
+    ```
+    - 他の部分はそのままで大丈夫です
+- 以下のコマンドでDockerをビルドしてアプリを立ち上げましょう
+    ```sh
+    docker-compose up --build
+    ```
+    - 以下のように表示されれば正常にアプリが立ち上がっています
+    ```sh
+    api_1  | => Booting Puma
+    api_1  | => Rails 6.0.0 application starting in development 
+    api_1  | => Run `rails server --help` for more startup options
+    api_1  | Puma starting in single mode...
+    api_1  | * Version 3.12.1 (ruby 2.6.4-p104), codename: Llamas in Pajamas
+    api_1  | * Min threads: 5, max threads: 5
+    api_1  | * Environment: development
+    api_1  | * Listening on tcp://0.0.0.0:3000
+    api_1  | Use Ctrl-C to stop
+    ```
+    - `locahost:3001`にアクセスしてみましょう
 - 作成したアプリをGitHub上に作成したブランチにpushしましょう
-- バージョンを明示するため、利用するRubyのバージョンを `Gemfile` に記載しましょう（Railsは既にバージョンが記載されていることを確認しましょう）
 
-### ステップ4: 作りたいアプリケーションのイメージを考える
+### ステップ4: Dockerに慣れましょう
+
+開発中に使うDocker Composeのコマンドは以下の通りです。実際に実行してみて慣れていきましょう。
+
+- アプリを起動する
+    - `docker-compose up`
+        - MySQLとRailsが起動し、ブラウザからアクセスできるようになります
+        - SequelPro等を使ってDBに接続することも可能です。ポートやユーザー情報は`docker-compose.yml`を確認しましょう
+    - `docker-compose up -d`
+        - デーモンで動かす方法です。常に立ち上げた状態にしたければこちらを利用してください。
+        - `docker-compose down`で停止します
+- Railsのコマンドを実行する
+    - `docker-compose exec api xxx`
+        - `docker-compose exec`は立ち上がっているコンテナに命令を実行します
+        - `api`は`docker-compose.yml`の`services`の名前を記載して、コンテナを指定します
+        - `xxx`の部分には`rails c` や `rails db:migrate:status`、 `rails generate xxx` など自由にrailsのコマンドを指定して実行できます
+    - 以後のドキュメントではコマンド実行に`docker-compose exec api`を省略しますので、適宜読み替えてください
+- その他のTips
+    - `docker-compose exec api /bin/bash`
+        - dockerの中に入ります
+    - `docker-compose exec api tail -f log/development.log`
+        - dockerの中には入らずにlogをtailします
+- Dockerでやっていることを理解しましょう
+    - Dockerfile : Dockerを立ち上げて必要なファイルをコピーし、Railsをインストールしたりする処理を定義しています
+    - docker-compose.yml : MySQLとRailsのアプリを連携して起動する処理を定義しています
+        - このファイルに`rails db:create`などの一連の処理が書いてあるので、dockerを立ち上げるだけでRailsが起動してくれます
+- 開発について
+    - ローカルのファイルを変更したらDocker側のファイルも自動で変更されますので、自由なエディタで開発を進めましょう
+    - vimとかRubyMineはdockerプラグインが提供されてます。テストの実行などをIDE上でやりたい場合は、必要なプラグインを入れておきましょう。
+
+### ステップ5: 作りたいアプリケーションのイメージを考える
 
 - 設計を進める前に、どのようなアプリになるか完成イメージを（メンターと一緒に）考えてみましょう。ペーパープロトタイピングによる画面設計などがおすすめです
 - システムの要件を読んで、必要なデータ構造を考えてみましょう
@@ -145,18 +200,6 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 
 ※ 現時点で正解のモデル図を作成する必要はまだありません。現時点での想定として作ってみましょう（今後のステップで間違いと思ったら改修していくイメージです）
 
-### ステップ5: データベースの接続設定（周辺設定）をしましょう
-
-- まずGitで新たにトピックブランチを切りましょう
-  - 以降、トピックブランチ上で作業をしてコミットをしていきます
-- Bundlerをインストールしましょう
-- `Gemfile` で `mysql2` （MySQLのデータベースドライバ）をインストールしましょう
-- `database.yml` の設定をしましょう
-- `rails db:create` コマンドでデータベースの作成をしましょう
-- `rails db` コマンドでデータベースへの接続確認をしましょう
-- GitHub上でPRを作成してレビューしてもらいましょう
-  - コメントがついたらその対応を行ってください。LGTM（Looks Good To Me）が2つついたらmasterブランチにマージしましょう
-
 ### ステップ6: タスクモデルを作成しましょう
 
 タスクを管理するためのCRUDを作成します。
@@ -166,8 +209,9 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 - マイグレーションを作成し、これを用いてテーブルを作成しましょう
   - マイグレーションは1つ前の状態に戻せることを担保できていることが大切です！ `redo` を流して確認する癖をつけましょう
 - `rails c` コマンドでモデル経由でデータベースに接続できることを確認しましょう
-  - この時に試しにActiveRecordでレコードを作成してみる
+  - この時に試しにActiveRecordでレコードを作成してみましょう
 - GitHub上でPRを作成してレビューしてもらいましょう
+  - コメントがついたらその対応を行ってください。LGTM（Looks Good To Me）が2つついたら元のブランチにマージしましょう
 
 ### ステップ7: タスクを登録・更新・削除できるようにしよう
 
