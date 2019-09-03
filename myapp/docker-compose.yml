@@ -9,6 +9,7 @@ services:
       - "3316:3306"
     volumes:
       - db-data:/var/lib/mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
   api:
     build: .
@@ -23,4 +24,6 @@ services:
 
 volumes:
   db-data:
+    driver: local
   bundle-install:
+    driver: local
