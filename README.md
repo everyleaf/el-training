@@ -128,7 +128,7 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
     ```
 - 下記コマンドでアプリケーションに最低限必要なディレクトリやファイルを作成しましょう
     ```sh
-    docker-compose run api rails new . --force --database=mysql
+    docker-compose run api rails new . --force --database=mysql -G
     ```
 - `rails new` してできたプロジェクトのディレクトリ（アプリ名のディレクトリ）の直下に `docs` というディレクトリを作り、この文書ファイルをコミットしましょう
   - このアプリの仕様を管理下に置き、いつでも見られるようにするためです
@@ -137,6 +137,8 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
     default: &default
       adapter: mysql2
       encoding: utf8mb4
+      charset: utf8mb4 # ここを追加
+      collation: utf8mb4_general_ci # ここを追加
       pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
       username: root
       password: password # ここを修正
