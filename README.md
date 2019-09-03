@@ -188,6 +188,8 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
     - Dockerfile : Dockerを立ち上げて必要なファイルをコピーし、Railsをインストールしたりする処理を定義しています
     - docker-compose.yml : MySQLとRailsのアプリを連携して起動する処理を定義しています
         - このファイルに`rails db:create`などの一連の処理が書いてあるので、dockerを立ち上げるだけでRailsが起動してくれます
+    - mysqlにはローカルから次のコマンドで接続できます `mysql -h 127.0.0.1 -u root -p -P 3316`
+        - sequel proなどのツールも上記の設定で接続可能です
 - 開発について
     - ローカルのファイルを変更したらDocker側のファイルも自動で変更されますので、自由なエディタで開発を進めましょう
     - vimとかRubyMineはdockerプラグインが提供されてます。テストの実行などをIDE上でやりたい場合は、必要なプラグインを入れておきましょう。
