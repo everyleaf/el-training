@@ -185,7 +185,7 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
   - `spec/spec_helper.rb` 、 `spec/rails_helper.rb` を用意しましょう
 - feature specをタスク機能に対して書きましょう
 - Circle CIなどのCIツールを導入して、Slackに通知するようにしましょう
-  - オプションですが、メンターが利便性のために追加しても可です
+  - Fablic/training内でPRのやり取りをする場合、CIツールの導入は任意(optional)です。CircleCIのAdmin権限が無いので、`.circleci/config.yml`を設定しても実行できないです。
 - 参考書籍：https://leanpub.com/everydayrailsrspec-jp
 
 ### ステップ9: アプリの各種設定を行いましょう
