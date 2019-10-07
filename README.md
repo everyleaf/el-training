@@ -179,11 +179,11 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 - GitHub上でPRを作成してレビューしてもらいましょう
   - 今後、PRが大きくなりそうだったらPRを2回以上に分けることを検討しましょう
 
-### ステップ8: テスト~~（feature spec）~~ (system spec)を書こう
+### ステップ8: テスト(system spec)を書こう
 
 - specを書くための準備をしましょう
   - `spec/spec_helper.rb` 、 `spec/rails_helper.rb` を用意しましょう
-- ~~feature~~ system specをタスク機能に対して書きましょう
+- ~~feature spec~~ system specをタスク機能に対して書きましょう
   - Rails 5.1 以降、新たにsystem testの機能を追加しました
     - [日本語](https://qiita.com/jnchito/items/c7e6e7abf83598a6516d), [英語](https://rossta.net/blog/why-rails-system-tests-matter.html)
   - feature specですと `database_cleaner` という gemは必要でしたが、 system specに変更することで `database_cleaner` の導入が要らなくなった
