@@ -24,6 +24,10 @@ Things you may want to cover:
 * ...
 
 ## Step 4
+
+### Prototype
+![Prototype](https://user-images.githubusercontent.com/56104871/66543380-320ba800-eb70-11e9-9d31-067d3ab5f148.JPG)
+
 ### Database Schema
 
 ![ER](https://user-images.githubusercontent.com/56104871/66542062-6c734600-eb6c-11e9-9ffe-1b517a179a7b.JPG)
