@@ -31,7 +31,7 @@ Things you may want to cover:
 
 user
 |name        |type    |
-|------------|--------|
+----|----
 |id(PK)      |int     |
 |name        |varchar |
 |deleted     |datetime|
@@ -39,7 +39,7 @@ user
 
 auth_information
 |name           |type    |
-|---------------|--------|
+----|----
 |user_id(PK&FK) |int     |
 |login_id       |varchar |
 |password       |varchar |
@@ -47,7 +47,7 @@ auth_information
 
 task
 |name        |type    |
-|------------|--------|
+----|----
 |id(PK)      |int     |
 |name        |varchar |
 |description |text    |
@@ -59,7 +59,7 @@ task
 
 intermediate table
 |name            |type   |
-|----------------|-------|
+----|----
 |task_id(PK&FK)  |int    |
 |label_id(PK&FK) |int    |
 |id              |int    |
@@ -67,6 +67,6 @@ intermediate table
 
 label
 |name         |type   |
-|-------------|-------|
+----|----
 |id(PK)       |int    |
 |name         |varchar|
