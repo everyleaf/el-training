@@ -30,43 +30,43 @@ Things you may want to cover:
 
 
 user
-|name        |type    |
+| name        | type     |
 ----|----
-|id(PK)      |int     |
-|name        |varchar |
-|deleted     |datetime|
+| id(PK)      | int      |
+| name        | varchar  |
+| deleted     | datetime |
 
 
 auth_information
-|name           |type    |
+| name           | type    |
 ----|----
-|user_id(PK&FK) |int     |
-|login_id       |varchar |
-|password       |varchar |
+| user_id(PK&FK) | int     |
+| login_id       | varchar |
+| password       | varchar |
 
 
 task
-|name        |type    |
+| name        | type     |
 ----|----
-|id(PK)      |int     |
-|name        |varchar |
-|description |text    |
-|user_id(FK) |int     |
-|priority    |varchar |
-|status      |varchar |
-|due         |datetime|
+| id(PK)      | int      |
+| name        | varchar  |
+| description | text     |
+| user_id(FK) | int      |
+| priority    | varchar  |
+| status      | varchar  |
+| due         | datetime |
 
 
 intermediate table
-|name            |type   |
+| name            | type   |
 ----|----
-|task_id(PK&FK)  |int    |
-|label_id(PK&FK) |int    |
-|id              |int    |
+| task_id(PK&FK)  | int    |
+| label_id(PK&FK) | int    |
+| id              | int    |
 
 
 label
-|name         |type   |
+| name         | type    |
 ----|----
-|id(PK)       |int    |
-|name         |varchar|
+| id(PK)       | int     |
+| name         | varchar |
