@@ -26,4 +26,4 @@ Things you may want to cover:
 ## Step 4
 ### Database Schema
 
-![ER](https://user-images.githubusercontent.com/56104871/66541792-734d8900-eb6b-11e9-8c51-40288b2021bf.jpg)
+![ER](https://user-images.githubusercontent.com/56104871/66542062-6c734600-eb6c-11e9-9ffe-1b517a179a7b.JPG)
