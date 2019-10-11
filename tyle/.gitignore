@@ -33,3 +33,6 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# I added
+vendor/bundle
