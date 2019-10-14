@@ -12,7 +12,7 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: sample_mysql_development
+  database: tyle_development
   pool: 5
   username: root
   password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
@@ -25,7 +25,7 @@ test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: sample_mysql_test
+  database: tyle_test
   pool: 5
   username: root
   password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
@@ -35,7 +35,7 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: sample_mysql_production
+  database: tyle_production
   pool: 5
   username: root
   password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
