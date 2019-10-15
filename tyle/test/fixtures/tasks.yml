@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  user: one
+  priority: 1
+  status: 1
+  due: 2019-10-15 11:19:47
+  deleted_at: 2019-10-15 11:19:47
+
+two:
+  name: MyString
+  description: MyText
+  user: two
+  priority: 1
+  status: 1
+  due: 2019-10-15 11:19:47
+  deleted_at: 2019-10-15 11:19:47
