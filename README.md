@@ -8,6 +8,8 @@
   - 新入社員教育用カリキュラムのドキュメントです
 - [docs/topics.md](/docs/topics.md)
   - カリキュラムに具体的には含まれていませんが、知ってほしいトピックをまとめたドキュメントです
+- [docs/optional_issues.md](/docs//optional_issues.md)
+  - オプション課題をまとめたドキュメントです
 
 ## ライセンス
 
