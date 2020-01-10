@@ -212,7 +212,9 @@
 
 - specを書くための準備をしましょう
   - `spec/spec_helper.rb` 、 `spec/rails_helper.rb` を用意しましょう
-- system specをタスク機能に対して書きましょう
+- model specをバリデーションに対して書いてみましょう
+  - 実際はそれほどバリデーションのテストは書きませんが、model spec への理解を深めるためにやってみましょう
+- system specをタスク機能に対して書いてみましょう
 - Circle CIなどのCIツールを導入して、Slackに通知するようにしましょう
   - 難易度を考えて、サポーターが実施する形でも構いません。
 - 参考書籍：https://leanpub.com/everydayrailsrspec-jp
