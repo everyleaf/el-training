@@ -208,7 +208,7 @@
 - ActiveRecordのメソッドでどういうSQLが実行されるか確認してみましょう
   - `rails c` で `find` や `where` などを実行してみましょう
 
-### ステップ9: E2Eテストを書こう
+### ステップ9: テストを書こう
 
 - specを書くための準備をしましょう
   - `spec/spec_helper.rb` 、 `spec/rails_helper.rb` を用意しましょう
