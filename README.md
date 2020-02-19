@@ -161,7 +161,7 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
     api_1  | * Listening on tcp://0.0.0.0:3000
     api_1  | Use Ctrl-C to stop
     ```
-    - `locahost:3001`にアクセスしてみましょう
+    - `localhost:3001`にアクセスしてみましょう
 - 作成したアプリをGitHub上に作成したブランチにpushしましょう
 
 ### ステップ4: Dockerに慣れましょう
