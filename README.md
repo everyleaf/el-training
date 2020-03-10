@@ -19,5 +19,5 @@
 
 ## Language Supports
 
-- マンダリン（繁体字：zh_TW）
+- マンダリン（繁體字：zh_TW）
   - https://github.com/5xruby/5xtraining （@jodeci 様ありがとうございます！）
