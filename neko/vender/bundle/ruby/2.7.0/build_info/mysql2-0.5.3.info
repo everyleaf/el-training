@@ -1,0 +1,2 @@
+--with-ldflags=-L/usr/local/opt/openssl/lib
+--with-cppflags=-I/usr/local/opt/openssl/include

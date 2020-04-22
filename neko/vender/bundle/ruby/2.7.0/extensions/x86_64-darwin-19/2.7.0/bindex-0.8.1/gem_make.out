@@ -1,0 +1,15 @@
+current directory: /Users/takumi.c.yoshida/Development/training/neko/vender/bundle/ruby/2.7.0/gems/bindex-0.8.1/ext/skiptrace
+/Users/takumi.c.yoshida/.rbenv/versions/2.7.1/bin/ruby -I /Users/takumi.c.yoshida/.rbenv/versions/2.7.1/lib/ruby/2.7.0 -r ./siteconf20200422-87244-14r1x9n.rb extconf.rb
+creating Makefile
+
+current directory: /Users/takumi.c.yoshida/Development/training/neko/vender/bundle/ruby/2.7.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR=" clean
+
+current directory: /Users/takumi.c.yoshida/Development/training/neko/vender/bundle/ruby/2.7.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR="
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.bundle
+
+current directory: /Users/takumi.c.yoshida/Development/training/neko/vender/bundle/ruby/2.7.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 cruby.bundle ./.gem.20200422-87244-35m6fo/skiptrace/internal
