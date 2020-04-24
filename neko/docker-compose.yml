@@ -1,0 +1,16 @@
+version: '3'
+services:
+  db:
+    container_name: neko-db
+    image: mysql:5.6
+    restart: always
+    env_file: .env
+    environment: 
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      TZ: "Asia/Tokyo"
+    ports: 
+      - "3316:3306"
+    volumes:
+      - ./db/mysql/initdb.d:/docker-entrypoint-initdb.d
+      - ./db/mysql/conf.d:/etc/mysql/conf.d
+      - ./db/mysql/data:/var/lib/mysql

@@ -29,3 +29,7 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Ignore docker config & mysql data
+.env
+/db/mysql/data/
