@@ -4,8 +4,21 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+### Rails ###
+*.rbc
+capybara-*.html
+.rspec
+/db/mysql/data/*
+/public/system
+/coverage/
+/spec/tmp
+*.orig
+rerun.txt
+pickle-email-*.html
+
 # Ignore bundler config.
 /.bundle
+vendor/bundle
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -17,19 +30,43 @@
 /storage/*
 !/storage/.keep
 
-/public/assets
-.byebug_history
-
 # Ignore master key for decrypting credentials and more.
+/config/initializers/secret_token.rb
 /config/master.key
 
+# Ignore precompiled javascript packs
 /public/packs
 /public/packs-test
-/node_modules
+/public/assets
+
+# Ignore node_modules
+node_modules/
+
+# Ignore yarn files
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
 
-# Ignore docker config & mysql data
+# Ignore dotenv
 .env
-/db/mysql/data/
+.env.*
+
+# Ignore uploaded files in development
+/storage/*
+!/storage/.keep
+
+
+### Optional ###
+# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
+.rvmrc
+
+# if using bower-rails ignore default bower_components path bower.json files
+/vendor/assets/bower_components
+*.bowerrc
+bower.json
+
+# Ignore pow environment settings
+.powenv
+
+# Ignore Byebug command history file.
+.byebug_history
