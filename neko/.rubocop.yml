@@ -1,0 +1,61 @@
+inherit_from: .rubocop_todo.yml
+
+# 規約ファイル読込
+require:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 2.7.1
+  NewCops: enable
+  Exclude:
+    - 'config.ru'
+    - 'bin/**'
+    - 'lib/**'
+    - 'node_modules/**/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'vendor/**/*'
+    - !ruby/regexp /old_and_unused\.rb$/
+
+# 日本語コメントを許可
+AsciiComments:
+  Enabled: false
+
+# クラスのコメント必須を無視
+Documentation:
+  Enabled: false
+
+# モジュール名::クラス名の定義を許可
+ClassAndModuleChildren:
+  Enabled: false
+
+# 文字リテラルのイミュータブル宣言を無視
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+### For rubocop < 1.0.0 ###
+
+# raiseかfailでExceptionクラスを呼んでいないかチェック
+Lint/RaiseException:
+  Enabled: true
+
+# Struct.newでつくった構造体が予期せぬオーバーライドをされていないかチェック
+Lint/StructNewOverride:
+  Enabled: true
+
+# コード内の数値を指数記法で表記する際の一貫性を強制
+Style/ExponentialNotation:
+  Enabled: true
+
+# each_key、each_valueハッシュメソッドの使用をチェック
+Style/HashEachMethods:
+  Enabled: true
+
+# transform_keysを呼び出すメソッドが偽陽性を生み出していないかチェック
+Style/HashTransformKeys:
+  Enabled: true
+
+# transform_valuesを呼び出すメソッドが偽陽性を生み出していないかチェック
+Style/HashTransformValues:
+  Enabled: true
