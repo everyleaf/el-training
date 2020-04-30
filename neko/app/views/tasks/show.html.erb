@@ -1,2 +1,8 @@
-<h1>Tasks#show</h1>
-<p>Find me in app/views/tasks/show.html.erb</p>
+<h1>タスク詳細</h1>
+
+<h2><%= @task.name %></h2>
+<p><%= @task.description %></p>
+
+<%= link_to 'Back', tasks_path %>
+<%= link_to 'Edit', edit_task_path(@task) %>
+<%= link_to 'Delete', task_path(@task), method: :delete, data: { confirm: 'タスクを削除しますか？' } %>

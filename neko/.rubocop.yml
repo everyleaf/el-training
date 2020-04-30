@@ -59,3 +59,8 @@ Style/HashTransformKeys:
 # transform_valuesを呼び出すメソッドが偽陽性を生み出していないかチェック
 Style/HashTransformValues:
   Enabled: true
+
+# 行数の文字数のチェックをspec/配下では行わない
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'

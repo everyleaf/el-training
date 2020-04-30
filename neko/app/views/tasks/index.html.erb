@@ -1,2 +1,20 @@
-<h1>Tasks#index</h1>
-<p>Find me in app/views/tasks/index.html.erb</p>
+<h1>タスク一覧</h1>
+
+<%= link_to 'タスクの作成', new_task_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>名前</th>
+      <th>説明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= link_to task.name, task %></td>
+        <td><%= task.description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
