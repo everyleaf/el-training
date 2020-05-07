@@ -1,0 +1,15 @@
+ja:
+  tasks:
+    index: 
+      title: 'タスク一覧'
+    show:
+      title: 'タスク詳細'
+    edit:
+      title: 'タスク編集'
+    new:
+      title: 'タスク作成'
+    common:
+      edit: '編集'
+      delete: '削除'
+      back: '戻る'
+      back: '戻る'

@@ -1,12 +1,11 @@
-<h1>タスク一覧</h1>
-
+<h1><%= t '.title' %></h1>
 <%= link_to 'タスクの作成', new_task_path %>
 
 <table>
   <thead>
     <tr>
-      <th>名前</th>
-      <th>説明</th>
+      <th><%= Task.human_attribute_name(:name) %></th>
+      <th><%= Task.human_attribute_name(:description) %></th>
     </tr>
   </thead>
   <tbody>
