@@ -6,7 +6,7 @@ describe 'task', type: :system do
     context 'accress root' do
       it 'should be success to access the task list' do
         visit tasks_path
-        
+
         expect(page).to have_content 'タスク一覧'
         expect(page).to have_content '名前'
         expect(page).to have_content '説明'
