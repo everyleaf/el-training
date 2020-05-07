@@ -1,15 +1,15 @@
 <%= form_for(task) do |f| %>
   <div class="form">
     <div>
-      <div><%= f.label Task.human_attribute_name(:name) %></div>
+      <div><%= f.label :name %></div>
       <div><%= f.text_field :name %></div>
     </div>
     <div>
-      <div><%= f.label Task.human_attribute_name(:description) %></div>
+      <div><%= f.label :description %></div>
       <div><%= f.text_area :description %></div>
     </div>
     <div>
-      <%= f.submit%>
+      <%= f.submit %>
     </div>
   </div>
 <% end %>
