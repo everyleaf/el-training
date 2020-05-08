@@ -11,8 +11,8 @@
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
-        <td><%= link_to task.name, task %></td>
-        <td><%= task.description %></td>
+        <td class="task-name"><%= link_to task.name, task %></td>
+        <td class="task-description"><%= task.description %></td>
       </tr>
     <% end %>
   </tbody>
