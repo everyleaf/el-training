@@ -1,0 +1,31 @@
+@import "paws";
+
+$error-color: #212121;
+
+.error-wrapper {
+  text-align: center;
+  width: 100%;
+}
+
+.error-dialog {
+  margin-top: 100px;
+  min-width: 280px;
+  position: relative;
+  display: inline-block;
+  
+  .paws {
+    @include paws($error-color)
+  }
+
+  h1 {
+    font-size: 110px;
+    color: $error-color;
+    margin: 0 0 10px 110px;
+  }
+
+  p {
+    font-size: 20px;
+    color: lighten($error-color, 20%);
+    margin: 0;
+  }
+}
