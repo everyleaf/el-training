@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe 'task', type: :system do
-  let(:task) { FactoryBot.create(:task) }
+  let!(:task) { FactoryBot.create(:task) }
+
   describe '#index' do
     context 'accress root' do
       it 'should be success to access the task list' do
