@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'task', type: :system do
-  let!(:task) { FactoryBot.create(:task) }
+  let!(:task) { create(:task) }
 
   describe '#index' do
     context 'accress root' do
@@ -61,9 +61,15 @@ describe 'task', type: :system do
         visit task_path(task.id)
 
         # confirm dialog
+        page.dismiss_confirm do
+          click_on 'Delete'
+          expect(page.driver.browser.switch_to.alert.text).to eq 'タスクを削除しますか？'
+        end
+
         page.accept_confirm do
           click_on 'Delete'
         end
+
         expect(page).to have_content 'タスクを削除しました'
       end
     end
