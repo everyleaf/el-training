@@ -6,6 +6,8 @@ ja:
       task:
         name: 名前
         description: 説明
+        have_a_due: 期日を設定する
+        due_at: 期日
   attributes:
     id: ID
     created_at: 作成日時
@@ -13,3 +15,6 @@ ja:
   errors:
     messages:
       blank: "を入力してください"
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M"
