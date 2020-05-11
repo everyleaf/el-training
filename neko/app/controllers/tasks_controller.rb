@@ -1,8 +1,13 @@
 class TasksController < ApplicationController
+  helper_method :sort_column, :sort_direction
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = if sort_column == 'due_at'
+               Task.all.order(have_a_due: :desc).order(sort_column + ' ' + sort_direction)
+             else
+               Task.all.order(sort_column + ' ' + sort_direction)
+             end
   end
 
   def new
@@ -53,5 +58,13 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:name, :description, :due_at, :have_a_due)
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+  end
+
+  def sort_column
+    Task.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
   end
 end

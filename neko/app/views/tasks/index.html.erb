@@ -4,9 +4,10 @@
 <table>
   <thead>
     <tr>
-      <th><%= Task.human_attribute_name(:name) %></th>
-      <th><%= Task.human_attribute_name(:description) %></th>
-      <th><%= Task.human_attribute_name(:due_at) %></th>
+      <th><%= sortable 'name', Task.human_attribute_name(:name) %></th>
+      <th><%= sortable 'description', Task.human_attribute_name(:description) %></th>
+      <th><%= sortable 'due_at', Task.human_attribute_name(:due_at) %></th>
+      <th><%= sortable 'created_at', Task.human_attribute_name(:created_at) %></th>
     </tr>
   </thead>
   <tbody>
@@ -18,6 +19,7 @@
         <% if task.have_a_due then %>
           <%= l task.due_at %>
         <% end %>
+        <td class="task-created_at"><%= l task.created_at %></td>
         </td>
       </tr>
     <% end %>
