@@ -8,6 +8,13 @@
       <div><%= f.label :description %></div>
       <div><%= f.text_area :description %></div>
     </div>
+    <div class="hidden-box">
+      <%= f.check_box :have_a_due %>
+      <%= f.label :due_at %>
+      <div class="hidden">
+        <%= f.datetime_local_field :due_at %>
+      </div>
+    </div>
     <div>
       <%= f.submit %>
     </div>

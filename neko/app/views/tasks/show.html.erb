@@ -1,6 +1,12 @@
 <h1><%= t '.title' %></h1>
 <h2><%= @task.name %></h2>
 <p><%= @task.description %></p>
+<p><%= @task.description %></p>
+<p><% if @task.have_a_due then %>
+  <%= l @task.due_at %>
+<% else %>
+  期限なし
+<% end %></p>
 
 <%= link_to t('tasks.common.back'), tasks_path %>
 <%= link_to t('tasks.common.edit'), edit_task_path(@task) %>

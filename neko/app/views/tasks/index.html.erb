@@ -6,6 +6,7 @@
     <tr>
       <th><%= Task.human_attribute_name(:name) %></th>
       <th><%= Task.human_attribute_name(:description) %></th>
+      <th><%= Task.human_attribute_name(:due_at) %></th>
     </tr>
   </thead>
   <tbody>
@@ -13,6 +14,11 @@
       <tr>
         <td class="task-name"><%= link_to task.name, task %></td>
         <td class="task-description"><%= task.description %></td>
+        <td class="task-due_at">
+        <% if task.have_a_due then %>
+          <%= l task.due_at %>
+        <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

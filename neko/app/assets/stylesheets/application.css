@@ -13,3 +13,10 @@
  *= require_tree .
  *= require_self
  */
+
+.hidden {
+  display: none;
+}
+.hidden-box input:checked ~ .hidden {
+  display: block;
+}
