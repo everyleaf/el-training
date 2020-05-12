@@ -39,7 +39,7 @@ describe 'task', type: :system do
 
     context "click '作成日'" do
       it 'is toggle sorting by creation date' do
-        created_at = tasks.map { |h| I18n.l(h[:created_at])}.sort { |a, b| b <=> a }
+        created_at = tasks.map { |h| I18n.l(h[:created_at]) }.sort { |a, b| b <=> a }
         click_on '作成日'
         expect(page.all('.task-created_at').map(&:text)).to eq created_at
         click_on '作成日'

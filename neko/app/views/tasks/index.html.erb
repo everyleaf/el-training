@@ -16,11 +16,9 @@
         <td class="task-name"><%= link_to task.name, task %></td>
         <td class="task-description"><%= task.description %></td>
         <td class="task-due_at">
-        <% if task.have_a_due then %>
-          <%= l task.due_at %>
-        <% end %>
-        <td class="task-created_at"><%= l task.created_at %></td>
+          <%= l task.due_at if task.have_a_due %>
         </td>
+        <td class="task-created_at"><%= l task.created_at %></td>
       </tr>
     <% end %>
   </tbody>
