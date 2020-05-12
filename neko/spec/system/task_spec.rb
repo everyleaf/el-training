@@ -13,7 +13,7 @@ describe 'task', type: :system do
         expect(page).to have_content '説明'
       end
 
-      it 'tasks should be arrange in descending date order' do
+      it 'tasks should be arranged in descending date order' do
         expect(page.all('.task-name').map(&:text)).to eq tasks.map { |h| h[:name] }.reverse
       end
     end
