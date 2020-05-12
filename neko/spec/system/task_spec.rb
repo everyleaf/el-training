@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'task', type: :system do
-  let!(:task) { create_list(:task, 5) }
+  let!(:tasks) { create_list(:task, 5) }
 
   describe '#index' do
     context 'accress root' do
@@ -15,7 +15,8 @@ describe 'task', type: :system do
       end
 
       it 'tasks should be arranged in descending date order' do
-        expect(page.all('.task-name').map(&:text)).to eq tasks.map { |h| h[:name] }.reverse
+        order = tasks.map { |h| I18n.l(h[:created_at]) }.sort { |a, b| a <=> b }
+        expect(page.all('.task-created_at').map(&:text)).to eq order
       end
     end
   end

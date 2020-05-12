@@ -14,7 +14,7 @@
       <tr>
         <td class="task-name"><%= task.name %></td>
         <td class="task-description"><%= task.description %></td>
-        <td class="task-created_at"><%= task.created_at %></td>
+        <td class="task-created_at"><%= I18n.l(task.created_at) %></td>
       </tr>
     <% end %>
   </tbody>

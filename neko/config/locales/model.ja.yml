@@ -13,3 +13,6 @@ ja:
   flash:
     succeeded: "%{target}を%{action}しました"
     failed: "%{target}の%{action}に失敗しました"
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M"
