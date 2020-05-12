@@ -62,7 +62,7 @@ describe 'task', type: :system do
 
         # confirm dialog
         page.dismiss_confirm do
-          click_on 'Delete'
+          click_on '削除'
           expect(page.driver.browser.switch_to.alert.text).to eq 'タスクを削除しますか？'
         end
 

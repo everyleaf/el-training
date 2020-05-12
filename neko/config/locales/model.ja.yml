@@ -10,3 +10,6 @@ ja:
     id: ID
     created_at: 作成日時
     updated_at: 更新日時
+  flash:
+    succeeded: "%{target}を%{action}しました"
+    failed: "%{target}の%{action}に失敗しました"

@@ -1,7 +1,7 @@
-<h1><%= t '.title' %></h1>
+<h1><%= I18n.t('tasks.show.title') %></h1>
 <h2><%= @task.name %></h2>
 <p><%= @task.description %></p>
 
-<%= link_to t('tasks.common.back'), tasks_path %>
-<%= link_to t('tasks.common.edit'), edit_task_path(@task) %>
-<%= link_to t('tasks.common.delete'), task_path(@task), method: :delete, data: { confirm: 'タスクを削除しますか？' } %>
+<%= link_to I18n.t('back'), tasks_path %>
+<%= link_to I18n.t('edit'), edit_task_path(@task) %>
+<%= link_to I18n.t('delete'), task_path(@task), method: :delete, data: { confirm: I18n.t('tasks.delete.confirm') } %>

@@ -1,5 +1,5 @@
-<h1><%= t '.title' %></h1>
-<%= link_to 'タスクの作成', new_task_path %>
+<h1><%= I18n.t('tasks.index.title') %></h1>
+<%= link_to I18n.t('tasks.new.title'), new_task_path %>
 
 <table>
   <thead>
