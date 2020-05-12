@@ -1,18 +1,20 @@
-<h1><%= t '.title' %></h1>
-<%= link_to 'タスクの作成', new_task_path %>
+<h1><%= I18n.t('tasks.index.title') %></h1>
+<%= link_to I18n.t('tasks.new.title'), new_task_path %>
 
 <table>
   <thead>
     <tr>
       <th><%= Task.human_attribute_name(:name) %></th>
       <th><%= Task.human_attribute_name(:description) %></th>
+      <th><%= Task.human_attribute_name(:created_at) %></th>
     </tr>
   </thead>
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
-        <td class="task-name"><%= link_to task.name, task %></td>
+        <td class="task-name"><%= link_to task.name, task%></td>
         <td class="task-description"><%= task.description %></td>
+        <td class="task-created_at"><%= I18n.l(task.created_at) %></td>
       </tr>
     <% end %>
   </tbody>
