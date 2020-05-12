@@ -4,9 +4,8 @@ describe 'task', type: :system do
   let!(:tasks) { FactoryBot.create_list(:task, 5) }
 
   describe '#index' do
+    before { visit tasks_path }
     context 'accress root' do
-      before { visit tasks_path }
-
       it 'should be success to access the task list' do
         expect(page).to have_content 'タスク一覧'
         expect(page).to have_content '名前'
@@ -15,6 +14,64 @@ describe 'task', type: :system do
 
       it 'tasks should be arrange in descending date order' do
         expect(page.all('.task-name').map(&:text)).to eq tasks.map { |h| h[:name] }.reverse
+      end
+    end
+
+    context "click '名前'" do
+      it 'is toggle sorting by task name' do
+        names = tasks.map { |h| h[:name] }.sort { |a, b| b <=> a }
+        click_on '名前'
+        expect(page.all('.task-name').map(&:text)).to eq names
+        click_on '名前'
+        expect(page.all('.task-name').map(&:text)).to eq names.reverse
+      end
+    end
+
+    context "click '説明'" do
+      it 'is toggle sorting by task description' do
+        descriptions = tasks.map { |h| h[:description] }.sort { |a, b| b <=> a }
+        click_on '説明'
+        expect(page.all('.task-description').map(&:text)).to eq descriptions
+        click_on '説明'
+        expect(page.all('.task-description').map(&:text)).to eq descriptions.reverse
+      end
+    end
+
+    context "click '作成日'" do
+      it 'is toggle sorting by creation date' do
+        created_at = tasks.map { |h| I18n.l(h[:created_at])}.sort { |a, b| b <=> a }
+        click_on '作成日'
+        expect(page.all('.task-created_at').map(&:text)).to eq created_at
+        click_on '作成日'
+        expect(page.all('.task-created_at').map(&:text)).to eq created_at.reverse
+      end
+    end
+
+    context "click '期限'" do
+      it 'is toggle sorting by due time' do
+        due_desc = []
+        i = tasks.length
+        tasks.each do |t|
+          if t.have_a_due
+            due_desc.push I18n.l(t.due_at)
+            i -= 1
+          end
+        end
+
+        # sorting by deadline
+        due_desc = due_desc.sort { |a, b| b <=> a }
+        due_asc = due_desc.reverse
+
+        # reordering of unspecified deadlines
+        i.times do
+          due_desc.push ''
+          due_asc.push ''
+        end
+
+        click_on '期限'
+        expect(page.all('.task-due_at').map(&:text)).to eq due_desc
+        click_on '期限'
+        expect(page.all('.task-due_at').map(&:text)).to eq due_asc
       end
     end
   end
