@@ -11,6 +11,7 @@ describe 'task', type: :system do
         expect(page).to have_content 'タスク一覧'
         expect(page).to have_content '名前'
         expect(page).to have_content '説明'
+        expect(page).to have_content '作成日'
       end
 
       it 'tasks should be arranged in descending date order' do
