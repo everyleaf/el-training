@@ -1,0 +1,27 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: /bin/sh -c "rm -rf ./tmp/pids/server.pid && bundle exec rails s -p 3000 -b 0.0.0.0"
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+      - bundle-volume:/usr/local/bundle
+      - node-modules-volume:/app/node_modules
+  db:
+    image: mysql:5.7
+    volumes:
+      - db-volume:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+volumes:
+  bundle-volume:
+  node-modules-volume:
+  db-volume:
