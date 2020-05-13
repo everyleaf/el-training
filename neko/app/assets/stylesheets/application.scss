@@ -1,0 +1,14 @@
+/*
+ *= require_tree .
+ *= require_self
+ */
+
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "bootstrap";
+
+.hidden {
+  display: none;
+}
+.hidden-box input:checked ~ .hidden {
+  display: block;
+}
