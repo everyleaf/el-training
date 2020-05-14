@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'task', type: :system do
-  let!(:tasks) { FactoryBot.create_list(:task, 5) }
+  let!(:tasks) { create_list(:task, 5) }
 
   describe '#index' do
     before { visit tasks_path }
@@ -10,10 +10,12 @@ describe 'task', type: :system do
         expect(page).to have_content 'タスク一覧'
         expect(page).to have_content '名前'
         expect(page).to have_content '説明'
+        expect(page).to have_content '作成日'
       end
 
-      it 'tasks should be arrange in descending date order' do
-        expect(page.all('.task-name').map(&:text)).to eq tasks.map { |h| h[:name] }.reverse
+      it 'tasks should be arranged in descending date order' do
+        order = tasks.map { |h| I18n.l(h[:created_at]) }.sort { |a, b| a <=> b }
+        expect(page.all('.task-created_at').map(&:text)).to eq order
       end
     end
 
@@ -141,9 +143,15 @@ describe 'task', type: :system do
         visit task_path(tasks[0].id)
 
         # confirm dialog
+        page.dismiss_confirm do
+          click_on '削除'
+          expect(page.driver.browser.switch_to.alert.text).to eq 'タスクを削除しますか？'
+        end
+
         page.accept_confirm do
           click_on '削除'
         end
+
         expect(page).to have_content 'タスクを削除しました'
       end
     end

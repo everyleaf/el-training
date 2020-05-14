@@ -1,5 +1,5 @@
-<h1><%= t '.title' %></h1>
-<%= link_to 'タスクの作成', new_task_path %>
+<h1><%= I18n.t('tasks.index.title') %></h1>
+<%= link_to I18n.t('tasks.new.title'), new_task_path %>
 
 <table>
   <thead>
@@ -13,12 +13,12 @@
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
-        <td class="task-name"><%= link_to task.name, task %></td>
+        <td class="task-name"><%= link_to task.name, task%></td>
         <td class="task-description"><%= task.description %></td>
         <td class="task-due_at">
-          <%= l task.due_at if task.have_a_due %>
+          <%= I18n.l(task.due_at) if task.have_a_due %>
         </td>
-        <td class="task-created_at"><%= l task.created_at %></td>
+        <td class="task-created_at"><%= I18n.l(task.created_at) %></td>
       </tr>
     <% end %>
   </tbody>

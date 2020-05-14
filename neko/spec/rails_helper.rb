@@ -73,4 +73,7 @@ RSpec.configure do |config|
       end
     end
   end
+
+  # 'FactoryBot.' can be omitted.
+  config.include FactoryBot::Syntax::Methods
 end
