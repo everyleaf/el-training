@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'task', type: :system do
   let!(:statuses) { [FactoryBot.create(:not_proceed), FactoryBot.create(:in_progress), FactoryBot.create(:done)] }
   let!(:task1) { create(:task, name: 'task1', description: 'a', have_a_due: true, due_at: Time.zone.local(2020, 9, 30, 17, 30), status: statuses[1]) }
-  let!(:task2) { create(:task, name: 'task2', description: 'c', have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15), status: statuses[0]) }
-  let!(:task3) { create(:task, name: 'task3', description: 'b', have_a_due: true, due_at: Time.zone.local(2020, 8, 15, 16, 59), status: statuses[2]) }
+  let!(:task2) { create(:task, name: 'task2', description: 'c', have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15), status: statuses[2]) }
+  let!(:task3) { create(:task, name: 'task3', description: 'b', have_a_due: true, due_at: Time.zone.local(2020, 8, 15, 16, 59), status: statuses[0]) }
 
   describe '#index' do
     before { visit tasks_path }
@@ -29,7 +29,8 @@ describe 'task', type: :system do
           { button: '名前', order: %w[task3 task2 task1] },
           { button: '説明', order: %w[task2 task3 task1] },
           { button: '作成日', order: %w[task3 task2 task1] },
-          { button: '期限', order: %w[task1 task3 task2], order2: %w[task3 task1 task2] }
+          { button: '期限', order: %w[task1 task3 task2], order2: %w[task3 task1 task2] },
+          { button: 'ステータス', order: %w[task2 task1 task3] }
         ]
 
         cases.each do |c|
@@ -39,6 +40,20 @@ describe 'task', type: :system do
           click_on c[:button]
           c[:order2] = c[:order].reverse if c[:order2].nil?
           expect(page.all('.task-name').map(&:text)).to eq c[:order2]
+        end
+      end
+    end
+
+    context 'click item name' do
+      it 'reorders the tasks based on items' do
+        cases = %w[未着手 着手中 完了]
+        cases.each do |c|
+          select(c, from: 'status_id')
+          click_on '検索'
+
+          page.all('.task-status').map(&:text).each do |s|
+            expect(s).to eq c
+          end
         end
       end
     end
