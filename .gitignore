@@ -18,7 +18,7 @@
 !/training/storage/.keep
 
 /training/public/assets
-/training/.byebug_history
+/training/byebug_history
 
 # Ignore master key for decrypting credentials and more.
 /training/config/master.key
