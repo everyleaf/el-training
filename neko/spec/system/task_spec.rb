@@ -1,7 +1,10 @@
 require 'rails_helper'
 
 describe 'task', type: :system do
-  let!(:tasks) { create_list(:task, 5) }
+  let!(:statuses) { [FactoryBot.create(:not_proceed), FactoryBot.create(:in_progress), FactoryBot.create(:done)] }
+  let!(:task1) { create(:task, name: 'task1', description: 'a', have_a_due: true, due_at: Time.zone.local(2020, 9, 30, 17, 30), status: statuses[1]) }
+  let!(:task2) { create(:task, name: 'task2', description: 'c', have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15), status: statuses[2]) }
+  let!(:task3) { create(:task, name: 'task3', description: 'b', have_a_due: true, due_at: Time.zone.local(2020, 8, 15, 16, 59), status: statuses[0]) }
 
   describe '#index' do
     before { visit tasks_path }
@@ -10,70 +13,48 @@ describe 'task', type: :system do
         expect(page).to have_content 'タスク一覧'
         expect(page).to have_content '名前'
         expect(page).to have_content '説明'
+        expect(page).to have_content 'ステータス'
         expect(page).to have_content '作成日'
       end
 
-      it 'tasks should be arranged in descending date order' do
-        order = tasks.map { |h| I18n.l(h[:created_at]) }.sort { |a, b| a <=> b }
-        expect(page.all('.task-created_at').map(&:text)).to eq order
+      it 'should sorts the tasks in descending date order' do
+        order = %w[task3 task2 task1]
+        expect(page.all('.task-name').map(&:text)).to eq order
       end
     end
 
-    context "click '名前'" do
-      it 'is toggle sorting by task name' do
-        names = tasks.map { |h| h[:name] }.sort { |a, b| b <=> a }
-        click_on '名前'
-        expect(page.all('.task-name').map(&:text)).to eq names
-        click_on '名前'
-        expect(page.all('.task-name').map(&:text)).to eq names.reverse
+    context 'click item name' do
+      it 'reorders the tasks based on items' do
+        cases = [
+          { button: '名前', order: %w[task3 task2 task1] },
+          { button: '説明', order: %w[task2 task3 task1] },
+          { button: '作成日', order: %w[task3 task2 task1] },
+          { button: '期限', order: %w[task1 task3 task2], order2: %w[task3 task1 task2] },
+          { button: 'ステータス', order: %w[task2 task1 task3] }
+        ]
+
+        cases.each do |c|
+          click_on c[:button]
+          expect(page.all('.task-name').map(&:text)).to eq c[:order]
+
+          click_on c[:button]
+          c[:order2] = c[:order].reverse if c[:order2].nil?
+          expect(page.all('.task-name').map(&:text)).to eq c[:order2]
+        end
       end
     end
 
-    context "click '説明'" do
-      it 'is toggle sorting by task description' do
-        descriptions = tasks.map { |h| h[:description] }.sort { |a, b| b <=> a }
-        click_on '説明'
-        expect(page.all('.task-description').map(&:text)).to eq descriptions
-        click_on '説明'
-        expect(page.all('.task-description').map(&:text)).to eq descriptions.reverse
-      end
-    end
+    context 'click item name' do
+      it 'reorders the tasks based on items' do
+        cases = %w[未着手 着手中 完了]
+        cases.each do |c|
+          select(c, from: 'status_id')
+          click_on '検索'
 
-    context "click '作成日'" do
-      it 'is toggle sorting by creation date' do
-        created_at = tasks.map { |h| I18n.l(h[:created_at]) }.sort { |a, b| b <=> a }
-        click_on '作成日'
-        expect(page.all('.task-created_at').map(&:text)).to eq created_at
-        click_on '作成日'
-        expect(page.all('.task-created_at').map(&:text)).to eq created_at.reverse
-      end
-    end
-
-    context "click '期限'" do
-      it 'is toggle sorting by due time' do
-        due_desc = []
-        i = tasks.length
-        tasks.each do |t|
-          if t.have_a_due
-            due_desc.push I18n.l(t.due_at)
-            i -= 1
+          page.all('.task-status').map(&:text).each do |s|
+            expect(s).to eq c
           end
         end
-
-        # sorting by deadline
-        due_desc = due_desc.sort { |a, b| b <=> a }
-        due_asc = due_desc.reverse
-
-        # reordering of unspecified deadlines
-        i.times do
-          due_desc.push ''
-          due_asc.push ''
-        end
-
-        click_on '期限'
-        expect(page.all('.task-due_at').map(&:text)).to eq due_desc
-        click_on '期限'
-        expect(page.all('.task-due_at').map(&:text)).to eq due_asc
       end
     end
   end
@@ -82,7 +63,7 @@ describe 'task', type: :system do
     before { visit new_task_path }
 
     context 'name is more than one letter' do
-      it 'should be success' do
+      it 'should be success to create' do
         fill_in '名前', with: 'hoge'
         fill_in '説明', with: 'fuga'
 
@@ -92,7 +73,7 @@ describe 'task', type: :system do
     end
 
     context 'name is blank' do
-      it 'should be failure' do
+      it 'should be failure to create' do
         fill_in '名前', with: ''
         fill_in '説明', with: 'piyo'
 
@@ -103,9 +84,9 @@ describe 'task', type: :system do
   end
 
   describe '#edit (GET /tasks/:id/edit)' do
-    before { visit edit_task_path(tasks[0].id) }
+    before { visit edit_task_path(task1.id) }
     context 'name is more than one letter' do
-      it 'should be success' do
+      it 'should be success to update' do
         fill_in '名前', with: 'hogehoge'
         fill_in '説明', with: 'fugaguga'
 
@@ -115,7 +96,7 @@ describe 'task', type: :system do
     end
 
     context 'name is blank' do
-      it 'should be failure' do
+      it 'should be failure to update' do
         fill_in '名前', with: ''
         fill_in '説明', with: 'piyopiyo'
 
@@ -128,11 +109,13 @@ describe 'task', type: :system do
   describe '#show (GET /tasks/:id)' do
     context 'access the detail page' do
       it 'should be success' do
-        visit task_path(tasks[0].id)
+        visit task_path(task1.id)
 
         expect(page).to have_content 'タスク詳細'
-        expect(page).to have_content tasks[0].name
-        expect(page).to have_content tasks[0].description
+        expect(page).to have_content task1.name
+        expect(page).to have_content task1.description
+        expect(page).to have_content I18n.l(task1.due_at)
+        expect(page).to have_content task1.status.name
       end
     end
   end
@@ -140,18 +123,12 @@ describe 'task', type: :system do
   describe '#delete (DELETE /tasks/:id)', js: true do
     context 'push delete button from detail page' do
       it 'should be success to delete the task' do
-        visit task_path(tasks[0].id)
+        visit task_path(task1.id)
 
         # confirm dialog
-        page.dismiss_confirm do
-          click_on '削除'
-          expect(page.driver.browser.switch_to.alert.text).to eq 'タスクを削除しますか？'
-        end
-
         page.accept_confirm do
           click_on '削除'
         end
-
         expect(page).to have_content 'タスクを削除しました'
       end
     end

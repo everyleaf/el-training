@@ -1,6 +1,7 @@
 <h1><%= I18n.t('tasks.show.title') %></h1>
 <h2><%= @task.name %></h2>
 <p><%= @task.description %></p>
+<p><%= @task.status.name %></p>
 <p><% if @task.have_a_due then %>
   <%= I18n.l(@task.due_at) %>
 <% else %>

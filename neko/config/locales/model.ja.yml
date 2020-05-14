@@ -2,13 +2,17 @@ ja:
   activerecord:
     models:
       task: タスク
+      status: ステータス
     attributes:
       task:
-        name: 名前
         description: 説明
         have_a_due: 期日を設定する
         due_at: 期限
+        status_id: ステータス
+      status:
+        phase: 段階
   attributes:
+    name: 名前
     id: ID
     created_at: 作成日時
     updated_at: 更新日時

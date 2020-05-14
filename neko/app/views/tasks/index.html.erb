@@ -1,20 +1,27 @@
 <h1><%= I18n.t('tasks.index.title') %></h1>
 <%= link_to I18n.t('tasks.new.title'), new_task_path %>
 
+<%= form_with url: tasks_path, local: true, html: { method: :get } do |f| %>
+  <%= f.collection_select :status_id, @statuses, :id, :name, selected: @status, include_blank: true %>
+  <%= f.submit I18n.t('search'), name: nil %>
+<% end %>
+
 <table>
   <thead>
     <tr>
-      <th><%= sortable 'name', Task.human_attribute_name(:name) %></th>
-      <th><%= sortable 'description', Task.human_attribute_name(:description) %></th>
-      <th><%= sortable 'due_at', Task.human_attribute_name(:due_at) %></th>
-      <th><%= sortable 'created_at', Task.human_attribute_name(:created_at) %></th>
+      <th><%= sortable @status, 'name', Task.human_attribute_name(:name) %></th>
+      <th><%= sortable @status, 'description', Task.human_attribute_name(:description) %></th>
+      <th><%= sortable @status, 'status_id', Task.human_attribute_name(:status_id) %></th>
+      <th><%= sortable @status, 'due_at', Task.human_attribute_name(:due_at) %></th>
+      <th><%= sortable @status, 'created_at', Task.human_attribute_name(:created_at) %></th>
     </tr>
   </thead>
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
-        <td class="task-name"><%= link_to task.name, task%></td>
+        <td class="task-name"><%= link_to task.name, task %></td>
         <td class="task-description"><%= task.description %></td>
+        <td class="task-status"><%= task.status.name %></td>
         <td class="task-due_at">
           <%= I18n.l(task.due_at) if task.have_a_due %>
         </td>
