@@ -1,12 +1,16 @@
 class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :statuses_all, only: [:index, :new, :edit, :edit]
 
   def index
+    @status = search_status
     @tasks = if sort_column == 'due_at'
-               Task.all.order(have_a_due: :desc).order(sort_column + ' ' + sort_direction)
+               Task.search(@status).order(have_a_due: :desc).order(sort_column + ' ' + sort_direction)
+             elsif sort_column == 'status_id'
+               Task.search(@status).includes(:status).order('statuses.phase ' + sort_direction)
              else
-               Task.all.order(sort_column + ' ' + sort_direction)
+               Task.search(@status).all.order(sort_column + ' ' + sort_direction)
              end
   end
 
@@ -22,6 +26,7 @@ class TasksController < ApplicationController
       redirect_to tasks_path
     else
       flash.now[:danger] = I18n.t('flash.failed', target: 'タスク', action: '作成')
+      statuses_all
       render :new
     end
   end
@@ -36,6 +41,7 @@ class TasksController < ApplicationController
       redirect_to task_path(@task)
     else
       flash.now[:danger] = I18n.t('flash.failed', target: 'タスク', action: '更新')
+      statuses_all
       render :edit
     end
   end
@@ -52,12 +58,20 @@ class TasksController < ApplicationController
 
   private
 
+  def statuses_all
+    @statuses = Status.all.order(phase: :asc)
+  end
+
+  def search_status
+    Status.where(id: params[:status_id]).exists? ? params[:status_id] : nil
+  end
+
   def set_task
     @task = Task.find(params[:id])
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :due_at, :have_a_due)
+    params.require(:task).permit(:name, :description, :due_at, :have_a_due, :status_id)
   end
 
   def sort_direction

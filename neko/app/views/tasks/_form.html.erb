@@ -8,6 +8,9 @@
       <div><%= f.label :description %></div>
       <div><%= f.text_area :description %></div>
     </div>
+    <div>
+      <%= f.collection_select :status_id, @statuses, :id, :name %>
+    </div>
     <div class="hidden-box">
       <%= f.check_box :have_a_due %>
       <%= f.label :due_at %>
