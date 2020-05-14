@@ -134,7 +134,7 @@ describe 'task', type: :system do
         expect(page).to have_content 'タスク詳細'
         expect(page).to have_content tasks[0].name
         expect(page).to have_content tasks[0].description
-        if tasks[0].have_a_due then
+        if tasks[0].have_a_due
           expect(page).to have_content tasks[0].due_at
         else
           expect(page).to have_content '期限なし'
