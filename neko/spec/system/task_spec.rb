@@ -10,6 +10,7 @@ describe 'task', type: :system do
         expect(page).to have_content 'タスク一覧'
         expect(page).to have_content '名前'
         expect(page).to have_content '説明'
+        expect(page).to have_content '期限'
         expect(page).to have_content '作成日'
       end
 
@@ -133,6 +134,11 @@ describe 'task', type: :system do
         expect(page).to have_content 'タスク詳細'
         expect(page).to have_content tasks[0].name
         expect(page).to have_content tasks[0].description
+        if tasks[0].have_a_due then
+          expect(page).to have_content tasks[0].due_at
+        else
+          expect(page).to have_content '期限なし'
+        end
       end
     end
   end
