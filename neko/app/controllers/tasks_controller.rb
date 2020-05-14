@@ -2,15 +2,16 @@ class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :statuses_all, only: [:index, :new, :edit, :edit]
+  PER = 20
 
   def index
     @status = search_status
     @tasks = if sort_column == 'due_at'
-               Task.search(@status).order(have_a_due: :desc).order(sort_column + ' ' + sort_direction)
+               Task.search(@status).order(have_a_due: :desc).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
              elsif sort_column == 'status_id'
-               Task.search(@status).includes(:status).order('statuses.phase ' + sort_direction)
+               Task.search(@status).includes(:status).order('statuses.phase ' + sort_direction).page(params[:page]).per(PER)
              else
-               Task.search(@status).all.order(sort_column + ' ' + sort_direction)
+               Task.search(@status).all.order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
              end
   end
 
