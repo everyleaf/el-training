@@ -16,7 +16,7 @@
         <td class="task-name"><%= link_to task.name, task%></td>
         <td class="task-description"><%= task.description %></td>
         <td class="task-due_at">
-          <%= l task.due_at if task.have_a_due %>
+          <%= I18n.l(task.due_at) if task.have_a_due %>
         </td>
         <td class="task-created_at"><%= I18n.l(task.created_at) %></td>
       </tr>
