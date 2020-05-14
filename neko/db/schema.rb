@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_11_011200) do
+ActiveRecord::Schema.define(version: 2020_05_13_081641) do
+
+  create_table "statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "phase", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -19,6 +26,9 @@ ActiveRecord::Schema.define(version: 2020_05_11_011200) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "due_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.boolean "have_a_due", default: false, null: false
+    t.bigint "status_id", default: 1, null: false
+    t.index ["status_id"], name: "index_tasks_on_status_id"
   end
 
+  add_foreign_key "tasks", "statuses"
 end
