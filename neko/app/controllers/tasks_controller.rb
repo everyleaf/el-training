@@ -4,13 +4,13 @@ class TasksController < ApplicationController
   before_action :statuses_all, only: [:index, :new, :edit, :edit]
 
   def index
-    @status = search_status
+    @search = { name: params[:name], status: search_status }
     @tasks = if sort_column == 'due_at'
-               Task.search(@status).order(have_a_due: :desc).order(sort_column + ' ' + sort_direction)
+               Task.search(@search).order(have_a_due: :desc).order(sort_column + ' ' + sort_direction)
              elsif sort_column == 'status_id'
-               Task.search(@status).includes(:status).order('statuses.phase ' + sort_direction)
+               Task.search(@search).includes(:status).order('statuses.phase ' + sort_direction)
              else
-               Task.search(@status).all.order(sort_column + ' ' + sort_direction)
+               Task.search(@search).all.order(sort_column + ' ' + sort_direction)
              end
   end
 
