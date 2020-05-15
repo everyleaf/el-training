@@ -26,13 +26,13 @@ class TasksController < ApplicationController
     if @task.update(tasks_params)
       redirect_to tasks_path, notice: '新しいタスクが更新されました'
     else
-      render :new
+      render :edit
     end
   end
 
   def destroy
-    @task.destroy
-    redirect_to tasks_path, alert: 'タスクが削除されました'
+    @task.destroy!
+    redirect_to tasks_path, notice: 'タスクが削除されました'
   end
 
   private
