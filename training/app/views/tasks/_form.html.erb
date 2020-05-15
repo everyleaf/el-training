@@ -1,0 +1,25 @@
+<%= form_with model: task, local: true do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+  <div>
+    <%= f.label :priority %>
+    <%= f.select :priority, Task.priorities.keys %>
+  </div>
+  <div>
+    <%= f.label :status %>
+    <%= f.select :status, Task.statuses.keys %>
+  </div>
+  <div>
+    <%= f.label :due_date %>
+    <%= f.date_select :due_date %>
+  </div>
+  <div>
+    <%= f.submit '送信' %>
+  </div>
+<% end %>

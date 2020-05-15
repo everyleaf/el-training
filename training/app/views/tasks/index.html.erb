@@ -1,0 +1,32 @@
+<h1>タスク一覧</h1>
+
+<%= link_to 'new task', new_task_path %>
+
+<table>
+  <tr>
+    <th>title</th>
+    <th>description</th>
+    <th>priority</th>
+    <th>status</th>
+    <th>due_date</th>
+    <th>created_at</th>
+    <th>updated_at</th>
+    <th>actions</th>
+  </tr>
+  <% @tasks.each do |task| %>
+    <tr>
+      <td><%= task.title %></td>
+      <td><%= task.description %></td>
+      <td><%= task.priority %></td>
+      <td><%= task.status %></td>
+      <td><%= task.due_date %></td>
+      <td><%= task.created_at.strftime('%Y年%m月%d日') %></td>
+      <td><%= task.updated_at.strftime('%Y年%m月%d日') %></td>
+      <td>
+        <%= link_to 'show', task_path(task) %>
+        <%= link_to 'edit', edit_task_path(task) %>
+        <%= link_to 'delete', task_path(task), method: :delete %>
+      </td>
+    </tr>
+  <% end %>
+</table>
