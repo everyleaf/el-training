@@ -5,13 +5,13 @@ class TasksController < ApplicationController
   PER = 20
 
   def index
-    @status = search_status
+    @search = { name: params[:name], status: search_status }
     @tasks = if sort_column == 'due_at'
-               Task.search(@status).order(have_a_due: :desc).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
+               Task.search(@search).order(have_a_due: :desc).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
              elsif sort_column == 'status_id'
-               Task.search(@status).includes(:status).order('statuses.phase ' + sort_direction).page(params[:page]).per(PER)
+               Task.search(@search).includes(:status).order('statuses.phase ' + sort_direction).page(params[:page]).per(PER)
              else
-               Task.search(@status).all.order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
+               Task.search(@search).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
              end
   end
 
