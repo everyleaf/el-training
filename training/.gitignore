@@ -5,28 +5,27 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore bundler config.
-/training/.bundle
+/.bundle
 
 # Ignore all logfiles and tempfiles.
-/training/log/*
-/training/tmp/*
-!/training/log/.keep
-!/training/tmp/.keep
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
 
 # Ignore uploaded files in development.
-/training/storage/*
-!/training/storage/.keep
+/storage/*
+!/storage/.keep
 
-/training/public/assets
-/training/byebug_history
+/public/assets
+/byebug_history
 
 # Ignore master key for decrypting credentials and more.
-/training/config/master.key
+/config/master.key
 
-/training/public/packs
-/training/public/packs-test
-/training/node_modules
-/training/yarn-error.log
-/training/yarn-debug.log*
-/training/yarn-integrity
-.DS_Store
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+/yarn-debug.log*
+/yarn-integrity
