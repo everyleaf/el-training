@@ -4,19 +4,26 @@
     <title>Neko</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <div class="notifications">
-      <% flash.each do |message_type, message| %>
-        <div class="alert alert-<%= message_type %>">
-          <%= message %>
-        </div>
-      <% end %>
-    </div>
-    <%= yield %>
+    <%= render partial: 'layouts/notification' %>
+    <div class='wrapper'>
+      <div class="side">
+        <nav>
+          <h1>Neko</h1>
+          <div class="button-container">
+            <%= link_to I18n.t('tasks.new.title'), new_task_path , class: "btn-push" %>
+          </div>
+        </nav>
+      </div>
+      <div class='container main'>
+        <%= yield %>
+      </div>
+    <div>
   </body>
 </html>

@@ -1,24 +1,25 @@
 <%= form_for(task) do |f| %>
   <div class="form">
-    <div>
-      <div><%= f.label :name %></div>
-      <div><%= f.text_field :name %></div>
+    <div class="form-group row">
+      <%= f.label :name, class: 'class="col-2 col-form-label' %>
+      <div class="col-10"><%= f.text_field :name, class:'form-control' %></div>
     </div>
-    <div>
-      <div><%= f.label :description %></div>
-      <div><%= f.text_area :description %></div>
+    <div class="form-group row">
+      <%= f.label :description, class: 'class="col-2 col-form-label' %>
+      <div class="col-10"><%= f.text_area :description, class:'form-control' %></div>
     </div>
-    <div>
-      <%= f.collection_select :status_id, @statuses, :id, :name %>
+    <div class="form-group row">
+      <%= f.label :status_id, class: 'class="col-2 col-form-label' %>
+      <div class="col-10"><%= f.collection_select :status_id, @statuses, :id, :name, class:'form-control' %></div>
     </div>
-    <div class="hidden-box">
-      <%= f.check_box :have_a_due %>
+    <div class="hidden-box form-group">
       <%= f.label :due_at %>
+      <%= f.check_box :have_a_due %>
       <div class="hidden">
-        <%= f.datetime_local_field :due_at %>
+        <%= f.datetime_local_field :due_at, class:'form-control' %>
       </div>
     </div>
-    <div>
+    <div class="form-group">
       <%= f.submit %>
     </div>
   </div>
