@@ -12,16 +12,16 @@
 
   <body>
     <%= render partial: 'layouts/notification' %>
-    <div class='wrapper'>
+    <div class="wrapper">
       <div class="side">
         <nav>
           <h1>Neko</h1>
           <div class="button-container">
-            <%= link_to I18n.t('tasks.new.title'), new_task_path , class: "btn-push" %>
+            <%= link_to I18n.t('tasks.new.title'), new_task_path , class: 'btn-push' %>
           </div>
         </nav>
       </div>
-      <div class='container main'>
+      <div class="container main">
         <%= yield %>
       </div>
     <div>
