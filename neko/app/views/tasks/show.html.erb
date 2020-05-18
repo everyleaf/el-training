@@ -1,15 +1,17 @@
-<h2><%= @task.name %></h2>
-<p>説明：</p>
-<p><%= @task.description %></p>
-<p>ステータス：<%= @task.status.name %></p>
-<p>期限：<% if @task.have_a_due then %>
-  <%= I18n.l(@task.due_at) %>
-<% else %>
-  なし
-<% end %></p>
-<p>作成日時：<%= I18n.l(@task.created_at) %></p>
-<div class='btn-wrap'>
-<%= link_to I18n.t('back'), tasks_path, class:'btn btn-outline-secondary' %>
-<%= link_to I18n.t('edit'), edit_task_path(@task), class:'btn btn-outline-secondary' %>
-<%= link_to I18n.t('delete'), task_path(@task), method: :delete, data: { confirm: I18n.t('tasks.delete.confirm') }, class: 'btn btn-outline-danger' %>
+<div class='detail'>
+  <h2><%= @task.name %></h2>
+  <p>説明：</p>
+  <p><%= @task.description %></p>
+  <p>ステータス：<%= @task.status.name %></p>
+  <p>期限：<% if @task.have_a_due then %>
+    <%= I18n.l(@task.due_at) %>
+  <% else %>
+    なし
+  <% end %></p>
+  <p>作成日時：<%= I18n.l(@task.created_at) %></p>
+  <div class="btn-wrap">
+    <%= link_to I18n.t('back'), tasks_path, class:'btn btn-outline-secondary' %>
+    <%= link_to I18n.t('edit'), edit_task_path(@task), class:'btn btn-outline-secondary' %>
+    <%= link_to I18n.t('delete'), task_path(@task), method: :delete, data: { confirm: I18n.t('tasks.delete.confirm') }, class: 'btn btn-outline-danger' %>
+  </div>
 </div>

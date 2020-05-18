@@ -82,39 +82,8 @@
   }
 }
 
-.form {
-  width: 700px;
-  margin: 0 auto;
-  margin-top: 70px;
-  padding: 0 20px;
-}
-
-.form select{
-  margin-top: 5px;
-  height: 30px;
-  flex: 0 0 80px;
-  width: 100%;
-}
-
-.scroll {
-  overflow-y: scroll;
-  height: 100vm;
-}
-
-.pagination {
-  margin-top: 30px;
-}
-
-.page-link {
-  color: #313131;
-  border: none;
-  border-radius: 0.9rem;
-  margin: 0 4px;
-}
-
-.page-item.active .page-link {
-  background-color: #ffa300;
-  border-color: #ffa300;
+.btn {
+  min-width: 100px;
 }
 
 .btn-wrap {
@@ -125,7 +94,90 @@
 
   .btn {
     flex-basis: 0;
-    min-width: 100px;
     margin: 0 10px;
   }
+}
+
+.scroll {
+  overflow-y: scroll;
+  height: 100vm;
+}
+
+.pagination {
+  margin-top: 30px;
+
+  .page-link {
+    color: #313131;
+    border: none;
+    border-radius: 0.9rem;
+    margin: 0 4px;
+  }
+
+  .page-item.active .page-link {
+    background-color: #ffa300;
+    border-color: #ffa300;
+  }
+}
+
+.form {
+  width: 700px;
+  margin: 0 auto;
+  margin-top: 70px;
+  padding: 0 20px;
+  
+  select {
+  margin-top: 5px;
+  margin-left: 5px;
+  width: 100px;
+  height: 30px;
+  display: inline-block;
+  }
+
+  textarea {
+    resize: none;
+    height: 200px;
+  }
+
+  .hidden-box .due_label {
+    padding-top: 7px;
+  }
+
+  .hidden .duetime {
+    width: 250px;
+    display: inline-block;
+  }
+
+  .form-group .col-4 {
+    padding-left: 0;
+  }
+}
+
+.back {
+  margin-top: 40px;
+  margin-top: 40px;
+  width: 100px;
+}
+
+.search {
+  .form-control {
+    height: 35px;
+    margin-top: 5px;
+  }
+  select {
+    height: 35px;
+    margin-top: 5px;
+    margin-right: 20px;
+  }
+}
+
+table th a {
+  color: #FFF;
+  &:hover {
+    color: #FFF;
+  }
+}
+
+.detail {
+  margin-top: 20px;
+  margin-left: 30px;
 }

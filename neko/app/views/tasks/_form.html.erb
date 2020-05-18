@@ -2,26 +2,29 @@
   <div class="form">
     <div class="form-group row">
       <%= f.label :name, class: 'class="col-2 col-form-label' %>
-      <div class="col-10"><%= f.text_field :name, class:'form-control' %></div>
+      <div class="col-11"><%= f.text_field :name, class:'form-control' %></div>
     </div>
     <div class="form-group row">
       <%= f.label :description, class: 'class="col-2 col-form-label' %>
-      <div class="col-10"><%= f.text_area :description, class:'form-control' %></div>
+      <div class="col-11"><%= f.text_area :description, class:'form-control scroll' %></div>
     </div>
     <div class="form-group row">
-      <%= f.label :status_id, class: 'class="col-2 col-form-label' %>
-      <div class="col-10"><%= f.collection_select :status_id, @statuses, :id, :name, class:'form-control' %></div>
-    </div>
-    <div class="hidden-box form-group">
-      <%= f.label :due_at %>
-      <%= f.check_box :have_a_due %>
-      <div class="hidden">
-        <%= f.datetime_local_field :due_at, class:'form-control' %>
+      <div class="col-4">
+        <%= f.label :status_id, class: 'class="col-form-label' %>
+        <%= f.collection_select :status_id, @statuses, :id, :name, class:'form-control' %>
+      </div>
+
+      <div class="col-8 hidden-box">
+        <%= f.label :due_at, class: 'due_label'  %>
+        <%= f.check_box :have_a_due %>
+        <div class="hidden">
+          <%= f.datetime_local_field :due_at, class:'form-control duetime' %>
+        </div>
       </div>
     </div>
-    <div class="form-group">
-      <%= f.submit %>
+    <div class="form-group text-center">
+      <%= f.submit class: 'btn btn-success'%>
     </div>
   </div>
 <% end %>
-<%= link_to I18n.t('back'), tasks_path %>
+<%= link_to I18n.t('back'), tasks_path, class: 'back btn btn-secondary' %>
