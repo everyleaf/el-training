@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    models:
+      task: タスク
+    attributes:
+      task:
+        name: 名前
+        description: 説明
+        have_a_due: 期日を設定する
+        due_at: 期限

@@ -10,6 +10,3 @@ ja:
       title: 'タスク作成'
     delete:
       confirm: 'タスクを削除しますか？'
-  edit: '編集'
-  delete: '削除'
-  back: '戻る'
