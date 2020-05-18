@@ -21,6 +21,3 @@ ja:
   errors:
     messages:
       blank: "を入力してください"
-  time:
-    formats:
-      default: "%Y/%m/%d %H:%M"
