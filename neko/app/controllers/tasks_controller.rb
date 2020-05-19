@@ -4,13 +4,14 @@ class TasksController < ApplicationController
   before_action :statuses_all, only: [:index, :new, :edit, :edit]
 
   def index
-    @search = { name: params[:name], status: search_status }
-    @tasks = if sort_column == 'due_at'
+    @search = { name: params[:name], status: params[:status_id] }
+    @tasks = case sort_column
+             when 'due_at'
                Task.search(@search).order(have_a_due: :desc).order(sort_column + ' ' + sort_direction)
-             elsif sort_column == 'status_id'
-               Task.search(@search).includes(:status).order('statuses.phase ' + sort_direction)
+             when 'status_id'
+               Task.search(@search).order('statuses.phase ' + sort_direction)
              else
-               Task.search(@search).all.order(sort_column + ' ' + sort_direction)
+               Task.search(@search).order(sort_column + ' ' + sort_direction)
              end
   end
 
@@ -62,10 +63,6 @@ class TasksController < ApplicationController
     @statuses = Status.all.order(phase: :asc)
   end
 
-  def search_status
-    Status.where(id: params[:status_id]).exists? ? params[:status_id] : nil
-  end
-
   def set_task
     @task = Task.find(params[:id])
   end
@@ -79,6 +76,6 @@ class TasksController < ApplicationController
   end
 
   def sort_column
-    Task.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
+    Task.column_names.include?(params[:sort]) ? params[:sort] : 'tasks.created_at'
   end
 end
