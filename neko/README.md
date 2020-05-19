@@ -32,7 +32,7 @@ rails db:migrate
 ```
 rails s
 ```
-6. [localhost:3000](http://localhost:3000/)に接続してタスク一覧が表示されたら成功です。
+6. [localhost:3000](http://localhost:3000/)に接続してタスク一覧が表示されたら成功です。
 
 
 ### エラーについて
