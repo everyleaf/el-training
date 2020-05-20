@@ -11,7 +11,6 @@
   </head>
 
   <body>
-    <%= render partial: 'layouts/notification' %>
     <div class="wrapper">
       <div class="side">
         <nav>
@@ -22,6 +21,7 @@
         </nav>
       </div>
       <div class="container main">
+        <%= render partial: 'layouts/notification' %>
         <%= yield %>
       </div>
     <div>
