@@ -33,7 +33,7 @@ class TasksController < ApplicationController
 
   def update
     trunc_sec_due_at
-    
+
     if @task.update(task_params)
       flash[:success] = I18n.t('flash.succeeded', target: 'タスク', action: '更新')
       redirect_to task_path(@task)
@@ -72,9 +72,6 @@ class TasksController < ApplicationController
   end
 
   def trunc_sec_due_at
-    if @task.due_at.nil?
-      @task.due_at = Time.at(Time.now.to_i / 60 * 60)
-    end
+    @task.due_at = Time.zone.at(Time.now.to_i / 60 * 60) if @task.due_at.nil?
   end
-
 end
