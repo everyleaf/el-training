@@ -4,9 +4,9 @@ class TasksController < ApplicationController
 
   def index
     @tasks = if sort_column == 'due_at'
-               Task.all.order(have_a_due: :desc).order(sort_column + ' ' + sort_direction)
+               Task.all.order(have_a_due: :desc).order("#{sort_column} #{sort_direction}")
              else
-               Task.all.order(sort_column + ' ' + sort_direction)
+               Task.all.order("#{sort_column} #{sort_direction}")
              end
   end
 
@@ -16,6 +16,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    trunc_sec_due_at
 
     if @task.save
       flash[:success] = I18n.t('flash.succeeded', target: 'タスク', action: '作成')
@@ -31,6 +32,8 @@ class TasksController < ApplicationController
   def edit; end
 
   def update
+    trunc_sec_due_at
+    
     if @task.update(task_params)
       flash[:success] = I18n.t('flash.succeeded', target: 'タスク', action: '更新')
       redirect_to task_path(@task)
@@ -67,4 +70,11 @@ class TasksController < ApplicationController
   def sort_column
     Task.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
   end
+
+  def trunc_sec_due_at
+    if @task.due_at.nil?
+      @task.due_at = Time.at(Time.now.to_i / 60 * 60)
+    end
+  end
+
 end
