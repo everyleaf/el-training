@@ -72,6 +72,6 @@ class TasksController < ApplicationController
   end
 
   def trunc_sec_due_at
-    @task.due_at = Time.zone.at(Time.now.to_i / 60 * 60) if @task.due_at.nil?
+    @task.due_at = Time.zone.at(Time.current.to_i / 60 * 60) if @task.due_at.nil?
   end
 end
