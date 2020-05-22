@@ -62,11 +62,6 @@ class TasksController < ApplicationController
 
   private
 
-  def search_params
-    params[:name] = nil if params[:name].blank?
-    params[:status_id] = nil if params[:name].blank?
-  end
-
   def statuses_all
     @statuses = Status.all.order(phase: :asc)
   end
