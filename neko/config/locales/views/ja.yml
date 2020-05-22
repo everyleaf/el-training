@@ -3,6 +3,7 @@ ja:
     succeeded: "%{target}を%{action}しました"
     failed: "%{target}の%{action}に失敗しました"
 
-  edit: '編集'
-  delete: '削除'
-  back: '戻る'
+  edit: 編集
+  delete: 削除
+  back: 戻る
+  search: 検索

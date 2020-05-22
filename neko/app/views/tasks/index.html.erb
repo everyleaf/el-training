@@ -14,7 +14,7 @@
     <tr>
       <th><%= sortable @search, 'name', Task.human_attribute_name(:name) %></th>
       <th><%= sortable @search, 'description', Task.human_attribute_name(:description) %></th>
-      <th><%= sortable @search, 'status_id', Task.human_attribute_name(:status_id) %></th>
+      <th><%= sortable @search, 'status_id', Task.human_attribute_name(:status) %></th>
       <th><%= sortable @search, 'due_at', Task.human_attribute_name(:due_at) %></th>
       <th><%= sortable @search, 'created_at', Task.human_attribute_name(:created_at) %></th>
     </tr>

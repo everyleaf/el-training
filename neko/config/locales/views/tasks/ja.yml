@@ -1,12 +1,12 @@
 ja:
   tasks:
     index: 
-      title: 'タスク一覧'
+      title: タスク一覧
     show:
-      title: 'タスク詳細'
+      title: タスク詳細
     edit:
-      title: 'タスク編集'
+      title: タスク編集
     new:
-      title: 'タスク作成'
+      title: タスク作成
     delete:
-      confirm: 'タスクを削除しますか？'
+      confirm: タスクを削除しますか？
