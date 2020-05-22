@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :statuses_all, only: [:index, :new, :edit, :edit]
 
   def index
-    @search = { name: params[:name], status: params[:status_id] }
+    @search = { name: params[:name], status_id: params[:status_id] }
     @tasks = case sort_column
              when 'due_at'
                Task.search(@search).order(have_a_due: :desc).order("tasks.#{sort_column} #{sort_direction}")
@@ -61,6 +61,11 @@ class TasksController < ApplicationController
   end
 
   private
+
+  def search_params
+    params[:name] = nil if params[:name].blank?
+    params[:status_id] = nil if params[:name].blank?
+  end
 
   def statuses_all
     @statuses = Status.all.order(phase: :asc)
