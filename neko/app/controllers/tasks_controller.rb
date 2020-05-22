@@ -7,11 +7,11 @@ class TasksController < ApplicationController
     @search = { name: params[:name], status: params[:status_id] }
     @tasks = case sort_column
              when 'due_at'
-               Task.search(@search).order(have_a_due: :desc).order("#{sort_column} #{sort_direction}")
+               Task.search(@search).order(have_a_due: :desc).order("tasks.#{sort_column} #{sort_direction}")
              when 'status_id'
                Task.search(@search).order("statuses.phase #{sort_direction}")
              else
-               Task.search(@search).order("#{sort_column} #{sort_direction}")
+               Task.search(@search).order("tasks.#{sort_column} #{sort_direction}")
              end
   end
 
@@ -79,7 +79,7 @@ class TasksController < ApplicationController
   end
 
   def sort_column
-    Task.column_names.include?(params[:sort]) ? params[:sort] : 'tasks.created_at'
+    Task.joins(:status).column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
   end
 
   def trunc_sec_due_at

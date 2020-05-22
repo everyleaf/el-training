@@ -4,13 +4,13 @@ class Task < ApplicationRecord
 
   def self.search(search)
     if search[:name].blank? && search[:status].nil?
-      Task.includes(:status).all
+      Task.eager_load(:status).all
     elsif search[:status].nil?
-      Task.includes(:status).where(['tasks.name LIKE ?', "%#{search[:name]}%"])
+      Task.eager_load(:status).where(['tasks.name LIKE ?', "%#{search[:name]}%"])
     elsif search[:name].blank?
-      Task.includes(:status).where(status_id: search[:status])
+      Task.eager_load(:status).where(status_id: search[:status])
     else
-      Task.includes(:status).where(status_id: search[:status]).where(['name LIKE ?', "%#{search[:name]}%"])
+      Task.eager_load(:status).where(status_id: search[:status]).where(['tasks.name LIKE ?', "%#{search[:name]}%"])
     end
   end
 end
