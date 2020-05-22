@@ -30,16 +30,16 @@ RSpec.describe Task, type: :model do
     it 'should be failure' do
       t = Task.new(name: 'hoge', description: '')
       t.valid?
-      expect(t.errors.full_messages).to eq ['Statusを入力してください']
+      expect(t.errors.full_messages).to eq ['ステータスを入力してください']
     end
   end
 
   context 'search function' do
     it 'search tasks by name & status' do
       cases = [
-        { name: 'task', status: in_progress.id },
+        { name: 'task', status: in_progress },
         { name: 'タスク', status: nil },
-        { name: '', status: done.id },
+        { name: '', status: done },
         { name: '', status: nil }
       ]
 

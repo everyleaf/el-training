@@ -1,10 +1,22 @@
 require 'rails_helper'
 
 describe 'task', type: :system do
-  let!(:statuses) { [FactoryBot.create(:not_proceed), FactoryBot.create(:in_progress), FactoryBot.create(:done)] }
-  let!(:task1) { create(:task, name: 'task1', description: 'a', have_a_due: true, due_at: Time.zone.local(2020, 9, 30, 17, 30), status: statuses[1]) }
-  let!(:task2) { create(:task, name: 'task2', description: 'c', have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15), status: statuses[2]) }
-  let!(:task3) { create(:task, name: 'task3', description: 'b', have_a_due: true, due_at: Time.zone.local(2020, 8, 15, 16, 59), status: statuses[0]) }
+  let!(:not_proceed) { create(:not_proceed) }
+  let!(:in_progress) { create(:in_progress) }
+  let!(:done) { create(:done) }
+
+  let!(:task1) do
+    create(:task, name: 'task1', description: 'a', status: in_progress,
+                  have_a_due: true, due_at: Time.zone.local(2020, 9, 30, 17, 30))
+  end
+  let!(:task2) do
+    create(:task, name: 'task2', description: 'c', status: done,
+                  have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15))
+  end
+  let!(:task3) do
+    create(:task, name: 'task3', description: 'b', status: not_proceed,
+                  have_a_due: true, due_at: Time.zone.local(2020, 8, 15, 16, 59))
+  end
 
   describe '#index' do
     before { visit tasks_path }
@@ -14,6 +26,7 @@ describe 'task', type: :system do
         expect(page).to have_content '名前'
         expect(page).to have_content '説明'
         expect(page).to have_content 'ステータス'
+        expect(page).to have_content '期限'
         expect(page).to have_content '作成日'
       end
 
@@ -114,8 +127,8 @@ describe 'task', type: :system do
         expect(page).to have_content 'タスク詳細'
         expect(page).to have_content 'task1'
         expect(page).to have_content 'a'
-        expect(page).to have_content '2020/09/30 17:30'
         expect(page).to have_content '着手中'
+        expect(page).to have_content '2020/09/30 17:30'
       end
     end
   end
