@@ -3,23 +3,15 @@ class Task < ApplicationRecord
 
   enum status: { not_proceed: 0, in_progress: 1, done: 2 }
 
+  scope :where_status, ->(status) { where(status: status) if status.present? }
+  scope :include_name, ->(name) { where(['name LIKE ?', "%#{name}%"]) if name.present? }
+  scope :order_due_at, ->(column) { order(have_a_due: :desc) if column == 'due_at' }
+
   def self.rearrange(column, direction)
-    if column == 'due_at'
-      order(have_a_due: :desc).order("#{column} #{direction}")
-    else
-      order("#{column} #{direction}")
-    end
+    order_due_at(column).order("#{column} #{direction}")
   end
 
   def self.search(search)
-    if search[:name].blank? && search[:status].blank?
-      all
-    elsif search[:status].blank?
-      where(['name LIKE ?', "%#{search[:name]}%"])
-    elsif search[:name].blank?
-      where(status: search[:status])
-    else
-      where(status: search[:status]).where(['name LIKE ?', "%#{search[:name]}%"])
-    end
+    where_status(search[:status]).include_name(search[:name])
   end
 end
