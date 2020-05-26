@@ -9,7 +9,7 @@
       <div><%= f.text_area :description %></div>
     </div>
     <div>
-      <%= f.collection_select :status_id, @statuses, :id, :name %>
+      <%= f.select :status, Task.statuses_i18n.invert %>
     </div>
     <div class="hidden-box">
       <%= f.check_box :have_a_due %>

@@ -2,9 +2,9 @@
 <%= link_to I18n.t('tasks.new.title'), new_task_path %>
 
 <%= form_with url: tasks_path, local: true, html: { method: :get } do |f| %>
-  <div><%= f.text_field :name, value: @search[:name] %></div>
+  <div><%= f.text_field :name, value: @name %></div>
   <div>
-    <%= f.collection_select :status_id, @statuses, :id, :name, selected: @search[:status_id], include_blank: true %>
+    <%= f.select :status, Task.statuses.map {|k, v| [I18n.t("enums.task.status.#{k}"), v]}, include_blank: true, selected: @status %>
     <%= f.submit I18n.t('search'), name: nil %>
   </div>
 <% end %>
@@ -14,7 +14,7 @@
     <tr>
       <th><%= sortable @search, 'name', Task.human_attribute_name(:name) %></th>
       <th><%= sortable @search, 'description', Task.human_attribute_name(:description) %></th>
-      <th><%= sortable @search, 'status_id', Task.human_attribute_name(:status) %></th>
+      <th><%= sortable @search, 'status', Task.human_attribute_name(:status) %></th>
       <th><%= sortable @search, 'due_at', Task.human_attribute_name(:due_at) %></th>
       <th><%= sortable @search, 'created_at', Task.human_attribute_name(:created_at) %></th>
     </tr>
@@ -24,7 +24,7 @@
       <tr>
         <td class="task-name"><%= link_to task.name, task %></td>
         <td class="task-description"><%= task.description %></td>
-        <td class="task-status"><%= task.status.name %></td>
+        <td class="task-status"><%= task.status_i18n %></td>
         <td class="task-due_at">
           <%= I18n.l(task.due_at) if task.have_a_due %>
         </td>
