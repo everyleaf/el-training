@@ -1,20 +1,16 @@
 require 'rails_helper'
 
 describe 'task', type: :system do
-  let!(:not_proceed) { create(:not_proceed) }
-  let!(:in_progress) { create(:in_progress) }
-  let!(:done) { create(:done) }
-
   let!(:task1) do
-    create(:task, name: 'task1', description: 'a', status: in_progress,
+    create(:task, name: 'task1', description: 'a', status: 1,
                   have_a_due: true, due_at: Time.zone.local(2020, 9, 30, 17, 30))
   end
   let!(:task2) do
-    create(:task, name: 'task2', description: 'c', status: done,
+    create(:task, name: 'task2', description: 'c', status: 2,
                   have_a_due: false, due_at: Time.zone.local(2020, 7, 10, 10, 15))
   end
   let!(:task3) do
-    create(:task, name: 'task3', description: 'b', status: not_proceed,
+    create(:task, name: 'task3', description: 'b', status: 0,
                   have_a_due: true, due_at: Time.zone.local(2020, 8, 15, 16, 59))
   end
 
@@ -61,7 +57,7 @@ describe 'task', type: :system do
       it 'reorders the tasks based on items' do
         test_cases = %w[未着手 着手中 完了]
         test_cases.each do |test_case|
-          select(test_case, from: 'status_id')
+          select(test_case, from: 'status')
           click_on '検索'
 
           page.all('.task-status').map(&:text).each do |s|
