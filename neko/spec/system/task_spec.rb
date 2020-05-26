@@ -38,7 +38,7 @@ describe 'task', type: :system do
 
     context 'click item name' do
       it 'reorders the tasks based on items' do
-        cases = [
+        test_cases = [
           { button: '名前', order: %w[task3 task2 task1] },
           { button: '説明', order: %w[task2 task3 task1] },
           { button: '作成日', order: %w[task3 task2 task1] },
@@ -46,26 +46,26 @@ describe 'task', type: :system do
           { button: 'ステータス', order: %w[task2 task1 task3] }
         ]
 
-        cases.each do |c|
-          click_on c[:button]
-          expect(page.all('.task-name').map(&:text)).to eq c[:order]
+        test_cases.each do |test_case|
+          click_on test_case[:button]
+          expect(page.all('.task-name').map(&:text)).to eq test_case[:order]
 
-          click_on c[:button]
-          c[:order2] = c[:order].reverse if c[:order2].nil?
-          expect(page.all('.task-name').map(&:text)).to eq c[:order2]
+          click_on test_case[:button]
+          test_case[:order2] = test_case[:order].reverse if test_case[:order2].nil?
+          expect(page.all('.task-name').map(&:text)).to eq test_case[:order2]
         end
       end
     end
 
     context 'click item name' do
       it 'reorders the tasks based on items' do
-        cases = %w[未着手 着手中 完了]
-        cases.each do |c|
-          select(c, from: 'status_id')
+        test_cases = %w[未着手 着手中 完了]
+        test_cases.each do |test_case|
+          select(test_case, from: 'status_id')
           click_on '検索'
 
           page.all('.task-status').map(&:text).each do |s|
-            expect(s).to eq c
+            expect(s).to eq test_case
           end
         end
       end

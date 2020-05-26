@@ -13,34 +13,34 @@ RSpec.describe Task, type: :model do
 
   context 'name is not blank' do
     it 'should be success' do
-      t = Task.new(name: 'hoge', description: '', status: in_progress)
-      expect(t).to be_valid
+      task = Task.new(name: 'hoge', description: '', status: in_progress)
+      expect(task).to be_valid
     end
   end
 
   context 'name is blank' do
     it 'should be failure' do
-      t = Task.new(name: '', description: '', status: in_progress)
-      t.valid?
+      task = Task.new(name: '', description: '', status: in_progress)
+      task.valid?
       expect(t.errors.full_messages).to eq ['名前を入力してください']
     end
   end
 
   context 'statu_id is null' do
     it 'should be failure' do
-      t = Task.new(name: 'hoge', description: '')
-      t.valid?
+      task = Task.new(name: 'hoge', description: '')
+      task.valid?
       expect(t.errors.full_messages).to eq ['ステータスを入力してください']
     end
   end
 
   context 'search function' do
     it 'search tasks by name & status' do
-      cases = [
-        { name: 'task', status: in_progress },
-        { name: 'タスク', status: nil },
-        { name: '', status: done },
-        { name: '', status: nil }
+      test_cases = [
+        { name: 'task', status_id: in_progress.id },
+        { name: 'タスク', status_id: nil },
+        { name: '', status_id: done.id },
+        { name: '', status_id: nil }
       ]
 
       outputs = [
@@ -50,8 +50,8 @@ RSpec.describe Task, type: :model do
         [task1, task2, task3, task4, taskA, taskB]
       ]
 
-      cases.each_with_index do |c, i|
-        expect(Task.search(c)).to eq outputs[i]
+      test_cases.each_with_index do |test_case, i|
+        expect(Task.search(test_case)).to eq outputs[i]
       end
     end
   end
