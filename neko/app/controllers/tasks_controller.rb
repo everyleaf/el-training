@@ -1,18 +1,11 @@
 class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :statuses_all, only: [:index, :new, :edit, :edit]
+  before_action :set_statuses, only: [:index, :new, :edit, :edit]
 
   def index
     @search = { name: params[:name], status_id: params[:status_id] }
-    @tasks = case sort_column
-             when 'due_at'
-               Task.search(@search).order(have_a_due: :desc).order("tasks.#{sort_column} #{sort_direction}")
-             when 'status_id'
-               Task.search(@search).order("statuses.phase #{sort_direction}")
-             else
-               Task.search(@search).order("tasks.#{sort_column} #{sort_direction}")
-             end
+    @tasks = Task.search(@search).rearrange(sort_column, sort_direction)
   end
 
   def new
@@ -62,7 +55,7 @@ class TasksController < ApplicationController
 
   private
 
-  def statuses_all
+  def set_statuses
     @statuses = Status.all.order(phase: :asc)
   end
 
@@ -79,7 +72,7 @@ class TasksController < ApplicationController
   end
 
   def sort_column
-    Task.joins(:status).column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
+    Task.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
   end
 
   def trunc_sec_due_at
