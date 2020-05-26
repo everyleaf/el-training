@@ -1,13 +1,15 @@
 <h1><%= I18n.t('tasks.show.title') %></h1>
 <h2><%= @task.name %></h2>
 <p><%= @task.description %></p>
-<p><%= @task.status.name %></p>
-<p><% if @task.have_a_due then %>
-  <%= I18n.l(@task.due_at) %>
-<% else %>
-  期限なし
-<% end %></p>
-<p>作成日時：<%= I18n.l(@task.created_at) %></p>
+<p><%= "#{Task.human_attribute_name(:status)}：#{@task.status_i18n}" %></p>
+<p><%= Task.human_attribute_name(:due_at) %>
+  <% if @task.have_a_due %>
+    <%= I18n.l(@task.due_at) %>
+  <% else %>
+    なし
+  <% end %>
+</p>
+<p><%= "#{Task.human_attribute_name(:created_at)}：#{I18n.l(@task.created_at)}" %></p>
 <%= link_to I18n.t('back'), tasks_path %>
 <%= link_to I18n.t('edit'), edit_task_path(@task) %>
 <%= link_to I18n.t('delete'), task_path(@task), method: :delete, data: { confirm: I18n.t('tasks.delete.confirm') } %>

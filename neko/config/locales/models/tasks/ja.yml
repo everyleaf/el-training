@@ -1,0 +1,17 @@
+ja:
+  activerecord:
+    models:
+      task: タスク
+    attributes:
+      task:
+        name: 名前
+        description: 説明
+        status: ステータス
+        have_a_due: 期日を設定する
+        due_at: 期限
+  enums:
+    task:
+      status:
+        not_proceed: 未着手
+        in_progress: 着手中
+        done: 完了

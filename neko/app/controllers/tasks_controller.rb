@@ -1,18 +1,11 @@
 class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :statuses_all, only: [:index, :new, :edit, :edit]
   PER = 20
 
   def index
-    @search = { name: params[:name], status: search_status }
-    @tasks = if sort_column == 'due_at'
-               Task.search(@search).order(have_a_due: :desc).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
-             elsif sort_column == 'status_id'
-               Task.search(@search).includes(:status).order('statuses.phase ' + sort_direction).page(params[:page]).per(PER)
-             else
-               Task.search(@search).order(sort_column + ' ' + sort_direction).page(params[:page]).per(PER)
-             end
+    @search = { name: params[:name], status: params[:status] }
+    @tasks = Task.search(@search).rearrange(sort_column, sort_direction).page(params[:page]).per(PER)
   end
 
   def new
@@ -21,6 +14,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    trunc_sec_due_at
 
     if @task.save
       flash[:success] = I18n.t('flash.succeeded', target: 'タスク', action: '作成')
@@ -37,6 +31,8 @@ class TasksController < ApplicationController
   def edit; end
 
   def update
+    trunc_sec_due_at
+
     if @task.update(task_params)
       flash[:success] = I18n.t('flash.succeeded', target: 'タスク', action: '更新')
       redirect_to task_path(@task)
@@ -59,20 +55,12 @@ class TasksController < ApplicationController
 
   private
 
-  def statuses_all
-    @statuses = Status.all.order(phase: :asc)
-  end
-
-  def search_status
-    Status.where(id: params[:status_id]).exists? ? params[:status_id] : nil
-  end
-
   def set_task
     @task = Task.find(params[:id])
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :due_at, :have_a_due, :status_id)
+    params.require(:task).permit(:name, :description, :due_at, :have_a_due, :status)
   end
 
   def sort_direction
@@ -81,5 +69,9 @@ class TasksController < ApplicationController
 
   def sort_column
     Task.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
+  end
+
+  def trunc_sec_due_at
+    @task.due_at = Time.zone.at(Time.current.to_i / 60 * 60) if @task.due_at.nil?
   end
 end

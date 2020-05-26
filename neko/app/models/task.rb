@@ -1,16 +1,17 @@
 class Task < ApplicationRecord
   validates :name, presence: true
-  belongs_to :status
+
+  enum status: { not_proceed: 0, in_progress: 1, done: 2 }
+
+  scope :where_status, ->(status) { where(status: status) if status.present? }
+  scope :include_name, ->(name) { where(['name LIKE ?', "%#{name}%"]) if name.present? }
+  scope :order_due_at, ->(column) { order(have_a_due: :desc) if column == 'due_at' }
+
+  def self.rearrange(column, direction)
+    order_due_at(column).order("#{column} #{direction}")
+  end
 
   def self.search(search)
-    if search[:name].blank? && search[:status].nil?
-      Task.all
-    elsif search[:status].nil?
-      Task.where(['name LIKE ?', "%#{search[:name]}%"])
-    elsif search[:name].blank?
-      Task.where(status_id: search[:status])
-    else
-      Task.where(status_id: search[:status]).where(['name LIKE ?', "%#{search[:name]}%"])
-    end
+    where_status(search[:status]).include_name(search[:name])
   end
 end
