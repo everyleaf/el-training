@@ -1,10 +1,9 @@
 class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :set_statuses, only: [:index, :new, :edit, :edit]
 
   def index
-    @search = { name: params[:name], status_id: params[:status_id] }
+    @search = { name: params[:name], status: params[:status] }
     @tasks = Task.search(@search).rearrange(sort_column, sort_direction)
   end
 
@@ -55,16 +54,12 @@ class TasksController < ApplicationController
 
   private
 
-  def set_statuses
-    @statuses = Status.all.order(phase: :asc)
-  end
-
   def set_task
     @task = Task.find(params[:id])
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :due_at, :have_a_due, :status_id)
+    params.require(:task).permit(:name, :description, :due_at, :have_a_due, :status)
   end
 
   def sort_direction
