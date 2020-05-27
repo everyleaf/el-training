@@ -2,9 +2,9 @@
 <%= link_to I18n.t('tasks.new.title'), new_task_path %>
 
 <%= form_with url: tasks_path, local: true, html: { method: :get } do |f| %>
-  <div><%= f.text_field :name, value: @name %></div>
+  <div><%= f.text_field :name, value: @search[:name] %></div>
   <div>
-    <%= f.select :status, Task.statuses.map {|k, v| [I18n.t("enums.task.status.#{k}"), v]}, include_blank: true, selected: @status %>
+    <%= f.select :status, Task.statuses.map {|k, v| [I18n.t("enums.task.status.#{k}"), v]}, include_blank: true, selected: @search[:status] %>
     <%= f.submit I18n.t('search'), name: nil %>
   </div>
 <% end %>
