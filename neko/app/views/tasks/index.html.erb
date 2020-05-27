@@ -1,4 +1,4 @@
-<h2><%= I18n.t('tasks.index.title') %></h2>
+<h2><%= link_to I18n.t('tasks.index.title'), tasks_path %></h2>
 
 <%= form_with url: tasks_path, local: true, html: { method: :get } do |f| %>
   <div class='row search'>

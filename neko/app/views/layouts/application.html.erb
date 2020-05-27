@@ -14,7 +14,7 @@
     <div class="wrapper">
       <div class="side">
         <nav>
-          <h1>Neko</h1>
+          <h1><%= link_to 'Neko', root_path %></h1>
           <div class="button-container">
             <%= link_to I18n.t('tasks.new.title'), new_task_path , class: 'btn-push' %>
           </div>
