@@ -21,7 +21,6 @@ class TasksController < ApplicationController
       redirect_to tasks_path
     else
       flash.now[:danger] = I18n.t('flash.failed', target: 'タスク', action: '作成')
-      statuses_all
       render :new
     end
   end
@@ -38,7 +37,6 @@ class TasksController < ApplicationController
       redirect_to task_path(@task)
     else
       flash.now[:danger] = I18n.t('flash.failed', target: 'タスク', action: '更新')
-      statuses_all
       render :edit
     end
   end
