@@ -6,18 +6,19 @@
       <%= f.text_field :name, value: @search[:name], class: 'form-control form-control-sm', placeholder: 'タスク名' %>
     </div>
     <div class='form-group col'>
-      <%= f.collection_select :status_id, @statuses, :id, :name, selected: @search[:status], include_blank: true, class: 'form-control form-control-sm' %>
+      <%= f.select :status, Task.statuses.map {|k, v| [I18n.t("enums.task.status.#{k}"), v]}, include_blank: true, selected: @search[:status], class: 'form-control form-control-sm' %>
       <%= f.submit I18n.t('search'), name: nil, class: 'btn btn-dark' %>
     </div>
   </div>
 <% end %>
+
 <div class='scroll'>
   <table class='table table-striped'>
     <thead class="thead-dark">
       <tr>
         <th scope="col"><%= sortable @search, 'name', Task.human_attribute_name(:name) %></th>
         <th scope="col"><%= sortable @search, 'description', Task.human_attribute_name(:description) %></th>
-        <th scope="col"><%= sortable @search, 'status_id', Task.human_attribute_name(:status_id) %></th>
+        <th scope="col"><%= sortable @search, 'status', Task.human_attribute_name(:status) %></th>
         <th scope="col"><%= sortable @search, 'due_at', Task.human_attribute_name(:due_at) %></th>
         <th scope="col"><%= sortable @search, 'created_at', Task.human_attribute_name(:created_at) %></th>
       </tr>
@@ -27,7 +28,7 @@
         <tr>
           <td class="task-name"><%= link_to task.name, task %></td>
           <td class="task-description"><%= task.description %></td>
-          <td class="task-status"><%= task.status.name %></td>
+          <td class="task-status"><%= task.status_i18n %></td>
           <td class="task-due_at">
             <%= I18n.l(task.due_at) if task.have_a_due %>
           </td>
