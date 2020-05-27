@@ -24,8 +24,7 @@ bundle install --path 'vendor/bundle'
 ```
 4. データベースの作成とマイグレーション
 ```
-rails db:create
-rails db:migrate
+rails db:setup
 ```
 
 5. nekoの起動
