@@ -100,7 +100,6 @@
 
 .scroll {
   overflow-y: scroll;
-  height: 100vm;
 }
 
 .pagination {
@@ -117,6 +116,10 @@
     background-color: #ffa300;
     border-color: #ffa300;
   }
+}
+
+.paginate-wrapper {
+  height: 82px;
 }
 
 .form {
