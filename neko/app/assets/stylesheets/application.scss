@@ -6,21 +6,6 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
-h1 a, h2 a {
-  color: #313131;
-  &:hover {
-    color: #313131;
-    text-decoration: none;
-  }
-}
-
-.hidden {
-  display: none;
-}
-.hidden-box input:checked ~ .hidden {
-  display: inline;
-}
-
 .wrapper {
   width: 100vw;
   height: 100%;
@@ -59,6 +44,21 @@ h1 a, h2 a {
   height: 100vh;
   width: 645px;
   padding-top: 20px;
+}
+
+h1 a, h2 a {
+  color: #313131;
+  &:hover {
+    color: #313131;
+    text-decoration: none;
+  }
+}
+
+.hidden {
+  display: none;
+}
+.hidden-box input:checked ~ .hidden {
+  display: inline;
 }
 
 .button-container {
