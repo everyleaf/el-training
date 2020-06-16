@@ -12,18 +12,18 @@
 | update_at | DATETIME | | |
 
 ### task
-| column name | データ型| プライマリキー | 備考 |
-|:-----------:|:------------:|:------------:|:------------:|
-| id | INT | ○ | |
-| user_id | INT | | userテーブルのID |
-| title | VARCHAR | | |
-| description | TEXT | | |
-| priority | TINYINT | | 低：0, 中:1, 高:2 |
-| status | TINYINT | | 未着手:0, 着手:1, 完了: 2 |
-| due | DATE | | |
-| label_id | INT | | labelテーブルのID |
-| create_at | DATETIME  | | |
-| update_at | DATETIME | | |
+| column name | データ型| プライマリキー | Not Null制約 | インデックス | 備考 |
+|:-----------:|:------------:|:------------:|:------------:|:------------:|:------------:|
+| id | INT | ○ | ○ | | |
+| user_id | INT | | ○ | ○ | userテーブルのID |
+| title | VARCHAR | | ○ | | |
+| description | TEXT | | | | |
+| priority | TINYINT | | ○ | | 低：0, 中:1, 高:2 |
+| status | TINYINT | | ○ | | 未着手:0, 着手:1, 完了: 2 |
+| due | DATE | | | | |
+| label_id | INT | | | | labelテーブルのID |
+| create_at | DATETIME | | ○ | | |
+| update_at | DATETIME | | ○ | | |
 
 ### label
 | column name | データ型| プライマリキー | 備考 |
