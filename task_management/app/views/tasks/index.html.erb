@@ -1,9 +1,11 @@
 <div>
   <h1>タスク一覧</h1>
 </div>
-<div>
-  <%= notice %>
-</div>
+<% flash.each do |message_type, message| %>
+  <div>
+    <%= message %>
+  <div>
+<% end %>
 <%# 暫定対応：テーブルのレイアウトはCSSで整える予定だが、現時点ではCSSを使うステップにいない為、border="1"を使用 %>
 <table border="1">
   <tr>
@@ -23,7 +25,7 @@
     <td><%= t.status %></td>
     <td><%= t.due %></td>
     <td><%= link_to '詳細', task_path(t.id) %></td>
-　　<td><%= link_to '編集', edit_task_path(t.id) %></td>
+    <td><%= link_to '編集', edit_task_path(t.id) %></td>
     <td><%= link_to '削除', task_path(t.id), method: :delete, data: { confirm: 'タスクを削除しますか？' } %></td>
   </tr>
 <% end %>
