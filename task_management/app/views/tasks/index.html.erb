@@ -21,8 +21,8 @@
 <% @tasks.each do |t| %>
   <tr>
     <td><%= t.title %></td>
-    <td><%= t.priority %></td>
-    <td><%= t.status %></td>
+    <td><%= t.priority_i18n %></td>
+    <td><%= t.status_i18n %></td>
     <td><%= t.due %></td>
     <td><%= link_to I18n.t('tasks.link.show'), task_path(t.id) %></td>
     <td><%= link_to I18n.t('tasks.link.edit'), edit_task_path(t.id) %></td>

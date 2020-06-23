@@ -5,13 +5,11 @@
   </div>
   <div>
     <%= f.label :priority %>
-    <%# TODO：ラベルとコードのハードコード部分の修正 %>
-　　<%= f.select :priority, [['低', 0], ['中', 1], ['高', 2]], { selected: 1 } %>
+    <%= f.select :priority, Task.priorities_i18n.invert, {} %> 
   </div>
   <div>
     <%= f.label :status %>
-    <%# TODO：ラベルとコードのハードコード部分の修正 %>
-　  <%= f.select :status, [['未着手', 0], ['着手', 1], ['完了', 2]], { selected: 0 } %>
+    <%= f.select :status, Task.statuses_i18n.invert, {} %>
   </div>
   <div>
     <%= f.label :due %>

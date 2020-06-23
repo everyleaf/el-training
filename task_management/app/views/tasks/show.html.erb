@@ -12,13 +12,11 @@
 </div>
 <div>
   <label><%= Task.human_attribute_name(:priority) %>：</label>
-  <%# TODO:表示値をコードからラベルに変換 %>
-　<%= @task.priority %>
+　<%= @task.priority_i18n %>
 </div>
 <div>
   <label><%= Task.human_attribute_name(:status) %>：</label>
-  <%# TODO:表示値をコードからラベルに変換 %>
-　<%= @task.status %>
+　<%= @task.status_i18n %>
 </div>
 <div>
   <label><%= Task.human_attribute_name(:due) %>：</label>

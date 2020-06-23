@@ -26,3 +26,15 @@ ja:
         priority: 優先度
         status: ステータス
         due: 期限
+        description: 説明
+  enums:
+    task:
+      priority:
+        low: 低
+        middle: 中
+        high: 高
+      status:
+        waiting: 未着手
+        working: 着手
+        completed: 完了
+
