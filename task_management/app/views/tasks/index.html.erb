@@ -1,5 +1,5 @@
 <div>
-  <h1>タスク一覧</h1>
+  <h1><%= I18n.t('tasks.index.title') %></h1>
 </div>
 <% flash.each do |message_type, message| %>
   <div>
@@ -9,13 +9,13 @@
 <%# 暫定対応：テーブルのレイアウトはCSSで整える予定だが、現時点ではCSSを使うステップにいない為、border="1"を使用 %>
 <table border="1">
   <tr>
-    <th>タイトル</th>
-    <th>優先度</th>
-    <th>ステータス</th>
-    <th>期限</th>
-    <th>詳細</th>
-    <th>編集</th>
-    <th>削除</th>
+    <th><%= Task.human_attribute_name(:title) %></th>
+    <th><%= Task.human_attribute_name(:priority) %></th>
+    <th><%= Task.human_attribute_name(:status) %></th>
+    <th><%= Task.human_attribute_name(:due) %></th>
+    <th><%= I18n.t('tasks.link.show') %></th>
+    <th><%= I18n.t('tasks.link.edit') %></th>
+    <th><%= I18n.t('tasks.link.delete') %></th>
   </tr>
 
 <% @tasks.each do |t| %>
@@ -24,10 +24,10 @@
     <td><%= t.priority %></td>
     <td><%= t.status %></td>
     <td><%= t.due %></td>
-    <td><%= link_to '詳細', task_path(t.id) %></td>
-    <td><%= link_to '編集', edit_task_path(t.id) %></td>
-    <td><%= link_to '削除', task_path(t.id), method: :delete, data: { confirm: 'タスクを削除しますか？' } %></td>
+    <td><%= link_to I18n.t('tasks.link.show'), task_path(t.id) %></td>
+    <td><%= link_to I18n.t('tasks.link.edit'), edit_task_path(t.id) %></td>
+    <td><%= link_to I18n.t('tasks.link.delete'), task_path(t.id), method: :delete, data: { confirm: I18n.t('tasks.confirm.delete') } %></td>
   </tr>
 <% end %>
 </table>
-<%= link_to 'タスク登録', new_task_path %>
+<%= link_to I18n.t('tasks.link.new'), new_task_path %>

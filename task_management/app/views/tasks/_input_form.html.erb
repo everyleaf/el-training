@@ -1,29 +1,29 @@
 <%= form_with model: @task, local: true do |f| %>
   <div>
-    <label> タイトル：</label>
+    <%= f.label :title %>
     <%= f.text_field :title %>
   </div>
   <div>
-    <label>優先度：</label>
+    <%= f.label :priority %>
     <%# TODO：ラベルとコードのハードコード部分の修正 %>
 　　<%= f.select :priority, [['低', 0], ['中', 1], ['高', 2]], { selected: 1 } %>
   </div>
   <div>
-    <label>ステータス：</label>
-   <%# TODO：ラベルとコードのハードコード部分の修正 %>
-　　<%= f.select :status, [['未着手', 0], ['着手', 1], ['完了', 2]], { selected: 0 } %>
+    <%= f.label :status %>
+    <%# TODO：ラベルとコードのハードコード部分の修正 %>
+　  <%= f.select :status, [['未着手', 0], ['着手', 1], ['完了', 2]], { selected: 0 } %>
   </div>
   <div>
-    <label>期限：</label>
+    <%= f.label :due %>
     <%= f.text_field :due %>
   </div>
   <div>
-    <label>説明：</label>
+    <%= f.label :description %>
     <%= f.text_area :description %>
   </div>
   <div>
     <%# TODO：画面によってボタン名を動的に変更できるようにする %>
-    <%= link_to '戻る', :back %>
-    <%= f.submit '送信' %>
+    <%= link_to I18n.t('tasks.link.back'), :back %>
+    <%= f.submit I18n.t('tasks.button') %>
   <div>
 <% end %>

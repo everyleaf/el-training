@@ -1,0 +1,28 @@
+ja:
+  tasks:
+    index:
+      title: タスク一覧
+    show:
+      title: タスク詳細
+    new:
+      title: タスク登録
+    edit:
+      title: タスク編集
+    link:
+      show: 詳細
+      edit: 編集
+      new: タスクの登録
+      delete: 削除
+      back: 戻る
+    button: 送信
+    confirm:
+      delete: 削除しますか？
+  activerecord:
+    models:
+      task:
+    attributes:
+      task:
+        title: タイトル
+        priority: 優先度
+        status: ステータス
+        due: 期限

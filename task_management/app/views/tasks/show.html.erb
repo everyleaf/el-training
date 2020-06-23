@@ -1,28 +1,28 @@
 <div>
-  <h1>タスク詳細</h1>
+  <h1><%= I18n.t('tasks.show.title') %></h1>
 <div>
 
 <div>
-  <label> タイトル：</label>
+  <label><%= Task.human_attribute_name(:title) %>：</label>
   <%= @task.title %>
 </div>
 <div>
-  <label>説明：</label>
+  <label><%= Task.human_attribute_name(:description) %>：</label>
   <%= @task.description %>
 </div>
 <div>
-  <label>優先度：</label>
+  <label><%= Task.human_attribute_name(:priority) %>：</label>
   <%# TODO:表示値をコードからラベルに変換 %>
 　<%= @task.priority %>
 </div>
 <div>
-  <label>ステータス：</label>
+  <label><%= Task.human_attribute_name(:status) %>：</label>
   <%# TODO:表示値をコードからラベルに変換 %>
 　<%= @task.status %>
 </div>
 <div>
-  <label>期限：</label>
+  <label><%= Task.human_attribute_name(:due) %>：</label>
 　<%# TODO：日付フォーマットへの変換 %>
   <%= @task.due %>
 </div>
-<%= link_to '戻る', :back %>
+<%= link_to I18n.t('tasks.link.back'), :back %>
