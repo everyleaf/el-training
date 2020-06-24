@@ -34,8 +34,8 @@ RSpec.describe 'Tasks', type: :system do
     before do
       visit new_task_path
       fill_in 'task_title', with: 'NEW TASK'
-      select '高', from: 'task_priority' #Label:高,サーバ送信値:2
-      select '未着手', from: 'task_status'#Label:未着手,サーバ送信値:0
+      select '高', from: 'task_priority' # Label:高,サーバ送信値:2
+      select '未着手', from: 'task_status' # Label:未着手,サーバ送信値:0
       fill_in 'task_due', with: '2020/07/01'
       fill_in 'task_description', with: 'NEW TASK'
       click_button '送信'
@@ -44,8 +44,8 @@ RSpec.describe 'Tasks', type: :system do
     it 'タスク一覧画面に遷移し、新規タスクが一覧に表示されている' do
       expect(current_path).to eq(tasks_path)
       expect(page).to have_content 'NEW TASK'
-      expect(page).to have_content '2' #優先度「高」のサーバ送信値
-      expect(page).to have_content '0' #ステータス「未着手」のサーバ送信値
+      expect(page).to have_content '2' # 優先度「高」のサーバ送信値
+      expect(page).to have_content '0' # ステータス「未着手」のサーバ送信値
       expect(page).to have_content '2020/07/01'
     end
 
@@ -58,19 +58,19 @@ RSpec.describe 'Tasks', type: :system do
     before do
       visit edit_task_path(task.id)
       fill_in 'task_title', with: 'EDIT TASK'
-      select '中', from: 'task_priority' #Label:中,サーバ送信値:1
-      select '完了', from: 'task_status' #Label:完了,サーバ送信値:2
+      select '中', from: 'task_priority' # Label:中,サーバ送信値:1
+      select '完了', from: 'task_status' # Label:完了,サーバ送信値:2
       fill_in 'task_due', with: '9999/12/31'
       fill_in 'task_description', with: 'EDIT TASK'
       click_button '送信'
     end
 
     it 'タスク一覧画面に遷移し、編集されたタスクが一覧に表示されている' do
-    expect(current_path).to eq(tasks_path)
-    expect(page).to have_content 'EDIT TASK'
-    expect(page).to have_content '1' #優先度「中」のサーバ送信値
-    expect(page).to have_content '2' #ステータス「完了」のサーバ送信値
-    expect(page).to have_content '9999/12/31'
+      expect(current_path).to eq(tasks_path)
+      expect(page).to have_content 'EDIT TASK'
+      expect(page).to have_content '1' # 優先度「中」のサーバ送信値
+      expect(page).to have_content '2' # ステータス「完了」のサーバ送信値
+      expect(page).to have_content '9999/12/31'
     end
 
     it 'タスク一覧画面にタスクの編集が成功したとのメッセージが表示される' do
@@ -102,4 +102,3 @@ RSpec.describe 'Tasks', type: :system do
     end
   end
 end
-
