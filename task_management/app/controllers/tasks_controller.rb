@@ -14,18 +14,18 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    @task.save if redirect_to tasks_path, notice: 'タスクが登録されました'
+    @task.save if redirect_to tasks_path, notice: I18n.t('tasks.flash.create')
   end
 
   def edit
   end
 
   def update
-    @task.update(task_params) if redirect_to tasks_path, notice: 'タスクが編集されました'
+    @task.update(task_params) if redirect_to tasks_path, notice: I18n.t('tasks.flash.update')
   end
 
   def destroy
-    @task.destroy if redirect_to tasks_path, notice: 'タスクを削除しました'
+    @task.destroy if redirect_to tasks_path, notice: I18n.t('tasks.flash.destroy')
   end
 
   private

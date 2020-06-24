@@ -17,6 +17,10 @@ ja:
     button: 送信
     confirm:
       delete: 削除しますか？
+    flash:
+      create: タスクが登録されました
+      update: タスクが編集されました
+      destroy: タスクを削除しました
   activerecord:
     models:
       task:
