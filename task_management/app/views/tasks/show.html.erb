@@ -3,23 +3,23 @@
 <div>
 
 <div>
-  <label><%= Task.human_attribute_name(:title) %>：</label>
+  <label><%= I18n.t('activerecord.attributes.task.title') %>：</label>
   <%= @task.title %>
 </div>
 <div>
-  <label><%= Task.human_attribute_name(:description) %>：</label>
+  <label><%= I18n.t('activerecord.attributes.task.description') %>：</label>
   <%= @task.description %>
 </div>
 <div>
-  <label><%= Task.human_attribute_name(:priority) %>：</label>
+  <label><%= I18n.t('activerecord.attributes.task.priority') %>：</label>
 　<%= @task.priority_i18n %>
 </div>
 <div>
-  <label><%= Task.human_attribute_name(:status) %>：</label>
+  <label><%= I18n.t('activerecord.attributes.task.status') %>：</label>
 　<%= @task.status_i18n %>
 </div>
 <div>
-  <label><%= Task.human_attribute_name(:due) %>：</label>
+  <label><%= I18n.t('activerecord.attributes.task.due') %>：</label>
 　<%# TODO：日付フォーマットへの変換 %>
   <%= @task.due %>
 </div>

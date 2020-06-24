@@ -9,10 +9,10 @@
 <%# 暫定対応：テーブルのレイアウトはCSSで整える予定だが、現時点ではCSSを使うステップにいない為、border="1"を使用 %>
 <table border="1">
   <tr>
-    <th><%= Task.human_attribute_name(:title) %></th>
-    <th><%= Task.human_attribute_name(:priority) %></th>
-    <th><%= Task.human_attribute_name(:status) %></th>
-    <th><%= Task.human_attribute_name(:due) %></th>
+    <th><%= I18n.t('activerecord.attributes.task.title') %></th>
+    <th><%= I18n.t('activerecord.attributes.task.priority') %></th>
+    <th><%= I18n.t('activerecord.attributes.task.status') %></th>
+    <th><%= I18n.t('activerecord.attributes.task.due') %></th>
     <th><%= I18n.t('tasks.link.show') %></th>
     <th><%= I18n.t('tasks.link.edit') %></th>
     <th><%= I18n.t('tasks.link.delete') %></th>
