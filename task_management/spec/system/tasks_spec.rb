@@ -14,6 +14,17 @@ RSpec.describe 'Tasks', type: :system do
       expect(page).to have_content '未着手'
       expect(page).to have_content task.due
     end
+
+    context '複数のタスクが表示されている場合' do
+      let!(:old_task) { FactoryBot.create(:task, title: 'Old Task ', created_at: Time.now) }
+      let!(:new_task) { FactoryBot.create(:task, title: 'New Task', created_at: Time.now + 1.second) }
+
+      it 'タスクが作成日の降順で表示されている' do
+        visit current_path
+        expect(new_task.created_at.time > old_task.created_at.time).to be true
+        expect(page.body.index(new_task.title)).to be < page.body.index(old_task.title)
+      end
+    end
   end
 
   describe '#show' do
