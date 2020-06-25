@@ -10,8 +10,8 @@ RSpec.describe 'Tasks', type: :system do
 
     it '登録済みタスクの一覧が表示される' do
       expect(page).to have_content task.title
-      expect(page).to have_content task.priority
-      expect(page).to have_content task.status
+      expect(page).to have_content '中'
+      expect(page).to have_content '未着手'
       expect(page).to have_content task.due
     end
   end
@@ -24,8 +24,8 @@ RSpec.describe 'Tasks', type: :system do
     it '登録済みタスクの詳細情報が1件表示される' do
       expect(page).to have_content task.title
       expect(page).to have_content task.description
-      expect(page).to have_content task.priority
-      expect(page).to have_content task.status
+      expect(page).to have_content '中'
+      expect(page).to have_content '未着手'
       expect(page).to have_content task.due
     end
   end
