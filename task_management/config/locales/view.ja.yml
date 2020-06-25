@@ -16,7 +16,7 @@ ja:
       back: 戻る
     button: 送信
     confirm:
-      delete: 削除しますか？
+      delete: タスクを削除しますか？
     flash:
       create: タスクが登録されました
       update: タスクが編集されました
