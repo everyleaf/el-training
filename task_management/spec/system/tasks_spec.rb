@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  let!(:task) { FactoryBot.create(:task) }
+  let!(:task) { create(:task) }
 
   describe '#index' do
     before do
@@ -16,8 +16,8 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     context '複数のタスクが表示されている場合' do
-      let!(:old_task) { FactoryBot.create(:task, title: 'OLD', created_at: Time.now) }
-      let!(:new_task) { FactoryBot.create(:task, title: 'NEW', created_at: Time.now + 1.second) }
+      let!(:old_task) { create(:task, title: 'OLD', created_at: Time.now) }
+      let!(:new_task) { create(:task, title: 'NEW', created_at: Time.now + 1.second) }
 
       it 'タスクが作成日の降順で表示されている' do
         visit current_path
