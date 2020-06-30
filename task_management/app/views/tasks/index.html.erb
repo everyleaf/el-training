@@ -12,7 +12,7 @@
     <th><%= I18n.t('activerecord.attributes.task.title') %></th>
     <th><%= I18n.t('activerecord.attributes.task.priority') %></th>
     <th><%= I18n.t('activerecord.attributes.task.status') %></th>
-    <th><%= I18n.t('activerecord.attributes.task.due') %></th>
+    <th><%= sortable 'due', I18n.t('activerecord.attributes.task.due') %></th>
     <th><%= I18n.t('tasks.link.show') %></th>
     <th><%= I18n.t('tasks.link.edit') %></th>
     <th><%= I18n.t('tasks.link.delete') %></th>
