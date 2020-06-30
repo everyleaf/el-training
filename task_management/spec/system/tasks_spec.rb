@@ -44,48 +44,94 @@ RSpec.describe 'Tasks', type: :system do
   describe '#create' do
     before do
       visit new_task_path
-      fill_in 'task_title', with: 'NEW TASK'
       select '高', from: 'task_priority'
       select '未着手', from: 'task_status'
       fill_in 'task_due', with: Date.current
       fill_in 'task_description', with: 'NEW TASK'
-      click_button '送信'
     end
 
-    it 'タスク一覧画面に遷移し、新規タスクが一覧に表示されている' do
-      expect(current_path).to eq(tasks_path)
-      expect(page).to have_content 'NEW TASK'
-      expect(page).to have_content '高'
-      expect(page).to have_content '未着手'
-      expect(page).to have_content Date.current
+    context '正常な値が入力された場合' do
+      before do
+        fill_in 'task_title', with: 'NEW TASK'
+        click_button '送信'
+      end
+
+      it 'タスク一覧画面に遷移し、新規タスクが一覧に表示されている' do
+        expect(current_path).to eq(tasks_path)
+        expect(page).to have_content 'NEW TASK'
+        expect(page).to have_content '高'
+        expect(page).to have_content '未着手'
+        expect(page).to have_content Date.current
+      end
+
+      it 'タスク一覧画面にタスク登録が成功したとのメッセージが表示される' do
+        expect(page).to have_content 'タスクが登録されました'
+      end
     end
 
-    it 'タスク一覧画面にタスク登録が成功したとのメッセージが表示される' do
-      expect(page).to have_content 'タスクが登録されました'
+    context '異常な値が入力された場合' do
+      context 'タイトルが空欄の場合' do
+        it 'タイトルを入力してくださいとのメッセージが表示される' do
+          fill_in 'task_title', with: ''
+          click_button '送信'
+          expect(page).to have_content 'タイトルを入力してください'
+        end
+      end
+
+      context 'タイトルに最大文字数を超過した値が入力された場合' do
+        it 'タイトルは20文字以内で入力してくださいとのメッセージが表示される' do
+          fill_in 'task_title', with: '123456789123456789123456789'
+          click_button '送信'
+          expect(page).to have_content 'タイトルは20文字以内で入力してください'
+        end
+      end
     end
   end
 
   describe '#update' do
     before do
       visit edit_task_path(task.id)
-      fill_in 'task_title', with: 'EDIT TASK'
       select '中', from: 'task_priority'
       select '完了', from: 'task_status'
       fill_in 'task_due', with: Date.current
       fill_in 'task_description', with: 'EDIT TASK'
-      click_button '送信'
     end
 
-    it 'タスク一覧画面に遷移し、編集されたタスクが一覧に表示されている' do
-      expect(current_path).to eq(tasks_path)
-      expect(page).to have_content 'EDIT TASK'
-      expect(page).to have_content '中'
-      expect(page).to have_content '完了'
-      expect(page).to have_content Date.current
+    context '正常な値が入力された場合' do
+      before do
+        fill_in 'task_title', with: 'EDIT TASK'
+        click_button '送信'
+      end
+
+      it 'タスク一覧画面に遷移し、編集されたタスクが一覧に表示されている' do
+        expect(current_path).to eq(tasks_path)
+        expect(page).to have_content 'EDIT TASK'
+        expect(page).to have_content '中'
+        expect(page).to have_content '完了'
+        expect(page).to have_content Date.current
+      end
+
+      it 'タスク一覧画面にタスクの編集が成功したとのメッセージが表示される' do
+        expect(page).to have_content 'タスクが編集されました'
+      end
     end
 
-    it 'タスク一覧画面にタスクの編集が成功したとのメッセージが表示される' do
-      expect(page).to have_content 'タスクが編集されました'
+    context '異常な値が入力された場合' do
+      context 'タイトルが空欄の場合' do
+        it 'タイトルを入力してくださいとのメッセージが表示される' do
+          fill_in 'task_title', with: ''
+          click_button '送信'
+          expect(page).to have_content 'タイトルを入力してください'
+        end
+      end
+
+      context 'タイトルに最大文字数を超過した値が入力された場合' do
+        it 'タイトルは20文字以内で入力してくださいとのメッセージが表示される' do
+          fill_in 'task_title', with: '123456789123456789123456789'
+          click_button '送信'
+          expect(page).to have_content 'タイトルは20文字以内で入力してください'
+        end
+      end
     end
   end
 
