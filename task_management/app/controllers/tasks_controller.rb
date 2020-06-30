@@ -14,14 +14,22 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    @task.save if redirect_to tasks_path, notice: I18n.t('tasks.flash.create')
+    if @task.save
+      redirect_to tasks_path, notice: I18n.t('tasks.flash.create')
+    else
+      render :new
+    end
   end
 
   def edit
   end
 
   def update
-    @task.update(task_params) if redirect_to tasks_path, notice: I18n.t('tasks.flash.update')
+    if @task.update(task_params)
+      redirect_to tasks_path, notice: I18n.t('tasks.flash.update')
+    else
+      render :edit
+    end
   end
 
   def destroy
