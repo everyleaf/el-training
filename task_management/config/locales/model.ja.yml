@@ -17,3 +17,6 @@ ja:
         waiting: 未着手
         working: 着手
         completed: 完了
+  erroes:
+    message:
+      invalid_date: 無効な日付です
