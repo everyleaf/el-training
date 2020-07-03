@@ -1,20 +1,12 @@
+<%= render 'shared/error_message' %>
 <%= form_with model: @task, local: true do |f| %>
-  <% if @task.errors.any? %>
-    <div>
-      <ul>
-        <% @task.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
   <div>
     <%= f.label :title %>
     <%= f.text_field :title %>
   </div>
   <div>
     <%= f.label :priority %>
-    <%= f.select :priority, Task.priorities_i18n.invert, {} %> 
+    <%= f.select :priority, Task.priorities_i18n.invert, {} %>
   </div>
   <div>
     <%= f.label :status %>
