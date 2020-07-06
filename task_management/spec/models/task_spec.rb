@@ -122,4 +122,61 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+
+  describe '検索機能' do
+    subject { Task.search(search_params) }
+
+    let!(:task1) { create(:task, title: 'task1', status: 0) }
+    let!(:task2) { create(:task, title: '2task2', status: 1) }
+    let!(:task3) { create(:task, title: '3task', status: 2) }
+    let!(:task4) { create(:task, title: 'English', status: 2) }
+
+    context 'タイトルで検索した場合' do
+      context 'タイトルを入力して検索した場合' do
+        let(:search_params) { { title: 'task' } }
+
+        it '部分一致したタスクが出力される' do
+          expect(subject.size).to eq 3
+          expect(subject[0]).to eq task1
+          expect(subject[1]).to eq task2
+          expect(subject[2]).to eq task3
+        end
+      end
+
+      context 'タイトルを入力せずに検索した場合' do
+        let(:search_params) { {} }
+
+        it '全てのタスクが出力される' do
+          expect(subject.size).to eq 4
+          expect(subject[0]).to eq task1
+          expect(subject[1]).to eq task2
+          expect(subject[2]).to eq task3
+          expect(subject[3]).to eq task4
+        end
+      end
+    end
+
+    context 'ステータスで検索した場合' do
+      context 'ステータスを指定した場合' do
+        let(:search_params) { { status: 1 } }
+
+        it '着手中のタスクが出力される' do
+          expect(subject.size).to eq 1
+          expect(subject[0]).to eq task2
+        end
+      end
+
+      context 'ステータスを指定しない場合' do
+        let(:search_params) { {} }
+
+        it '全てのタスクが出力される' do
+          expect(subject.size).to eq 4
+          expect(subject[0]).to eq task1
+          expect(subject[1]).to eq task2
+          expect(subject[2]).to eq task3
+          expect(subject[3]).to eq task4
+        end
+      end
+    end
+  end
 end

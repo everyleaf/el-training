@@ -56,6 +56,37 @@ RSpec.describe 'Tasks', type: :system do
         end
       end
     end
+
+    context '検索機能を使用した場合' do
+      subject { Task.search(search_params) }
+
+      let!(:task1) { create(:task, title: 'task1', status: 0) }
+      let!(:task2) { create(:task, title: '2task2', status: 1) }
+      let!(:task3) { create(:task, title: '3task', status: 2) }
+      let!(:task4) { create(:task, title: 'English', status: 2) }
+
+      context 'タイトルで検索した場合' do
+        it '入力された値と部分一致したタスクが表示される' do
+          fill_in 'title', with: 'task'
+          click_button '送信'
+          # table headerの行数を１引く
+          expect(page.find('table').all('tr').length - 1).to eq(3)
+          expect(page).to have_content 'task1'
+          expect(page).to have_content '2task2'
+          expect(page).to have_content '3task'
+        end
+      end
+
+      context 'ステータスで検索した場合' do
+        it '指定されたステータスに合致するタスクが表示される' do
+          select '着手', from: 'status'
+          click_button '送信'
+          # table headerの行数を１引く
+          expect(page.find('table').all('tr').length - 1).to eq(1)
+          expect(page).to have_content '2task2'
+        end
+      end
+    end
   end
 
   describe '#show' do
