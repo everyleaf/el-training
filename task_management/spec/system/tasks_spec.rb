@@ -25,6 +25,37 @@ RSpec.describe 'Tasks', type: :system do
         expect(page.body.index(new_task.title)).to be < page.body.index(old_task.title)
       end
     end
+
+    context '項目リンクを押下した場合' do
+      let!(:taskA) { create(:task, title: 'TASKA', due: Date.today) }
+      let!(:taskB) { create(:task, title: 'TASKB', due: Date.today + 10) }
+      let!(:taskC) { create(:task, title: 'TASKC', due: Date.today + 20) }
+
+      context '期限の項目リンクを押下した場合' do
+        context 'タスクが期限の降順でソートされていない場合' do
+          it '期限の降順でソートされる' do
+            # 一覧画面の初期表示時は、タスクの作成日順降順でソートされている
+            visit root_path
+            click_link '期限'
+
+            expect(page.body.index(taskA.title)).to be > page.body.index(taskB.title)
+            expect(page.body.index(taskB.title)).to be > page.body.index(taskC.title)
+          end
+        end
+
+        context 'タスクが期限の降順でソートされている場合' do
+          it '期限の昇順でソートされる' do
+            # 一覧画面の初期表示時は、タスクの作成日順降順でソートされている
+            visit root_path
+            click_link '期限' # 期限の降順でソートされている状態を作る
+            click_link '期限'
+
+            expect(page.body.index(taskA.title)).to be < page.body.index(taskB.title)
+            expect(page.body.index(taskB.title)).to be < page.body.index(taskC.title)
+          end
+        end
+      end
+    end
   end
 
   describe '#show' do
