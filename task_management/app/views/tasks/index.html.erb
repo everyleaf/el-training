@@ -6,6 +6,17 @@
     <%= message %>
   <div>
 <% end %>
+<%= form_with url: tasks_path, method: :get, local: true do |f| %>
+  <div>
+    <%= f.label I18n.t('activerecord.attributes.task.title') %>
+    <%= f.text_field :title, value: @search_params[:title] %>
+  </div>
+  <div>
+    <%= f.label I18n.t('activerecord.attributes.task.status') %>
+    <%= f.select :status, Task.statuses_i18n.invert, { include_blank: true, selected: @search_params[:status] } %>
+  </div>
+  <%= f.submit I18n.t('tasks.button') %>
+<% end %>
 <%# 暫定対応：テーブルのレイアウトはCSSで整える予定だが、現時点ではCSSを使うステップにいない為、border="1"を使用 %>
 <table border="1">
   <tr>

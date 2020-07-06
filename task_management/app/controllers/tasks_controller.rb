@@ -4,7 +4,11 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.all.order("#{sort_column} #{sort_direction}")
+    @search_params = {
+      title: params[:title], status: params[:status],
+      sort_column: sort_column, sort_direction: sort_direction,
+    }
+    @tasks = Task.search(@search_params)
   end
 
   def show

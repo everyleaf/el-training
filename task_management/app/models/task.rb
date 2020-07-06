@@ -7,6 +7,15 @@ class Task < ApplicationRecord
   validates :priority, presence: true
   validate :due_valid?
 
+  def self.search(search_params)
+    title_like(search_params[:title]).
+      status_is(search_params[:status]).
+      order("#{search_params[:sort_column]} #{search_params[:sort_direction]}")
+  end
+
+  scope :title_like, -> (title) { where('title LIKE ?', "%#{title}%") if title.present? }
+  scope :status_is, -> (status) { where(status: status) if status.present? }
+
   private
 
   def due_valid?
