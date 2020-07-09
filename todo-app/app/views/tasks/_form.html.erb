@@ -1,0 +1,8 @@
+<div class="form-group">
+  <%= f.label :name, "タスクの名前", class: "required" %>
+  <%= f.text_field :name, required: true , class: "form-control" %>
+</div>
+<div class="form-group">
+  <%= f.label :due_date, "期限", class: "required" %>
+  <%= f.date_field :due_date, required: true, class: "form-control"  %>
+</div>

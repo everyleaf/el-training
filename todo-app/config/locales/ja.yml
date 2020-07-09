@@ -1,0 +1,7 @@
+ja:
+  hello: こんにちは
+  msg-success: タスク、%{name}を%{action}しました。
+  msg-error:  処理が失敗しました
+  action-update: 更新
+  action-create: 作成
+  action-delete: 削除

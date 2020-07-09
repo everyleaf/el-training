@@ -1,0 +1,43 @@
+<%= @title = "タスク一覧" %>
+
+<h1><% @title %></h1>
+
+<div class="container">
+
+<div>
+  <p>        <%= link_to "タスクを作成する", new_task_path , class: "btn btn-primary" %></p>
+
+</div>
+
+
+<%= paginate @tasks %>
+<table class="table table-striped table-hover" id="task">
+  <thead>
+  <tr>
+    <th  scope="col">No.</th>
+    <th  scope="col">タスク</th>
+    <th scope="col">ステータス</th>
+    <th scope="col">期限</th>
+    <th scope="col">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @tasks.each do |t| %>
+    <tr>
+      <td><%= t.id %></td>
+      <td><%= t.name %></td>
+      <td><%= to_status_str(t.status) %></td>
+      <td><%= t.due_date&.strftime("%Y/%m/%d") %></td>
+      <td>
+        <%= link_to "編集", edit_task_path(t), class: "badge badge-success" %>
+
+        <%= link_to "削除",  task_path(t), method: :delete, data: {confirm: "本当に削除しますか？"} , class: "badge badge-secondary"%>
+
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= paginate @tasks %>
+
+</div>

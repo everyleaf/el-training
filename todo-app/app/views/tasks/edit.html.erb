@@ -1,0 +1,19 @@
+<%= @title = "タスクの編集" %>
+
+<h1><% @title %></h1>
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= form_with model: @task, local: true do |f| %>
+        <%= render "form", f: f %>
+
+        <div class="btn-area">
+          <%= f.submit "編集する" , class: "btn btn-success" %>
+          <%= link_to "一覧へ戻る", tasks_path, class: "btn btn-secondary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
