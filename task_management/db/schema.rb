@@ -25,11 +25,4 @@ ActiveRecord::Schema.define(version: 2020_07_06_023821) do
     t.index ["status"], name: "index_tasks_on_status"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "mail_address", null: false
-    t.string "password_digest", null: false
-    t.integer "role", limit: 1, null: false
-  end
-
 end

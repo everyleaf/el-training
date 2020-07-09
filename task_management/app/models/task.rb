@@ -13,7 +13,7 @@ class Task < ApplicationRecord
       order("#{search_params[:sort_column]} #{search_params[:sort_direction]}")
   end
 
-  scope :title_like, -> (title) { where('title LIKE ?', "%#{title}%") if title.present? }
+  scope :title_like, -> (title) { where('title LIKE ?', "%#{sanitize_sql_like(title)}%") if title.present? }
   scope :status_is, -> (status) { where(status: status) if status.present? }
 
   private
