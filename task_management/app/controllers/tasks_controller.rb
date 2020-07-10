@@ -8,7 +8,7 @@ class TasksController < ApplicationController
       title: params[:title], status: params[:status],
       sort_column: sort_column, sort_direction: sort_direction,
     }
-    @tasks = Task.search(@search_params)
+    @tasks = Task.search(@search_params).page(params[:page])
   end
 
   def show

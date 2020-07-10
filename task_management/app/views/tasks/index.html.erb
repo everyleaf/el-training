@@ -41,4 +41,5 @@
   </tr>
 <% end %>
 </table>
+<%= paginate @tasks %>
 <%= link_to I18n.t('tasks.link.new'), new_task_path %>
