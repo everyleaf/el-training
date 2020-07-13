@@ -1,0 +1,31 @@
+inherit_gem:
+  fablicop:
+    - "config/.base_rubocop.yml"
+    # uncomment if use rails cops
+    # - "config/rails.yml"
+    # uncomment if use rspec cops
+    # - "config/rspec.yml"
+
+AllCops:
+  TargetRubyVersion: 2.5
+  Exclude:
+    - 'tmp/**/*'
+    - 'node_modules/**/*'
+    - 'db/**/*'
+    - 'bin/**/*'
+    - 'config/**/*'
+    - '*'
+
+
+############
+# https://github.com/rubocop-hq/rubocop/blob/master/manual/configuration.md#merging-arrays-using-inherit_mode
+inherit_mode:
+  merge:
+    - Environments
+
+# inherit_mode使ってるので、fablicop上にある環境以外のものだけ追加すれば大丈夫
+# 各repositoryが全部stg_qa01追加されたらfablicopに移行して大丈夫です。
+Rails/UnknownEnv:
+  Environments:
+    - stg_qa01
+############

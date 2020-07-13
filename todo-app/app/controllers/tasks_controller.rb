@@ -1,25 +1,24 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
   def index
-
     @tasks = Task.all.page(params[:page]).per(10)
   end
 
   def show
-    redirect_to action: "index"
+    redirect_to tasks_path
   end
 
   def update
     @task = Task.find(params[:id])
-    @task.assign_attributes(task_params)
 
-    if @task.save
-      flash.notice = as_success_message(@task.name, "action-update")
-      redirect_to action: "index"
+    if @task.update(task_params)
+      flash.notice = as_success_message(@task.name, 'action-update')
+      redirect_to tasks_path
     else
       flash.alert = error_message
-      render action: "edit"
+      render edit_task_path
     end
-
   end
 
   def new
@@ -29,29 +28,26 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      flash.notice  = as_success_message(@task.name, "action-create")
+      flash.notice = as_success_message(@task.name, 'action-create')
 
-      redirect_to action: "index"
+      redirect_to tasks_path
     else
       flash.alert = error_message
-      render action: "new"
+      render new_task_path
     end
-
   end
 
   def destroy
     task = Task.find(params[:id])
     task.destroy!
-    flash.notice = as_success_message(@task.name, "action-delete")
+    flash.notice = as_success_message(task.name, 'action-delete')
 
-    redirect_to action: "index"
-
+    redirect_to tasks_path
   end
 
   def edit
     @task = Task.find(params[:id])
   end
-
 
   private
 

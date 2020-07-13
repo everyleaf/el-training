@@ -7,12 +7,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-TASKS = %w{掃除 洗濯 買い物 読書 勉強 散歩 Gym 食事}
-
+TASKS = %w[掃除 洗濯 買い物 読書 勉強 散歩 ジム 食事]
 
 (1..3).to_a.each do |num|
   TASKS.each do |task|
     p "Creating task #{task + num.to_s} ..."
-    Task.create(name: task + "   " +  num.to_s, status: rand(0..2), due_date: Time.now + 1)
+    Task.create(name: task + '  ' + num.to_s, status: rand(0..2), due_date: Time.zone.now + 1)
   end
 end
