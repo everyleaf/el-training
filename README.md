@@ -101,6 +101,8 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 #### 1-1: Rubyのインストール
 
 - [rbenv](https://github.com/rbenv/rbenv)を利用して最新バージョンのRubyをインストールしてください
+  - `gem install bundler`を実行して下記のようなエラーが出るときは、System Prefernces → network → Advanced → TCP/IPのipv6設定をlink-local onlyに変更すれば解消します
+  　 `ERROR:  Could not find a valid gem 'bundler' (>= 0), here is why:Unable to download data from https://rubygems.org/ - timed out (https://api.rubygems.org/specs.4.8.gz)`
 - `ruby -v` コマンドでRubyのバージョンが表示されることを確認してください
 
 #### 1-2: Railsのインストール
