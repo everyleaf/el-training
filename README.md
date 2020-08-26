@@ -238,6 +238,9 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 - ~~feature spec~~ system specをタスク機能に対して書きましょう
   - Rails 5.1 以降、新たにsystem testの機能を追加しました
     - [日本語](https://qiita.com/jnchito/items/c7e6e7abf83598a6516d), [英語](https://rossta.net/blog/why-rails-system-tests-matter.html)
+  - dockerを利用して研修を行う場合、以下の設定が必要です。
+    1. [Dockerfile](https://qiita.com/ngron/items/f61b8635b4d67f666d75#failed-to-read-the-sessionstorage-property-from-window-storage-is-disabled-inside-data-urls)
+    2. [spec/rails_helper.rb](https://commis.hatenablog.com/entry/2018/11/16/171608)
   - feature specですと `database_cleaner` という gemは必要でしたが、 system specに変更することで `database_cleaner` の導入が要らなくなった
 - Circle CIなどのCIツールを導入して、Slackに通知するようにしましょう
   - Fablic/training内でPRのやり取りをする場合、CIツールの導入は任意(optional)です。CircleCIのAdmin権限が無いので、`.circleci/config.yml`を設定しても実行できないです。
