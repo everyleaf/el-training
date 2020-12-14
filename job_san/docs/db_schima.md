@@ -35,7 +35,18 @@
 |priority|VARCHAR(6)|NO|CHECK(`priority` IN(`hight`, `midium`, `low`))|
 |status|VARCHAR(5)|NO|CHECK(`status` IN(`todo`, `doing`, `done`))|
 |user_id|INT|NO|FK: users|
-|label_id|INT|YES|FK: labels|
 |created_at|TIMESTAMP|YES|DEFAULT CURRENT_TIMESTAMP|
 |updated_at|TIMESTAMP|YES|DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP|
-|complete_at|DATE|YES||
+|target_date|DATE|YES||
+
+### task_labels
+
+タスクとラベルの中間テーブル
+
+| name | type | null | remarks |
+|:-----------|:------------|:------|:-------------|
+|id|INT|NO|PK AUTO_INCREMENT|
+|label_id|INT|NO|FK: labels|
+|task_id|INT|NO|FK: tasks|
+|created_at|TIMESTAMP|YES|DEFAULT CURRENT_TIMESTAMP|
+|updated_at|TIMESTAMP|YES|DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP|
