@@ -18,7 +18,7 @@
 | name | type | null | remarks |
 |:-----------|:------------|:------|:-------------|
 |id|INT|NO|PK AUTO_INCREMENT|
-|name|VARCHAR(255)|NO||
+|name|VARCHAR(100)|NO|UNIQUE|
 |created_at|TIMESTAMP|YES|DEFAULT CURRENT_TIMESTAMP|
 
 ### tasks
