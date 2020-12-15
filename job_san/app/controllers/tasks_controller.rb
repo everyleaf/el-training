@@ -9,6 +9,7 @@ class TasksController < ApplicationController
   TASK_NOT_DELETED = 'タスクが削除できなかったよ'.freeze
 
   def index
+    # TODO: ステップ14までページネーションは実装しません。
     @tasks = Task.all
   end
 
