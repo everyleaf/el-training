@@ -1,0 +1,7 @@
+<h1>Tasks#new</h1>
+
+<%= form_with model: @task, url: tasks_path do |form| %>
+  Name: <%= form.text_field :name %><br>
+  Description: <%= form.text_field :description %><br>
+  <%= form.submit%>
+<% end %>
