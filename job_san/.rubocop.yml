@@ -1,0 +1,14 @@
+# 過去の遺産をいただきました。
+# https://github.com/Fablic/training/pull/643/files
+inherit_gem:
+  fablicop:
+    - "config/.base_rubocop.yml"
+    # uncomment if use rails cops
+    # - "config/rails.yml"
+    # uncomment if use rspec cops
+    # - "config/rspec.yml"
+Metrics/AbcSize:
+  Enabled: false
+
+AllCops:
+  TargetRubyVersion: 2.5.7

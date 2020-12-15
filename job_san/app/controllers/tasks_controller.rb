@@ -1,12 +1,13 @@
-class TasksController < ApplicationController
+# frozen_string_literal: true
 
-  TASK_CREATED = 'タスクを作成したよ'.freeze
-  TASK_NOT_CREATED = 'タスクが作成できなかったよ'.freeze
-  TASK_NOT_FOUND = 'そのタスクないよ'.freeze
-  TASK_UPDATED = 'タスクを更新したよ'.freeze
-  TASK_NOT_UPDATED = 'タスクが更新できなかったよ'.freeze
-  TASK_DELETED = 'タスクを削除したよ'.freeze
-  TASK_NOT_DELETED = 'タスクが削除できなかったよ'.freeze
+class TasksController < ApplicationController
+  TASK_CREATED = 'タスクを作成したよ'
+  TASK_NOT_CREATED = 'タスクが作成できなかったよ'
+  TASK_NOT_FOUND = 'そのタスクないよ'
+  TASK_UPDATED = 'タスクを更新したよ'
+  TASK_NOT_UPDATED = 'タスクが更新できなかったよ'
+  TASK_DELETED = 'タスクを削除したよ'
+  TASK_NOT_DELETED = 'タスクが削除できなかったよ'
 
   def index
     # TODO: ステップ14までページネーションは実装しません。
