@@ -1,3 +1,13 @@
 <h1>Tasks#show</h1>
-<%== '指定したタスクは存在しません。' unless @task %>
-<%== @task&.name %>
+<% if @task %>
+  <div>
+    <p>ID: <%= @task.id %></p>
+    <p><%= @task.name %></p>
+    <p><%= @task.description %></p>
+  </div>
+  <div>
+    <%= link_to '削除', "#{@task.id}", method: :delete %>
+  </div>
+<% else %>
+  指定したタスクは存在しません。
+<% end %>
