@@ -10,6 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2020_12_16_070415) do
+
+  create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "task_name", null: false
+    t.text "detail"
+    t.text "location"
+    t.decimal "lat", precision: 10
+    t.decimal "lng", precision: 10
+    t.integer "priority_no"
+    t.integer "status"
+    t.integer "user_id"
+    t.datetime "end_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
 end
