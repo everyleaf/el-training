@@ -1,0 +1,27 @@
+version: "3"
+services:
+  db:
+    image: mysql:8.0
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=passwd
+      - TZ=Asia/Tokyo
+    ports:
+      - '3307:3306'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/myapp
+      - bundle-install:/usr/local/bundle:delegated
+    ports:
+      - "3001:3000"
+    depends_on:
+      - db
+volumes:
+  mysql-data:
+    driver: local
+  bundle-install:
+    driver: local
