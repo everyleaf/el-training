@@ -9,7 +9,6 @@ RSpec.describe Task, type: :system do
   describe '#index' do
     it 'visit index page' do
       visit tasks_path
-      p page
       expect(page).to have_content sample_task_name
     end
   end
