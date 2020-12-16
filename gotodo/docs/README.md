@@ -19,7 +19,7 @@ e.g. 期間限定イベントに行く
 | 緯度 | lat | DOUBLE | | t.decimal |
 | 経度 | lng | DOUBLE | | t.decimal |
 | 優先度番号 | priority_no | INT | FK(優先度テーブル.優先度番号) | t.integer |
-| ステータス番号 | status_no | INT | FK(ステータステーブル.ステータス番号) | t.integer |
+| ステータス | status | INT |  | t.integer (enum) |
 | ユーザID | user_id | INT | FK(ユーザテーブル.ID) | t.integer |
 | 終了期限 | end_date | DATETIME | | t.datetime |
 | 作成日 | created_at | TIMESTAMP | | t.timestamps |
@@ -31,15 +31,6 @@ e.g. 期間限定イベントに行く
 | ID | id | SERIAL | PK | 自動追加 |
 | 優先度番号 | priority_no | INT | NN | t.integer |
 | 優先度 | priority | VARCHAR(255) | NN | t.string |
-| 作成日 | created_at | TIMESTAMP | | t.timestamps |
-| 更新日 | created_at | TIMESTAMP | | t.timestamps |
-
-## ステータステーブル
-| カラム名(論理) | カラム名(物理) | 型 | 制約 | Rails |
-| --- | --- | --- | --- | --- |
-| ID | id | SERIAL | PK | 自動追加 |
-| ステータス番号 | status_no | INT | NN | t.integer |
-| ステータス | status | VARCHAR(255) | NN | t.string |
 | 作成日 | created_at | TIMESTAMP | | t.timestamps |
 | 更新日 | created_at | TIMESTAMP | | t.timestamps |
 
