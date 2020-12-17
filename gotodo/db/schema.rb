@@ -18,9 +18,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_070415) do
     t.text "location"
     t.decimal "lat", precision: 10
     t.decimal "lng", precision: 10
-    t.integer "priority_no"
-    t.integer "status"
-    t.integer "user_id"
+    t.integer "status", limit: 1
     t.datetime "end_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

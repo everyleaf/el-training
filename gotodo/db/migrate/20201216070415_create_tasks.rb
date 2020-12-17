@@ -6,9 +6,9 @@ class CreateTasks < ActiveRecord::Migration[6.1]
       t.text :location
       t.decimal :lat
       t.decimal :lng
-      t.integer :priority_no
-      t.integer :status
-      t.integer :user_id
+      t.integer :status, limit: 1
+      # t.references :priority, foreign_key: true <-後タスクで追加予定
+      # t.references :user, foreign_key: true <-後タスクで追加予定
       t.datetime :end_date
       t.timestamps
     end
