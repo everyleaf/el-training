@@ -18,9 +18,9 @@ e.g. 期間限定イベントに行く
 | 住所 | location| TEXT | | t.text
 | 緯度 | lat | DOUBLE | | t.decimal |
 | 経度 | lng | DOUBLE | | t.decimal |
-| 優先度番号 | priority_no | INT | FK(優先度テーブル.優先度番号) | t.integer |
-| ステータス番号 | status_no | INT | FK(ステータステーブル.ステータス番号) | t.integer |
-| ユーザID | user_id | INT | FK(ユーザテーブル.ID) | t.integer |
+| ステータス | status | INT |  | t.integer (enum) |
+| 優先度ID | priority_id | INT | FK(優先度テーブル.優先度ID) | t.references :priority, foreign_key: true |
+| ユーザID | user_id | INT | FK(ユーザテーブル.ID) | t.references :user, foreign_key: true |
 | 終了期限 | end_date | DATETIME | | t.datetime |
 | 作成日 | created_at | TIMESTAMP | | t.timestamps |
 | 更新日 | created_at | TIMESTAMP | | t.timestamps |
@@ -31,15 +31,6 @@ e.g. 期間限定イベントに行く
 | ID | id | SERIAL | PK | 自動追加 |
 | 優先度番号 | priority_no | INT | NN | t.integer |
 | 優先度 | priority | VARCHAR(255) | NN | t.string |
-| 作成日 | created_at | TIMESTAMP | | t.timestamps |
-| 更新日 | created_at | TIMESTAMP | | t.timestamps |
-
-## ステータステーブル
-| カラム名(論理) | カラム名(物理) | 型 | 制約 | Rails |
-| --- | --- | --- | --- | --- |
-| ID | id | SERIAL | PK | 自動追加 |
-| ステータス番号 | status_no | INT | NN | t.integer |
-| ステータス | status | VARCHAR(255) | NN | t.string |
 | 作成日 | created_at | TIMESTAMP | | t.timestamps |
 | 更新日 | created_at | TIMESTAMP | | t.timestamps |
 
@@ -66,7 +57,7 @@ e.g. 期間限定イベントに行く
 | ID | id | SERIAL | PK | 自動追加 |
 | ユーザ名 | user_name | VARCHAR(255) | NN | t.string |
 | パスワード | password | VARCHAR(255) | NN | t.string |
-| ロール番号 | role_no | INT | FK(ロールテーブル.ロール番号) | t.integer |
+| ロールID | role_id | INT | FK(ロールテーブル.ロールID) | t.references :role, foreign_key: true |
 | 画像URL | img_path | TEXT | | t.text |
 | 作成日 | created_at | TIMESTAMP | | t.timestamps |
 | 更新日 | created_at | TIMESTAMP | | t.timestamps |
