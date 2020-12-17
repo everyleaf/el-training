@@ -1,13 +1,14 @@
 services:
   db:
-    image: "mysql:5.6"
+    image: "mysql:8.0.22"
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
     environment:
       MYSQL_DATABASE: job_san_development
-      MYSQL_ROOT_PASSWORD: "passwords"
+      MYSQL_ROOT_PASSWORD: "password"
   web:
     build: .
     volumes:
