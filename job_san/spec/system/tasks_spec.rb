@@ -58,7 +58,7 @@ RSpec.describe Task, type: :system do
 
       subject { click_button 'Update Task' }
 
-      it 'move to task list page' do
+      it 'move to task updated task page' do
         subject
         expect(current_path).to eq task_path id: sample_task.id
         expect(page).to have_content TasksController::TASK_UPDATED
