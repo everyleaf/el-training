@@ -28,12 +28,12 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find_by(id: params[:id])
-    redirect_to tasks_path, notice: I18n.t('view.task.flash.not_found') unless @task
+    redirect_to tasks_path, notice: I18n.t('view.task.error.not_found') unless @task
   end
 
   def update
     @task = Task.find_by(id: params[:id])
-    redirect_to tasks_path, notice: I18n.t('view.task.flash.not_found') unless @task
+    redirect_to tasks_path, notice: I18n.t('view.task.error.not_found') unless @task
 
     # TODO: ステップ11までバリデーションは実装しません。
     if @task.update(task_params)
@@ -47,7 +47,7 @@ class TasksController < ApplicationController
 
   def destroy
     task = Task.find_by(id: params[:id])
-    redirect_to tasks_path, notice: I18n.t('view.task.flash.not_found') unless task
+    redirect_to tasks_path, notice: I18n.t('view.task.error.not_found') unless task
 
     if task.destroy
       redirect_to tasks_path, notice: I18n.t('view.task.flash.deleted')

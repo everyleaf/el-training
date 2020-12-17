@@ -1,7 +1,7 @@
 <h1>Tasks#show</h1>
 <% if @task %>
   <div>
-    <p><%= I18n.t('view.task.show.label.id', id: @task.id) %></p>
+    <p><%= I18n.t('view.task.label.id', id: @task.id) %></p>
     <p><%= @task.name %></p>
     <p><%= @task.description %></p>
   </div>
@@ -9,5 +9,5 @@
     <%= link_to I18n.t('view.task.show.delete'), @task.id.to_s, data: { confirm: I18n.t('view.task.show.confirm_delete', name: @task.name) }, method: :delete %>
   </div>
 <% else %>
-  <%= I18n.t('view.task.show.not_found') %>
+  <%= I18n.t('view.task.error.not_found') %>
 <% end %>
