@@ -1,0 +1,26 @@
+services:
+  db:
+    image: "mysql:5.6"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: job_san_development
+      MYSQL_ROOT_PASSWORD: "passwords"
+  web:
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - vendor_bundle:/user/src/app/vendor/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    command: rails s -b 0.0.0.0
+
+volumes:
+  mysql_data:
+    driver: local
+  vendor_bundle:
+    driver: local
