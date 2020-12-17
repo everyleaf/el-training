@@ -15,3 +15,6 @@ ja:
           id: "ID: %{id}"
         delete: 削除
         confirm_delete: "%{name}を削除しますか？"
+      index:
+        label:
+          id: "ID: %{id}"
