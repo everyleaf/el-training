@@ -1,0 +1,17 @@
+ja:
+  view:
+    task:
+      flash:
+        created: タスクを作成したよ
+        not_created: タスクが作成できなかったよ
+        updated: タスクを更新したよ
+        not_updated: タスクが更新できなかったよ
+        deleted: タスクを削除したよ
+        not_deleted: タスクが削除できなかったよ
+        not_found: そのタスクないよ
+      show:
+        not_found: そのタスクないよ
+        label:
+          id: "ID: %{id}"
+        delete: 削除
+        confirm_delete: "%{name}を削除しますか？"
