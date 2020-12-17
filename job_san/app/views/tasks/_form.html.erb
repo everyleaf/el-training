@@ -1,5 +1,11 @@
 <%= form_with model: @task, method: target_method do |form| %>
-  Name: <%= form.text_field :name %><br>
-  Description: <%= form.text_field :description %><br>
+  <div>
+    <%= form.label(:name) %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label(:description) %>
+    <%= form.text_field :description %>
+  </div>
   <%= form.submit %>
 <% end %>
