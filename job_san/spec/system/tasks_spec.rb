@@ -24,14 +24,16 @@ RSpec.describe Task, type: :system do
         fill_in 'Description', with: sample_task_description
       end
 
+      subject { click_button 'Create Task' }
+
       it 'move to task list page' do
-        click_button 'Create Task'
+        subject
         expect(current_path).to eq tasks_path
-        expect(page).to have_content 'タスクを作成したよ'
+        expect(page).to have_content TasksController::TASK_CREATED
       end
 
       it 'create new task' do
-        expect { click_button 'Create Task' }.to change(Task, :count).by(1)
+        expect { subject }.to change(Task, :count).by(1)
       end
     end
   end
