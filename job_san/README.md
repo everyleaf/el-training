@@ -1,24 +1,32 @@
-# README
+# JobSanとは
+タスクを管理してくれるすごいやつ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# 環境構築
 
-Things you may want to cover:
+1. コマンド実行
+```
+$ pwd
+> ${リポジトリがある場所}/training/job_san
+$ ls
+> ... Dockerfile, docker-compose.yml
+$ docker-compose up 
+> webとdbとselenium_chromeが立ち上がったことを確認してください。
+````
 
-* Ruby version
+2. マイグレーション
+   
+`docker-compose up` が終わったらブラウザから `http://localhost:3000` へアクセスして下さい。
+画面上にマイグレーション用のボタンが出力されているのでクリックしてください。
 
-* System dependencies
+<img width="400" alt="docker-setup" src="docs/readme_images/docker_setup.png">
 
-* Configuration
+3. HELLO WORLD !
 
-* Database creation
+# 確認方法
 
-* Database initialization
+## 動作確認
+`docker-compouse up` してサーバを立ち上げてから`http://localhost:3000` へアクセスして下さい。
 
-* How to run the test suite
+## テスト実行
+`docker-compose run web bundle exec rspec` 
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
