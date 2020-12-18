@@ -11,6 +11,14 @@
     </div>
   <% end %>
 
+  <%= form.label :task_name, "タスク名" %>
+  <br>
+  <%= form.text_field :task_name %>
+  <br>
+  <%= form.label :detail, "詳細" %>
+  <br>
+  <%= form.text_area :detail, size: "60x12" %>
+
   <div class="actions">
     <%= form.submit %>
   </div>

@@ -10,6 +10,7 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    @task = Task.find(params[:id])
   end
 
   # GET /tasks/new
@@ -69,6 +70,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.fetch(:task, {})
+      params.fetch(:task, {}).permit(:task_name, :detail)
     end
 end

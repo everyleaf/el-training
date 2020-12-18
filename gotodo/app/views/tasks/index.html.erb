@@ -10,13 +10,13 @@
   </thead>
 
   <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+    <thead>
+      <td>タスク名</td>
+      <td>詳細</td>
+      <td>作成日</td>
+      <td>更新日</td>
+    </thead>
+    <%= render @tasks %>
   </tbody>
 </table>
 
