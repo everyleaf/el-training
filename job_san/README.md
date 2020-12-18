@@ -20,6 +20,12 @@ $ docker-compose up
 
 <img width="400" alt="docker-setup" src="docs/readme_images/docker_setup.png">
 
+テスト実行用に以下も実行してください。
+```
+$ docker-compose run web bundle exec rails db:create
+> Created database 'job_san_test'
+```
+
 3. HELLO WORLD !
 
 # 確認方法
@@ -28,5 +34,5 @@ $ docker-compose up
 `docker-compouse up` してサーバを立ち上げてから`http://localhost:3000` へアクセスして下さい。
 
 ## テスト実行
-`docker-compose run web bundle exec rspec` 
-
+1. `docker-compouse up` してサーバを立ち上げてから
+1. `docker exec -it ${コンテナID} bash`でサーバに入って `bundle exec rspec`
