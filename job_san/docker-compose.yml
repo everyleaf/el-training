@@ -1,13 +1,12 @@
 services:
   db:
-    image: "mysql:8.0.18"
+    image: "mysql:8.0"
     ports:
       - "3306:3306"
-    volumes:
-      - ./docker/app/db/my.cnf:/etc/mysql/conf.d/my.cnf
     environment:
       MYSQL_DATABASE: job_san_development
       MYSQL_ROOT_PASSWORD: "password"
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
   web:
     build: .
     volumes:
@@ -23,6 +22,7 @@ services:
     command: rails s -b 0.0.0.0
   selenium_chrome:
     image: selenium/standalone-chrome-debug
+
 volumes:
   vendor_bundle:
     driver: local
