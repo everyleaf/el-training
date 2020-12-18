@@ -1,7 +1,7 @@
 <h1>Tasks#index</h1>
 <% @tasks.each do |task| %>
   <div>
-    <p><%= "ID: #{task.id}" %></p>
+    <p><%= I18n.t('view.task.label.id', id: task.id) %></p>
     <p><%= task.name %></p>
     <p><%= task.description %></p>
     -----------------------------

@@ -1,0 +1,5 @@
+ja:
+  view:
+    error:
+      internal_server_error: そのアクセスはちょっと待って！
+      routing_error: そんなページないです。

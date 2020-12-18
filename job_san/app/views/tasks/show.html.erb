@@ -1,13 +1,13 @@
 <h1>Tasks#show</h1>
 <% if @task %>
   <div>
-    <p><%= "ID: #{@task.id}" %></p>
+    <p><%= I18n.t('view.task.label.id', id: @task.id) %></p>
     <p><%= @task.name %></p>
     <p><%= @task.description %></p>
   </div>
   <div>
-    <%= link_to '削除', "#{@task.id}", method: :delete %>
+    <%= link_to I18n.t('view.task.show.delete'), @task.id.to_s, data: { confirm: I18n.t('view.task.show.confirm_delete', name: @task.name) }, method: :delete %>
   </div>
 <% else %>
-  指定したタスクは存在しません。
+  <%= I18n.t('view.task.error.not_found') %>
 <% end %>
