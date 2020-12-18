@@ -13,5 +13,8 @@ ja:
         confirm_delete: "%{name}を削除しますか？"
       label:
         id: "ID: %{id}"
+        action_type:
+          create: 作成
+          update: 更新
       error:
         not_found: そのタスクないよ

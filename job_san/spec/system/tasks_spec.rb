@@ -31,7 +31,7 @@ RSpec.describe Task, type: :system do
         fill_in 'Description', with: create_task_description
       end
 
-      subject { click_button '登録する' }
+      subject { click_button '作成' }
 
       it 'move to task list page' do
         subject
@@ -56,7 +56,7 @@ RSpec.describe Task, type: :system do
         fill_in 'Description', with: update_task_description
       end
 
-      subject { click_button '更新する' }
+      subject { click_button '更新' }
 
       it 'move to task list page' do
         subject
@@ -73,7 +73,11 @@ RSpec.describe Task, type: :system do
   describe '#destroy' do
     before { visit task_path id: sample_task.id }
 
-    subject { click_on '削除' }
+    subject do
+      page.accept_confirm do
+        click_on '削除'
+      end
+    end
 
     it 'move to task list page' do
       subject
@@ -82,7 +86,11 @@ RSpec.describe Task, type: :system do
     end
 
     it 'delete selected task' do
-      expect { subject }.to change(Task, :count).by(-1)
+      expect { subject }.to change {
+        # 削除処理の前にカウントのSQLが走ってしまうため、待機する。
+        sleep 0.1
+        Task.count
+      }.by(-1)
     end
   end
 end
