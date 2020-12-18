@@ -31,12 +31,12 @@ RSpec.describe Task, type: :system do
         fill_in 'Description', with: create_task_description
       end
 
-      subject { click_button 'Create Task' }
+      subject { click_button '登録する' }
 
       it 'move to task list page' do
         subject
         expect(current_path).to eq tasks_path
-        expect(page).to have_content TasksController::TASK_CREATED
+        expect(page).to have_content I18n.t('view.task.flash.created')
       end
 
       it 'create new task' do
@@ -56,12 +56,12 @@ RSpec.describe Task, type: :system do
         fill_in 'Description', with: update_task_description
       end
 
-      subject { click_button 'Update Task' }
+      subject { click_button '更新する' }
 
       it 'move to task list page' do
         subject
         expect(current_path).to eq task_path id: sample_task.id
-        expect(page).to have_content TasksController::TASK_UPDATED
+        expect(page).to have_content I18n.t('view.task.flash.updated')
       end
 
       it 'update selected task' do
@@ -78,7 +78,7 @@ RSpec.describe Task, type: :system do
     it 'move to task list page' do
       subject
       expect(current_path).to eq tasks_path
-      expect(page).to have_content TasksController::TASK_DELETED
+      expect(page).to have_content I18n.t('view.task.flash.deleted')
     end
 
     it 'delete selected task' do

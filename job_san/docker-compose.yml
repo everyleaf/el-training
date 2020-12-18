@@ -17,8 +17,12 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - selenium_chrome
+    environment:
+      - "SELENIUM_DRIVER_URL=http://selenium_chrome:4444/wd/hub"
     command: rails s -b 0.0.0.0
-
+  selenium_chrome:
+    image: selenium/standalone-chrome-debug
 volumes:
   vendor_bundle:
     driver: local
