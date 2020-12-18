@@ -36,7 +36,7 @@ RSpec.describe Task, type: :system do
       it 'move to task list page' do
         subject
         expect(current_path).to eq tasks_path
-        expect(page).to have_content I18n.t('view.task.flash.created')
+        expect(page).to have_content 'タスクを作成したよ'
       end
 
       it 'create new task' do
@@ -61,7 +61,7 @@ RSpec.describe Task, type: :system do
       it 'move to task list page' do
         subject
         expect(current_path).to eq task_path id: sample_task.id
-        expect(page).to have_content I18n.t('view.task.flash.updated')
+        expect(page).to have_content 'タスクを更新したよ'
       end
 
       it 'update selected task' do
@@ -82,7 +82,7 @@ RSpec.describe Task, type: :system do
     it 'move to task list page' do
       subject
       expect(current_path).to eq tasks_path
-      expect(page).to have_content I18n.t('view.task.flash.deleted')
+      expect(page).to have_content 'タスクを削除したよ'
     end
 
     it 'delete selected task' do
