@@ -1,24 +1,38 @@
-# README
+# JobSanとは
+タスクを管理してくれるすごいやつ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# 環境構築
 
-Things you may want to cover:
+1. コマンド実行
+```
+$ pwd
+> ${リポジトリがある場所}/training/job_san
+$ ls
+> ... Dockerfile, docker-compose.yml
+$ docker-compose up 
+> webとdbとselenium_chromeが立ち上がったことを確認してください。
+````
 
-* Ruby version
+2. マイグレーション
+   
+`docker-compose up` が終わったらブラウザから `http://localhost:3000` へアクセスして下さい。
+画面上にマイグレーション用のボタンが出力されているのでクリックしてください。
 
-* System dependencies
+<img width="400" alt="docker-setup" src="docs/readme_images/docker_setup.png">
 
-* Configuration
+テスト実行用に以下も実行してください。
+```
+$ docker-compose run web bundle exec rails db:create
+> Created database 'job_san_test'
+```
 
-* Database creation
+3. HELLO WORLD !
 
-* Database initialization
+# 確認方法
 
-* How to run the test suite
+## 動作確認
+`docker-compouse up` してサーバを立ち上げてから`http://localhost:3000` へアクセスして下さい。
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## テスト実行
+1. `docker-compouse up` してサーバを立ち上げてから
+1. `docker exec -it ${コンテナID} bash`でサーバに入って `bundle exec rspec`
