@@ -12,7 +12,9 @@ ja:
         delete: 削除
         confirm_delete: "%{name}を削除しますか？"
       label:
-        id: "ID: %{id}"
+        id: ID
+        name: タスク名
+        description: 説明
         action_type:
           create: 作成
           update: 更新
