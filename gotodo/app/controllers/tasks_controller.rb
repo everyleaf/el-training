@@ -26,25 +26,22 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @task.save
+      redirect_to @task, notice: 'Task was successfully created.'
+    else
+      flash.now[:alert] = 'xxxを入力してください。'
+      render :new
     end
   end
 
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+    if @task.update(task_params)
+      redirect_to @task, notice: 'Task was successfully updated.'
+    else
+      flash.now[:alert] = 'xxxを入力してください。'
+      render :edit
     end
   end
 
@@ -52,9 +49,7 @@ class TasksController < ApplicationController
   # DELETE /tasks/1.json
   def destroy
     @task.destroy
-    respond_to do |format|
-      format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
-    end
+    redirect_to tasks_url, notice: 'Task was successfully destroyed.'
   end
 
   private
