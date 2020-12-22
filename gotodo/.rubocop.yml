@@ -1,0 +1,6 @@
+inherit_gem:
+  fablicop:
+    - "config/.base_rubocop.yml"
+
+AllCops:
+  TargetRubyVersion: 2.3
