@@ -4,15 +4,12 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   # GET /tasks
-  # GET /tasks.json
   def index
     @tasks = Task.all
   end
 
   # GET /tasks/1
-  # GET /tasks/1.json
   def show
-    @task = Task.find(params[:id])
   end
 
   # GET /tasks/new
@@ -25,7 +22,6 @@ class TasksController < ApplicationController
   end
 
   # POST /tasks
-  # POST /tasks.json
   def create
     @task = Task.new(task_params)
     if @task.save
@@ -37,7 +33,6 @@ class TasksController < ApplicationController
   end
 
   # PATCH/PUT /tasks/1
-  # PATCH/PUT /tasks/1.json
   def update
     if @task.update(task_params)
       redirect_to @task, notice: 'Task was successfully updated.'
@@ -48,7 +43,6 @@ class TasksController < ApplicationController
   end
 
   # DELETE /tasks/1
-  # DELETE /tasks/1.json
   def destroy
     @task.destroy
     redirect_to tasks_url, notice: 'Task was successfully destroyed.'

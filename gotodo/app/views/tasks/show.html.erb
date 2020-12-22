@@ -6,7 +6,6 @@
 <table>
   <tbody>
     <tr>
-      <%# tag.div task.task_name, id: dom_id(task) %>
       <td><%= @task.task_name %></td>
       <td><%= @task.detail %></td>
       <td><%= @task.created_at %></td>
@@ -14,7 +13,6 @@
     </tr>
   </tbody>
 </table>
-
 
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>
