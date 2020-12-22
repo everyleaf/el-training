@@ -21,6 +21,7 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to tasks_path, notice: I18n.t('view.task.flash.created')
     else
+      @errors = @task.errors
       flash.now[:alert] = I18n.t('view.task.flash.not_created')
       render new_task_path
     end
@@ -40,18 +41,20 @@ class TasksController < ApplicationController
       flash[:notice] = I18n.t('view.task.flash.updated')
       redirect_to task_url id: params[:id]
     else
+      @errors = @task.errors
       flash.now[:alert] = I18n.t('view.task.flash.not_updated')
-      render edit_task_url
+      render :edit
     end
   end
 
   def destroy
     task = Task.find_by(id: params[:id])
-    redirect_to tasks_path, notice: I18n.t('view.task.error.not_found') unless task
+    return redirect_to tasks_path, notice: I18n.t('view.task.error.not_found') if task.blank?
 
     if task.destroy
       redirect_to tasks_path, notice: I18n.t('view.task.flash.deleted')
     else
+      @errors = task.errors
       flash.now[:alert] = I18n.t('view.task.flash.not_deleted')
       render tasks_path
     end
