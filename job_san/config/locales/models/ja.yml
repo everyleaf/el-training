@@ -7,3 +7,10 @@ ja:
         id: ID
         name: タスク名
         description: 説明文
+    errors:
+      models:
+        task:
+          attributes:
+            name:
+              format: "%{message}"
+              blank: "%{attribute}は１文字以上入力してください。"
