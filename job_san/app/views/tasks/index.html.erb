@@ -1,9 +1,19 @@
 <h1>Tasks#index</h1>
-<% @tasks.each do |task| %>
-  <div>
-    <p><%= I18n.t('view.task.label.id', id: task.id) %></p>
-    <p><%= task.name %></p>
-    <p><%= task.description %></p>
-    -----------------------------
-  </div>
-<% end %>
+<table>
+  <thead>
+    <tr>
+      <th><%= I18n.t('view.task.label.id') %></th>
+      <th><%= I18n.t('view.task.label.name') %></th>
+      <th><%= I18n.t('view.task.label.description') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= link_to task.id.to_s, task_url(task.id) %></td>
+        <td><%= task.name %></td>
+        <td><%= task.description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

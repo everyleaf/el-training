@@ -10,13 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_14_062424) do
+ActiveRecord::Schema.define(version: 2020_12_18_074516) do
 
   create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.string "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.timestamp "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.timestamp "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.string "priority", limit: 6, default: "low", null: false
+    t.string "status", limit: 5, default: "todo", null: false
+    t.integer "user_id"
+    t.integer "label_id"
+    t.date "target_date"
+    t.check_constraint "`priority` in ('high', 'medium', 'low')", name: "check_tasks_priority"
+    t.check_constraint "`status` in ('todo', 'doing', 'done')", name: "check_tasks_status"
   end
 
 end

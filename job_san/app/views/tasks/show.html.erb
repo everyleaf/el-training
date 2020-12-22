@@ -6,7 +6,10 @@
     <p><%= @task.description %></p>
   </div>
   <div>
-    <%= link_to I18n.t('view.task.show.delete'), @task.id.to_s, data: { confirm: I18n.t('view.task.show.confirm_delete', name: @task.name) }, method: :delete %>
+    <ul>
+      <li style="display: inline"><%= link_to I18n.t('view.task.show.update'), edit_task_url(@task.id) %></li>
+      <li style="display: inline"><%= link_to I18n.t('view.task.show.delete'), @task.id.to_s, data: { confirm: I18n.t('view.task.show.confirm_delete', name: @task.name) }, method: :delete %></li>
+    </ul>
   </div>
 <% else %>
   <%= I18n.t('view.task.error.not_found') %>

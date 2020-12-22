@@ -3,20 +3,35 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :system do
+  before { travel_to(Time.zone.local(2020, 12, 24, 21, 0o0, 0o0)) }
   let(:sample_task_name) { 'やらなきゃいけないサンプル' }
-  let!(:sample_task) { create(:task, name: sample_task_name) }
+  let!(:sample_task) { create(:task, name: sample_task_name, created_at: Time.current) }
 
   describe '#index' do
+    let!(:sample_task_2) { create(:task, created_at: Time.current + 2.days) }
+    let!(:sample_task_3) { create(:task, created_at: Time.current + 1.day) }
+    before { visit tasks_path }
+
     it 'visit index page' do
-      visit tasks_path
-      expect(page).to have_content sample_task.name
+      expect(page).to have_content sample_task_name
+    end
+
+    it 'tasks are sorted by created_at desc' do
+      sorted_sample_task_ids = [sample_task, sample_task_2, sample_task_3]
+                                 .sort { |a, b| b.created_at <=> a.created_at }
+                                 .map { |t| t.id.to_s }
+      ids = page.all('tbody td')
+                .map(&:text)
+                .select { |td_context| sorted_sample_task_ids.include?(td_context) }
+
+      expect(ids).to eq(sorted_sample_task_ids)
     end
   end
 
   describe '#show' do
     it 'visit show page' do
       visit task_path id: sample_task.id
-      expect(page).to have_content sample_task.name
+      expect(page).to have_content sample_task_name
     end
   end
 
