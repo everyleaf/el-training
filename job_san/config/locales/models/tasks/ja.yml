@@ -1,0 +1,11 @@
+ja:
+  model:
+    task:
+      status:
+        todo: 未着手
+        doing: 着手
+        done: 完了
+      priority:
+        low: 低
+        medium: 中
+        high: 高
