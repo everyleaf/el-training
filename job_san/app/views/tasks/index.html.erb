@@ -10,7 +10,7 @@
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
-        <td><%= task.id %></td>
+        <td><%= link_to task.id.to_s, task_url(task.id) %></td>
         <td><%= task.name %></td>
         <td><%= task.description %></td>
       </tr>

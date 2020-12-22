@@ -9,6 +9,7 @@ ja:
         deleted: タスクを削除したよ
         not_deleted: タスクが削除できなかったよ
       show:
+        update: 更新
         delete: 削除
         confirm_delete: "%{name}を削除しますか？"
       label:
