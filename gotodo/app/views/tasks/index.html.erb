@@ -17,7 +17,8 @@
       <td>作成日</td>
       <td>更新日</td>
     </thead>
-    <%= render @tasks %>
+    <%= render partial: 'task', collection: @tasks %>
+    <%# render @tasks %>
   </tbody>
 </table>
 
