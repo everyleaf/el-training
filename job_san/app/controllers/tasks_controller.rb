@@ -3,7 +3,7 @@
 class TasksController < ApplicationController
   def index
     # TODO: ステップ14までページネーションは実装しません。
-    @tasks = Task.all
+    @tasks = Task.all.order(created_at: :desc)
   end
 
   def show

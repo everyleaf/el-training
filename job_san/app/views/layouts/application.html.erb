@@ -14,6 +14,16 @@
     <% flash.each do |_, message| %>
       <%= message %>
     <% end %>
+    <div>
+      <ul>
+        <li style="display: inline;">
+          <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.header.task_list'), tasks_path %></div>
+        </li>
+        <li style="display: inline;">
+          <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.header.new_task'), new_task_path %></div>
+        </li>
+      </ul>
+    </div>
     <%= yield %>
   </body>
 </html>
