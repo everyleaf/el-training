@@ -25,5 +25,6 @@ module JobSan
 
     config.time_zone = 'Tokyo'
     config.active_record.default_timezone = :local
+    config.active_model.i18n_customize_full_message = true
   end
 end
