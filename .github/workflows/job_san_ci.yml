@@ -1,0 +1,20 @@
+name: job_san_ci
+
+on:
+  push:
+    branches: [ mkLotto/** ]
+
+jobs:
+  test:
+    name: Run test code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Server
+        run: docker-compose -f job_san/docker-compose.yml up -d
+      - name: Install webpacker
+        run: docker-compose -f job_san/docker-compose.yml run web rails webpacker:install
+      - name: Migrate db
+        run: docker-compose -f job_san/docker-compose.yml run web rake db:create
+      - name: Run rspec
+        run: docker-compose -f job_san/docker-compose.yml exec -T web bundle exec rspec
