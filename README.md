@@ -35,8 +35,6 @@ mysql  Ver 8.0.22 for Linux on x86_64 (MySQL Community Server - GPL)
 ```
 $ cd training/gotodo/
 $ docker-compose build
-$ docker-compose run --rm web yarn install
-$ docker-compose run web rake db:create db:migrate
 $ docker-compose up -d
 ```
 
