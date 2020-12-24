@@ -16,8 +16,6 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-
-    # TODO: ステップ11までバリデーションは実装しません。
     if @task.save
       redirect_to tasks_path, notice: I18n.t('view.task.flash.created')
     else
@@ -36,7 +34,6 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
     redirect_to tasks_path, notice: I18n.t('view.task.error.not_found') unless @task
 
-    # TODO: ステップ11までバリデーションは実装しません。
     if @task.update(task_params)
       flash[:notice] = I18n.t('view.task.flash.updated')
       redirect_to task_url id: params[:id]
