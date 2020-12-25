@@ -1,0 +1,17 @@
+ja:
+  helpers:
+    submit:
+      create: 登録する
+      update: 更新する
+      submit: 保存する
+  flash:
+    create_success: '新しい%{model}が登録されました！'
+    update_success: '%{model}の更新が成功しました！'
+    destroy_success: '%{model}が削除されました！'
+    create_error: '%{model}の作成に失敗しました。'
+    update_error: '%{model}の更新に失敗しました。'
+  attributes:
+    index: トップへ戻る
+    new_task: 新規登録
+    created_at: 作成日時
+    updated_at: 更新日時

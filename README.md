@@ -102,3 +102,30 @@ $ docker-compose up -d
 | ロール名 | role_name | VARCHAR(255) | NN | t.string |
 | 作成日 | created_at | TIMESTAMP | | t.timestamps |
 | 更新日 | created_at | TIMESTAMP | | t.timestamps |
+
+
+## MEMO
+
+### 略記法
+今回はRails初学習のため、できるだけ基本記法で書きます。
+ここでは勉強中に見つけた略記法をメモします。
+
+```
+<%= render partial: 'task', collection: @tasks %>
+<%# render @tasks %>  <!-- 省略形 -->
+```
+
+```
+<%= render partial: 'form', locals: {task: @task} %>
+<%# render 'form', task: @task %>
+```
+
+
+
+```
+# I18n.t('.h1')
+# t('.h1')
+```
+
+
+

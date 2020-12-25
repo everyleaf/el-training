@@ -1,6 +1,7 @@
-<h1>New Task</h1>
-
+<h1>
+  <%= t('.h1') %>
+</h1>
 <%= render partial: 'form', locals: {task: @task} %>
-<%# render 'form', task: @task %>
-
-<%= link_to 'Back', tasks_path %>
+<%= link_to tasks_path do %>
+  <%= icon('fas', 'arrow-alt-circle-left') %>
+<% end %>

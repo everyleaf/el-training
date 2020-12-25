@@ -1,27 +1,35 @@
-<p id="notice"><%= notice %></p>
-<p id="alert"><%= alert %></p>
-
-<h1>Tasks</h1>
-
+<p id="notice">
+  <%= notice %>
+</p>
+<p id="alert">
+  <%= alert %>
+</p>
+<h1>
+  <%= t('.h1') %>
+</h1>
 <table>
   <thead>
     <tr>
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <thead>
-      <td>タスク名</td>
-      <td>詳細</td>
-      <td>作成日</td>
-      <td>更新日</td>
+      <td>
+        <%= Task.human_attribute_name(:title) %>
+      </td>
+      <td>
+        <%= Task.human_attribute_name(:detail) %>
+      </td>
+      <td>
+        <%= t('attributes.created_at') %>
+      </td>
+      <td>
+        <%= t('attributes.updated_at') %>
+      </td>
     </thead>
     <%= render partial: 'task', collection: @tasks %>
-    <%# render @tasks %>
   </tbody>
 </table>
-
 <br>
-
-<%= link_to 'New Task', new_task_path %>
+<%= link_to t('attributes.new_task'), new_task_path %>
