@@ -80,6 +80,8 @@ GEM
     concurrent-ruby (1.1.7)
     crass (1.0.6)
     diff-lcs (1.4.4)
+    enum_help (0.0.17)
+      activesupport (>= 3.0.0)
     erubi (1.10.0)
     fablicop (1.0.6)
       rubocop (~> 0.53.0)
@@ -248,6 +250,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
+  enum_help
   fablicop
   factory_bot_rails
   jbuilder (~> 2.7)

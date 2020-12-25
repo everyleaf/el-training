@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Task, type: :system do
+RSpec.describe Task, js: true, type: :system do
   before { travel_to(Time.zone.local(2020, 12, 24, 21, 0o0, 0o0)) }
   let(:sample_task_name) { 'やらなきゃいけないサンプル' }
   let!(:sample_task) { create(:task, name: sample_task_name, created_at: Time.current) }
@@ -42,8 +42,8 @@ RSpec.describe Task, type: :system do
       let(:create_task_name) { 'これから作るタスクの名前' }
       let(:create_task_description) { 'これから作るタスクの説明文' }
       before do
-        fill_in 'Name', with: create_task_name
-        fill_in 'Description', with: create_task_description
+        fill_in 'タスク名', with: create_task_name
+        fill_in '説明文', with: create_task_description
       end
 
       subject { click_button '作成' }
@@ -67,8 +67,8 @@ RSpec.describe Task, type: :system do
       let(:update_task_name) { '更新するタスクの名前' }
       let(:update_task_description) { '更新するタスクの説明文' }
       before do
-        fill_in 'Name', with: update_task_name
-        fill_in 'Description', with: update_task_description
+        fill_in 'タスク名', with: update_task_name
+        fill_in '説明文', with: update_task_description
       end
 
       subject { click_button '更新' }

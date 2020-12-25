@@ -61,3 +61,6 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'rails-i18n'
+
+# https://github.com/zmbacker/enum_help
+gem 'enum_help'
