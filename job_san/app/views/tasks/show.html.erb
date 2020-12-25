@@ -1,9 +1,10 @@
 <h1>Tasks#show</h1>
 <% if @task %>
   <div>
-    <p><%= I18n.t('view.task.label.id', id: @task.id) %></p>
-    <p><%= @task.name %></p>
-    <p><%= @task.description %></p>
+    <p><%= "#{I18n.t('view.task.label.id')}: #{@task.id}" %></p>
+    <p><%= "#{I18n.t('view.task.label.name')}: #{@task.name}" %></p>
+    <p><%= "#{I18n.t('view.task.label.description')}: #{@task.description}" %></p>
+    <p><%= "#{I18n.t('view.task.label.target_date')}: #{viewed_target_date(@task)}" %></p>
   </div>
   <div>
     <ul>

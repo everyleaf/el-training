@@ -7,7 +7,12 @@
 1. db migration
 1. webpack compile(暫定)
 
-## 1. コマンド実行
+## 1. Docker build
+
+目的：サーバの構築
+
+以下のコマンドを実行してください。
+
 ```
 $ pwd
 > ${リポジトリがある場所}/training/job_san
@@ -18,20 +23,35 @@ $ docker-compose up
 ````
 
 ## 2. マイグレーション
-   
-`docker-compose up` が終わったらブラウザから `http://localhost:3000` へアクセスして下さい。
 
-画面上にマイグレーション用のボタンが出力されているのでクリックしてください。
+目的：開発・テスト環境のデータベースのマイグレーション
 
-<img width="400" alt="docker-setup" src="docs/readme_images/docker_setup.png">
-
-テスト実行用に以下も実行してください。
 ```
 $ docker-compose run web bundle exec rails db:create
 > Created database 'job_san_test'
+$ docker-compose run web bundle exec rake db:migrate
+> 開発環境用のテーブルが生成される。
 ```
 
-## 3. webpack compile（暫定対応）
+## 3. テーブルスキーマを戻す（暫定対応）
+
+目的：自動で変更された差分を元に戻す
+
+mysql2のバグのため、テーブル定義でutf8mb4のエスケープ文字が扱えないようです。
+2で行った`rake db:migrate`でrailsによって自動で変更された差分を元に戻してください。
+
+```
+$ git diff
+> job_san/db/schema.rb
+
+$ git checkout job_san/db/schema.rb
+> 自動で変更された内容を戻す 
+```
+
+
+## 4. webpackerのインストール（暫定対応）
+
+目的：webpackerのインストール
 
 以下のエラー画面が表示された際、この項目を行ってください。
 
@@ -48,6 +68,11 @@ $ docker-compose run web bundle exec rails webpacker:install
 ```
 
 ## 4. HELLO WORLD !
+
+お疲れ様でした。 これで環境構築は終わりです。
+
+サーバが立ち上がっていなければ、再度立ち上げてください。
+
 ```
 $ docker-compose up
 > web_1              | * Listening on http://0.0.0.0:3000
@@ -61,8 +86,7 @@ $ docker-compose up
 `docker-compouse up` してサーバを立ち上げてから`http://localhost:3000` へアクセスして下さい。
 
 ## テスト実行
-1. `docker-compouse up` してサーバを立ち上げてから
-1. `docker exec -it ${コンテナID} bash`でサーバに入って `bundle exec rspec`
+`docker-compose exec web bundle exec rspec`
 
 ## 注意事項
 

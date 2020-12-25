@@ -7,5 +7,9 @@
     <%= form.label(:description) %>
     <%= form.text_field :description %>
   </div>
+  <div>
+    <%= form.label(:target_date) %>
+    <%= form.date_select(:target_date) %>
+  </div>
   <%= form.submit "#{action_label}" %>
 <% end %>

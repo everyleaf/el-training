@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
+  include TaskHelper
+
+  SORT_KEY = 'target_date'
+
   def index
     # TODO: ステップ14までページネーションは実装しません。
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = sorted_tasks
   end
 
   def show
@@ -60,6 +64,11 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description)
+    params.require(:task).permit(:name, :description, :target_date)
+  end
+
+  def sorted_tasks
+    sort_key = SORT_KEY == params[:sort_key] ? :target_date : :created_at
+    Task.all.order(sort_key => :desc)
   end
 end
