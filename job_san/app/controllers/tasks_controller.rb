@@ -68,9 +68,7 @@ class TasksController < ApplicationController
   end
 
   def sorted_tasks
-    tasks = Task.all
     sort_key = SORT_KEY == params[:sort_key] ? :target_date : :created_at
-
-    tasks.order(sort_key => :desc)
+    Task.all.order(sort_key => :desc)
   end
 end
