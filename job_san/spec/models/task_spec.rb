@@ -48,8 +48,8 @@ RSpec.describe Task, type: :model do
         task = Task.new(name: over_size_name, description: over_size_name)
         task.save
         expect(task.save).to be_falsey
-        messages = { 'タスク名' => 255, '説明文' => 255 }.map do |arr|
-          "#{arr[0]}は#{arr[1]}文字以内で入力してください"
+        messages = { 'タスク名' => 255, '説明文' => 255 }.map do |column, limit|
+          "#{column}は#{limit}文字以内で入力してください"
         end
         expect(task.errors.full_messages).to match_array(messages)
       end
