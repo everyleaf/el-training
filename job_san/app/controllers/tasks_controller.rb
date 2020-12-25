@@ -7,12 +7,7 @@ class TasksController < ApplicationController
 
   def index
     # TODO: ステップ14までページネーションは実装しません。
-    @tasks = Task.all
-    @tasks = if SORT_KEY == params[:sort_key]
-               @tasks.order(target_date: :desc)
-             else
-               @tasks.order(created_at: :desc)
-             end
+    @tasks = sorted_tasks
   end
 
   def show
@@ -70,5 +65,12 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:name, :description, :target_date)
+  end
+
+  def sorted_tasks
+    tasks = Task.all
+    sort_key = SORT_KEY == params[:sort_key] ? :target_date : :created_at
+
+    tasks.order(sort_key => :desc)
   end
 end

@@ -4,7 +4,7 @@
     <p><%= "#{I18n.t('view.task.label.id')}: #{@task.id}" %></p>
     <p><%= "#{I18n.t('view.task.label.name')}: #{@task.name}" %></p>
     <p><%= "#{I18n.t('view.task.label.description')}: #{@task.description}" %></p>
-    <p><%= "#{I18n.t('view.task.label.target_date')}: #{@task.target_date || I18n.t('view.task.target_date.blank')}" %></p>
+    <p><%= "#{I18n.t('view.task.label.target_date')}: #{viewed_target_date(@task)}" %></p>
   </div>
   <div>
     <ul>

@@ -92,6 +92,7 @@ RSpec.describe Task, js: true, type: :system do
       let(:update_task_name) { '更新するタスクの名前' }
       let(:update_task_description) { '更新するタスクの説明文' }
       let(:update_task_target_date) { today + 3.days }
+      let(:updated_task) { Task.find(sample_task.id) }
       before do
         fill_in 'タスク名', with: update_task_name
         fill_in '説明文', with: update_task_description
@@ -113,15 +114,15 @@ RSpec.describe Task, js: true, type: :system do
       end
 
       it 'update selected task' do
-        updated_task = -> { Task.find(sample_task.id) }
         expect { subject }.to change {
-          updated_task.call.name
+          updated_task.reload
+          updated_task.name
         }.from(sample_task_name).to(update_task_name)
           .and change {
-            updated_task.call.description
+            updated_task.description
           }.from(sample_task_description).to(update_task_description)
           .and change {
-            updated_task.call.target_date
+            updated_task.target_date
           }.from(today).to(update_task_target_date)
       end
     end

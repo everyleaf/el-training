@@ -3,7 +3,7 @@
 <div>
   <%= form_with url: tasks_path, method: :get, local: true do |form| %>
     <%= form.select :sort_key, [%w[作成日時 created_at], %w[完了日 target_date]], selected: params[:sort_key] || 'created_at' %>
-    <%= form.submit I18n.t('view.task.index.sort'), :name => nil %>
+    <%= form.submit I18n.t('view.task.index.sort'), name: nil %>
   <% end %>
 </div>
 <table>
