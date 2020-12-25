@@ -8,3 +8,4 @@ ja:
         name: タスク名
         description: 説明文
         target_date: 完了日
+        status: ステータス

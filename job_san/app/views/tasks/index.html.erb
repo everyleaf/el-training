@@ -12,6 +12,7 @@
       <th><%= I18n.t('view.task.label.id') %></th>
       <th><%= I18n.t('view.task.label.name') %></th>
       <th><%= I18n.t('view.task.label.description') %></th>
+      <th><%= I18n.t('view.task.label.status') %></th>
       <th><%= I18n.t('view.task.label.target_date') %></th>
     </tr>
   </thead>
@@ -21,6 +22,7 @@
         <td><%= link_to task.id.to_s, task_url(task.id) %></td>
         <td><%= task.name %></td>
         <td><%= task.description %></td>
+        <td><%= task.aasm.human_state %></td>
         <td><%= viewed_target_date(task) %></td>
       </tr>
     <% end %>

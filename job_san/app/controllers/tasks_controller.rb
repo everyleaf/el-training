@@ -38,7 +38,8 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
     redirect_to tasks_path, notice: I18n.t('view.task.error.not_found') unless @task
 
-    if @task.update(task_params)
+    @task = TaskService.new(@task).update_task(params)
+    if @task.errors.blank?
       flash[:notice] = I18n.t('view.task.flash.updated')
       redirect_to task_url id: params[:id]
     else
@@ -64,7 +65,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :target_date)
+    params.require(:task).permit(:name, :description, :target_date, :status)
   end
 
   def sorted_tasks

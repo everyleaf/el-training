@@ -64,3 +64,6 @@ gem 'rails-i18n'
 
 # https://github.com/zmbacker/enum_help
 gem 'enum_help'
+
+# https://github.com/aasm/aasm
+gem 'aasm'

@@ -19,6 +19,7 @@ ja:
         name: タスク名
         description: 説明
         target_date: 完了日
+        status: ステータス
         action_type:
           create: 作成
           update: 更新

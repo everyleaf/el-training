@@ -1,9 +1,9 @@
 ja:
-  model:
+  enums:
     task:
       status:
         todo: 未着手
-        doing: 着手
+        doing: 着手中
         done: 完了
       priority:
         low: 低
