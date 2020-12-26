@@ -15,15 +15,15 @@ class Task < ApplicationRecord
     state :done,  display: I18n.t('enums.task.status.done')
 
     event :turn_back do
-      transitions from: :doing, to: :todo
+      transitions to: :todo
     end
 
     event :start do
-      transitions from: :todo, to: :doing
+      transitions to: :doing
     end
 
     event :finish do
-      transitions from: %i[todo doing], to: :done
+      transitions to: :done
     end
   end
 end

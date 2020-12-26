@@ -1,40 +1,33 @@
 # frozen_string_literal: true
 
 class TaskService
+  class TransferStatusError < StandardError; end
+
   def initialize(task)
     @update_task = task
   end
 
   def update_task(params)
-    if @update_task.done? && params[:status].present?
-      @update_task.errors.add(:status, '完了したタスクはステータスを更新できません')
-      return @update_task
-    end
-
-    set_params(params[:task])
-    move_task_status(params[:task][:status])
+    transfer_status(params[:task][:status])
+    @update_task.assign_attributes(params[:task].except(:status))
     @update_task.save
     @update_task
   end
 
   private
 
-  def set_params(params)
-    @update_task.name = params[:name] if params[:name]
-    @update_task.description = params[:description] if params[:description]
-    @update_task.target_date = params[:target_date] if params[:target_date]
-  end
+  def transfer_status(status)
+    return if status.blank?
 
-  def move_task_status(status)
-    case status
-    when 'todo' then
+    case status.to_sym
+    when Task::STATE_TODO then
       @update_task.turn_back
-    when 'doing' then
+    when Task::STATE_DOING then
       @update_task.start
-    when 'done' then
+    when Task::STATE_DONE then
       @update_task.finish
     else
-      # noop
+      raise TaskService::TransferStatusError, "Unexpected. param: #{status}"
     end
   end
 end

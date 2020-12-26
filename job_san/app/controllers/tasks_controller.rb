@@ -38,12 +38,12 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
     redirect_to tasks_path, notice: I18n.t('view.task.error.not_found') unless @task
 
-    @task = TaskService.new(@task).update_task(params)
-    if @task.errors.blank?
+    @task = TaskService.new(@task).update_task(task_params)
+    @errors = @task.errors
+    if @errors.blank?
       flash[:notice] = I18n.t('view.task.flash.updated')
       redirect_to task_url id: params[:id]
     else
-      @errors = @task.errors
       flash.now[:alert] = I18n.t('view.task.flash.not_updated')
       render :edit
     end

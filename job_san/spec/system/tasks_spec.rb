@@ -6,9 +6,16 @@ RSpec.describe Task, js: true, type: :system do
   before { travel_to(Time.zone.local(2020, 12, 24, 21, 0o0, 0o0)) }
   let(:sample_task_name) { 'やらなきゃいけないサンプル' }
   let(:sample_task_description) { 'やらなきゃいけないサンプル説明文' }
+  let(:sample_task_status) { 'todo' }
   let(:now) { Time.current }
   let(:today) { Time.zone.today }
-  let!(:sample_task) { create(:task, name: sample_task_name, description: sample_task_description, created_at: now, target_date: today) }
+  let!(:sample_task) {
+    create(:task,
+           name: sample_task_name,
+           description: sample_task_description,
+           created_at: now,
+           target_date: today, status: sample_task_status)
+  }
 
   describe '#index' do
     let!(:sample_task_2) { create(:task, created_at: now + 2.days, target_date: today - 1.day) }
@@ -92,10 +99,12 @@ RSpec.describe Task, js: true, type: :system do
       let(:update_task_name) { '更新するタスクの名前' }
       let(:update_task_description) { '更新するタスクの説明文' }
       let(:update_task_target_date) { today + 3.days }
+      let(:update_task_status) { 'doing' }
       let(:updated_task) { Task.find(sample_task.id) }
       before do
         fill_in 'タスク名', with: update_task_name
         fill_in '説明文', with: update_task_description
+        find('#task_status').find("option[value='#{update_task_status}']").select_option
         [update_task_target_date.year,
          update_task_target_date.month,
          update_task_target_date.day].each_with_index.each do |v, i|
@@ -124,6 +133,9 @@ RSpec.describe Task, js: true, type: :system do
           .and change {
             updated_task.target_date
           }.from(today).to(update_task_target_date)
+          .and change {
+            updated_task.status
+          }.from(sample_task_status).to(update_task_status)
       end
     end
   end
