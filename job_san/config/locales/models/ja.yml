@@ -9,3 +9,4 @@ ja:
         description: 説明文
         target_date: 完了日
         status: ステータス
+        created_at: 作成日

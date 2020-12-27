@@ -62,8 +62,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'rails-i18n'
 
-# https://github.com/zmbacker/enum_help
+# for useful enum refs: https://github.com/zmbacker/enum_help
 gem 'enum_help'
 
-# https://github.com/aasm/aasm
+# for state management refs: https://github.com/aasm/aasm
 gem 'aasm'
+
+# for pagination refs: https://github.com/activerecord-hackery/ransack
+gem 'ransack', github: 'activerecord-hackery/ransack'

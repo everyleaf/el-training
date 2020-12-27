@@ -1,19 +1,22 @@
 <h1>Tasks#index</h1>
 <%= render partial: 'tasks/error_message' %>
-<div>
-  <%= form_with url: tasks_path, method: :get, local: true do |form| %>
-    <%= form.select :sort_key, [%w[作成日時 created_at], %w[完了日 target_date]], selected: params[:sort_key] || 'created_at' %>
-    <%= form.submit I18n.t('view.task.index.sort'), name: nil %>
-  <% end %>
-</div>
-<table>
+
+<%= search_form_for @query do |f| %>
+  <%= f.label :name_cont %><br />
+  <%= f.search_field :name_cont %>
+  <%= f.select :status_eq, options_for_select(Task::STATUSES.map{|k,v| [v,k.to_s]}, @query.status_eq), include_blank: '全てのステータス' %>
+  <%= f.submit %>
+<% end %>
+
+<%= content_tag :table do %>
   <thead>
     <tr>
       <th><%= I18n.t('view.task.label.id') %></th>
       <th><%= I18n.t('view.task.label.name') %></th>
       <th><%= I18n.t('view.task.label.description') %></th>
       <th><%= I18n.t('view.task.label.status') %></th>
-      <th><%= I18n.t('view.task.label.target_date') %></th>
+      <%= content_tag :th, sort_link(@query, :target_date, default_order: :desc) %>
+      <%= content_tag :th, sort_link(@query, :created_at, default_order: :desc) %>
     </tr>
   </thead>
   <tbody>
@@ -24,7 +27,8 @@
         <td><%= task.description %></td>
         <td><%= task.aasm.human_state %></td>
         <td><%= viewed_target_date(task) %></td>
+        <td><%= task.created_at.strftime(I18n.t('view.date_format')) %></td>
       </tr>
     <% end %>
   </tbody>
-</table>
+<% end %>

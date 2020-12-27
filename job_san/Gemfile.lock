@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/activerecord-hackery/ransack.git
+  revision: bdaac5c97a42c03710038529e41e81a2b1a88876
+  specs:
+    ransack (2.4.1)
+      activerecord (>= 5.2.4)
+      activesupport (>= 5.2.4)
+      i18n
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -263,6 +272,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.0)
   rails-i18n
+  ransack!
   rspec-rails
   sass-rails (>= 6)
   selenium-webdriver
