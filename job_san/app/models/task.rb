@@ -6,7 +6,7 @@ class Task < ApplicationRecord
   validates :name, presence: true, length: { maximum: 255 }
   validates :description, length: { maximum: 255 }
   enum priority: %i[low medium high]
-  # TODO: Task.statuses_I18nを使いたいが、aasmとの相性が悪いらしく導入できない。
+  # TODO: Task.statuses_I18nを使いたいが、aasmとの相性が悪いらしく使用できない
   STATUSES = %i[todo doing done].each_with_object({}) { |key, ini| ini[key] = I18n.t("enums.task.status.#{key}") }
 
   aasm(column: :status) do
