@@ -20,31 +20,36 @@ RSpec.describe Task, js: true, type: :system do
   describe '#index' do
     let!(:sample_task_2) { create(:task, created_at: now + 2.days, target_date: today - 1.day) }
     let!(:sample_task_3) { create(:task, created_at: now + 1.day, target_date: today + 1.day) }
-
-    it 'tasks are sorted by created_at desc' do
-      visit tasks_path
-      sorted_sample_task_ids = [sample_task, sample_task_2, sample_task_3]
-                                 .sort_by(&:created_at).reverse
-                                 .map { |t| t.id.to_s }
-      ids = page.all('tbody td')
-                .map(&:text)
-                .select { |td_context| sorted_sample_task_ids.include?(td_context) }
-
-      expect(ids).to eq(sorted_sample_task_ids)
+    let(:sort_ids_by_created_at) { sort_task_ids(:created_at) }
+    let(:sort_ids_by_target_date) { sort_task_ids(:target_date) }
+    before { visit tasks_path }
+    def sort_task_ids(key)
+      [sample_task, sample_task_2, sample_task_3]
+        .sort_by(&key).reverse
+        .map { |t| t.id.to_s }
     end
 
-    context 'when sorted by target_date' do
-      before { visit tasks_path({ sort_key: 'target_date' }) }
+    it 'tasks are sorted by created_at desc' do
+      ids = page.all('tbody td')
+                .map(&:text)
+                .select { |td_context| sort_ids_by_created_at.include?(td_context) }
+
+      expect(ids).to eq(sort_ids_by_created_at)
+    end
+
+    context 'when click 完了日' do
+      before do
+        click_on '完了日'
+        # 表示が完了する前にクローリングが走ってしまうので、待機する
+        sleep(1)
+      end
 
       it 'tasks are sorted by target_date desc' do
-        sorted_sample_task_ids = [sample_task, sample_task_2, sample_task_3]
-                                   .sort_by(&:target_date).reverse
-                                   .map { |t| t.id.to_s }
         ids = page.all('tbody td')
                   .map(&:text)
-                  .select { |td_context| sorted_sample_task_ids.include?(td_context) }
+                  .select { |td_context| sort_ids_by_target_date.include?(td_context) }
 
-        expect(ids).to eq(sorted_sample_task_ids)
+        expect(ids).to eq(sort_ids_by_target_date)
       end
     end
   end

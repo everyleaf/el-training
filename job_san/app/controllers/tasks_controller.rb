@@ -7,7 +7,7 @@ class TasksController < ApplicationController
 
   def index
     # TODO: ステップ14までページネーションは実装しません。
-    @query = Task.search(params[:query])
+    @query = Task.ransack(params[:query])
     @tasks = @query.result.order(created_at: :desc)
   end
 

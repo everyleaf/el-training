@@ -8,8 +8,8 @@ class TaskService
   end
 
   def update_task(params)
-    transfer_status(params[:task][:status])
-    @update_task.assign_attributes(params[:task].except(:status))
+    transfer_status(params[:status])
+    @update_task.assign_attributes(params.except(:status))
     @update_task.save
     @update_task
   end

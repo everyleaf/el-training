@@ -5,9 +5,11 @@ require 'rails_helper'
 RSpec.describe TaskService, type: :model do
   describe '#update_task' do
     let!(:sample_task) { create(:task, status: sample_task_status) }
+    let(:sample_task_name) { 'タスク名' }
     let(:sample_task_status) { 'todo' }
+    let(:update_name) { '更新するタスク名' }
     let(:update_status) { 'doing' }
-    let(:update_param) { { task: { status: update_status } } }
+    let(:update_param) { { name: update_name, status: update_status } }
 
     it 'should update the task' do
       service = TaskService.new(sample_task)
@@ -15,6 +17,9 @@ RSpec.describe TaskService, type: :model do
         sample_task.reload
         sample_task.status
       }.from(sample_task_status).to(update_status)
+       .and change {
+         sample_task.name
+       }.from(sample_task_name).to(update_name)
     end
 
     context 'when got unexpected status param' do
