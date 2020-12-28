@@ -52,6 +52,38 @@ RSpec.describe Task, js: true, type: :system do
         expect(ids).to eq(sort_ids_by_target_date)
       end
     end
+
+    context 'when click 作成日 twice' do
+      before do
+        (0..1).each { |_| click_on '作成日' }
+        # 表示が完了する前にクローリングが走ってしまうので、待機する
+        sleep(1)
+      end
+
+      it 'tasks are sorted by created_at asc' do
+        ids = page.all('tbody td')
+                  .map(&:text)
+                  .select { |td_context| sort_ids_by_created_at.include?(td_context) }
+
+        expect(ids).to eq(sort_ids_by_created_at.reverse)
+      end
+    end
+
+    context 'when search tasks with a task_name' do
+      let(:search_task_name) { SecureRandom.uuid }
+      let!(:filtered_tasks) { create_list(:task, 3, name: search_task_name) }
+      before do
+        fill_in 'タスク名 は以下を含む', with: search_task_name[2..7]
+        click_button '検索'
+        sleep(1)
+      end
+
+      it 'tasks are filtered by partial matched name' do
+        all_task_ids = Task.select(:id).all.map { |t| t.id.to_s }
+        ids = page.all('tbody td').map(&:text).select { |td_context| all_task_ids.include?(td_context) }
+        expect(ids).to match_array(filtered_tasks.map { |t| t.id.to_s })
+      end
+    end
   end
 
   describe '#show' do
