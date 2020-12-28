@@ -29,26 +29,43 @@ RSpec.describe Task, js: true, type: :system do
         .map { |t| t.id.to_s }
     end
 
-    it 'tasks are sorted by created_at desc' do
-      ids = page.all('tbody td')
-                .map(&:text)
-                .select { |td_context| sort_ids_by_created_at.include?(td_context) }
+    def fetch_viewed_task_ids(str_expected_ids)
+      page.all('tbody td')
+          .map(&:text)
+          .select { |td_context| str_expected_ids.include?(td_context) }
+    end
 
+    it 'tasks are sorted by created_at desc' do
+      ids = fetch_viewed_task_ids(sort_ids_by_created_at)
       expect(ids).to eq(sort_ids_by_created_at)
+    end
+
+    context 'when tasks exist over 10' do
+      before do
+        create_list(:task, 10)
+        visit tasks_path
+      end
+      let(:first_page_tasks) { Task.all.order(created_at: :desc).limit(10).offset(0) }
+      let(:next_page_tasks) { Task.all.order(created_at: :desc).limit(10).offset(10) }
+
+      it 'should show paginated tasks' do
+        all_task_ids = Task.select(:id).all.map { |t| t.id.to_s }
+        expect(fetch_viewed_task_ids(all_task_ids)).to match_array(first_page_tasks.map { |t| t.id.to_s })
+        click_on '次へ ›'
+        sleep(0.1)
+        expect(fetch_viewed_task_ids(all_task_ids)).to match_array(next_page_tasks.map { |t| t.id.to_s })
+      end
     end
 
     context 'when click 完了日' do
       before do
         click_on '完了日'
         # 表示が完了する前にクローリングが走ってしまうので、待機する
-        sleep(1)
+        sleep(0.1)
       end
 
       it 'tasks are sorted by target_date desc' do
-        ids = page.all('tbody td')
-                  .map(&:text)
-                  .select { |td_context| sort_ids_by_target_date.include?(td_context) }
-
+        ids = fetch_viewed_task_ids(sort_ids_by_target_date)
         expect(ids).to eq(sort_ids_by_target_date)
       end
     end
@@ -57,14 +74,11 @@ RSpec.describe Task, js: true, type: :system do
       before do
         (0..1).each { |_| click_on '作成日' }
         # 表示が完了する前にクローリングが走ってしまうので、待機する
-        sleep(1)
+        sleep(0.1)
       end
 
       it 'tasks are sorted by created_at asc' do
-        ids = page.all('tbody td')
-                  .map(&:text)
-                  .select { |td_context| sort_ids_by_created_at.include?(td_context) }
-
+        ids = fetch_viewed_task_ids(sort_ids_by_created_at)
         expect(ids).to eq(sort_ids_by_created_at.reverse)
       end
     end

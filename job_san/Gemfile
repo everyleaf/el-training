@@ -68,5 +68,8 @@ gem 'enum_help'
 # for state management refs: https://github.com/aasm/aasm
 gem 'aasm'
 
-# for pagination refs: https://github.com/activerecord-hackery/ransack
+# for search, sort refs: https://github.com/activerecord-hackery/ransack
 gem 'ransack', github: 'activerecord-hackery/ransack'
+
+# for pagination refs: https://github.com/kaminari/kaminari
+gem 'kaminari'
