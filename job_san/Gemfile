@@ -34,6 +34,10 @@ group :development, :test do
 
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+  # generate natural something. refs: https://github.com/faker-ruby/faker
+  gem 'faker'
+  # warn N+1 query. refs: https://github.com/flyerhzm/bullet
+  gem 'bullet'
 end
 
 group :development do

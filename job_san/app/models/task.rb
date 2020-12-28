@@ -3,6 +3,7 @@
 class Task < ApplicationRecord
   include AASM
 
+  belongs_to :user, dependent: :destroy
   validates :name, presence: true, length: { maximum: 255 }
   validates :description, length: { maximum: 255 }
   enum priority: %i[low medium high]

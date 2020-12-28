@@ -52,7 +52,7 @@ RSpec.describe Task, js: true, type: :system do
         all_task_ids = Task.select(:id).all.map { |t| t.id.to_s }
         expect(fetch_viewed_task_ids(all_task_ids)).to match_array(first_page_tasks.map { |t| t.id.to_s })
         click_on '次へ ›'
-        sleep(0.1)
+        sleep(0.3)
         expect(fetch_viewed_task_ids(all_task_ids)).to match_array(next_page_tasks.map { |t| t.id.to_s })
       end
     end
@@ -61,7 +61,7 @@ RSpec.describe Task, js: true, type: :system do
       before do
         click_on '完了日'
         # 表示が完了する前にクローリングが走ってしまうので、待機する
-        sleep(0.1)
+        sleep(0.3)
       end
 
       it 'tasks are sorted by target_date desc' do
@@ -74,7 +74,7 @@ RSpec.describe Task, js: true, type: :system do
       before do
         (0..1).each { |_| click_on '作成日' }
         # 表示が完了する前にクローリングが走ってしまうので、待機する
-        sleep(0.1)
+        sleep(0.3)
       end
 
       it 'tasks are sorted by created_at asc' do

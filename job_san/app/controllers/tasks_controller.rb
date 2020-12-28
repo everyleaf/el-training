@@ -21,6 +21,13 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+
+    # TODO: ステップ17で実装します。
+    user = User.first || User.create(name: Faker::JapaneseMedia::Naruto.character,
+                                     email: Faker::Internet.email,
+                                     password: 'password',
+                                     password_confirmation: 'password')
+    @task.user_id = user.id
     if @task.save
       redirect_to tasks_path, notice: I18n.t('view.task.flash.created')
     else

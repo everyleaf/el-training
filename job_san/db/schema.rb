@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2020_12_28_054519) do
   end
 
   create_table "users", id: { type: :string, limit: 36, default: -> { "(uuid())" } }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "name", limit: 20, null: false
+    t.string "name", limit: 100, null: false
     t.string "email"
     t.string "password_digest", null: false
     t.timestamp "deleted_at", comment: "for soft delete"
