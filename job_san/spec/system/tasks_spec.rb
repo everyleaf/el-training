@@ -192,26 +192,23 @@ RSpec.describe Task, js: true, type: :system do
   end
 
   describe '#destroy' do
-    before { visit task_path id: sample_task.id }
+    before { visit task_path(id: sample_task.id) }
 
     subject do
       page.accept_confirm do
         click_on '削除'
       end
+      # 削除処理が完了する前にテストコードが進んでしまうので、待機する。
+      sleep 0.1
     end
 
     it 'move to task list page' do
-      subject
-      expect(current_path).to eq tasks_path
+      expect { subject }.to change { current_path }.from(task_path(id: sample_task.id)).to(tasks_path)
       expect(page).to have_content 'タスクを削除したよ'
     end
 
     it 'delete selected task' do
-      expect { subject }.to change {
-        # 削除処理の前にカウントのSQLが走ってしまうため、待機する。
-        sleep 0.1
-        Task.count
-      }.by(-1)
+      expect { subject }.to change { Task.count }.by(-1)
     end
   end
 end
