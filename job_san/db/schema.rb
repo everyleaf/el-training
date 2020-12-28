@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_28_025238) do
+ActiveRecord::Schema.define(version: 2020_12_28_054519) do
 
   create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -19,13 +19,24 @@ ActiveRecord::Schema.define(version: 2020_12_28_025238) do
     t.timestamp "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.string "priority", limit: 6, default: "low", null: false
     t.string "status", limit: 5, default: "todo", null: false
-    t.integer "user_id"
+    t.string "user_id", limit: 36
     t.integer "label_id"
     t.date "target_date"
     t.index ["name"], name: "index_tasks_on_name"
     t.index ["status"], name: "index_tasks_on_status"
+    t.index ["user_id"], name: "fk_rails_4d2a9e4d7e"
     t.check_constraint "`priority` in ('high','medium','low')", name: "check_tasks_priority"
     t.check_constraint "`status` in ('todo','doing','done')", name: "check_tasks_status"
   end
 
+  create_table "users", id: { type: :string, limit: 36, default: -> { "(uuid())" } }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name", limit: 20, null: false
+    t.string "email"
+    t.string "password_digest", null: false
+    t.timestamp "deleted_at", comment: "for soft delete"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "tasks", "users"
 end
