@@ -4,7 +4,17 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.all
+    @sort_cond = [%w[ID昇順 id_asc], %w[作成日時降順 created_desc]]
+    @sel_sort_cond = params['sort']
+    @tasks =
+      case @sel_sort_cond
+      when 'id_asc'
+        Task.all.order(id: :asc)
+      when 'created_desc'
+        Task.all.order(created_at: :desc)
+      else
+        Task.all
+      end
   end
 
   def show

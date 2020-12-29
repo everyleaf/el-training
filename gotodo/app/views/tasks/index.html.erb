@@ -1,6 +1,9 @@
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
 <h1><%= t('.h1') %></h1>
+<%= form_with url: tasks_path, method: :get do |form| %>
+  <%= select_tag(:sort, options_for_select(@sort_cond, @sel_sort_cond)) %>
+<% end %>
 <table>
   <thead>
     <td><%= Task.human_attribute_name(:title) %></td>
@@ -14,3 +17,5 @@
 </table>
 <br>
 <%= link_to t('attributes.new_task'), new_task_path %>
+
+<%= javascript_pack_tag 'index' %>
