@@ -30,7 +30,7 @@ RSpec.describe Task, js: true, type: :system do
     end
 
     def fetch_viewed_task_ids(str_expected_ids)
-      page.all('tbody td')
+      page.all('tbody td:first-child')
           .map(&:text)
           .select { |td_context| str_expected_ids.include?(td_context) }
     end
@@ -49,7 +49,7 @@ RSpec.describe Task, js: true, type: :system do
       let(:next_page_tasks) { Task.all.order(created_at: :desc).limit(10).offset(10) }
 
       it 'should show paginated tasks' do
-        all_task_ids = Task.select(:id).all.map { |t| t.id.to_s }
+        all_task_ids = Task.pluck(:id).map(&:to_s)
         expect(fetch_viewed_task_ids(all_task_ids)).to match_array(first_page_tasks.map { |t| t.id.to_s })
         click_on '次へ ›'
         sleep(0.1)
@@ -93,8 +93,8 @@ RSpec.describe Task, js: true, type: :system do
       end
 
       it 'tasks are filtered by partial matched name' do
-        all_task_ids = Task.select(:id).all.map { |t| t.id.to_s }
-        ids = page.all('tbody td').map(&:text).select { |td_context| all_task_ids.include?(td_context) }
+        all_task_ids = Task.pluck(:id).map(&:to_s)
+        ids = page.all('tbody td:first-child').map(&:text).select { |td_context| all_task_ids.include?(td_context) }
         expect(ids).to match_array(filtered_tasks.map { |t| t.id.to_s })
       end
     end
