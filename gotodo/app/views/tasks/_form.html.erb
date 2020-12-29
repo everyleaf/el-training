@@ -1,25 +1,22 @@
 <%= form_with(model: task) do |form| %>
-<% if task.errors.any? %>
-<div id="error_explanation">
-  <h2>
-    <%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
-  <ul>
-    <% task.errors.each do |error| %>
-    <li>
-      <%= error.full_message %>
-    </li>
-    <% end %>
-  </ul>
-</div>
-<% end %>
-<%= form.label :title %>
-<br>
-<%= form.text_field :title %>
-<br>
-<%= form.label :detail %>
-<br>
-<%= form.text_area :detail, size: "60x12" %>
-<div class="actions">
-  <%= form.submit %>
-</div>
+  <% if task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+      <ul>
+        <% task.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form.label :title %>
+  <br>
+  <%= form.text_field :title %>
+  <br>
+  <%= form.label :detail %>
+  <br>
+  <%= form.text_area :detail, size: "60x12" %>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
 <% end %>

@@ -1,24 +1,16 @@
 <tr>
-  <td>
-    <%= link_to task.title, task %>
-  </td>
-  <td>
-    <%= task.detail %>
-  </td>
-  <td>
-    <%= task.created_at %>
-  </td>
-  <td>
-    <%= task.updated_at %>
-  </td>
+  <td><%= link_to task.title, task %></td>
+  <td><%= task.detail %></td>
+  <td><%= task.created_at %></td>
+  <td><%= task.updated_at %></td>
   <td>
     <%= link_to edit_task_path(task) do %>
       <%= icon('fas', 'edit') %>
     <% end %>
   </td>
   <td>
-    <%= link_to task, method: :delete, data: { confirm: 'Are you sure?' } do %>
+    <%= link_to task, class: 'delete-link', method: :delete, data: { confirm: 'Are you sure?' } do %>
       <%= icon('fas', 'trash-alt') %>
     <% end %>
-    </td>
+  </td>
 </tr>

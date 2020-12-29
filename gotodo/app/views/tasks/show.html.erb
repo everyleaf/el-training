@@ -1,24 +1,12 @@
-<p id="notice">
-  <%= notice %>
-</p>
-<p id="alert">
-  <%= alert %>
-</p>
-<h1>
-  <%= @task.title %>
-</h1>
+<p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
+<h1><%= @task.title %></h1>
 <table>
   <tbody>
     <tr>
-      <td>
-        <%= @task.detail %>
-      </td>
-      <td>
-        <%= @task.created_at %>
-      </td>
-      <td>
-        <%= @task.updated_at %>
-      </td>
+      <td><%= @task.detail %></td>
+      <td><%= @task.created_at %></td>
+      <td><%= @task.updated_at %></td>
     </tr>
   </tbody>
 </table>

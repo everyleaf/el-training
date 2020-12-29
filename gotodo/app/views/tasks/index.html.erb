@@ -1,33 +1,14 @@
-<p id="notice">
-  <%= notice %>
-</p>
-<p id="alert">
-  <%= alert %>
-</p>
-<h1>
-  <%= t('.h1') %>
-</h1>
+<p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
+<h1><%= t('.h1') %></h1>
 <table>
   <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
+    <td><%= Task.human_attribute_name(:title) %></td>
+    <td><%= Task.human_attribute_name(:detail) %></td>
+    <td><%= t('attributes.created_at') %></td>
+    <td><%= t('attributes.updated_at') %></td>
   </thead>
   <tbody>
-    <thead>
-      <td>
-        <%= Task.human_attribute_name(:title) %>
-      </td>
-      <td>
-        <%= Task.human_attribute_name(:detail) %>
-      </td>
-      <td>
-        <%= t('attributes.created_at') %>
-      </td>
-      <td>
-        <%= t('attributes.updated_at') %>
-      </td>
-    </thead>
     <%= render partial: 'task', collection: @tasks %>
   </tbody>
 </table>
