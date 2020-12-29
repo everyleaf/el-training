@@ -27,6 +27,4 @@ class Task < ApplicationRecord
       transitions to: :done
     end
   end
-
-  scope :only_own_task, -> { joins(:users).where() }
 end
