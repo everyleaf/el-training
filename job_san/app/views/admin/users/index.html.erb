@@ -1,0 +1,30 @@
+<h1>Admin::Users#index</h1>
+
+<%= search_form_for(@query, url: admin_users_path) do |f| %>
+  <%= f.label :name_cont %><br />
+  <%= f.search_field :name_cont %>
+  <%= f.submit %>
+<% end %>
+
+<%= content_tag :table do %>
+  <thead>
+  <tr>
+    <th><%= I18n.t('view.task.label.id') %></th>
+    <%= content_tag :th, sort_link(@query, :name, default_order: :asc) %>
+    <%= content_tag :th, sort_link(@query, :email, default_order: :asc) %>
+    <th>Task count</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= link_to user.id.to_s, edit_admin_user_path(user.id) %></td>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= link_to "TASK COUNT: #{user.tasks.count}", tasks_admin_user_path(user.id) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+<% end %>
+
+<%= paginate @users %>

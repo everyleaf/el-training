@@ -1,4 +1,4 @@
 <h1>Tasks#edit</h1>
 <%= "#{I18n.t('view.task.label.id')}: #{@task.id}" %>
-<%= render partial: 'form', locals: { target_method: :put, action_label: I18n.t('view.task.label.action_type.update') } %>
+<%= render partial: 'tasks/form', locals: { target_method: :put, action_label: I18n.t('view.task.label.action_type.update') } %>
 <%= render partial: 'tasks/error_message' %>

@@ -1,36 +1,3 @@
 <h1>Tasks#index</h1>
 <%= render partial: 'tasks/error_message' %>
-
-<%= search_form_for @query do |f| %>
-  <%= f.label :name_cont %><br />
-  <%= f.search_field :name_cont %>
-  <%= f.select :status_eq, options_for_select(Task::STATUSES.map{|k,v| [v,k.to_s]}, @query.status_eq), include_blank: '全てのステータス' %>
-  <%= f.submit %>
-<% end %>
-
-<%= content_tag :table do %>
-  <thead>
-    <tr>
-      <th><%= I18n.t('view.task.label.id') %></th>
-      <th><%= I18n.t('view.task.label.name') %></th>
-      <th><%= I18n.t('view.task.label.description') %></th>
-      <th><%= I18n.t('view.task.label.status') %></th>
-      <%= content_tag :th, sort_link(@query, :target_date, default_order: :desc) %>
-      <%= content_tag :th, sort_link(@query, :created_at, default_order: :desc) %>
-    </tr>
-  </thead>
-  <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= link_to task.id.to_s, task_url(task.id) %></td>
-        <td><%= task.name %></td>
-        <td><%= task.description %></td>
-        <td><%= task.aasm.human_state %></td>
-        <td><%= viewed_target_date(task) %></td>
-        <td><%= task.created_at.strftime(I18n.t('view.date_format')) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-<% end %>
-
-<%= paginate @tasks %>
+<%= render partial: 'tasks/task_list', locals: { form_path: tasks_path } %>
