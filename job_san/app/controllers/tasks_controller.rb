@@ -3,16 +3,18 @@
 class TasksController < ApplicationController
   include TaskHelper
 
+  before_action :logged_in_user
+
   SORT_KEY = 'target_date'
 
   def index
     # TODO: ステップ14までページネーションは実装しません。
-    @query = Task.ransack(params[:query])
+    @query = current_user.tasks.ransack(params[:query])
     @tasks = @query.result.order(created_at: :desc).page params[:page]
   end
 
   def show
-    @task = Task.find_by(id: params[:id])
+    @task = current_user.tasks.find_by(id: params[:id])
   end
 
   def new
@@ -20,14 +22,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
-
-    # TODO: ステップ17で実装します。
-    user = User.first || User.create(name: Faker::JapaneseMedia::Naruto.character,
-                                     email: Faker::Internet.email,
-                                     password: 'password',
-                                     password_confirmation: 'password')
-    @task.user_id = user.id
+    @task = current_user.tasks.new(task_params)
     if @task.save
       redirect_to tasks_path, notice: I18n.t('view.task.flash.created')
     else
@@ -38,12 +33,12 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find_by(id: params[:id])
+    @task = current_user.tasks.find_by(id: params[:id])
     redirect_to tasks_path, notice: I18n.t('view.task.error.not_found') unless @task
   end
 
   def update
-    @task = Task.find_by(id: params[:id])
+    @task = current_user.tasks.find_by(id: params[:id])
     redirect_to tasks_path, notice: I18n.t('view.task.error.not_found') unless @task
 
     @task = TaskService.new(@task).update_task(task_params)
@@ -58,7 +53,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    task = Task.find_by(id: params[:id])
+    task = current_user.tasks.find_by(id: params[:id])
     return redirect_to tasks_path, notice: I18n.t('view.task.error.not_found') if task.blank?
 
     if task.destroy

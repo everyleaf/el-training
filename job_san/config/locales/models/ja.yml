@@ -2,6 +2,7 @@ ja:
   activerecord:
     models:
       task: タスク
+      user: ユーザ
     attributes:
       task:
         id: ID
@@ -10,3 +11,7 @@ ja:
         target_date: 完了日
         status: ステータス
         created_at: 作成日
+      user:
+        email: Email
+        password: パスワード
+        name: 名前

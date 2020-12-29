@@ -1,0 +1,9 @@
+ja:
+  view:
+    session:
+      label:
+        login: ログイン
+        logout: ログアウト
+      flash:
+        login:
+          invalid_param: Emailとパスワードが一致しません

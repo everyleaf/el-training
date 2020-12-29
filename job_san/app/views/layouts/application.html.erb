@@ -14,16 +14,23 @@
     <% flash.each do |_, message| %>
       <%= message %>
     <% end %>
-    <div>
-      <ul>
-        <li style="display: inline;">
-          <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.header.task_list'), tasks_path %></div>
-        </li>
-        <li style="display: inline;">
-          <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.header.new_task'), new_task_path %></div>
-        </li>
-      </ul>
-    </div>
+      <div>
+        <ul>
+          <% if logged_in? %>
+            <li style="display: inline;">
+              <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.header.task_list'), tasks_path %></div>
+            </li>
+            <li style="display: inline;">
+              <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.header.new_task'), new_task_path %></div>
+            </li>
+            <li style="display: inline;">
+              <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.session.label.logout'), logout_path, method: :delete %></div>
+            </li>
+          <% else %>
+            <li><%= link_to I18n.t('view.session.label.login'), login_path %></li>
+          <% end %>
+        </ul>
+      </div>
     <%= yield %>
   </body>
 </html>
