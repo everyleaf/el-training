@@ -2,9 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe ApplicationController, type: :system do
+RSpec.describe ApplicationController, :require_login, type: :system do
   context 'occur internal server error' do
-    before { allow(Task).to receive(:all).and_raise(RuntimeError) }
+    before do
+      allow(Task).to receive(:ransack).and_raise(RuntimeError)
+    end
 
     it 'render custom 500' do
       get tasks_path

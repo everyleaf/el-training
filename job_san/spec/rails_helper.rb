@@ -66,4 +66,8 @@ RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
 
   Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
+
+  config.when_first_matching_example_defined(:require_login) do
+    require 'support/session_spec_helper'
+  end
 end

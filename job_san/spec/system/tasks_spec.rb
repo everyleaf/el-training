@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Task, js: true, type: :system do
+RSpec.describe Task, :require_login, js: true, type: :system do
   before { travel_to(Time.zone.local(2020, 12, 24, 21, 0o0, 0o0)) }
   let(:sample_task_name) { 'やらなきゃいけないサンプル' }
   let(:sample_task_description) { 'やらなきゃいけないサンプル説明文' }
@@ -14,12 +14,15 @@ RSpec.describe Task, js: true, type: :system do
            name: sample_task_name,
            description: sample_task_description,
            created_at: now,
-           target_date: today, status: sample_task_status)
+           target_date: today,
+           status: sample_task_status,
+           user: login_user)
   }
 
   describe '#index' do
-    let!(:sample_task_2) { create(:task, created_at: now + 2.days, target_date: today - 1.day) }
-    let!(:sample_task_3) { create(:task, created_at: now + 1.day, target_date: today + 1.day) }
+    let!(:sample_task_2) { create(:task, created_at: now + 2.days, target_date: today - 1.day, user: login_user) }
+    let!(:sample_task_3) { create(:task, created_at: now + 1.day, target_date: today + 1.day, user: login_user) }
+    let!(:other_user_task) { create(:task) }
     let(:sort_ids_by_created_at) { sort_task_ids(:created_at) }
     let(:sort_ids_by_target_date) { sort_task_ids(:target_date) }
     before { visit tasks_path }
@@ -42,14 +45,14 @@ RSpec.describe Task, js: true, type: :system do
 
     context 'when tasks exist over 10' do
       before do
-        create_list(:task, 10)
+        create_list(:task, 10, user: login_user)
         visit tasks_path
       end
-      let(:first_page_tasks) { Task.all.order(created_at: :desc).limit(10).offset(0) }
-      let(:next_page_tasks) { Task.all.order(created_at: :desc).limit(10).offset(10) }
+      let(:first_page_tasks) { Task.where(user: login_user).order(created_at: :desc).limit(10).offset(0) }
+      let(:next_page_tasks) { Task.where(user: login_user).order(created_at: :desc).limit(10).offset(10) }
 
       it 'should show paginated tasks' do
-        all_task_ids = Task.select(:id).all.map { |t| t.id.to_s }
+        all_task_ids = Task.select(:id).where(user: login_user).map { |t| t.id.to_s }
         expect(fetch_viewed_task_ids(all_task_ids)).to match_array(first_page_tasks.map { |t| t.id.to_s })
         click_on '次へ ›'
         sleep(0.3)
@@ -72,9 +75,11 @@ RSpec.describe Task, js: true, type: :system do
 
     context 'when click 作成日 twice' do
       before do
-        (0..1).each { |_| click_on '作成日' }
-        # 表示が完了する前にクローリングが走ってしまうので、待機する
-        sleep(0.3)
+        (0..1).each do |_|
+          click_on '作成日'
+          # 表示が完了する前にクローリングが走ってしまうので、待機する
+          sleep(0.3)
+        end
       end
 
       it 'tasks are sorted by created_at asc' do
@@ -85,17 +90,28 @@ RSpec.describe Task, js: true, type: :system do
 
     context 'when search tasks with a task_name' do
       let(:search_task_name) { SecureRandom.uuid }
-      let!(:filtered_tasks) { create_list(:task, 3, name: search_task_name) }
+      let!(:filtered_tasks) { create_list(:task, 3, name: search_task_name, user: login_user) }
       before do
         fill_in 'タスク名 は以下を含む', with: search_task_name[2..7]
         click_button '検索'
-        sleep(1)
+        sleep(0.3)
       end
 
       it 'tasks are filtered by partial matched name' do
-        all_task_ids = Task.select(:id).all.map { |t| t.id.to_s }
+        all_task_ids = Task.select(:id).where(user: login_user).map { |t| t.id.to_s }
         ids = page.all('tbody td').map(&:text).select { |td_context| all_task_ids.include?(td_context) }
         expect(ids).to match_array(filtered_tasks.map { |t| t.id.to_s })
+      end
+    end
+
+    context 'when user does not login yet' do
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(nil)
+        visit tasks_path
+      end
+
+      it 'render login page' do
+        expect(current_path).to eq login_path
       end
     end
   end
@@ -104,6 +120,17 @@ RSpec.describe Task, js: true, type: :system do
     it 'visit show page' do
       visit task_path id: sample_task.id
       expect(page).to have_content sample_task_name
+    end
+
+    context 'when user does not login yet' do
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(nil)
+        visit task_path id: sample_task.id
+      end
+
+      it 'render login page' do
+        expect(current_path).to eq login_path
+      end
     end
   end
 
@@ -134,11 +161,22 @@ RSpec.describe Task, js: true, type: :system do
       end
 
       it 'create new task' do
-        expect { subject }.to change(Task, :count).by(1)
-        created_task = Task.last
+        expect { subject }.to change(Task.where(user: login_user), :count).by(1)
+        created_task = Task.where(user: login_user).last
         expect(created_task.name).to eq(create_task_name)
         expect(created_task.description).to eq(create_task_description)
         expect(created_task.target_date).to eq(create_task_target_date)
+      end
+    end
+
+    context 'when user does not login yet' do
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(nil)
+        visit new_task_path
+      end
+
+      it 'render login page' do
+        expect(current_path).to eq login_path
       end
     end
   end
@@ -189,6 +227,42 @@ RSpec.describe Task, js: true, type: :system do
           }.from(sample_task_status).to(update_task_status)
       end
     end
+
+    context 'when user does not login yet' do
+      let(:update_task_name) { '更新するタスクの名前' }
+      let(:update_task_description) { '更新するタスクの説明文' }
+      let(:update_task_target_date) { today + 3.days }
+      let(:update_task_status) { 'doing' }
+      let(:updated_task) { Task.find(sample_task.id) }
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(nil)
+        fill_in 'タスク名', with: update_task_name
+        fill_in '説明文', with: update_task_description
+        find('#task_status').find("option[value='#{update_task_status}']").select_option
+        [update_task_target_date.year,
+         update_task_target_date.month,
+         update_task_target_date.day].each_with_index.each do |v, i|
+          find("#task_target_date_#{i + 1}i").find("option[value='#{v}']").select_option
+        end
+      end
+
+      it 'render login page' do
+        visit edit_task_path id: sample_task.id
+        expect(current_path).to eq login_path
+      end
+
+      it 'should not update selected task' do
+        expect {
+          subject
+          updated_task.reload
+        }.not_to change {
+          [updated_task.name,
+           updated_task.description,
+           updated_task.target_date,
+           updated_task.status]
+        }
+      end
+    end
   end
 
   describe '#destroy' do
@@ -209,6 +283,23 @@ RSpec.describe Task, js: true, type: :system do
 
     it 'delete selected task' do
       expect { subject }.to change { Task.count }.by(-1)
+    end
+
+    context 'when user does not login yet' do
+      before { allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(nil) }
+
+      it 'render login page' do
+        visit task_path(id: sample_task.id)
+        expect(current_path).to eq login_path
+      end
+
+      it 'should not delete selected task' do
+        expect { subject }.to change {
+          Task.count
+        }.by(0).and change {
+          current_path
+        }.from(task_path(id: sample_task.id)).to(login_path)
+      end
     end
   end
 end
