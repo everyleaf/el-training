@@ -17,7 +17,7 @@
     <% end %>
   </td>
   <td>
-    <%= link_to task, method: :delete, data: { confirm: 'Are you sure?' } do %>
+    <%= link_to task, class: 'delete-link', method: :delete, data: { confirm: 'Are you sure?' } do %>
       <%= icon('fas', 'trash-alt') %>
     <% end %>
     </td>
