@@ -45,7 +45,7 @@ $ docker-compose up -d
 | カラム名(論理) | カラム名(物理) | 型 | 制約 | Rails |
 | --- | --- | --- | --- | --- |
 | ID | id | SERIAL | PK | 自動追加 |
-| タスク名 | task_name | VARCHAR(255) | NN | t.string |
+| タスク名 | title | VARCHAR(255) | NN | t.string |
 | 説明 | detail | TEXT | | t.text |
 | 住所 | location| TEXT | | t.text
 | 緯度 | lat | DOUBLE | | t.decimal |
