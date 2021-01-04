@@ -6,7 +6,7 @@ ja:
       submit: 保存する
   flash:
     create_success: '新しい%{model}が登録されました！'
-    update_success: '%{model}の更新が成功しました！'
+    update_success: '%{model}が更新されました！'
     destroy_success: '%{model}が削除されました！'
     create_error: '%{model}の作成に失敗しました。'
     update_error: '%{model}の更新に失敗しました。'
