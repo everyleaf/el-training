@@ -3,4 +3,23 @@ inherit_gem:
     - "config/.base_rubocop.yml"
 
 AllCops:
-  TargetRubyVersion: 2.3
+  Exclude:
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'config.ru'
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+    - 'config/**/*'
+    - 'db/schema.rb'
+    - 'db/seeds.rb'
+    - 'spec/rails_helper.rb'
+    - 'spec/spec_helper.rb'
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'app/channels/**/*'
+    - 'app/jobs/**/*'
+    - 'app/mailers/**/*'
+    - 'app/models/application_record.rb'
+    - 'db/migrate/*'
+    - 'spec/support/selenium_chrome.rb'
