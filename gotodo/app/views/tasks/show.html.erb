@@ -1,18 +1,18 @@
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
-
-<h1>Task</h1>
-
+<h1><%= @task.title %></h1>
 <table>
   <tbody>
     <tr>
-      <td><%= @task.task_name %></td>
       <td><%= @task.detail %></td>
       <td><%= @task.created_at %></td>
       <td><%= @task.updated_at %></td>
     </tr>
   </tbody>
 </table>
-
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to root_path do %>
+  <%= icon('fas', 'arrow-alt-circle-left') %>
+<% end %>
+<%= link_to edit_task_path(@task) do %>
+  <%= icon('fas', 'edit') %>
+<% end %>

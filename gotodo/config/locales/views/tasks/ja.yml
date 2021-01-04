@@ -1,0 +1,23 @@
+ja:
+  activerecord:
+    models:
+      task: 'タスク'
+    attributes:
+      task:
+        title: 'タスク名'
+        detail: '詳細'
+    errors:
+      models:
+        task:
+          attributes:
+            name:
+              blank: '空になっています。入力してください。'
+            age:
+              blank: '空になっています。入力してください。'
+  tasks:
+    index:
+      h1: 'GoToDo一覧'
+    new:
+      h1: 'GoToDo登録'
+    edit:
+      h1: 'GoToDo編集'
