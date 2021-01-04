@@ -31,7 +31,7 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to @task, notice: I18n.t('flash.update_success', model: I18n.t('activerecord.models.task'))
     else
-      flash.now[:alert] = I18n.t('flash.create_error', model: I18n.t('activerecord.models.task'))
+      flash.now[:alert] = I18n.t('flash.update_error', model: I18n.t('activerecord.models.task'))
       render :edit
     end
   end
