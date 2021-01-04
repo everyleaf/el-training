@@ -1,4 +1,4 @@
-<h1><%= t('.h1') %></h1>
+<h1><%= I18n.t('tasks.index.h1') %></h1>
 <%= render partial: 'form', locals: { task: @task } %>
 <%= link_to tasks_path do %>
   <%= icon('fas', 'arrow-alt-circle-left') %>

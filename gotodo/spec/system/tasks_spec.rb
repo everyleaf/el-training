@@ -32,7 +32,7 @@ RSpec.describe 'Tasks', type: :system do
       visit edit_task_path added_task.id
       fill_in 'タスク名', with: edited_task.title
       fill_in '詳細', with: edited_task.detail
-      click_button I18n.t('helpers.submit.update')
+      click_button '更新する'
     end
     it '編集したタスクが表示されること' do 
       expect(page).to have_content edited_task.title
@@ -46,7 +46,7 @@ RSpec.describe 'Tasks', type: :system do
       visit new_task_path
       fill_in 'タスク名', with: new_task.title
       fill_in '詳細', with: new_task.detail
-      click_button I18n.t('helpers.submit.create')
+      click_button '登録する'
     end
     it '新規登録したタスクが表示されること' do 
       expect(page).to have_content new_task.title
