@@ -10,14 +10,12 @@ ja:
       models:
         task:
           attributes:
-            name:
-              blank: '空になっています。入力してください。'
-            age:
-              blank: '空になっています。入力してください。'
+            title:
+              blank: 'が空になっています。'
   tasks:
     index:
-      h1: 'GoToDo一覧'
+      page_title: 'GoToDo一覧'
     new:
-      h1: 'GoToDo登録'
+      page_title: 'GoToDo登録'
     edit:
-      h1: 'GoToDo編集'
+      page_title: 'GoToDo編集'
