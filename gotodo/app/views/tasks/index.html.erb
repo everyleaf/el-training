@@ -1,15 +1,12 @@
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
 <h1><%= I18n.t('tasks.index.h1') %></h1>
-<%= form_with url: tasks_path, method: :get, local: true do |form| %>
-  <%= select_tag(:sort, options_for_select(@sort_conds, @selected_sort_cond)) %>
-<% end %>
 <table>
   <thead>
-    <td><%= Task.human_attribute_name(:title) %></td>
-    <td><%= Task.human_attribute_name(:detail) %></td>
-    <td><%= I18n.t('attributes.created_at') %></td>
-    <td><%= I18n.t('attributes.updated_at') %></td>
+    <td><%= sortable :title %></td>
+    <td><%= sortable :detail %></td>
+    <td><%= sortable :created_at %></td>
+    <td><%= sortable :updated_at %></td>
   </thead>
   <tbody>
     <%= render partial: 'task', collection: @tasks %>

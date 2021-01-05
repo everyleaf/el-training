@@ -4,14 +4,9 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @sort_conds = [%w[ID昇順 id_asc], %w[作成日時降順 created_desc]]
-    @selected_sort_cond = params['sort']
     @tasks =
-      case @selected_sort_cond
-      when 'id_asc'
-        Task.all.order(id: :asc)
-      when 'created_desc'
-        Task.all.order(created_at: :desc)
+      if params[:sort].present?
+        Task.order("#{params[:sort]} #{params[:direction]}")
       else
         Task.all
       end
