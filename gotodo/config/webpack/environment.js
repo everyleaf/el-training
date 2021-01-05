@@ -1,5 +1,4 @@
 const { environment } = require('@rails/webpacker')
-const erb = require('./loaders/erb')
 
 // jQuery, Bootstap JS
 const webpack = require('webpack')
@@ -12,5 +11,4 @@ environment.plugins.prepend(
   })
 )
 
-environment.loaders.prepend('erb', erb)
 module.exports = environment
