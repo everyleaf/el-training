@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
 <h1><%= I18n.t('tasks.index.h1') %></h1>
-<%= form_with url: tasks_path, method: :get do |form| %>
+<%= form_with url: tasks_path, method: :get, local: true do |form| %>
   <%= select_tag(:sort, options_for_select(@sort_conds, @selected_sort_cond)) %>
 <% end %>
 <table>
@@ -18,4 +18,4 @@
 <br>
 <%= link_to I18n.t('attributes.new_task'), new_task_path %>
 
-<%= javascript_pack_tag 'index' %>
+<%= javascript_pack_tag 'task/index' %>

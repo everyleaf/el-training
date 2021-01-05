@@ -55,7 +55,7 @@ RSpec.describe 'Tasks', type: :system do
       click_button '更新する'
     end
     it '編集したタスクが表示されること' do
-      expect(page).to have_current_path task_path edited_task.id
+      expect(page).to have_current_path task_path task1.id
       expect(page).to have_content edited_task.title
       expect(page).to have_content edited_task.detail
     end
