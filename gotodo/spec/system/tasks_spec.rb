@@ -10,7 +10,7 @@ RSpec.describe 'Tasks', type: :system do
     before do
       visit root_path
     end
-    it '登録済みタスクが表示されること' do 
+    it '登録済みタスクが表示されること' do
       expect(page).to have_content added_task.title
       expect(page).to have_content added_task.detail
     end
@@ -20,7 +20,7 @@ RSpec.describe 'Tasks', type: :system do
     before do
       visit task_path added_task.id
     end
-    it '登録済みタスクが表示されること' do 
+    it '登録済みタスクが表示されること' do
       expect(page).to have_content added_task.title
       expect(page).to have_content added_task.detail
     end
@@ -32,11 +32,15 @@ RSpec.describe 'Tasks', type: :system do
       visit edit_task_path added_task.id
       fill_in 'タスク名', with: edited_task.title
       fill_in '詳細', with: edited_task.detail
-      click_button I18n.t('helpers.submit.update')
+      click_button '更新する'
     end
-    it '編集したタスクが表示されること' do 
+    it '編集したタスクが表示されること' do
+      expect(page).to have_current_path task_path added_task.id
       expect(page).to have_content edited_task.title
       expect(page).to have_content edited_task.detail
+    end
+    it 'Flashメッセージが表示されること' do
+      expect(page).to have_selector('#notice', text: 'タスクが更新されました！')
     end
   end
 
@@ -46,11 +50,15 @@ RSpec.describe 'Tasks', type: :system do
       visit new_task_path
       fill_in 'タスク名', with: new_task.title
       fill_in '詳細', with: new_task.detail
-      click_button I18n.t('helpers.submit.create')
+      click_button '登録する'
     end
-    it '新規登録したタスクが表示されること' do 
+    it '新規登録したタスクが表示されること' do
+      expect(page).to have_current_path task_path Task.last.id
       expect(page).to have_content new_task.title
       expect(page).to have_content new_task.detail
+    end
+    it 'Flashメッセージが表示されること' do
+      expect(page).to have_selector('#notice', text: '新しいタスクが登録されました！')
     end
   end
 
@@ -59,9 +67,13 @@ RSpec.describe 'Tasks', type: :system do
       visit root_path
       click_link nil, href: task_path(added_task), class: 'delete-link'
     end
-    it '削除した登録済みタスクが表示されないこと' do 
+    it '削除した登録済みタスクが表示されないこと' do
+      expect(page).to have_current_path root_path
       expect(page).to have_no_content added_task.title
       expect(page).to have_no_content added_task.detail
+    end
+    it 'Flashメッセージが表示されること' do
+      expect(page).to have_selector('#notice', text: 'タスクが削除されました！')
     end
   end
 end
