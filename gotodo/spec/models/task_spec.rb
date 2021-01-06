@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  describe 'title (maximum:50)' do
+  describe 'title (NotNull, maximum:50)' do
     subject(:task) { FactoryBot.build(:task, title: title) }
 
     shared_examples 'バリデーションを通過すること' do
