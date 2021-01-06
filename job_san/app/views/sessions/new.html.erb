@@ -1,4 +1,3 @@
-<h1>Sessions#new</h1>
 <%= form_with scope: :session, url:login_path, local: true, method: :post do |form| %>
   <div>
     <%= form.label(I18n.t('activerecord.attributes.user.email')) %>
@@ -6,7 +5,7 @@
   </div>
   <div>
     <%= form.label(I18n.t('activerecord.attributes.user.password')) %>
-    <%= form.text_field :password %>
+    <%= form.password_field :password %>
   </div>
   <%= form.submit I18n.t('view.session.label.login') %>
 <% end %>

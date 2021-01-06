@@ -8,39 +8,17 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'job_san_svelte' %>
+
+    <script>
+        var jsProps = <%= { loggedIn: logged_in? }.to_json.html_safe %>
+    </script>
   </head>
 
   <body>
-    <% flash.each do |_, message| %>
-      <%= message %>
-    <% end %>
-      <div>
-        <ul>
-          <% if logged_in? && !(request.url.include?('admin')) %>
-            <li style="display: inline;">
-              <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.header.task_list'), tasks_path %></div>
-            </li>
-            <li style="display: inline;">
-              <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.header.new_task'), new_task_path %></div>
-            </li>
-            <li style="display: inline;">
-              <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.session.label.logout'), logout_path, method: :delete %></div>
-            </li>
-          <% elsif logged_in? %>
-            <li style="display: inline;">
-              <div style="display: inline; background: lightgreen;"><%= link_to 'user list', admin_users_path %></div>
-            </li>
-            <li style="display: inline;">
-              <div style="display: inline; background: lightgreen;"><%= link_to 'user new', new_admin_user_path %></div>
-            </li>
-            <li style="display: inline;">
-              <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.session.label.logout'), logout_path, method: :delete %></div>
-            </li>
-          <% else %>
-            <li><%= link_to I18n.t('view.session.label.login'), login_path %></li>
-          <% end %>
-        </ul>
-      </div>
-    <%= yield %>
+    <div style="width: 80%; margin: auto;">
+      <div id="jobsan_header"></div>
+      <%= yield %>
+    </div>
   </body>
 </html>

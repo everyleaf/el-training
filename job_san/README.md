@@ -61,10 +61,13 @@ webpackerのインストールが正しく行えていないです。
 
 `rails new`のやり方がよくなかったっぽいです。余裕があったら直します。
 
+TODO: svelteのインストールも同時に行ってください。 
+
 以下のコマンドを実行してください。
 ```
 $ docker-compose run web bundle exec rails webpacker:install
 > Webpacker successfully installed
+$ docker-compose run web bundle exec rails webpacker:install:svelte
 ```
 
 ## 4. HELLO WORLD !

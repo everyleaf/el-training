@@ -20,8 +20,8 @@
   <% @tasks.each do |task| %>
     <tr>
       <td><%= link_to task.id.to_s, task_url(task.id) %></td>
-      <td><%= task.name %></td>
-      <td><%= task.description %></td>
+      <td><%= task.name.truncate(13) %></td>
+      <td><%= task.description&.truncate(13) %></td>
       <td><%= task.aasm.human_state %></td>
       <td><%= viewed_target_date(task) %></td>
       <td><%= task.created_at.strftime(I18n.t('view.date_format')) %></td>
