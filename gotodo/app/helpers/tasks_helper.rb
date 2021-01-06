@@ -2,17 +2,19 @@
 
 module TasksHelper
   def sortable(column)
-    title = Task.human_attribute_name(column)
-    if params[:sort] == column.to_s && params[:direction] == 'asc'
-      direction = 'desc'
-      title += ' ▲'
-    elsif params[:sort] == column.to_s
-      direction = 'asc'
-      title += ' ▼'
+    column = column.to_s
+    column_name = Task.human_attribute_name(column)
+    asc = link_to '▲', sort: column, direction: 'asc'
+    desc = link_to '▼', sort: column, direction: 'desc'
+    if params[:sort] == column
+      if params[:direction] == 'asc'
+        sortable = column_name + desc
+      elsif params[:direction] == 'desc'
+        sortable = column_name + asc
+      end
     else
-      direction = 'asc'
-      title += ' ▲▼'
+      sortable = column_name + asc + desc
     end
-    link_to title, sort: column, direction: direction
+    sortable.html_safe
   end
 end
