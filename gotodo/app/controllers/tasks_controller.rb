@@ -4,8 +4,12 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    raise
-    @tasks = Task.all
+    @tasks =
+      if params[:sort].present? && params[:direction].present?
+        Task.order("#{params[:sort]} #{params[:direction]}")
+      else
+        Task.all
+      end
   end
 
   def show

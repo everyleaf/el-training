@@ -3,12 +3,13 @@ FROM ruby:2.7
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
  && apt-get update -qq \
- && apt-get install -y --no-install-recommends nodejs yarn \
+ && apt-get install -y --no-install-recommends nodejs yarn fonts-takao-gothic \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
 # chromeの追加
-RUN apt-get update && apt-get install -y unzip \
+RUN apt-get update \
+ && apt-get install -y unzip \
  && CHROME_DRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` \
  && wget -N http://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P ~/ \
  && unzip ~/chromedriver_linux64.zip -d ~/ \
