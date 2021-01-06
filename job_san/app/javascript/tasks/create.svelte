@@ -7,7 +7,6 @@
     doing: "着手中",
     done: "完了",
   };
-  let task = {};
   const createTask = () => {
     axios
       .post("/api/tasks", {
