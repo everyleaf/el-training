@@ -16,7 +16,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       u = User.create(name: 'sample', email: 'xxx@gmail.com', password: password, password_confirmation: password)
       Task.where(user_id: nil).update_all(user_id: u.id)
     end
-
+    add_index :users, :email, unique: true
     add_foreign_key :tasks, :users
   end
 
