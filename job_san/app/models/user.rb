@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :delete_all
   validates :name, presence: true, length: { minimum: 1, maximum: 100 }
   validates :email, presence: true, length: { minimum: 1, maximum: 255 }, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
-  validates :password, presence: true, length: { minimum: 5, maximum: 255 }
+  validates :password, presence: true, length: { minimum: 5, maximum: 255 }, allow_nil: true
 
   has_secure_password
 end

@@ -28,10 +28,10 @@
             </li>
           <% elsif logged_in? %>
             <li style="display: inline;">
-              <div style="display: inline; background: lightgreen;"><%= link_to 'user list', admin_users_path %></div>
+              <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.header.user_list'), admin_users_path %></div>
             </li>
             <li style="display: inline;">
-              <div style="display: inline; background: lightgreen;"><%= link_to 'user new', new_admin_user_path %></div>
+              <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.header.new_user'), new_admin_user_path %></div>
             </li>
             <li style="display: inline;">
               <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.session.label.logout'), logout_path, method: :delete %></div>

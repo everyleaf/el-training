@@ -2,6 +2,6 @@
 
 <%= "#{I18n.t('view.task.label.id')}: #{@user.id}" %>
 <%= render partial: 'admin/users/form', locals: { form_url: admin_user_path(id: @user.id), target_method: :put, action_label: I18n.t('view.task.label.action_type.update') } %>
-<%= render partial: 'admin/users/error_message' %>
+<%= render partial: 'parts/error_message' %>
 
 <li style="display: inline"><%= link_to I18n.t('view.task.show.delete'), admin_user_path(id: @user.id), data: { confirm: I18n.t('view.task.show.confirm_delete', name: @user.name) }, method: :delete %></li>
