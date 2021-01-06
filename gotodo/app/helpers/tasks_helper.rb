@@ -9,7 +9,7 @@ module TasksHelper
     if params[:sort] == column
       if params[:direction] == 'asc'
         sortable = column_name + desc
-      elsif params[:direction] == 'desc'
+      else
         sortable = column_name + asc
       end
     else

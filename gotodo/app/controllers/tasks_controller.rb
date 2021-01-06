@@ -5,7 +5,7 @@ class TasksController < ApplicationController
 
   def index
     @tasks =
-      if params[:sort].present?
+      if params[:sort].present? && params[:direction].present?
         Task.order("#{params[:sort]} #{params[:direction]}")
       else
         Task.all
