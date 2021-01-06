@@ -20,7 +20,7 @@ module Admin
       else
         @errors = @user.errors
         flash.now[:alert] = I18n.t('view.user.flash.not_created')
-        render new_admin_users_path
+        render new_admin_user_path
       end
     end
 
