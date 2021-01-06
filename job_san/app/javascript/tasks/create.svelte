@@ -21,7 +21,7 @@
       .then(() => {
         document.cookie = "_job_san_session=; max-age=0";
         alert("タスクを作成しました");
-        Turbolinks.visit("/tasks");
+        location.href = "/tasks";
       })
       .catch((e) => alert(e));
   };

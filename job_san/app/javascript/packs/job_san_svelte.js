@@ -1,5 +1,5 @@
 import TaskIndex from '../tasks/index.svelte';
-import JobsanHeader from '../jobsanHeader.svelte';
+import JobsanHeader from '../jobsan_header.svelte';
 import TaskCreate from '../tasks/create.svelte';
 
 document.addEventListener('turbolinks:visit', () => {
