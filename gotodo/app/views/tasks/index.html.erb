@@ -1,9 +1,6 @@
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
 <h1><%= I18n.t('tasks.index.page_title') %></h1>
-<%= form_with url: tasks_path, method: :get, local: true do |form| %>
-  <%= select_tag(:sort, options_for_select(@sort_conds, @selected_sort_cond)) %>
-<% end %>
 <table>
   <thead>
     <td><%= sortable :title %></td>
