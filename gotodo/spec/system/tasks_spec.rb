@@ -4,34 +4,54 @@ require 'rails_helper'
 require 'pp'
 
 RSpec.describe 'Tasks', type: :system do
-  let!(:task1) { FactoryBot.create(:task, title: '買い物に行く', detail: '卵、牛乳') }
-  let!(:task2) { FactoryBot.create(:task, title: '料理をする', created_at: Time.current + 2.days) }
-  let!(:task3) { FactoryBot.create(:task, title: '食べる', created_at: Time.current + 3.days) }
+  let!(:task1) { FactoryBot.create(:task, title: 'う　買い物に行く', detail: '卵、牛乳') }
+  let!(:task2) { FactoryBot.create(:task, title: 'あ　料理をする', created_at: Time.current + 2.days) }
+  let!(:task3) { FactoryBot.create(:task, title: 'い　食べる', created_at: Time.current + 3.days) }
 
   describe '#index' do
     before do
       visit root_path
     end
+
     it '登録済みタスクが表示されること' do
       expect(page).to have_content task1.title
       expect(page).to have_content task1.detail
     end
-    context 'ソート用セレクトボックスを選択した時' do
-      it '作成日時降順で並び替えられること', js: true do
-        find("select[name='sort']").find("option[value='created_desc']").select_option
-        task_list = all('tbody tr')
-        truth_list = [task3, task2, task1]
-        task_list.each_with_index do |task, i|
-          expect(task).to have_content truth_list[i].title
+
+    describe 'ソート機能' do
+      shared_examples '期待した順番で表示されること' do
+        it do
+          hash = { 'asc' => '▲', 'desc' => '▼' }
+          click_link hash[direction], href: tasks_path(sort: sort, direction: direction)
+          task_list = all('tbody tr')
+          task_list.each_with_index do |task, i|
+            expect(task).to have_content expected_list[i].title
+          end
         end
       end
-      it 'ID昇順で並び替えられること', js: true do
-        find("select[name='sort']").find("option[value='id_asc']").select_option
-        task_list = all('tbody tr')
-        truth_list = [task1, task2, task3]
-        task_list.each_with_index do |task, i|
-          expect(task).to have_content truth_list[i].title
-        end
+      context 'タスク名昇順' do
+        let(:expected_list) { [task2, task3, task1] }
+        let(:sort) { 'title' }
+        let(:direction) { 'asc' }
+        it_behaves_like '期待した順番で表示されること'
+      end
+      context 'タスク名降順' do
+        let(:expected_list) { [task1, task3, task2] }
+        let(:sort) { 'title' }
+        let(:direction) { 'desc' }
+        it_behaves_like '期待した順番で表示されること'
+      end
+      context '作成日時昇順' do
+        let(:expected_list) { [task1, task2, task3] }
+        let(:sort) { 'created_at' }
+        let(:direction) { 'asc' }
+        it_behaves_like '期待した順番で表示されること'
+      end
+      context '作成日時降順' do
+        let(:expected_list) { [task3, task2, task1] }
+        let(:sort) { 'created_at' }
+        let(:direction) { 'desc' }
+        it_behaves_like '期待した順番で表示されること'
       end
     end
   end

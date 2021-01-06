@@ -6,10 +6,10 @@
 <% end %>
 <table>
   <thead>
-    <td><%= Task.human_attribute_name(:title) %></td>
-    <td><%= Task.human_attribute_name(:detail) %></td>
-    <td><%= I18n.t('attributes.created_at') %></td>
-    <td><%= I18n.t('attributes.updated_at') %></td>
+    <td><%= sortable :title %></td>
+    <td><%= sortable :detail %></td>
+    <td><%= sortable :created_at %></td>
+    <td><%= sortable :updated_at %></td>
   </thead>
   <tbody>
     <%= render partial: 'task', collection: @tasks %>
@@ -17,5 +17,3 @@
 </table>
 <br>
 <%= link_to I18n.t('attributes.new_task'), new_task_path %>
-
-<%= javascript_pack_tag 'task/index' %>

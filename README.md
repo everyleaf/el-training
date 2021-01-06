@@ -110,22 +110,34 @@ $ docker-compose up -d
 今回はRails初学習のため、できるだけ基本記法で書きます。
 ここでは勉強中に見つけた略記法をメモします。
 
-```
+* render
+```erb
 <%= render partial: 'task', collection: @tasks %>
-<%# render @tasks %>  <!-- 省略形 -->
+<%= render @tasks %>
 ```
 
-```
+```erb
 <%= render partial: 'form', locals: {task: @task} %>
-<%# render 'form', task: @task %>
+<%= render 'form', task: @task %>
 ```
 
-
-
+* i18n
+```erb
+I18n.t('.h1')
+t('.h1')
 ```
-# I18n.t('.h1')
-# t('.h1')
+
+* FactoryBot
+```rb
+FactoryBot.create(:task, title: '買い物に行く', detail: '卵、牛乳')
+create(:task, title: '買い物に行く', detail: '卵、牛乳')
 ```
 
+（注）`spec/rails_helper.rb`に下記の追記が必要
+```spec/rails_helper.rb
+RSpec.configure do |config|
+  config.include FactoryBot::Syntax::Methods
+end
+```
 
 
