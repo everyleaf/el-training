@@ -132,7 +132,8 @@ t('.h1')
 FactoryBot.create(:task, title: '買い物に行く', detail: '卵、牛乳')
 create(:task, title: '買い物に行く', detail: '卵、牛乳')
 ```
-（注）下記の追記が必要
+
+（注）`spec/rails_helper.rb`に下記の追記が必要
 ```spec/rails_helper.rb
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
