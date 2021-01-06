@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_28_054519) do
+ActiveRecord::Schema.define(version: 2021_01_06_054519) do
 
-  create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
     t.timestamp "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
@@ -29,13 +29,14 @@ ActiveRecord::Schema.define(version: 2020_12_28_054519) do
     t.check_constraint "`status` in ('todo','doing','done')", name: "check_tasks_status"
   end
 
-  create_table "users", id: { type: :string, limit: 36, default: -> { "(uuid())" } }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "users", id: { type: :string, limit: 36, default: -> { "(uuid())" } }, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", limit: 100, null: false
-    t.string "email"
+    t.string "email", null: false
     t.string "password_digest", null: false
     t.timestamp "deleted_at", comment: "for soft delete"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "tasks", "users"
