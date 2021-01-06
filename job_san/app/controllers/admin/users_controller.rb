@@ -31,7 +31,8 @@ module Admin
 
     def update
       @user = User.find_by(id: params[:id])
-      redirect_to admin_users_path, notice: I18n.t('view.user.error.not_found') unless @user
+      return redirect_to admin_users_path, notice: I18n.t('view.user.error.not_found') unless @user
+
       if @user.update(user_params.except(:password, :password_confirmation))
         flash[:notice] = I18n.t('view.user.flash.updated')
         redirect_to admin_users_path
