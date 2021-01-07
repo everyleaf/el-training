@@ -7,11 +7,7 @@ module TasksHelper
     desc = link_to '▼', sort: column, direction: 'desc'
     sortable = [Task.human_attribute_name(column)]
     if params[:sort] == column
-      sortable << if params[:direction] == 'asc'
-                    desc
-                  else
-                    asc
-                  end
+      sortable.concat(params[:direction] == 'asc' ? [desc] : [asc])
     else
       sortable.concat([asc, desc])
     end
