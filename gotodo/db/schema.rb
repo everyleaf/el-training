@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_25_012722) do
+ActiveRecord::Schema.define(version: 2021_01_06_083959) do
 
   create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.string "title", null: false
-    t.text "detail"
+    t.string "title", limit: 50, null: false
+    t.string "detail", limit: 200
     t.text "location"
     t.decimal "lat", precision: 10
     t.decimal "lng", precision: 10

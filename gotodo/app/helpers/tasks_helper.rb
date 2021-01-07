@@ -13,8 +13,7 @@ module TasksHelper
                     asc
                   end
     else
-      sortable << asc
-      sortable << desc
+      sortable.concat([asc, desc])
     end
     safe_join(sortable)
   end
