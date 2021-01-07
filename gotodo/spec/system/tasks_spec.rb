@@ -14,8 +14,8 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   shared_examples '期待したタスクが表示されること' do
-    it { is_expected.to have_content task.title }
-    it { is_expected.to have_content task.detail }
+    it { is_expected.to have_content target_task.title }
+    it { is_expected.to have_content target_task.detail }
   end
 
   shared_examples '期待したFlashメッセージが表示されること' do
@@ -23,7 +23,7 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe '#index' do
-    let(:task) { task1 }
+    let(:target_task) { task1 }
     before do
       visit root_path
     end
@@ -81,7 +81,7 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe '#show(task_id)' do
-    let(:task) { task1 }
+    let(:target_task) { task1 }
     before do
       visit task_path task1.id
     end
@@ -90,13 +90,13 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe '#edit(task_id)' do
-    let(:task) { FactoryBot.build(:task, title: '買い物に行く', detail: '卵、牛乳、人参') }
+    let(:target_task) { FactoryBot.build(:task, title: '買い物に行く', detail: '卵、牛乳、人参') }
     let(:target_path) { task_path task1.id }
     let(:message) { 'タスクが更新されました！' }
     before do
       visit edit_task_path task1.id
-      fill_in 'タスク名', with: task.title
-      fill_in '詳細', with: task.detail
+      fill_in 'タスク名', with: target_task.title
+      fill_in '詳細', with: target_task.detail
       click_button '更新する'
     end
 
@@ -106,13 +106,13 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe '#new' do
-    let(:task) { FactoryBot.build(:task, title: '美容院に行く', detail: 'ヘアサロン・ラクマ') }
+    let(:target_task) { FactoryBot.build(:task, title: '美容院に行く', detail: 'ヘアサロン・ラクマ') }
     let(:target_path) { task_path Task.last.id }
     let(:message) { '新しいタスクが登録されました！' }
     before do
       visit new_task_path
-      fill_in 'タスク名', with: task.title
-      fill_in '詳細', with: task.detail
+      fill_in 'タスク名', with: target_task.title
+      fill_in '詳細', with: target_task.detail
       click_button '登録する'
     end
 
