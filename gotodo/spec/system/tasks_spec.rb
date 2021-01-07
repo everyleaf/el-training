@@ -4,19 +4,31 @@ require 'rails_helper'
 require 'pp'
 
 RSpec.describe 'Tasks', type: :system do
-  let!(:task1) { FactoryBot.create(:task, title: 'う　買い物に行く', detail: '卵、牛乳') }
-  let!(:task2) { FactoryBot.create(:task, title: 'あ　料理をする', created_at: Time.current + 2.days) }
-  let!(:task3) { FactoryBot.create(:task, title: 'い　食べる', created_at: Time.current + 3.days) }
+  let!(:task1) { FactoryBot.create(:task, title: 'う　買い物に行く', detail: '卵、牛乳', end_date: Time.zone.today + 2.weeks) }
+  let!(:task2) { FactoryBot.create(:task, title: 'あ　料理をする', end_date: Time.zone.today + 1.week, created_at: Time.current + 2.days) }
+  let!(:task3) { FactoryBot.create(:task, title: 'い　食べる', end_date: Time.zone.today + 3.weeks, created_at: Time.current + 3.days) }
+  let(:task) { task1 }
+  subject { page }
+
+  shared_examples '期待したページに遷移すること' do
+    it { is_expected.to have_current_path target_path }
+  end
+
+  shared_examples '期待したタスクが表示されること' do
+    it { is_expected.to have_content task.title }
+    it { is_expected.to have_content task.detail }
+  end
+
+  shared_examples '期待したFlashメッセージが表示されること' do
+    it { is_expected.to have_selector('#notice', text: message) }
+  end
 
   describe '#index' do
     before do
       visit root_path
     end
 
-    it '登録済みタスクが表示されること' do
-      expect(page).to have_content task1.title
-      expect(page).to have_content task1.detail
-    end
+    it_behaves_like '期待したタスクが表示されること'
 
     describe 'ソート機能' do
       shared_examples '期待した順番で表示されること' do
@@ -53,53 +65,60 @@ RSpec.describe 'Tasks', type: :system do
         let(:direction) { 'desc' }
         it_behaves_like '期待した順番で表示されること'
       end
+      context '終了期限昇順' do
+        let(:expected_list) { [task2, task1, task3] }
+        let(:sort) { 'end_date' }
+        let(:direction) { 'asc' }
+        it_behaves_like '期待した順番で表示されること'
+      end
+      context '終了期限降順' do
+        let(:expected_list) { [task3, task1, task2] }
+        let(:sort) { 'end_date' }
+        let(:direction) { 'desc' }
+        it_behaves_like '期待した順番で表示されること'
+      end
     end
   end
 
   describe '#show(task_id)' do
+    let(:task) { task1 }
     before do
       visit task_path task1.id
     end
-    it '登録済みタスクが表示されること' do
-      expect(page).to have_content task1.title
-      expect(page).to have_content task1.detail
-    end
+
+    it_behaves_like '期待したタスクが表示されること'
   end
 
   describe '#edit(task_id)' do
-    let(:edited_task) { FactoryBot.build(:task, title: '買い物に行く', detail: '卵、牛乳、人参') }
+    let(:task) { FactoryBot.build(:task, title: '買い物に行く', detail: '卵、牛乳、人参') }
+    let(:target_path) { task_path task1.id }
+    let(:message) { 'タスクが更新されました！' }
     before do
       visit edit_task_path task1.id
-      fill_in 'タスク名', with: edited_task.title
-      fill_in '詳細', with: edited_task.detail
+      fill_in 'タスク名', with: task.title
+      fill_in '詳細', with: task.detail
       click_button '更新する'
     end
-    it '編集したタスクが表示されること' do
-      expect(page).to have_current_path task_path task1.id
-      expect(page).to have_content edited_task.title
-      expect(page).to have_content edited_task.detail
-    end
-    it 'Flashメッセージが表示されること' do
-      expect(page).to have_selector('#notice', text: 'タスクが更新されました！')
-    end
+
+    it_behaves_like '期待したページに遷移すること'
+    it_behaves_like '期待したタスクが表示されること'
+    it_behaves_like '期待したFlashメッセージが表示されること'
   end
 
   describe '#new' do
-    let(:new_task) { FactoryBot.build(:task, title: '美容院に行く', detail: 'ヘアサロン・ラクマ') }
+    let(:task) { FactoryBot.build(:task, title: '美容院に行く', detail: 'ヘアサロン・ラクマ') }
+    let(:target_path) { task_path Task.last.id }
+    let(:message) { '新しいタスクが登録されました！' }
     before do
       visit new_task_path
-      fill_in 'タスク名', with: new_task.title
-      fill_in '詳細', with: new_task.detail
+      fill_in 'タスク名', with: task.title
+      fill_in '詳細', with: task.detail
       click_button '登録する'
     end
-    it '新規登録したタスクが表示されること' do
-      expect(page).to have_current_path task_path Task.last.id
-      expect(page).to have_content new_task.title
-      expect(page).to have_content new_task.detail
-    end
-    it 'Flashメッセージが表示されること' do
-      expect(page).to have_selector('#notice', text: '新しいタスクが登録されました！')
-    end
+
+    it_behaves_like '期待したページに遷移すること'
+    it_behaves_like '期待したタスクが表示されること'
+    it_behaves_like '期待したFlashメッセージが表示されること'
   end
 
   describe '#destroy(task_id)' do
@@ -107,13 +126,14 @@ RSpec.describe 'Tasks', type: :system do
       visit root_path
       click_link nil, href: task_path(task1), class: 'delete-link'
     end
+    let(:message) { 'タスクが削除されました！' }
+
     it '削除した登録済みタスクが表示されないこと' do
-      expect(page).to have_current_path root_path
-      expect(page).to have_no_content task1.title
-      expect(page).to have_no_content task1.detail
+      is_expected.to have_current_path root_path
+      is_expected.to have_no_content task1.title
+      is_expected.to have_no_content task1.detail
     end
-    it 'Flashメッセージが表示されること' do
-      expect(page).to have_selector('#notice', text: 'タスクが削除されました！')
-    end
+
+    it_behaves_like '期待したFlashメッセージが表示されること'
   end
 end

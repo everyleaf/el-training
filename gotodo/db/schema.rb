@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2021_01_06_083959) do
     t.decimal "lat", precision: 10
     t.decimal "lng", precision: 10
     t.integer "status", limit: 1
-    t.datetime "end_date"
+    t.date "end_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
