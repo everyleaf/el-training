@@ -4,18 +4,23 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   shared_examples 'バリデーションを通過すること' do
-    it { is_expected.to be_valid }
+    it { expect(task).to be_valid }
   end
-  shared_examples 'バリデーションを通過しないこと' do
-    it { is_expected.to be_invalid }
+  
+  shared_examples '期待したバリデーションエラーメッセージが表示されること' do
+    it do
+      task.valid?
+      expect(task.errors.full_messages).to match_array(message)
+    end
   end
 
   describe 'title (NotNull, maximum:50)' do
-    subject(:task) { FactoryBot.build(:task, title: title) }
+    let(:task) { FactoryBot.build(:task, title: title) }
 
     context '0文字の場合' do
       let(:title) { 'a' * 0 }
-      it_behaves_like 'バリデーションを通過しないこと'
+      let(:message) { 'タスク名が空になっています' }
+      it_behaves_like '期待したバリデーションエラーメッセージが表示されること'
     end
     context '10文字の場合' do
       let(:title) { 'a' * 10 }
@@ -27,12 +32,13 @@ RSpec.describe Task, type: :model do
     end
     context '51文字の場合' do
       let(:title) { 'a' * 51 }
-      it_behaves_like 'バリデーションを通過しないこと'
+      let(:message) { 'タスク名は50文字以内で入力してください' }
+      it_behaves_like '期待したバリデーションエラーメッセージが表示されること'
     end
   end
 
   describe 'detail (maximum:200)' do
-    subject(:task) { FactoryBot.build(:task, detail: detail) }
+    let(:task) { FactoryBot.build(:task, detail: detail) }
 
     context '0文字の場合' do
       let(:detail) { 'a' * 0 }
@@ -48,7 +54,8 @@ RSpec.describe Task, type: :model do
     end
     context '201文字の場合' do
       let(:detail) { 'a' * 201 }
-      it_behaves_like 'バリデーションを通過しないこと'
+      let(:message) { '詳細は200文字以内で入力してください' }
+      it_behaves_like '期待したバリデーションエラーメッセージが表示されること'
     end
   end
 end
