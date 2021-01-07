@@ -27,7 +27,7 @@ RSpec.describe TaskService, type: :model do
 
       it 'should not be updated' do
         service = TaskService.new(sample_task)
-        expect { service.update_task(update_param) }.to raise_error(TaskService::TransferStatusError)
+        expect(service.update_task(update_param).errors.full_messages).to eq(['ステータスは不正な値です'])
       end
     end
   end

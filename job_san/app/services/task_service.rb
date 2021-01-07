@@ -14,13 +14,22 @@ class TaskService
       update_task_attributes(params)
     end
     @update_task
+  rescue AASM::InvalidTransition
+    @update_task.errors.add(:status, I18n.t('task.error.transfer_status'))
+    @update_task
+  rescue TaskService::TransferStatusError
+    @update_task.errors.add(:status, :invalid)
+    @update_task
+  rescue ActiveRecord::RecordInvalid
+    @update_task.save
+    @update_task
   end
 
   private
 
   def update_task_attributes(params)
     @update_task.assign_attributes(params.except(:status))
-    @update_task.save
+    @update_task.save!
   end
 
   def transfer_status(status)
@@ -34,7 +43,7 @@ class TaskService
     when Task::STATE_DONE then
       @update_task.finish!
     else
-      raise TaskService::TransferStatusError, "Unexpected. param: #{status}"
+      raise TaskService::TransferStatusError
     end
   end
 end
