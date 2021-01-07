@@ -7,7 +7,6 @@ RSpec.describe 'Tasks', type: :system do
   let!(:task1) { FactoryBot.create(:task, title: 'う　買い物に行く', detail: '卵、牛乳', end_date: Time.zone.today + 2.weeks) }
   let!(:task2) { FactoryBot.create(:task, title: 'あ　料理をする', end_date: Time.zone.today + 1.week, created_at: Time.current + 2.days) }
   let!(:task3) { FactoryBot.create(:task, title: 'い　食べる', end_date: Time.zone.today + 3.weeks, created_at: Time.current + 3.days) }
-  let(:task) { task1 }
   subject { page }
 
   shared_examples '期待したページに遷移すること' do
@@ -24,6 +23,7 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe '#index' do
+    let(:task) { task1 }
     before do
       visit root_path
     end
