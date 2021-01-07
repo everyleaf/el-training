@@ -3,8 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController, js: true, type: :system do
-  let(:password) { 'password' }
-  let!(:login_user) { create(:user, password: password) }
+  let(:sample_email) { Faker::Internet.email }
+  let(:sample_password) { 'password' }
+  let!(:sample_user) { create(:user, email: sample_email, password: sample_password, password_confirmation: sample_password) }
   before do
     visit login_path
     sleep(0.3)
@@ -20,8 +21,8 @@ RSpec.describe SessionsController, js: true, type: :system do
 
   describe '#create' do
     before do
-      fill_in 'session_email', with: login_user.email
-      fill_in 'session_password', with: password
+      fill_in 'session_email', with: sample_email
+      fill_in 'session_password', with: sample_password
     end
 
     it 'should login' do
@@ -29,13 +30,10 @@ RSpec.describe SessionsController, js: true, type: :system do
     end
 
     context 'when user does not let his browser to remember logged in' do
-      before do
+      it 'does not have remember_token and user_id_token' do
         click_button 'ログイン'
         sleep(0.3)
-        login_user.reload
-      end
-
-      it 'does not have remember_token and user_id_token' do
+        sample_user.reload
         %w[user_id remember_token].each do |t|
           expect { page.driver.browser.manage.cookie_named(t) }.to raise_error(Selenium::WebDriver::Error::NoSuchCookieError)
         end
@@ -43,32 +41,29 @@ RSpec.describe SessionsController, js: true, type: :system do
     end
 
     context 'when user lets his browser to remember logged in' do
-      before do
+      it 'has remember_token and user_id_token' do
         check('session[remember_me]')
         click_button 'ログイン'
         sleep(0.3)
-        login_user.reload
-      end
-
-      it 'has remember_token and user_id_token' do
+        sample_user.reload
         expect(page.driver.browser.manage.cookie_named('user_id')).not_to be_nil
         remember_token = page.driver.browser.manage.cookie_named('remember_token')[:value]
-        expect(BCrypt::Password.new(login_user.remember_digest).is_password?(remember_token)).to be_truthy
+        expect(BCrypt::Password.new(sample_user.remember_digest).is_password?(remember_token)).to be_truthy
       end
     end
   end
 
   describe '#destroy', :require_login do
     before do
-      fill_in 'session_email', with: login_user.email
-      fill_in 'session_password', with: password
+      fill_in 'session_email', with: sample_email
+      fill_in 'session_password', with: sample_password
       click_button 'ログイン'
-      sleep(0.2)
+      sleep(0.3)
     end
 
     subject do
       click_link 'ログアウト'
-      sleep(0.2)
+      sleep(0.3)
     end
 
     it 'render to login page' do
@@ -78,6 +73,7 @@ RSpec.describe SessionsController, js: true, type: :system do
     end
 
     it 'does not have remember_token and user_id_token' do
+      subject
       expect { page.driver.browser.manage.cookie_named('user_id') }.to raise_error(Selenium::WebDriver::Error::NoSuchCookieError)
     end
   end
