@@ -8,5 +8,11 @@
     <%= form.label(I18n.t('activerecord.attributes.user.password')) %>
     <%= form.text_field :password %>
   </div>
+  <div>
+    <%= form.label(:remember_me) do %>
+      <%= form.check_box :remember_me %>
+      <span><%= I18n.t('view.session.label.remember') %></span>
+    <% end %>
+  </div>
   <%= form.submit I18n.t('view.session.label.login') %>
 <% end %>

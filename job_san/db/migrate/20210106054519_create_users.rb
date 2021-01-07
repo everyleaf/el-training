@@ -1,10 +1,13 @@
 class CreateUsers < ActiveRecord::Migration[6.1]
   def up
+    drop_table :users
+
     create_table :users, id: false do |t|
       t.string :id, limit: 36, null: false, primary_key: true, default: ->{"(uuid())"}
       t.string :name, null: false, limit: 100
       t.string :email, null: false
       t.string :password_digest, null: false
+      t.string :remember_digest
       t.timestamp :deleted_at, comment: 'for soft delete'
       t.timestamps
     end

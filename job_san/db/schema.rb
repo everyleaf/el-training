@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2021_01_06_054519) do
     t.string "name", limit: 100, null: false
     t.string "email", null: false
     t.string "password_digest", null: false
+    t.string "remember_digest"
     t.timestamp "deleted_at", comment: "for soft delete"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

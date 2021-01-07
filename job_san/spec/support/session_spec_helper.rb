@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 def login_as(user)
-  allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+  post login_path, params: { session: { email: user.email, password: user.password} }
 end
 
 RSpec.shared_context 'when login required' do
