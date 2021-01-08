@@ -5,6 +5,7 @@ FactoryBot.define do
     title { 'テスト' }
     detail { 'テスト' }
     end_date { Time.zone.today }
+    status { 'doing' }
   end
 
   # 今後使いたいためメモとしてコメントアウト
