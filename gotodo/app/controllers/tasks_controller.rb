@@ -2,6 +2,7 @@
 
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
+
   def index
     @tasks = Task.task_search(title: params[:title], status: params[:status], sort: params[:sort], direction: params[:direction])
   end
