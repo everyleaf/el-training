@@ -6,38 +6,82 @@ RSpec.describe Task, js: true, type: :system do
   before { travel_to(Time.zone.local(2020, 12, 24, 21, 0o0, 0o0)) }
   let(:sample_task_name) { 'やらなきゃいけないサンプル' }
   let(:sample_task_description) { 'やらなきゃいけないサンプル説明文' }
+  let(:sample_task_status) { 'todo' }
   let(:now) { Time.current }
   let(:today) { Time.zone.today }
-  let!(:sample_task) { create(:task, name: sample_task_name, description: sample_task_description, created_at: now, target_date: today) }
+  let!(:sample_task) {
+    create(:task,
+           name: sample_task_name,
+           description: sample_task_description,
+           created_at: now,
+           target_date: today, status: sample_task_status)
+  }
 
   describe '#index' do
     let!(:sample_task_2) { create(:task, created_at: now + 2.days, target_date: today - 1.day) }
     let!(:sample_task_3) { create(:task, created_at: now + 1.day, target_date: today + 1.day) }
-
-    it 'tasks are sorted by created_at desc' do
-      visit tasks_path
-      sorted_sample_task_ids = [sample_task, sample_task_2, sample_task_3]
-                                 .sort_by(&:created_at).reverse
-                                 .map { |t| t.id.to_s }
-      ids = page.all('tbody td')
-                .map(&:text)
-                .select { |td_context| sorted_sample_task_ids.include?(td_context) }
-
-      expect(ids).to eq(sorted_sample_task_ids)
+    let(:sort_ids_by_created_at) { sort_task_ids(:created_at) }
+    let(:sort_ids_by_target_date) { sort_task_ids(:target_date) }
+    before { visit tasks_path }
+    def sort_task_ids(key)
+      [sample_task, sample_task_2, sample_task_3]
+        .sort_by(&key).reverse
+        .map { |t| t.id.to_s }
     end
 
-    context 'when sorted by target_date' do
-      before { visit tasks_path({ sort_key: 'target_date' }) }
+    it 'tasks are sorted by created_at desc' do
+      ids = page.all('tbody td')
+                .map(&:text)
+                .select { |td_context| sort_ids_by_created_at.include?(td_context) }
+
+      expect(ids).to eq(sort_ids_by_created_at)
+    end
+
+    context 'when click 完了日' do
+      before do
+        click_on '完了日'
+        # 表示が完了する前にクローリングが走ってしまうので、待機する
+        sleep(1)
+      end
 
       it 'tasks are sorted by target_date desc' do
-        sorted_sample_task_ids = [sample_task, sample_task_2, sample_task_3]
-                                   .sort_by(&:target_date).reverse
-                                   .map { |t| t.id.to_s }
         ids = page.all('tbody td')
                   .map(&:text)
-                  .select { |td_context| sorted_sample_task_ids.include?(td_context) }
+                  .select { |td_context| sort_ids_by_target_date.include?(td_context) }
 
-        expect(ids).to eq(sorted_sample_task_ids)
+        expect(ids).to eq(sort_ids_by_target_date)
+      end
+    end
+
+    context 'when click 作成日 twice' do
+      before do
+        (0..1).each { |_| click_on '作成日' }
+        # 表示が完了する前にクローリングが走ってしまうので、待機する
+        sleep(1)
+      end
+
+      it 'tasks are sorted by created_at asc' do
+        ids = page.all('tbody td')
+                  .map(&:text)
+                  .select { |td_context| sort_ids_by_created_at.include?(td_context) }
+
+        expect(ids).to eq(sort_ids_by_created_at.reverse)
+      end
+    end
+
+    context 'when search tasks with a task_name' do
+      let(:search_task_name) { SecureRandom.uuid }
+      let!(:filtered_tasks) { create_list(:task, 3, name: search_task_name) }
+      before do
+        fill_in 'タスク名 は以下を含む', with: search_task_name[2..7]
+        click_button '検索'
+        sleep(1)
+      end
+
+      it 'tasks are filtered by partial matched name' do
+        all_task_ids = Task.select(:id).all.map { |t| t.id.to_s }
+        ids = page.all('tbody td').map(&:text).select { |td_context| all_task_ids.include?(td_context) }
+        expect(ids).to match_array(filtered_tasks.map { |t| t.id.to_s })
       end
     end
   end
@@ -92,10 +136,12 @@ RSpec.describe Task, js: true, type: :system do
       let(:update_task_name) { '更新するタスクの名前' }
       let(:update_task_description) { '更新するタスクの説明文' }
       let(:update_task_target_date) { today + 3.days }
+      let(:update_task_status) { 'doing' }
       let(:updated_task) { Task.find(sample_task.id) }
       before do
         fill_in 'タスク名', with: update_task_name
         fill_in '説明文', with: update_task_description
+        find('#task_status').find("option[value='#{update_task_status}']").select_option
         [update_task_target_date.year,
          update_task_target_date.month,
          update_task_target_date.day].each_with_index.each do |v, i|
@@ -124,6 +170,9 @@ RSpec.describe Task, js: true, type: :system do
           .and change {
             updated_task.target_date
           }.from(today).to(update_task_target_date)
+          .and change {
+            updated_task.status
+          }.from(sample_task_status).to(update_task_status)
       end
     end
   end

@@ -7,7 +7,8 @@ class TasksController < ApplicationController
 
   def index
     # TODO: ステップ14までページネーションは実装しません。
-    @tasks = sorted_tasks
+    @query = Task.ransack(params[:query])
+    @tasks = @query.result.order(created_at: :desc)
   end
 
   def show
@@ -38,11 +39,12 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
     redirect_to tasks_path, notice: I18n.t('view.task.error.not_found') unless @task
 
-    if @task.update(task_params)
+    @task = TaskService.new(@task).update_task(task_params)
+    @errors = @task.errors
+    if @errors.blank?
       flash[:notice] = I18n.t('view.task.flash.updated')
       redirect_to task_url id: params[:id]
     else
-      @errors = @task.errors
       flash.now[:alert] = I18n.t('view.task.flash.not_updated')
       render :edit
     end
@@ -64,11 +66,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :target_date)
-  end
-
-  def sorted_tasks
-    sort_key = SORT_KEY == params[:sort_key] ? :target_date : :created_at
-    Task.all.order(sort_key => :desc)
+    params.require(:task).permit(:name, :description, :target_date, :status)
   end
 end

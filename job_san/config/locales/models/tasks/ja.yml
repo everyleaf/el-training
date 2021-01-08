@@ -1,11 +1,14 @@
 ja:
-  model:
+  enums:
     task:
       status:
         todo: 未着手
-        doing: 着手
+        doing: 着手中
         done: 完了
       priority:
         low: 低
         medium: 中
         high: 高
+  task:
+    error:
+      transfer_status: は不正な状態遷移です
