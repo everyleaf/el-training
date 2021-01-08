@@ -141,7 +141,6 @@ RSpec.describe User, js: true, type: :system do
       let(:update_user_name) { Faker::JapaneseMedia::OnePiece.character }
       let(:update_user_email) { Faker::Internet.email }
       let(:update_password) { 'これから更新するユーザのpassword' }
-      let(:updated_user) { User.find(sample_user.id) }
 
       subject { click_button '更新' }
 
@@ -153,8 +152,10 @@ RSpec.describe User, js: true, type: :system do
           fill_in 'Email', with: update_user_email
         end
 
-        it 'move to updated user page' do
+        it 'move to user list' do
           expect { subject }.to change {
+            # 更新処理が完了する前にテストコードが進んでしまうので、待機する。
+            sleep(0.3)
             current_path
           }.from(edit_admin_user_path(id: sample_user.id))
            .to(admin_users_path)
@@ -165,11 +166,11 @@ RSpec.describe User, js: true, type: :system do
           expect { subject }.to change {
             # 更新処理が完了する前にテストコードが進んでしまうので、待機する。
             sleep(0.3)
-            updated_user.reload
-            updated_user.name
+            sample_user.reload
+            sample_user.name
           }.from(sample_user_name).to(update_user_name)
            .and change {
-             updated_user.email
+             sample_user.email
            }.from(sample_user_email).to(update_user_email)
         end
       end

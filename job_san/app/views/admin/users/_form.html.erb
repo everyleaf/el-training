@@ -17,5 +17,9 @@
       <%= form.password_field :password_confirmation %>
     </div>
   <% end %>
+  <div>
+    <%= form.label(:role_type) %>
+    <%= form.select(:role_type, User.role_types_i18n.map{|k,v| [v,k]}) %>
+  </div>
   <%= form.submit "#{action_label}" %>
 <% end %>

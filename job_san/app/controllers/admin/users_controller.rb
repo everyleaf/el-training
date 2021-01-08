@@ -33,11 +33,11 @@ module Admin
       @user = User.find_by(id: params[:id])
       return redirect_to admin_users_path, notice: I18n.t('view.user.error.not_found') unless @user
 
-      @user = UserService.new(@user).update_user(user_params.except(:password, :password_confirmation))
+      @user = UserService.new(@user, @current_user).update_user(user_params.except(:password, :password_confirmation))
       @errors = @user.errors
       return redirect_to admin_users_path, notice: I18n.t('view.user.flash.updated') if @errors.blank?
 
-      render :edit, alert: I18n.t('view.user.flash.not_updated')
+      render 'admin/users/edit', id: @user.id, alert: I18n.t('view.user.flash.not_updated')
     end
 
     def user_tasks
@@ -49,16 +49,12 @@ module Admin
     end
 
     def destroy
-      user = User.find_by(id: params[:id])
-      return redirect_to admin_users_path, notice: I18n.t('view.user.error.not_found') unless user
+      @user = User.find_by(id: params[:id])
+      return redirect_to admin_users_path, notice: I18n.t('view.user.error.not_found') unless @user
+      return redirect_to admin_users_path, notice: I18n.t('view.user.flash.deleted') if @user.destroy
 
-      if user.destroy
-        redirect_to admin_users_path, notice: I18n.t('view.user.flash.deleted')
-      else
-        @errors = user.errors
-        flash.now[:alert] = I18n.t('view.user.flash.not_deleted')
-        render admin_users_path
-      end
+      @errors = @user.errors
+      render 'admin/users/edit', id: @user.id, alert: I18n.t('view.user.flash.not_deleted')
     end
 
     private
