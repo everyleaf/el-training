@@ -4,6 +4,7 @@ ja:
       label:
         login: ログイン
         logout: ログアウト
+        remember: ログインしたままにする
       flash:
         login:
           invalid_param: Emailとパスワードが一致しません

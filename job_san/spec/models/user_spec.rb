@@ -27,4 +27,12 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#authenticated?' do
+    context 'when user has not logged in yet' do
+      let!(:sample_user) { create(:user, remember_digest: nil, remember_token: nil) }
+
+      it { expect(sample_user.authenticated?(nil)).to be_falsey }
+    end
+  end
 end
