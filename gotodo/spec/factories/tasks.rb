@@ -4,6 +4,7 @@ FactoryBot.define do
   factory :task, class: Task do
     title { 'テスト' }
     detail { 'テスト' }
+    end_date { Time.zone.today }
   end
 
   # 今後使いたいためメモとしてコメントアウト
