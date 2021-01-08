@@ -9,3 +9,6 @@ ja:
         low: 低
         medium: 中
         high: 高
+  task:
+    error:
+      transfer_status: は不正な状態遷移です
