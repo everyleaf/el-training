@@ -1,7 +1,7 @@
 default: &default
   adapter: mysql2
   encoding: utf8mb4
-  collation: utf8mb4_general_ci
+  collation: utf8mb4_bin
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password: 'password'

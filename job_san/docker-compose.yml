@@ -6,7 +6,7 @@ services:
     environment:
       MYSQL_DATABASE: job_san_development
       MYSQL_ROOT_PASSWORD: "password"
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin --default-authentication-plugin=mysql_native_password
   web:
     build: .
     volumes:

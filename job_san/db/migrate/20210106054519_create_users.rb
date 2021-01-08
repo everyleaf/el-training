@@ -1,7 +1,5 @@
 class CreateUsers < ActiveRecord::Migration[6.1]
   def up
-    drop_table :users
-
     create_table :users, id: false do |t|
       t.string :id, limit: 36, null: false, primary_key: true, default: ->{"(uuid())"}
       t.string :name, null: false, limit: 100
