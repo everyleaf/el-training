@@ -3,3 +3,19 @@ ja:
     header:
       task_list: タスク一覧
       new_task: タスク作成
+  views:
+    pagination:
+      first: "&laquo; 最初へ"
+      last: "最後へ &raquo;"
+      previous: "&lsaquo; 前へ"
+      next: "次へ &rsaquo;"
+      truncate: "&hellip;"
+    helpers:
+      page_entries_info:
+        one_page:
+          display_entries:
+            zero: "%{entry_name}がないです。"
+            one: "<b>1</b>つだけの%{entry_name}"
+            other: "<b>全ての %{count}</b> %{entry_name}"
+        more_pages:
+          display_entries: "%{entry_name}: <b>%{total}</b> のうち <b>%{first}&nbsp;-&nbsp;%{last}</b>"

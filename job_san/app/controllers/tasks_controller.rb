@@ -6,9 +6,8 @@ class TasksController < ApplicationController
   SORT_KEY = 'target_date'
 
   def index
-    # TODO: ステップ14までページネーションは実装しません。
     @query = Task.ransack(params[:query])
-    @tasks = @query.result.order(created_at: :desc)
+    @tasks = @query.result.order(created_at: :desc).page params[:page]
   end
 
   def show
