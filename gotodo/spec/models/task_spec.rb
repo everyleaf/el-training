@@ -72,19 +72,22 @@ RSpec.describe Task, type: :model do
     # 【メモ】 enum status: { todo: 0, doing: 5, done: 9 }
 
     describe 'title' do
+      subject { Task.task_search(title: '料理') }
       it '検索条件を含むタスクが表示され、含まないタスクは表示されないこと' do
-        result = Task.task_search(title: '料理')
-        expect(result).to include(task2)
-        expect(result).to_not include(task1)
+        is_expected.to include(task2)
+        is_expected.to_not include(task1)
+        is_expected.to_not include(task3)
+        is_expected.to_not include(task4)
       end
     end
 
     describe 'status' do
+      subject { Task.task_search(status: 'done') }
       it '検索条件を含むタスクが表示され、含まないタスクは表示されないこと' do
-        result = Task.task_search(status: 9)
-        expect(result).to include(task1)
-        expect(result).to include(task4)
-        expect(result).to_not include(task2)
+        is_expected.to include(task1)
+        is_expected.to include(task4)
+        is_expected.to_not include(task2)
+        is_expected.to_not include(task3)
       end
     end
   end
