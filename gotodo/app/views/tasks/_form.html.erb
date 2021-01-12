@@ -12,7 +12,7 @@
   <%= form.label :title %>
   <br>
   <%= form.text_field :title %>
-  <%= form.select :status, Task.statuses.map { |k, v| [I18n.t("tasks.status.#{k}"), k] } %>
+  <%= form.select :status, Task.statuses.map { |v, k| [I18n.t("tasks.status.#{v}"), v] } %>
   <br>
   <%= form.label :detail %>
   <br>

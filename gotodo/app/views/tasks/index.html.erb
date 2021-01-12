@@ -3,7 +3,7 @@
 <h1><%= I18n.t('tasks.index.page_title') %></h1>
 <%= form_with url: tasks_path, method: :get, local: true do |form| %>
   <%= form.text_field :title,value: params[:title] %>
-  <%= form.select :status, Task.statuses.map { |k, v| [I18n.t("tasks.status.#{k}"), k] }, { selected: params[:status], include_blank: true } %>
+  <%= form.select :status, Task.statuses.map { |v, k| [I18n.t("tasks.status.#{v}"), v] }, { selected: params[:status], include_blank: true } %>
   <%= form.submit I18n.t('helpers.submit.search') %>
 <% end %>
 <table>
