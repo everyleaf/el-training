@@ -18,8 +18,8 @@ class UserService
   def updatable_role_type?(role_type)
     return true if role_type.blank?
 
-    @update_user.errors.add(:role_type, 'は不正な値です') unless %w[admin member].include?(role_type)
-    @update_user.errors.add(:base, '最後の管理者です') if last_admin? && update_own? && role_type == 'member'
+    @update_user.errors.add(:role_type, :invalid) unless %w[admin member].include?(role_type)
+    @update_user.errors.add(:base, I18n.t('user.error.last_admin')) if last_admin? && update_own? && role_type == User::MEMBER_ROLE
     @update_user.errors.blank?
   end
 

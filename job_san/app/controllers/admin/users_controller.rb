@@ -64,7 +64,7 @@ module Admin
     end
 
     def authorized_user
-      redirect_to tasks_path unless @current_user&.admin?
+      redirect_to tasks_path unless @current_user&.role_type_admin?
     end
   end
 end
