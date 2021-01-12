@@ -20,3 +20,11 @@ ja:
     delete: '本当に削除して良いですか？'
   errors:
     validation: '%{count}つの項目に不備が見つかりました。'
+  date:
+    formats:
+      default: ! '%Y/%m/%d'
+  time:
+    formats:
+      default: ! '%Y/%m/%d %H:%M:%S'
+  search:
+    title: タイトルで検索
