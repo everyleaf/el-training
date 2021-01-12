@@ -8,7 +8,8 @@ class TasksController < ApplicationController
   SORT_KEY = 'target_date'
 
   def index
-    @query = current_user.tasks.ransack(params[:query])
+    @query = current_user.tasks.includes(:labels).ransack(params[:query])
+    @labels = Label.all
     @tasks = @query.result.order(created_at: :desc).page params[:page]
   end
 
@@ -18,22 +19,24 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    @labels = Label.all
   end
 
   def create
-    @task = current_user.tasks.new(task_params)
-    if @task.save
-      redirect_to tasks_path, notice: I18n.t('view.task.flash.created')
-    else
-      @errors = @task.errors
-      flash.now[:alert] = I18n.t('view.task.flash.not_created')
-      render new_task_path
-    end
+    @task = current_user.tasks.new(task_params.except(:attach_labels))
+    @task = TaskService.new(@task).create_task(task_params)
+    @errors = @task.errors
+    return redirect_to tasks_path, notice: I18n.t('view.task.flash.created') if @errors.blank?
+
+    flash.now[:alert] = I18n.t('view.task.flash.not_created')
+    render new_task_path
   end
 
   def edit
-    @task = current_user.tasks.find_by(id: params[:id])
-    redirect_to tasks_path, notice: I18n.t('view.task.error.not_found') unless @task
+    @task = current_user.tasks.eager_load(:labels).find_by(id: params[:id])
+    return redirect_to tasks_path, notice: I18n.t('view.task.error.not_found') unless @task
+
+    @labels = Label.all
   end
 
   def update
@@ -43,6 +46,7 @@ class TasksController < ApplicationController
     @task = TaskService.new(@task).update_task(task_params)
     @errors = @task.errors
     if @errors.blank?
+      @labels = Label.all
       flash[:notice] = I18n.t('view.task.flash.updated')
       redirect_to task_url id: params[:id]
     else
@@ -67,6 +71,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :target_date, :status)
+    params.require(:task).permit(:name, :description, :target_date, :status, { attach_labels: [] })
   end
 end

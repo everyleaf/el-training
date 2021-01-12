@@ -1,0 +1,7 @@
+<%= form_with model: @label, method: target_method, url: form_url do |form| %>
+  <div>
+    <%= form.label(:name) %>
+    <%= form.text_field :name %>
+  </div>
+  <%= form.submit "#{action_label}" %>
+<% end %>

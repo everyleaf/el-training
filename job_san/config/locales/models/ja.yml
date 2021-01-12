@@ -17,3 +17,6 @@ ja:
         password_confirmation: パスワード確認
         name: 名前
         role_type: ロール
+      label:
+        id: ID
+        name: ラベル名

@@ -22,4 +22,8 @@ class ApplicationController < ActionController::Base
   def logged_in_user
     redirect_to login_url unless logged_in?
   end
+
+  def authorized_user
+    redirect_to tasks_path unless @current_user&.role_type_admin?
+  end
 end

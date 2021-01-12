@@ -45,7 +45,8 @@ module Admin
       return redirect_to admin_users_path, notice: I18n.t('view.user.error.not_found') unless @user
 
       @query = Task.ransack(params[:query])
-      @tasks = @query.result.where(user_id: params[:id]).order(created_at: :desc).page params[:page]
+      @tasks = @query.result.includes(:labels).where(user_id: params[:id]).order(created_at: :desc).page params[:page]
+      @labels = Label.all
     end
 
     def destroy
@@ -61,10 +62,6 @@ module Admin
 
     def user_params
       params.require(:user).permit(:name, :email, :role_type, :password, :password_confirmation)
-    end
-
-    def authorized_user
-      redirect_to tasks_path unless @current_user&.role_type_admin?
     end
   end
 end

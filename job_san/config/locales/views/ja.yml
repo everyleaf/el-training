@@ -1,10 +1,13 @@
 ja:
   view:
+    date_format: "%Y年%m月%d日"
     header:
       task_list: タスク一覧
       new_task: タスク作成
       user_list: ユーザ一覧
       new_user: ユーザ作成
+      label_list: ラベル一覧
+      new_label: ラベル作成
   views:
     pagination:
       first: "&laquo; 最初へ"

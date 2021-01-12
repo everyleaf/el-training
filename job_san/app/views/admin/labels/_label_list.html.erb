@@ -1,0 +1,26 @@
+<%= search_form_for(@query, url: form_path) do |f| %>
+  <%= f.label :name_cont %><br />
+  <%= f.search_field :name_cont %>
+  <%= f.submit %>
+<% end %>
+
+<%= content_tag :table do %>
+  <thead>
+  <tr>
+    <th><%= I18n.t('activerecord.attributes.label.id') %></th>
+    <th><%= I18n.t('activerecord.attributes.label.name') %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @labels.each do |label| %>
+    <tr>
+      <td><%= link_to label.id.to_s, edit_admin_label_path(label.id) %></td>
+      <td><%= label.name %></td>
+    </tr>
+  <% end %>
+  </tbody>
+<% end %>
+
+<%= paginate @labels %>
+
+<%= I18n.t('views.helpers.page_entries_info.one_page.display_entries.zero', entry_name: "ラベル") if @labels.blank? %>

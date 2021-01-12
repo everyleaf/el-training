@@ -6,6 +6,7 @@
     <p><%= "#{I18n.t('view.task.label.description')}: #{@task.description}" %></p>
     <p><%= "#{I18n.t('view.task.label.status')}: #{@task.aasm.human_state}" %></p>
     <p><%= "#{I18n.t('view.task.label.target_date')}: #{viewed_target_date(@task)}" %></p>
+    <p><%= "#{I18n.t('view.label.self')}: #{viewed_labels(@task)}" %></p>
   </div>
   <div>
     <ul>

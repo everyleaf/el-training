@@ -34,6 +34,12 @@
               <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.header.new_user'), new_admin_user_path %></div>
             </li>
             <li style="display: inline;">
+              <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.header.label_list'), admin_labels_path %></div>
+            </li>
+            <li style="display: inline;">
+              <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.header.new_label'), new_admin_label_path %></div>
+            </li>
+            <li style="display: inline;">
               <div style="display: inline; background: lightgreen;"><%= link_to I18n.t('view.session.label.logout'), logout_path, method: :delete %></div>
             </li>
           <% else %>

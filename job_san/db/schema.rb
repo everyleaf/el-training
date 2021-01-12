@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_08_015157) do
+ActiveRecord::Schema.define(version: 2021_01_12_024920) do
+
+  create_table "labels", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name", limit: 50, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_labels_on_name", unique: true
+  end
+
+  create_table "task_label_relations", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "task_id", null: false
+    t.bigint "label_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["label_id"], name: "fk_rails_1c09076d1e"
+    t.index ["task_id"], name: "fk_rails_f5a04e8612"
+  end
 
   create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -20,7 +36,6 @@ ActiveRecord::Schema.define(version: 2021_01_08_015157) do
     t.string "priority", limit: 6, default: "low", null: false
     t.string "status", limit: 5, default: "todo", null: false
     t.string "user_id", limit: 36
-    t.integer "label_id"
     t.date "target_date"
     t.index ["name"], name: "index_tasks_on_name"
     t.index ["status"], name: "index_tasks_on_status"
@@ -42,5 +57,7 @@ ActiveRecord::Schema.define(version: 2021_01_08_015157) do
     t.check_constraint "`role_type` in ('member','admin')", name: "check_users_role_type"
   end
 
+  add_foreign_key "task_label_relations", "labels"
+  add_foreign_key "task_label_relations", "tasks"
   add_foreign_key "tasks", "users"
 end

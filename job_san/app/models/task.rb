@@ -4,6 +4,8 @@ class Task < ApplicationRecord
   include AASM
 
   belongs_to :user
+  has_many :task_label_relations, dependent: :delete_all
+  has_many :labels, through: :task_label_relations
   validates :name, presence: true, length: { maximum: 255 }
   validates :description, length: { maximum: 255 }
   enum priority: %i[low medium high]
@@ -26,5 +28,14 @@ class Task < ApplicationRecord
     event :finish do
       transitions to: :done
     end
+  end
+
+  # 中間テーブルの参照先がデフォルトでTask::TaskLabelRelationとなってしまっている
+  # また、class_nameで指定したクラスを見に行かないためここに宣言する。
+  class TaskLabelRelation < ApplicationRecord
+    self.table_name = 'task_label_relations'
+
+    belongs_to :task
+    belongs_to :label
   end
 end

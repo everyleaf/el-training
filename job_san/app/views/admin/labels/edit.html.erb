@@ -1,0 +1,6 @@
+<h1>Labels#edit</h1>
+<%= "#{I18n.t('view.task.label.id')}: #{@label.id}" %>
+<%= render partial: 'admin/labels/form', locals: { target_method: :put, form_url: admin_label_path, action_label: I18n.t('view.task.label.action_type.update') } %>
+<%= render partial: 'parts/error_message' %>
+
+<li style="display: inline"><%= link_to I18n.t('view.task.show.delete'), admin_label_path(id: @label.id), data: { confirm: I18n.t('view.task.show.confirm_delete', name: @label.name) }, method: :delete %></li>

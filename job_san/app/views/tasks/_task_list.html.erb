@@ -1,7 +1,17 @@
 <%= search_form_for(@query, url: form_path) do |f| %>
-  <%= f.label :name_cont %><br />
-  <%= f.search_field :name_cont %>
-  <%= f.select :status_eq, options_for_select(Task::STATUSES.map{|k,v| [v,k.to_s]}, @query.status_eq), include_blank: '全てのステータス' %>
+  <div>
+    <%= f.label :name_cont %><br />
+    <%= f.search_field :name_cont %>
+  </div>
+
+  <div>
+    <%= f.label :status_eq %><br />
+    <%= f.select :status_eq, options_for_select(Task::STATUSES.map{|k,v| [v,k.to_s]}, @query.status_eq), include_blank: '全てのステータス' %>
+  </div>
+  <div>
+    <%= f.label :labels_id_in, I18n.t('view.label.labels_id_in') %><br />
+    <%= f.collection_check_boxes :labels_id_in, @labels, :id, :name %>
+  </div>
   <%= f.submit %>
 <% end %>
 
@@ -10,7 +20,7 @@
   <tr>
     <th><%= I18n.t('view.task.label.id') %></th>
     <th><%= I18n.t('view.task.label.name') %></th>
-    <th><%= I18n.t('view.task.label.description') %></th>
+    <th><%= I18n.t('view.label.self') %></th>
     <th><%= I18n.t('view.task.label.status') %></th>
     <%= content_tag :th, sort_link(@query, :target_date, default_order: :desc) %>
     <%= content_tag :th, sort_link(@query, :created_at, default_order: :desc) %>
@@ -20,8 +30,12 @@
   <% @tasks.each do |task| %>
     <tr>
       <td><%= link_to task.id.to_s, task_url(task.id) %></td>
-      <td><%= task.name %></td>
-      <td><%= task.description %></td>
+      <td><%= task.name.truncate(13) %></td>
+      <td style="display: inline;">
+        <% task.labels.each do |l| %>
+          <div style="background: lightgreen; padding: 5px 10px; display: inline; margin-right: 5px; font-size: 10px; border-radius: 1em;"><%=  l.name  %></div>
+        <% end %>
+      </td>
       <td><%= task.aasm.human_state %></td>
       <td><%= viewed_target_date(task) %></td>
       <td><%= task.created_at.strftime(I18n.t('view.date_format')) %></td>
