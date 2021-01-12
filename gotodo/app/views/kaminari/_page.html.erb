@@ -7,6 +7,10 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<span class="page<%= ' current' if page.current? %>">
-  <%= link_to_unless page.current?, page, url, {remote: remote, rel: page.rel} %>
-</span>
+<li class="page-item <%= 'active' if page.current? %>" <%= 'aria-current="page"' if page.current? %>>
+  <% if page.current? %>
+    <span class="page-link"><%= page %></span>
+  <% else %>
+    <%= link_to page, url, { remote: remote, rel: page.rel, class: 'page-link' } %>
+  <% end %>
+</li>

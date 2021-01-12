@@ -6,6 +6,9 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<span class="last">
-  <%= link_to_unless current_page.last?, t('views.pagination.last').html_safe, url, remote: remote %>
-</span>
+<li class="page-item">
+  <% @contents = capture do %>
+    <span aria-hidden="true">&raquo;</span>
+  <% end %>
+  <%= link_to_unless current_page.last?, @contents, url, { remote: remote, class: 'page-link' } %>
+</li>
