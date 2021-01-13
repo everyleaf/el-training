@@ -4,12 +4,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @tasks =
-      if params[:sort].present? && params[:direction].present?
-        Task.order("#{params[:sort]} #{params[:direction]}")
-      else
-        Task.all
-      end
+    @tasks = Task.task_search(title: params[:title], status: params[:status], sort: params[:sort], direction: params[:direction])
   end
 
   def show
@@ -55,6 +50,6 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
-    params.require(:task).permit(:title, :detail, :end_date)
+    params.require(:task).permit(:title, :detail, :end_date, :status)
   end
 end

@@ -3,8 +3,10 @@
 module TasksHelper
   def sortable(column)
     column = column.to_s
-    asc = link_to '▲', sort: column, direction: 'asc'
-    desc = link_to '▼', sort: column, direction: 'desc'
+    hash = { title: params[:title], status: params[:status], sort: column }
+    asc = link_to '▲', hash.merge({ direction: 'asc' }), id: "#{column}_asc"
+    desc = link_to '▼', hash.merge({ direction: 'desc' }), id: "#{column}_desc"
+
     sortable = [Task.human_attribute_name(column)]
     if params[:sort] == column
       sortable.concat(params[:direction] == 'asc' ? [desc] : [asc])

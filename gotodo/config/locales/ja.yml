@@ -4,6 +4,7 @@ ja:
       create: 登録する
       update: 更新する
       submit: 保存する
+      search: 検索
   flash:
     create_success: '新しい%{model}が登録されました！'
     update_success: '%{model}が更新されました！'

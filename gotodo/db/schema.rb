@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_06_083959) do
+ActiveRecord::Schema.define(version: 2021_01_08_045921) do
 
   create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "title", limit: 50, null: false
@@ -18,10 +18,11 @@ ActiveRecord::Schema.define(version: 2021_01_06_083959) do
     t.text "location"
     t.decimal "lat", precision: 10
     t.decimal "lng", precision: 10
-    t.integer "status", limit: 1
+    t.integer "status", default: 0, null: false
     t.date "end_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["status"], name: "index_tasks_on_status"
   end
 
 end
