@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(version: 2021_01_08_045921) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["status"], name: "index_tasks_on_status"
-    t.index ["title"], name: "index_tasks_on_title"
   end
 
 end
