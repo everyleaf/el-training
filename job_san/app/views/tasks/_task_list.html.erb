@@ -20,7 +20,7 @@
   <tr>
     <th><%= I18n.t('view.task.label.id') %></th>
     <th><%= I18n.t('view.task.label.name') %></th>
-    <th><%= I18n.t('view.label.self') %></th>
+    <th><%= I18n.t('activerecord.models.label') %></th>
     <th><%= I18n.t('view.task.label.status') %></th>
     <%= content_tag :th, sort_link(@query, :target_date, default_order: :desc) %>
     <%= content_tag :th, sort_link(@query, :created_at, default_order: :desc) %>

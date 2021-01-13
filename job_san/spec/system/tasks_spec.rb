@@ -143,7 +143,7 @@ RSpec.describe Task, :require_login, js: true, type: :system do
       let(:create_task_target_date) { today + 3.days }
 
       before do
-        Label.create(name: "test")
+        create(:label)
         fill_in 'タスク名', with: create_task_name
         fill_in '説明文', with: create_task_description
         [create_task_target_date.year,
