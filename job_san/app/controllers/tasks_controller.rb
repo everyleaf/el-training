@@ -14,7 +14,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = current_user.tasks.find_by(id: params[:id])
+    @task = current_user.tasks.includes(:labels).find_by(id: params[:id])
   end
 
   def new
@@ -34,9 +34,8 @@ class TasksController < ApplicationController
 
   def edit
     @task = current_user.tasks.eager_load(:labels).find_by(id: params[:id])
-    return redirect_to tasks_path, notice: I18n.t('view.task.error.not_found') unless @task
-
     @labels = Label.all
+    redirect_to tasks_path, notice: I18n.t('view.task.error.not_found') unless @task
   end
 
   def update
@@ -45,27 +44,19 @@ class TasksController < ApplicationController
 
     @task = TaskService.new(@task).update_task(task_params)
     @errors = @task.errors
-    if @errors.blank?
-      @labels = Label.all
-      flash[:notice] = I18n.t('view.task.flash.updated')
-      redirect_to task_url id: params[:id]
-    else
-      flash.now[:alert] = I18n.t('view.task.flash.not_updated')
-      render :edit
-    end
+    return redirect_to task_url(id: params[:id]), notice: I18n.t('view.task.flash.updated') if @errors.blank?
+
+    @labels = Label.all
+    flash.now[:alert] = I18n.t('view.task.flash.not_updated')
+    render :edit
   end
 
   def destroy
     task = current_user.tasks.find_by(id: params[:id])
     return redirect_to tasks_path, notice: I18n.t('view.task.error.not_found') if task.blank?
 
-    if task.destroy
-      redirect_to tasks_path, notice: I18n.t('view.task.flash.deleted')
-    else
-      @errors = task.errors
-      flash.now[:alert] = I18n.t('view.task.flash.not_deleted')
-      render tasks_path
-    end
+    task.destroy
+    redirect_to tasks_path, notice: I18n.t('view.task.flash.deleted')
   end
 
   private

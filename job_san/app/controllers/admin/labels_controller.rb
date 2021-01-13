@@ -15,13 +15,11 @@ module Admin
 
     def create
       @label = Label.new(label_params)
-      if @label.save
-        redirect_to admin_labels_path, notice: I18n.t('view.label.flash.created')
-      else
-        @errors = @label.errors
-        flash.now[:alert] = I18n.t('view.label.flash.not_created')
-        render new_admin_label_path
-      end
+      return redirect_to admin_labels_path, notice: I18n.t('view.label.flash.created') if @label.save
+
+      @errors = @label.errors
+      flash.now[:alert] = I18n.t('view.label.flash.not_created')
+      render new_admin_label_path
     end
 
     def edit
@@ -35,26 +33,18 @@ module Admin
 
       @label.update(label_params)
       @errors = @label.errors
-      if @errors.blank?
-        flash[:notice] = I18n.t('view.label.flash.updated')
-        redirect_to admin_labels_path
-      else
-        flash.now[:alert] = I18n.t('view.label.flash.not_updated')
-        render :edit
-      end
+      return redirect_to admin_labels_path, notice: I18n.t('view.label.flash.updated') if @errors.blank?
+
+      flash.now[:alert] = I18n.t('view.label.flash.not_updated')
+      render :edit
     end
 
     def destroy
       label = Label.find_by(id: params[:id])
       return redirect_to admin_labels_path, notice: I18n.t('view.label.error.not_found') unless label
 
-      if label.destroy
-        redirect_to admin_labels_path, notice: I18n.t('view.label.flash.deleted')
-      else
-        @errors = label.errors
-        flash.now[:alert] = I18n.t('view.label.flash.not_deleted')
-        render admin_labels_path
-      end
+      label.destroy
+      redirect_to admin_labels_path, notice: I18n.t('view.label.flash.deleted')
     end
 
     private
