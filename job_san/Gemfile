@@ -77,3 +77,6 @@ gem 'ransack', github: 'activerecord-hackery/ransack'
 
 # for pagination refs: https://github.com/kaminari/kaminari
 gem 'kaminari'
+
+# for bulk insert refs: https://github.com/zdennis/activerecord-import
+gem 'activerecord-import'

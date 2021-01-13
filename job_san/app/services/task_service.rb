@@ -38,7 +38,10 @@ class TaskService
   private
 
   def attach_labels(label_ids)
-    @task.labels << Label.where(id: label_ids.map(&:to_i))
+    relations = Label.where(id: label_ids.map(&:to_i)).map do |l|
+      Task::TaskLabelRelation.new(label: l, task: @task)
+    end
+    Task::TaskLabelRelation.import relations
   end
 
   def update_task_attributes(params)
@@ -48,7 +51,7 @@ class TaskService
   end
 
   def update_labels(label_ids)
-    @task.labels.destroy_all
+    @task.labels.delete_all
     attach_labels(label_ids)
   end
 
