@@ -1,0 +1,8 @@
+$link-color: #17a2b8;
+
+@import 'bootstrap/scss/bootstrap';
+
+.page-item.active .page-link {
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+}
