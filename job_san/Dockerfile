@@ -15,6 +15,6 @@ WORKDIR $APP_ROOT
 COPY ./Gemfile        $APP_ROOT/Gemfile
 COPY ./Gemfile.lock   $APP_ROOT/Gemfile.lock
 
-RUN bundle install
+RUN bundle install && mkdir -p tmp/sockets
 
 COPY . $APP_ROOT

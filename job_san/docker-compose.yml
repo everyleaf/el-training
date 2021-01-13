@@ -12,19 +12,31 @@ services:
     volumes:
       - .:/usr/src/app
       - vendor_bundle:/user/src/app/vendor/bundle
-    ports:
-      - "3000:3000"
+      - tmp-data:/usr/src/app/tmp
+      - public-data:/usr/src/app/public
     depends_on:
       - db
       - chrome
     environment:
       - SELENIUM_DRIVER_URL=http://selenium_chrome:4444/wd/hub
-    command: rails s -b 0.0.0.0
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
   chrome:
     image: selenium/standalone-chrome:latest
     ports:
       - 4444:4444
+  nginx:
+    build: ./docker/nginx
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+    volumes:
+      - ./public:/usr/share/nginx/html
+      - tmp-data:/usr/src/app/tmp
+      - public-data:/usr/src/app/public
 
 volumes:
   vendor_bundle:
     driver: local
+  public-data:
+  tmp-data:
