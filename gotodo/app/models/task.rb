@@ -12,7 +12,7 @@ class Task < ApplicationRecord
       .sorted(search_params[:sort], search_params[:direction])
   end)
   scope :title_like, -> (title) { where('title LIKE ?', "%#{title}%") if title.present? }
-  scope :status_is, -> (status) { where('status = ?', Task.statuses[status]) if Task.statuses[status].present? }
+  scope :status_is, -> (status) { where(status: status) if status.present? }
   scope :sorted, -> (sort, direction) { order("#{sort} #{direction}") if sort.present? && direction.present? }
 
   # 備考：クラスメソッドバージョン
