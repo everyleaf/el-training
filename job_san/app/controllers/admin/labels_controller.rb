@@ -16,43 +16,43 @@ module Admin
     def create
       @label = Label.new(label_params)
       if @label.save
-        redirect_to admin_labels_path, notice: I18n.t('view.task.flash.created')
+        redirect_to admin_labels_path, notice: I18n.t('view.label.flash.created')
       else
         @errors = @label.errors
-        flash.now[:alert] = I18n.t('view.task.flash.not_created')
+        flash.now[:alert] = I18n.t('view.label.flash.not_created')
         render new_admin_label_path
       end
     end
 
     def edit
       @label = Label.find_by(id: params[:id])
-      redirect_to admin_labels_path, notice: I18n.t('view.task.error.not_found') unless @label
+      redirect_to admin_labels_path, notice: I18n.t('view.label.error.not_found') unless @label
     end
 
     def update
       @label = Label.find_by(id: params[:id])
-      redirect_to admin_labels_path, notice: I18n.t('view.task.error.not_found') unless @label
+      redirect_to admin_labels_path, notice: I18n.t('view.label.error.not_found') unless @label
 
       @label.update(label_params)
       @errors = @label.errors
       if @errors.blank?
-        flash[:notice] = I18n.t('view.task.flash.updated')
+        flash[:notice] = I18n.t('view.label.flash.updated')
         redirect_to admin_labels_path
       else
-        flash.now[:alert] = I18n.t('view.task.flash.not_updated')
+        flash.now[:alert] = I18n.t('view.label.flash.not_updated')
         render :edit
       end
     end
 
     def destroy
       label = Label.find_by(id: params[:id])
-      return redirect_to admin_labels_path, notice: I18n.t('view.task.error.not_found') unless label
+      return redirect_to admin_labels_path, notice: I18n.t('view.label.error.not_found') unless label
 
       if label.destroy
-        redirect_to admin_labels_path, notice: I18n.t('view.task.flash.deleted')
+        redirect_to admin_labels_path, notice: I18n.t('view.label.flash.deleted')
       else
         @errors = label.errors
-        flash.now[:alert] = I18n.t('view.task.flash.not_deleted')
+        flash.now[:alert] = I18n.t('view.label.flash.not_deleted')
         render admin_labels_path
       end
     end

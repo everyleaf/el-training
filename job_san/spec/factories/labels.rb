@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :label, class: Label do
-    name { Faker::JapaneseMedia::Naruto.character }
+    name { SecureRandom.uuid }
   end
 end

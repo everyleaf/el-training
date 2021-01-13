@@ -23,6 +23,7 @@ RSpec.describe Task, :require_login, js: true, type: :system do
     let!(:sample_task_2) { create(:task, created_at: now + 2.days, target_date: today - 1.day, user: login_user) }
     let!(:sample_task_3) { create(:task, created_at: now + 1.day, target_date: today + 1.day, user: login_user) }
     let!(:other_user_task) { create(:task) }
+    let!(:sample_labels) { create_list(:label, 3) }
     let(:sort_ids_by_created_at) { sort_task_ids(:created_at) }
     let(:sort_ids_by_target_date) { sort_task_ids(:target_date) }
     before { visit tasks_path }
@@ -32,15 +33,12 @@ RSpec.describe Task, :require_login, js: true, type: :system do
         .map { |t| t.id.to_s }
     end
 
-    def fetch_viewed_task_ids(str_expected_ids)
-      page.all('tbody td:first-child')
-          .map(&:text)
-          .select { |td_context| str_expected_ids.include?(td_context) }
+    def fetch_viewed_task_ids
+      page.all('tbody td:first-child').map(&:text)
     end
 
     it 'tasks are sorted by created_at desc' do
-      ids = fetch_viewed_task_ids(sort_ids_by_created_at)
-      expect(ids).to eq(sort_ids_by_created_at)
+      expect(fetch_viewed_task_ids).to eq(sort_ids_by_created_at)
     end
 
     context 'when tasks exist over 10' do
@@ -52,11 +50,10 @@ RSpec.describe Task, :require_login, js: true, type: :system do
       let(:next_page_tasks) { Task.where(user: login_user).order(created_at: :desc).limit(10).offset(10) }
 
       it 'should show paginated tasks' do
-        all_task_ids = Task.where(user: login_user).pluck(:id).map(&:to_s)
-        expect(fetch_viewed_task_ids(all_task_ids)).to match_array(first_page_tasks.map { |t| t.id.to_s })
+        expect(fetch_viewed_task_ids).to match_array(first_page_tasks.map { |t| t.id.to_s })
         click_on '次へ ›'
         sleep(0.3)
-        expect(fetch_viewed_task_ids(all_task_ids)).to match_array(next_page_tasks.map { |t| t.id.to_s })
+        expect(fetch_viewed_task_ids).to match_array(next_page_tasks.map { |t| t.id.to_s })
       end
     end
 
@@ -68,8 +65,7 @@ RSpec.describe Task, :require_login, js: true, type: :system do
       end
 
       it 'tasks are sorted by target_date desc' do
-        ids = fetch_viewed_task_ids(sort_ids_by_target_date)
-        expect(ids).to eq(sort_ids_by_target_date)
+        expect(fetch_viewed_task_ids).to eq(sort_ids_by_target_date)
       end
     end
 
@@ -83,8 +79,7 @@ RSpec.describe Task, :require_login, js: true, type: :system do
       end
 
       it 'tasks are sorted by created_at asc' do
-        ids = fetch_viewed_task_ids(sort_ids_by_created_at)
-        expect(ids).to eq(sort_ids_by_created_at.reverse)
+        expect(fetch_viewed_task_ids).to eq(sort_ids_by_created_at.reverse)
       end
     end
 
@@ -98,9 +93,20 @@ RSpec.describe Task, :require_login, js: true, type: :system do
       end
 
       it 'tasks are filtered by partial matched name' do
-        all_task_ids = Task.where(user: login_user).pluck(:id).map(&:to_s)
-        ids = page.all('tbody td:first-child').map(&:text).select { |td_context| all_task_ids.include?(td_context) }
-        expect(ids).to match_array(filtered_tasks.map { |t| t.id.to_s })
+        expect(fetch_viewed_task_ids).to match_array(filtered_tasks.map { |t| t.id.to_s })
+      end
+    end
+
+    context 'when search tasks with a label' do
+      before do
+        sample_task.labels << sample_labels
+        check(sample_labels.first.name)
+        click_button '検索'
+        sleep(0.3)
+      end
+
+      it 'tasks are filtered by a matched label' do
+        expect(fetch_viewed_task_ids).to match_array(sample_task.id.to_s)
       end
     end
 

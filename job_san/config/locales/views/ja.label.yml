@@ -2,3 +2,12 @@ ja:
   view:
     label:
       labels_id_in: 以下のラベルがついている
+      flash:
+        created: ラベルを作成したよ
+        not_created: ラベルが作成できなかったよ
+        updated: ラベルを更新したよ
+        not_updated: ラベルが更新できなかったよ
+        deleted: ラベルを削除したよ
+        not_deleted: ラベルが削除できなかったよ
+      error:
+        not_found: そのラベルないよ

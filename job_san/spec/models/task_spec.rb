@@ -80,4 +80,27 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+
+  describe '#destroy' do
+    context 'when task related with some labels' do
+      let!(:task) { create(:task) }
+      let(:related_record_count) { 3 }
+      before do
+        labels = create_list(:label, related_record_count)
+        task.labels << labels
+      end
+
+      it 'delete label with its relation records' do
+        expect {
+          task.destroy
+        }.to change {
+          Task.count
+        }.by(-1).and change {
+          Task::TaskLabelRelation.count
+        }.by(-related_record_count).and change {
+          Label.count
+        }.by(0)
+      end
+    end
+  end
 end
