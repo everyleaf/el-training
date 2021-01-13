@@ -28,8 +28,8 @@ RSpec.describe 'Tasks', type: :system do
       end
       it do
         task_list = all('tbody tr')
-        task_list.each_with_index do |task, i|
-          expect(task).to have_content expected_list[i].title
+        expected_list.each_with_index do |task, i|
+          expect(task_list[i]).to have_content task.title
         end
       end
     end
