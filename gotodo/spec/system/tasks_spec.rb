@@ -15,11 +15,6 @@ RSpec.describe 'Tasks', type: :system do
       visit root_path
     end
 
-    it '期待したタスクが表示されること' do
-      is_expected.to have_content task1.title
-      is_expected.to have_content task1.detail
-    end
-
     shared_examples '期待した順番で表示されること' do
       # 【備考】 条件が同じ場合はidが若い順番になる
       it do
@@ -28,6 +23,19 @@ RSpec.describe 'Tasks', type: :system do
           expect(task_list[i].first('td').text).to eq task.title
         end
       end
+    end
+
+    shared_examples '期待しないタスクが表示されないこと' do
+      it do
+        unexpected_list.each_with_index do |task, _|
+          is_expected.to_not have_content task.title
+        end
+      end
+    end
+
+    it '期待したタスクが表示されること' do
+      is_expected.to have_content task1.title
+      is_expected.to have_content task1.detail
     end
 
     describe 'ソート機能' do
@@ -103,24 +111,20 @@ RSpec.describe 'Tasks', type: :system do
           fill_in 'title', with: '料理'
           click_button '検索'
         end
-        it 'タスク名に指定した文言を含むタスクのみが表示されること' do
-          is_expected.to have_content task2.title
-          is_expected.to_not have_content task1.title
-          is_expected.to_not have_content task3.title
-          is_expected.to_not have_content task4.title
-        end
+        let(:expected_list) { [task2] }
+        it_behaves_like '期待した順番で表示されること'
+        let(:unexpected_list) { [task1, task3, task4] }
+        it_behaves_like '期待しないタスクが表示されないこと'
       end
       context 'ステータスを指定' do
         before do
           select '完了', from: 'status'
           click_button '検索'
         end
-        it '指定したステータスのタスクのみが表示されること' do
-          is_expected.to have_content task1.title
-          is_expected.to have_content task4.title
-          is_expected.to_not have_content task2.title
-          is_expected.to_not have_content task3.title
-        end
+        let(:expected_list) { [task1, task4] }
+        it_behaves_like '期待した順番で表示されること'
+        let(:unexpected_list) { [task2, task3] }
+        it_behaves_like '期待しないタスクが表示されないこと'
       end
       context 'タスク名とステータスを指定' do
         before do
@@ -128,12 +132,10 @@ RSpec.describe 'Tasks', type: :system do
           select '完了', from: 'status'
           click_button '検索'
         end
-        it 'タイトルとステータスの両方でヒットするタスクのみが表示されること' do
-          is_expected.to have_content task4.title
-          is_expected.to_not have_content task1.title
-          is_expected.to_not have_content task2.title
-          is_expected.to_not have_content task3.title
-        end
+        let(:expected_list) { [task4] }
+        it_behaves_like '期待した順番で表示されること'
+        let(:unexpected_list) { [task1, task2, task3] }
+        it_behaves_like '期待しないタスクが表示されないこと'
       end
     end
 
@@ -144,13 +146,9 @@ RSpec.describe 'Tasks', type: :system do
         click_link nil, id: 'status_asc'
       end
       let(:expected_list) { [task3, task2, task4] }
-      it 'タスク名に指定した文言を含むタスクのみが表示されること' do
-        is_expected.to have_content task2.title
-        is_expected.to have_content task3.title
-        is_expected.to have_content task4.title
-        is_expected.to_not have_content task1.title
-      end
       it_behaves_like '期待した順番で表示されること'
+      let(:unexpected_list) { [task1] }
+      it_behaves_like '期待しないタスクが表示されないこと'
     end
 
     describe 'ページネーション機能' do
@@ -166,33 +164,66 @@ RSpec.describe 'Tasks', type: :system do
       let!(:task10) { FactoryBot.create(:task, title: 'task10', created_at: Time.current + 10.days) }
       let!(:task11) { FactoryBot.create(:task, title: 'task11', created_at: Time.current + 11.days) }
       let!(:task12) { FactoryBot.create(:task, title: 'task12', created_at: Time.current + 12.days) }
-      it '期待したページ区切りが行われていること' do
-        visit root_path
-        is_expected.to have_content task1.title
-        is_expected.to have_content task2.title
-        is_expected.to have_content task3.title
-        is_expected.to have_content task4.title
-        is_expected.to have_content task5.title
-        is_expected.to have_content task6.title
-        is_expected.to have_content task7.title
-        is_expected.to have_content task8.title
-        is_expected.to have_content task9.title
-        is_expected.to have_content task10.title
-        is_expected.to_not have_content task11.title
-        is_expected.to_not have_content task12.title
-        click_link '2', href: tasks_path(page: 2)
-        is_expected.to_not have_content task1.title
-        is_expected.to_not have_content task2.title
-        is_expected.to_not have_content task3.title
-        is_expected.to_not have_content task4.title
-        is_expected.to_not have_content task5.title
-        is_expected.to_not have_content task6.title
-        is_expected.to_not have_content task7.title
-        is_expected.to_not have_content task8.title
-        is_expected.to_not have_content task9.title
-        is_expected.to_not have_content task10.title
-        is_expected.to have_content task11.title
-        is_expected.to have_content task12.title
+      context '1ページ目' do
+        before do
+          visit root_path
+        end
+        let(:expected_list) { [task1, task2, task3, task4, task5, task6, task7, task8, task9, task10] }
+        it_behaves_like '期待した順番で表示されること'
+        let(:unexpected_list) { [task11, task12] }
+        it_behaves_like '期待しないタスクが表示されないこと'
+      end
+      context '2ページ目' do
+        before do
+          visit root_path
+          click_link '2'
+        end
+        let(:expected_list) { [task11, task12] }
+        it_behaves_like '期待した順番で表示されること'
+        let(:unexpected_list) { [task1, task2, task3, task4, task5, task6, task7, task8, task9, task10] }
+        it_behaves_like '期待しないタスクが表示されないこと'
+      end
+    end
+
+    describe '検索機能 & ソート機能 & ページネーション機能' do
+      let!(:task1) { FactoryBot.create(:task, title: 'task01!', created_at: Time.current + 1.day) }
+      let!(:task2) { FactoryBot.create(:task, title: 'task02!', created_at: Time.current + 2.days) }
+      let!(:task3) { FactoryBot.create(:task, title: 'task03', created_at: Time.current + 3.days) }
+      let!(:task4) { FactoryBot.create(:task, title: 'task04!', created_at: Time.current + 4.days) }
+      let!(:task5) { FactoryBot.create(:task, title: 'task05!', created_at: Time.current + 5.days) }
+      let!(:task6) { FactoryBot.create(:task, title: 'task06!', created_at: Time.current + 6.days) }
+      let!(:task7) { FactoryBot.create(:task, title: 'task07!', created_at: Time.current + 7.days) }
+      let!(:task8) { FactoryBot.create(:task, title: 'task08!', created_at: Time.current + 8.days) }
+      let!(:task9) { FactoryBot.create(:task, title: 'task09!', created_at: Time.current + 9.days) }
+      let!(:task10) { FactoryBot.create(:task, title: 'task10', created_at: Time.current + 10.days) }
+      let!(:task11) { FactoryBot.create(:task, title: 'task11!', created_at: Time.current + 11.days) }
+      let!(:task12) { FactoryBot.create(:task, title: 'task12!', created_at: Time.current + 12.days) }
+      let!(:task13) { FactoryBot.create(:task, title: 'task13!', created_at: Time.current + 12.days) }
+      let!(:task14) { FactoryBot.create(:task, title: 'task14!', created_at: Time.current + 12.days) }
+      context '1ページ目' do
+        before do
+          visit root_path
+          fill_in 'title', with: '!'
+          click_button '検索'
+          click_link nil, id: 'created_at_desc'
+        end
+        let(:expected_list) { [task14, task13, task12, task11, task9, task8, task7, task6, task5, task4] }
+        it_behaves_like '期待した順番で表示されること'
+        let(:unexpected_list) { [task10, task3, task2, task1] }
+        it_behaves_like '期待しないタスクが表示されないこと'
+      end
+      context '2ページ目' do
+        before do
+          visit root_path
+          fill_in 'title', with: '!'
+          click_button '検索'
+          click_link nil, id: 'created_at_desc'
+          click_link '2'
+        end
+        let(:expected_list) { [task2, task1] }
+        it_behaves_like '期待した順番で表示されること'
+        let(:unexpected_list) { [task14, task13, task12, task11, task10, task9, task8, task7, task6, task5, task4, task3] }
+        it_behaves_like '期待しないタスクが表示されないこと'
       end
     end
   end
