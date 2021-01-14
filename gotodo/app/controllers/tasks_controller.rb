@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.task_search(title: params[:title], status: params[:status], sort: params[:sort], direction: params[:direction])
                  .page(params[:page])
-                 .per(4)
+                 .per(10)
   end
 
   def show
