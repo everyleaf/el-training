@@ -4,6 +4,7 @@ services:
     image: mysql:8.0
     volumes:
       - mysql-data:/var/lib/mysql
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
     environment:
       - MYSQL_ROOT_PASSWORD=passwd
       - TZ=Asia/Tokyo
