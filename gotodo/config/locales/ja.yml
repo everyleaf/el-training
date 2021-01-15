@@ -26,5 +26,3 @@ ja:
   time:
     formats:
       default: ! '%Y/%m/%d %H:%M:%S'
-  search:
-    title: タイトルで検索
