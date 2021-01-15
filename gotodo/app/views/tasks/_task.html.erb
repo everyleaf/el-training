@@ -11,9 +11,7 @@
     <% end %>
   </td>
   <td>
-    <%= link_to task,
-                { method: :delete, data: { confirm: I18n.t('confirms.delete') }, class: 'delete-link' } do
-    %>
+    <%= link_to task, { method: :delete, data: { confirm: I18n.t('confirms.delete') }, class: 'delete-link' } do %>
       <%= icon('fas', 'trash-alt') %>
     <% end %>
   </td>
