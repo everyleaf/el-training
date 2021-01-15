@@ -13,5 +13,5 @@ class Task < ApplicationRecord
   end)
   scope :title_like, -> (title) { where('title LIKE ?', "%#{title}%") if title.present? }
   scope :status_is, -> (status) { where(status: status) if status.present? }
-  scope :sorted, -> (sort, direction) { order("#{sort} #{direction}") if sort.present? && direction.present? }
+  scope :sorted, -> (sort, direction) { sort.present? && direction.present? ? order("#{sort} #{direction}, id asc") : order('id asc') }
 end
