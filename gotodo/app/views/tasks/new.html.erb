@@ -1,4 +1,2 @@
 <%= render partial: 'form', locals: { task: @task, disabled: false } %>
-<%= link_to root_path do %>
-  <%= icon('fas', 'arrow-alt-circle-left') %>
-<% end %>
+<%= link_to icon('fas', 'arrow-alt-circle-left'), root_path %>
