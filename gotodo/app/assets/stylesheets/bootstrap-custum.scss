@@ -2,7 +2,15 @@ $link-color: #17a2b8;
 
 @import 'bootstrap/scss/bootstrap';
 
+//ページネーション
 .page-item.active .page-link {
   background-color: #17a2b8;
   border-color: #17a2b8;
+}
+
+//バリデーションエラー
+.field_with_errors {
+  input {
+    @extend .is-invalid;
+  }
 }

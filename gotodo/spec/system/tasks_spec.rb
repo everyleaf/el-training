@@ -260,7 +260,7 @@ RSpec.describe 'Tasks', type: :system do
       is_expected.to have_current_path task_path task1.id
       expect(find('#task_title').value).to eq edited_task['title']
       expect(find('#task_detail').value).to eq edited_task['detail']
-      expect(find('#task_end_date').value).to eq edited_task['end_date'].strftime("%Y-%m-%d")
+      expect(find('#task_end_date').value).to eq edited_task['end_date'].strftime('%Y-%m-%d')
       expect(find('#task_status').value).to eq edited_task['status']
       is_expected.to have_selector('.alert-success', text: 'タスクが更新されました！')
     end
@@ -288,7 +288,7 @@ RSpec.describe 'Tasks', type: :system do
       is_expected.to have_current_path task_path Task.last.id
       expect(find('#task_title').value).to eq new_task['title']
       expect(find('#task_detail').value).to eq new_task['detail']
-      expect(find('#task_end_date').value).to eq new_task['end_date'].strftime("%Y-%m-%d")
+      expect(find('#task_end_date').value).to eq new_task['end_date'].strftime('%Y-%m-%d')
       expect(find('#task_status').value).to eq new_task['status']
       is_expected.to have_selector('.alert-success', text: '新しいタスクが登録されました！')
     end
