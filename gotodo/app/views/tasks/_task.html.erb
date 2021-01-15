@@ -5,16 +5,6 @@
   <td><%= I18n.t("tasks.status.#{task.status}") %></td>
   <td><%= I18n.l(task.created_at) %></td>
   <td><%= I18n.l(task.updated_at) %></td>
-  <td>
-    <%= link_to edit_task_path(task) do %>
-      <%= icon('fas', 'edit') %>
-    <% end %>
-  </td>
-  <td>
-    <%= link_to task,
-                { method: :delete, data: { confirm: I18n.t('confirms.delete') }, class: 'delete-link' } do
-    %>
-      <%= icon('fas', 'trash-alt') %>
-    <% end %>
-  </td>
+  <td><%= link_to icon('fas', 'edit'), edit_task_path(task) %></td>
+  <td><%= link_to icon('fas', 'trash-alt'), task, { method: :delete, data: { confirm: I18n.t('confirms.delete') }, class: 'delete-link' } %></td>
 </tr>

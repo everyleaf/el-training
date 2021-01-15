@@ -1,19 +1,17 @@
 <%= form_with(model: task) do |form| %>
   <% if task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= I18n.t('errors.validation', count: task.errors.count) %></h2>
-      <ul>
-        <% task.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <div id="error_explanation" class="alert alert-warning">
+      <b><%= I18n.t('errors.validation', count: task.errors.count) %></b>
+      <% task.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
     </div>
   <% end %>
   <br>
   <div class="form-row">
     <div class="form-group col-md-10">
       <%= form.text_field :title,
-                          { disabled: disabled, class: 'form-control' }
+                          { disabled: disabled, placeholder: Task.human_attribute_name(:title), class: 'form-control' }
       %>
     </div>
     <div class="form-group col-md-2">
