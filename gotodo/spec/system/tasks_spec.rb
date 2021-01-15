@@ -245,24 +245,24 @@ RSpec.describe 'Tasks', type: :system do
         'title' => '買い物に行く',
         'detail' => '卵、牛乳、人参',
         'end_date' => Time.zone.today + 1.week,
-        'status' => '着手中',
+        'status' => 'doing',
       } }
     before do
       visit edit_task_path task1.id
-      fill_in 'タスク名', with: edited_task['title']
-      fill_in '詳細', with: edited_task['detail']
-      fill_in '終了期限', with: edited_task['end_date']
-      select edited_task['status'], from: 'task[status]'
+      fill_in 'task[title]', with: edited_task['title']
+      fill_in 'task[detail]', with: edited_task['detail']
+      fill_in 'task[end_date]', with: edited_task['end_date']
+      find('#task_status').find("option[value=#{edited_task['status']}]").select_option
       click_button '更新する'
     end
 
     it '期待したタスクが表示されること' do
       is_expected.to have_current_path task_path task1.id
-      is_expected.to have_content edited_task['title']
-      is_expected.to have_content edited_task['detail']
-      is_expected.to have_content edited_task['end_date']
-      is_expected.to have_content edited_task['status']
-      is_expected.to have_selector('#notice', text: 'タスクが更新されました！')
+      expect(find('#task_title').value).to eq edited_task['title']
+      expect(find('#task_detail').value).to eq edited_task['detail']
+      expect(find('#task_end_date').value).to eq edited_task['end_date'].strftime("%Y-%m-%d")
+      expect(find('#task_status').value).to eq edited_task['status']
+      is_expected.to have_selector('.alert-success', text: 'タスクが更新されました！')
     end
   end
 
@@ -272,25 +272,25 @@ RSpec.describe 'Tasks', type: :system do
         'title' => '美容院に行く',
         'detail' => 'ヘアサロン・ラクマ',
         'end_date' => Time.zone.today - 1.week,
-        'status' => '完了',
+        'status' => 'done',
       }
     }
     before do
       visit new_task_path
-      fill_in 'タスク名', with: new_task['title']
-      fill_in '詳細', with: new_task['detail']
-      fill_in '終了期限', with: new_task['end_date']
-      select new_task['status'], from: 'task[status]'
+      fill_in 'task[title]', with: new_task['title']
+      fill_in 'task[detail]', with: new_task['detail']
+      fill_in 'task[end_date]', with: new_task['end_date']
+      find('#task_status').find("option[value=#{new_task['status']}]").select_option
       click_button '登録する'
     end
 
     it '期待したタスクが表示されること' do
       is_expected.to have_current_path task_path Task.last.id
-      is_expected.to have_content new_task['title']
-      is_expected.to have_content new_task['detail']
-      is_expected.to have_content new_task['end_date']
-      is_expected.to have_content new_task['status']
-      is_expected.to have_selector('#notice', text: '新しいタスクが登録されました！')
+      expect(find('#task_title').value).to eq new_task['title']
+      expect(find('#task_detail').value).to eq new_task['detail']
+      expect(find('#task_end_date').value).to eq new_task['end_date'].strftime("%Y-%m-%d")
+      expect(find('#task_status').value).to eq new_task['status']
+      is_expected.to have_selector('.alert-success', text: '新しいタスクが登録されました！')
     end
   end
 
@@ -304,7 +304,7 @@ RSpec.describe 'Tasks', type: :system do
       is_expected.to have_current_path root_path
       is_expected.to have_no_content task1.title
       is_expected.to have_no_content task1.detail
-      is_expected.to have_selector('#notice', text: 'タスクが削除されました！')
+      is_expected.to have_selector('.alert-success', text: 'タスクが削除されました！')
     end
   end
 end
