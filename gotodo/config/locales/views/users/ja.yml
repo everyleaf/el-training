@@ -5,6 +5,7 @@ ja:
     attributes:
       user:
         name: 'ユーザー名'
+        email: 'メールアドレス'
         password: 'パスワード'
         password_confirmation: 'パスワード（確認）'
     errors:
