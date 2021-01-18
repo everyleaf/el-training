@@ -22,25 +22,25 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to @task, notice: I18n.t('flash.create_success', model: I18n.t('activerecord.models.task'))
+      redirect_to @task, success: I18n.t('flash.create_success', model: I18n.t('activerecord.models.task'))
     else
-      flash.now[:alert] = I18n.t('flash.create_error', model: I18n.t('activerecord.models.task'))
+      flash.now[:danger] = I18n.t('flash.create_error', model: I18n.t('activerecord.models.task'))
       render :new
     end
   end
 
   def update
     if @task.update(task_params)
-      redirect_to @task, notice: I18n.t('flash.update_success', model: I18n.t('activerecord.models.task'))
+      redirect_to @task, success: I18n.t('flash.update_success', model: I18n.t('activerecord.models.task'))
     else
-      flash.now[:alert] = I18n.t('flash.update_error', model: I18n.t('activerecord.models.task'))
+      flash.now[:danger] = I18n.t('flash.update_error', model: I18n.t('activerecord.models.task'))
       render :edit
     end
   end
 
   def destroy
     @task.destroy
-    redirect_to root_url, notice: I18n.t('flash.destroy_success', model: I18n.t('activerecord.models.task'))
+    redirect_to root_url, success: I18n.t('flash.destroy_success', model: I18n.t('activerecord.models.task'))
   end
 
   private

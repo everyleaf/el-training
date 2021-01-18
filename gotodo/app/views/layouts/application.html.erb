@@ -11,8 +11,14 @@
 </head>
 
 <body>
-<%= link_to (image_tag 'logo.png'), root_path %>
-
-<%= yield %>
+<div class="container">
+  <%= link_to (image_tag 'logo.png'), root_path %>
+  <% flash.each do |key, value| %>
+    <p class="alert alert-<%= key %>">
+      <%= value %>
+    </p>
+  <% end %>
+  <%= yield %>
+</div>
 </body>
 </html>

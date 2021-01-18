@@ -37,6 +37,7 @@ $ cd training/gotodo/
 $ docker-compose build
 $ docker-compose up -d
 ```
+http://localhost:3001/ にアクセス
 
 
 ## TABLE SCHEMA

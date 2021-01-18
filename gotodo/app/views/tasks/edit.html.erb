@@ -1,5 +1,2 @@
-<h1><%= I18n.t('tasks.edit.page_title') %></h1>
-<%= render partial: 'form', locals: { task: @task } %>
-<%= link_to root_path do %>
-  <%= icon('fas', 'arrow-alt-circle-left') %>
-<% end %>
+<%= render partial: 'form', locals: { task: @task, disabled: false } %>
+<%= link_to icon('fas', 'arrow-alt-circle-left'), root_path %>

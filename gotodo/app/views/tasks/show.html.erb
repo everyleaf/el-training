@@ -1,20 +1,4 @@
-<p id="notice"><%= notice %></p>
-<p id="alert"><%= alert %></p>
 <h1><%= @task.title %></h1>
-<table>
-  <tbody>
-    <tr>
-      <td><%= @task.detail %></td>
-      <td><%= @task.end_date %></td>
-      <td><%= I18n.t("tasks.status.#{@task.status}") %></td>
-      <td><%= @task.created_at %></td>
-      <td><%= @task.updated_at %></td>
-    </tr>
-  </tbody>
-</table>
-<%= link_to root_path do %>
-  <%= icon('fas', 'arrow-alt-circle-left') %>
-<% end %>
-<%= link_to edit_task_path(@task) do %>
-  <%= icon('fas', 'edit') %>
-<% end %>
+<%= render partial: 'form', locals: { task: @task, disabled: true } %>
+<%= link_to icon('fas', 'arrow-alt-circle-left'), root_path %>
+<%= link_to icon('fas', 'edit'), edit_task_path(@task) %>

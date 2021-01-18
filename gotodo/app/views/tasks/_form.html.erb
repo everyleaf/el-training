@@ -1,28 +1,41 @@
 <%= form_with(model: task) do |form| %>
   <% if task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= I18n.t('errors.validation', count: task.errors.count) %></h2>
-      <ul>
-        <% task.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <div id="error_explanation" class="alert alert-warning">
+      <b><%= I18n.t('errors.validation', count: task.errors.count) %></b>
+      <% task.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
     </div>
   <% end %>
-  <%= form.label :title %>
   <br>
-  <%= form.text_field :title %>
-  <%= form.select :status, Task.statuses.map { |v, k| [I18n.t("tasks.status.#{v}"), v] } %>
-  <br>
-  <%= form.label :detail %>
-  <br>
-  <%= form.text_area :detail, size: "60x12" %>
-  <br>
-  <%= form.label :end_date %>
-  <br>
-  <%= form.date_field :end_date %>
-  <br>
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-row">
+    <div class="form-group col-md-10">
+      <%= form.text_field :title,
+                          { disabled: disabled, placeholder: Task.human_attribute_name(:title), class: 'form-control' }
+      %>
+    </div>
+    <div class="form-group col-md-2">
+      <%= form.select :status,
+                      Task.statuses.map { |v, k| [I18n.t("tasks.status.#{v}"), v] },
+                      {},
+                      { disabled: disabled, class: 'form-control' }
+      %>
+    </div>
   </div>
+  <div class="form-group">
+    <%= form.text_area :detail,
+                       { size: "60x12", disabled: disabled, class: 'form-control' }
+    %>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= form.label :end_date %>
+      <%= form.date_field :end_date,
+                          { disabled: disabled, class: 'form-control' }
+      %>
+    </div>
+  </div>
+  <% unless disabled %>
+    <%= form.submit class: 'btn btn-outline-info' %>
+  <% end %>
 <% end %>

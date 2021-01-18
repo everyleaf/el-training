@@ -1,19 +1,40 @@
-<p id="notice"><%= notice %></p>
-<p id="alert"><%= alert %></p>
-<h1><%= I18n.t('tasks.index.page_title') %></h1>
 <%= form_with url: tasks_path, method: :get, local: true do |form| %>
-  <%= form.text_field :title, { value: params[:title], placeholder: Task.human_attribute_name(:title) } %>
-  <%= form.select :status, Task.statuses.map { |v, k| [I18n.t("tasks.status.#{v}"), v] }, { selected: params[:status], include_blank: Task.human_attribute_name(:status) } %>
-  <%= form.submit I18n.t('helpers.submit.search') %>
+  <div class="form-row">
+    <div class="form-group col-md-7">
+      <%= form.text_field :title,
+                          { value: params[:title], placeholder: Task.human_attribute_name(:title), class: 'form-control' }
+      %>
+    </div>
+    <div class="form-group col-md-2">
+      <%= form.select :status,
+                      Task.statuses.map { |v, k| [I18n.t("tasks.status.#{v}"), v] },
+                      { selected: params[:status], include_blank: Task.human_attribute_name(:status) },
+                      { class: 'form-control' }
+      %>
+    </div>
+    <div class="form-group col-md-1">
+      <%= form.submit I18n.t('helpers.submit.search'),
+                      { class: 'btn btn-outline-info' }
+      %>
+    </div>
+    <div class="form-group col-md-2">
+      <%= link_to I18n.t('attributes.new_task'), new_task_path, { class: 'btn btn-info' } %>
+    </div>
+  </div>
 <% end %>
-<table>
-  <thead>
-    <td><%= sortable :title %></td>
-    <td><%= sortable :detail %></td>
-    <td><%= sortable :end_date %></td>
-    <td><%= sortable :status %></td>
-    <td><%= sortable :created_at %></td>
-    <td><%= sortable :updated_at %></td>
+
+<table class="table table-striped text-center">
+  <thead class="thead-dark">
+    <tr>
+      <th><%= sortable :title %></th>
+      <th><%= sortable :detail %></th>
+      <th><%= sortable :end_date %></th>
+      <th><%= sortable :status %></th>
+      <th><%= sortable :created_at %></th>
+      <th><%= sortable :updated_at %></th>
+      <th></th>
+      <th></th>
+    </tr>
   </thead>
   <tbody>
     <%= render partial: 'task', collection: @tasks %>
@@ -21,4 +42,3 @@
 </table>
 <br>
 <%= paginate @tasks %>
-<%= link_to I18n.t('attributes.new_task'), new_task_path %>
