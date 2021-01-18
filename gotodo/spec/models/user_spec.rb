@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe 'string "name", limit: 30, null: false' do
+  describe 'string "name", limit: 10, null: false' do
     let(:user) { FactoryBot.build_stubbed(:user, name: name) }
 
     context '0文字の場合' do
@@ -19,17 +19,49 @@ RSpec.describe User, type: :model do
         expect(user).to be_valid
       end
     end
-    context '30文字の場合' do
-      let(:name) { 'a' * 30 }
+    context '10文字の場合' do
+      let(:name) { 'a' * 10 }
       it 'バリデーションを通過すること' do
         expect(user).to be_valid
       end
     end
-    context '31文字の場合' do
-      let(:name) { 'a' * 31 }
+    context '11文字の場合' do
+      let(:name) { 'a' * 11 }
       it 'バリデーションを通過しないこと' do
         expect(user).to_not be_valid
-        expect(user.errors.full_messages).to match_array('ユーザー名は30文字以内で入力してください')
+        expect(user.errors.full_messages).to match_array('ユーザー名は10文字以内で入力してください')
+      end
+    end
+  end
+
+  describe 'string "email", limit: 30, null: false' do
+    let(:user1) { FactoryBot.build_stubbed(:user, name: 'Taro', email: 'aaa@example.com') }
+    let(:user2) { FactoryBot.build_stubbed(:user, name: 'Jiro') }
+
+    context '0文字の場合' do
+      let(:name) { 'a' * 0 }
+      it 'バリデーションを通過しないこと' do
+        expect(user).to_not be_valid
+        expect(user.errors.full_messages).to match_array('ユーザー名が空です')
+      end
+    end
+    context '1文字の場合' do
+      let(:name) { 'a' * 1 }
+      it 'バリデーションを通過すること' do
+        expect(user).to be_valid
+      end
+    end
+    context '10文字の場合' do
+      let(:name) { 'a' * 10 }
+      it 'バリデーションを通過すること' do
+        expect(user).to be_valid
+      end
+    end
+    context '11文字の場合' do
+      let(:name) { 'a' * 11 }
+      it 'バリデーションを通過しないこと' do
+        expect(user).to_not be_valid
+        expect(user.errors.full_messages).to match_array('ユーザー名は10文字以内で入力してください')
       end
     end
   end
