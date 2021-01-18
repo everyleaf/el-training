@@ -20,7 +20,8 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @user = User.limit(1)[0]
+    @task = @user.tasks.new(task_params)
     if @task.save
       redirect_to @task, success: I18n.t('flash.create_success', model: I18n.t('activerecord.models.task'))
     else

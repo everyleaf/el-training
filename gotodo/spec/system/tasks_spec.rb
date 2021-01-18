@@ -4,6 +4,7 @@ require 'rails_helper'
 require 'pp'
 
 RSpec.describe 'Tasks', type: :system do
+  let!(:user) { FactoryBot.create(:user) }
   let!(:task1) { FactoryBot.create(:task, title: 'う　買い物に行く', detail: '卵、牛乳', end_date: Time.zone.today + 2.weeks, status: 'done') }
   let!(:task2) { FactoryBot.create(:task, title: 'あ　料理をする', end_date: Time.zone.today + 1.week, created_at: Time.current + 2.days, status: 'doing') }
   let!(:task3) { FactoryBot.create(:task, title: 'い　食べる', end_date: Time.zone.today + 3.weeks, created_at: Time.current + 3.days, status: 'todo') }
