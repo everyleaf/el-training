@@ -65,7 +65,7 @@ RSpec.describe User, type: :model do
         let(:email) { 'a' * 0 }
         it 'バリデーションを通過しないこと' do
           expect(user2).to_not be_valid
-          expect(user2.errors.full_messages).to match_array(%w[メールアドレスを入力してください メールアドレスの形式が不正です])
+          expect(user2.errors.full_messages).to match_array(%w[メールアドレスの形式が不正です メールアドレスを入力してください])
         end
       end
       context '30文字の場合' do
@@ -79,7 +79,7 @@ RSpec.describe User, type: :model do
         let(:email) { 'a' * 31 }
         it 'バリデーションを通過しないこと' do
           expect(user2).to_not be_valid
-          expect(user2.errors.full_messages).to match_array(%w[メールアドレスは30文字以内で入力してください メールアドレスの形式が不正です])
+          expect(user2.errors.full_messages).to match_array(%w[メールアドレスの形式が不正です メールアドレスは30文字以内で入力してください])
         end
       end
     end
