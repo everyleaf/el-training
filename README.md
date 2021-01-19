@@ -46,19 +46,19 @@ http://localhost:3001/ にアクセス
 | カラム名(論理) | カラム名(物理) | 型 | 制約 | Rails |
 | --- | --- | --- | --- | --- |
 | ID | id | SERIAL | PK | 自動追加 |
-| タスク名 | title | VARCHAR(255) | NN | t.string |
-| 説明 | detail | TEXT | | t.text |
-| 住所 | location| TEXT | | t.text
-| 緯度 | lat | DOUBLE | | t.decimal |
-| 経度 | lng | DOUBLE | | t.decimal |
+| タスク名 | title | VARCHAR(50) | NN | t.string |
+| 説明 | detail | VARCHAR(200) | | t.string |
+| ※住所 | location| TEXT | | t.text |
+| ※緯度 | lat | DOUBLE | | t.decimal |
+| ※経度 | lng | DOUBLE | | t.decimal |
 | ステータス | status | INT |  | t.integer (enum) |
-| 優先度ID | priority_id | INT | FK(優先度テーブル.優先度ID) | t.references :priority, foreign_key: true |
+| ※優先度ID | priority_id | INT | FK(優先度テーブル.優先度ID) | t.references :priority, foreign_key: true |
 | ユーザID | user_id | INT | FK(ユーザテーブル.ID) | t.references :user, foreign_key: true |
 | 終了期限 | end_date | DATETIME | | t.datetime |
 | 作成日 | created_at | TIMESTAMP | | t.timestamps |
 | 更新日 | created_at | TIMESTAMP | | t.timestamps |
 
-### 優先度テーブル
+### ※優先度テーブル
 | カラム名(論理) | カラム名(物理) | 型 | 制約 | Rails |
 | --- | --- | --- | --- | --- |
 | ID | id | SERIAL | PK | 自動追加 |
@@ -67,7 +67,7 @@ http://localhost:3001/ にアクセス
 | 作成日 | created_at | TIMESTAMP | | t.timestamps |
 | 更新日 | created_at | TIMESTAMP | | t.timestamps |
 
-### ラベルテーブル
+### ※ラベルテーブル
 | カラム名(論理) | カラム名(物理) | 型 | 制約 | Rails |
 | --- | --- | --- | --- | --- |
 | ID | id | SERIAL | PK | 自動追加 |
@@ -75,7 +75,7 @@ http://localhost:3001/ にアクセス
 | 作成日 | created_at | TIMESTAMP | | t.timestamps |
 | 更新日 | created_at | TIMESTAMP | | t.timestamps |
 
-### タスクラベルテーブル
+### ※タスクラベルテーブル
 | カラム名(論理) | カラム名(物理) | 型 | 制約 | Rails |
 | --- | --- | --- | --- | --- |
 | ID | id | SERIAL | PK | 自動追加 |
@@ -88,14 +88,13 @@ http://localhost:3001/ にアクセス
 | カラム名(論理) | カラム名(物理) | 型 | 制約 | Rails |
 | --- | --- | --- | --- | --- |
 | ID | id | SERIAL | PK | 自動追加 |
-| ユーザ名 | user_name | VARCHAR(255) | NN | t.string |
-| パスワード | password | VARCHAR(255) | NN | t.string |
-| ロールID | role_id | INT | FK(ロールテーブル.ロールID) | t.references :role, foreign_key: true |
-| 画像URL | img_path | TEXT | | t.text |
+| ユーザ名 | name | VARCHAR(10) | NN | t.string |
+| パスワード | password_digest | VARCHAR(255) | NN | t.string |
+| ※ロールID | role_id | INT | FK(ロールテーブル.ロールID) | t.references :role, foreign_key: true |
 | 作成日 | created_at | TIMESTAMP | | t.timestamps |
 | 更新日 | created_at | TIMESTAMP | | t.timestamps |
 
-### ロールテーブル
+### ※ロールテーブル
 | カラム名(論理) | カラム名(物理) | 型 | 制約 | Rails |
 | --- | --- | --- | --- | --- |
 | ID | id | SERIAL | PK | 自動追加 |

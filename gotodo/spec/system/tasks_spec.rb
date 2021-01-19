@@ -4,10 +4,11 @@ require 'rails_helper'
 require 'pp'
 
 RSpec.describe 'Tasks', type: :system do
-  let!(:task1) { FactoryBot.create(:task, title: 'う　買い物に行く', detail: '卵、牛乳', end_date: Time.zone.today + 2.weeks, status: 'done') }
-  let!(:task2) { FactoryBot.create(:task, title: 'あ　料理をする', end_date: Time.zone.today + 1.week, created_at: Time.current + 2.days, status: 'doing') }
-  let!(:task3) { FactoryBot.create(:task, title: 'い　食べる', end_date: Time.zone.today + 3.weeks, created_at: Time.current + 3.days, status: 'todo') }
-  let!(:task4) { FactoryBot.create(:task, title: 'え　洗濯する', end_date: Time.zone.today + 4.weeks, created_at: Time.current + 4.days, status: 'done') }
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:task1) { FactoryBot.create(:task, title: 'う　買い物に行く', detail: '卵、牛乳', end_date: Time.zone.today + 2.weeks, status: 'done', user: user) }
+  let!(:task2) { FactoryBot.create(:task, title: 'あ　料理をする', end_date: Time.zone.today + 1.week, created_at: Time.current + 2.days, status: 'doing', user: user) }
+  let!(:task3) { FactoryBot.create(:task, title: 'い　食べる', end_date: Time.zone.today + 3.weeks, created_at: Time.current + 3.days, status: 'todo', user: user) }
+  let!(:task4) { FactoryBot.create(:task, title: 'え　洗濯する', end_date: Time.zone.today + 4.weeks, created_at: Time.current + 4.days, status: 'done', user: user) }
   subject { page }
 
   describe '#index' do
@@ -152,18 +153,18 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     describe 'ページネーション機能' do
-      let!(:task1) { FactoryBot.create(:task, title: 'task01', created_at: Time.current + 1.day) }
-      let!(:task2) { FactoryBot.create(:task, title: 'task02', created_at: Time.current + 2.days) }
-      let!(:task3) { FactoryBot.create(:task, title: 'task03', created_at: Time.current + 3.days) }
-      let!(:task4) { FactoryBot.create(:task, title: 'task04', created_at: Time.current + 4.days) }
-      let!(:task5) { FactoryBot.create(:task, title: 'task05', created_at: Time.current + 5.days) }
-      let!(:task6) { FactoryBot.create(:task, title: 'task06', created_at: Time.current + 6.days) }
-      let!(:task7) { FactoryBot.create(:task, title: 'task07', created_at: Time.current + 7.days) }
-      let!(:task8) { FactoryBot.create(:task, title: 'task08', created_at: Time.current + 8.days) }
-      let!(:task9) { FactoryBot.create(:task, title: 'task09', created_at: Time.current + 9.days) }
-      let!(:task10) { FactoryBot.create(:task, title: 'task10', created_at: Time.current + 10.days) }
-      let!(:task11) { FactoryBot.create(:task, title: 'task11', created_at: Time.current + 11.days) }
-      let!(:task12) { FactoryBot.create(:task, title: 'task12', created_at: Time.current + 12.days) }
+      let!(:task1) { FactoryBot.create(:task, title: 'task01', created_at: Time.current + 1.day, user: user) }
+      let!(:task2) { FactoryBot.create(:task, title: 'task02', created_at: Time.current + 2.days, user: user) }
+      let!(:task3) { FactoryBot.create(:task, title: 'task03', created_at: Time.current + 3.days, user: user) }
+      let!(:task4) { FactoryBot.create(:task, title: 'task04', created_at: Time.current + 4.days, user: user) }
+      let!(:task5) { FactoryBot.create(:task, title: 'task05', created_at: Time.current + 5.days, user: user) }
+      let!(:task6) { FactoryBot.create(:task, title: 'task06', created_at: Time.current + 6.days, user: user) }
+      let!(:task7) { FactoryBot.create(:task, title: 'task07', created_at: Time.current + 7.days, user: user) }
+      let!(:task8) { FactoryBot.create(:task, title: 'task08', created_at: Time.current + 8.days, user: user) }
+      let!(:task9) { FactoryBot.create(:task, title: 'task09', created_at: Time.current + 9.days, user: user) }
+      let!(:task10) { FactoryBot.create(:task, title: 'task10', created_at: Time.current + 10.days, user: user) }
+      let!(:task11) { FactoryBot.create(:task, title: 'task11', created_at: Time.current + 11.days, user: user) }
+      let!(:task12) { FactoryBot.create(:task, title: 'task12', created_at: Time.current + 12.days, user: user) }
       context '1ページ目' do
         before do
           visit root_path
@@ -186,20 +187,20 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     describe '検索機能 & ソート機能 & ページネーション機能' do
-      let!(:task1) { FactoryBot.create(:task, title: 'task01!', created_at: Time.current + 1.day) }
-      let!(:task2) { FactoryBot.create(:task, title: 'task02!', created_at: Time.current + 2.days) }
-      let!(:task3) { FactoryBot.create(:task, title: 'task03', created_at: Time.current + 3.days) }
-      let!(:task4) { FactoryBot.create(:task, title: 'task04!', created_at: Time.current + 4.days) }
-      let!(:task5) { FactoryBot.create(:task, title: 'task05!', created_at: Time.current + 5.days) }
-      let!(:task6) { FactoryBot.create(:task, title: 'task06!', created_at: Time.current + 6.days) }
-      let!(:task7) { FactoryBot.create(:task, title: 'task07!', created_at: Time.current + 7.days) }
-      let!(:task8) { FactoryBot.create(:task, title: 'task08!', created_at: Time.current + 8.days) }
-      let!(:task9) { FactoryBot.create(:task, title: 'task09!', created_at: Time.current + 9.days) }
-      let!(:task10) { FactoryBot.create(:task, title: 'task10', created_at: Time.current + 10.days) }
-      let!(:task11) { FactoryBot.create(:task, title: 'task11!', created_at: Time.current + 11.days) }
-      let!(:task12) { FactoryBot.create(:task, title: 'task12!', created_at: Time.current + 12.days) }
-      let!(:task13) { FactoryBot.create(:task, title: 'task13!', created_at: Time.current + 12.days) }
-      let!(:task14) { FactoryBot.create(:task, title: 'task14!', created_at: Time.current + 12.days) }
+      let!(:task1) { FactoryBot.create(:task, title: 'task01!', created_at: Time.current + 1.day, user: user) }
+      let!(:task2) { FactoryBot.create(:task, title: 'task02!', created_at: Time.current + 2.days, user: user) }
+      let!(:task3) { FactoryBot.create(:task, title: 'task03', created_at: Time.current + 3.days, user: user) }
+      let!(:task4) { FactoryBot.create(:task, title: 'task04!', created_at: Time.current + 4.days, user: user) }
+      let!(:task5) { FactoryBot.create(:task, title: 'task05!', created_at: Time.current + 5.days, user: user) }
+      let!(:task6) { FactoryBot.create(:task, title: 'task06!', created_at: Time.current + 6.days, user: user) }
+      let!(:task7) { FactoryBot.create(:task, title: 'task07!', created_at: Time.current + 7.days, user: user) }
+      let!(:task8) { FactoryBot.create(:task, title: 'task08!', created_at: Time.current + 8.days, user: user) }
+      let!(:task9) { FactoryBot.create(:task, title: 'task09!', created_at: Time.current + 9.days, user: user) }
+      let!(:task10) { FactoryBot.create(:task, title: 'task10', created_at: Time.current + 10.days, user: user) }
+      let!(:task11) { FactoryBot.create(:task, title: 'task11!', created_at: Time.current + 11.days, user: user) }
+      let!(:task12) { FactoryBot.create(:task, title: 'task12!', created_at: Time.current + 12.days, user: user) }
+      let!(:task13) { FactoryBot.create(:task, title: 'task13!', created_at: Time.current + 12.days, user: user) }
+      let!(:task14) { FactoryBot.create(:task, title: 'task14!', created_at: Time.current + 12.days, user: user) }
       context '1ページ目' do
         before do
           visit root_path

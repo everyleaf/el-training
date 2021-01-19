@@ -14,6 +14,8 @@ ja:
           attributes:
             title:
               blank: 'が空になっています'
+      messages:
+        invalid_email: 'の形式が不正です'
   tasks:
     index:
       page_title: 'GoToDo一覧'
