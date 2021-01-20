@@ -11,8 +11,17 @@
 </head>
 
 <body>
-<div class="container">
-  <%= link_to (image_tag 'logo.png'), root_path %>
+<div class="container mt-5">
+  <div class="d-flex align-items-end">
+    <%= link_to (image_tag 'logo.png'), root_path %>
+    <% if current_user %>
+      <div class="ml-auto">
+        <%= I18n.t('message.login_user', name: current_user.name) %>&emsp;
+        <%= link_to icon('fas', 'sign-out-alt'), logout_path, method: :delete %>
+      </div>
+    <% end %>
+  </div>
+  <br>
   <% flash.each do |key, value| %>
     <p class="alert alert-<%= key %>">
       <%= value %>

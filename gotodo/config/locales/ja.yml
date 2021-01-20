@@ -1,23 +1,42 @@
 ja:
+  activerecord:
+    attributes:
+      task:
+        title: タスク名
+        detail: 詳細
+        status: ステータス
+        end_date: 終了期限
+      user:
+        name: ユーザー名
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認）
   helpers:
     submit:
       create: 登録する
       update: 更新する
       submit: 保存する
       search: 検索
+      login: ログイン
   flash:
     create_success: '新しい%{model}が登録されました！'
     update_success: '%{model}が更新されました！'
     destroy_success: '%{model}が削除されました！'
     create_error: '%{model}の作成に失敗しました。'
     update_error: '%{model}の更新に失敗しました。'
+    login_success: 'ようこそ、%{user}さん'
+    login_error: ログインに失敗しました
+    logout_success: ログアウトしました
   attributes:
-    index: トップへ戻る
     new_task: 新規登録
     created_at: 作成日時
     updated_at: 更新日時
+    login: ログイン
+    signin: サインイン
   confirms:
-    delete: '本当に削除して良いですか？'
+    delete: 本当に削除して良いですか？
+  message:
+    login_user: '%{name}さん'
   errors:
     validation: '%{count}つの項目に不備が見つかりました。'
   date:

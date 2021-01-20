@@ -1,2 +1,29 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
+<div class="mx-auto col-md-6 col-sm-10">
+  <h1 class="text-center"><%= I18n.t('attributes.login') %></h1>
+  <%= form_with url: login_path, local: true do |form| %>
+    <div class="form-group">
+      <%= form.email_field :email,
+                           { placeholder: User.human_attribute_name(:email), class: 'form-control' }
+      %>
+    </div>
+    <div class="form-group">
+      <%= form.password_field :password,
+                              { placeholder: User.human_attribute_name(:password), class: 'form-control' }
+      %>
+    </div>
+    <div class="form-group d-flex">
+      <div>
+        <%= form.submit I18n.t('helpers.submit.login'),
+                        { class: 'btn btn-info' }
+        %>
+      </div>
+      <div class="ml-auto">
+        <%= link_to I18n.t('attributes.signin'),
+                    new_user_path,
+                    { class: 'btn btn-outline-info' }
+        %>
+      </div>
+    </div>
+  <% end %>
+</div>
+

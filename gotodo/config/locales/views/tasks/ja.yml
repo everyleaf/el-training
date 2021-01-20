@@ -1,29 +1,17 @@
 ja:
   activerecord:
     models:
-      task: 'タスク'
-    attributes:
-      task:
-        title: 'タスク名'
-        detail: '詳細'
-        status: 'ステータス'
-        end_date: '終了期限'
+      task: タスク
     errors:
       models:
         task:
           attributes:
             title:
-              blank: 'が空になっています'
+              blank: が空になっています
       messages:
-        invalid_email: 'の形式が不正です'
+        invalid_email: の形式が不正です
   tasks:
-    index:
-      page_title: 'GoToDo一覧'
-    new:
-      page_title: 'GoToDo登録'
-    edit:
-      page_title: 'GoToDo編集'
     status:
-      todo: '未着手'
-      doing: '着手中'
-      done: '完了'
+      todo: 未着手
+      doing: 着手中
+      done: 完了
