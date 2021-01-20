@@ -384,7 +384,7 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe '#destroy(task_id)' do
-    let!(:task) { FactoryBot.create(:task, title: '七辻屋に行く', detail: '大福、みたらし団子', user: login_user) }
+    let!(:task) { FactoryBot.create(:task, title: '七辻屋に行く', detail: '大福', user: login_user) }
     before do
       visit root_path
       click_link nil, href: task_path(task), class: 'delete-link'

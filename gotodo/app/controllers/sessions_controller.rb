@@ -21,9 +21,4 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     redirect_to root_path, success: I18n.t('flash.logout_success')
   end
-
-  # private
-  # def session_params
-  #   params.require(:user).permit(:email, :password)
-  # end
 end
