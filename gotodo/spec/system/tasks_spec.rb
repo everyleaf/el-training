@@ -79,7 +79,7 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     describe '表示項目' do
-      let!(:task) { FactoryBot.create(:task, title: '七辻屋に行く', detail: '大福', end_date: Time.zone.today + 1.weeks, user: login_user) }
+      let!(:task) { FactoryBot.create(:task, title: '七辻屋に行く', detail: '大福', end_date: Time.zone.today + 1.week, user: login_user) }
       it '期待した項目が表示されること' do
         visit root_path
         is_expected.to have_content task.title
@@ -122,7 +122,7 @@ RSpec.describe 'Tasks', type: :system do
         end
       end
       describe '作成日時' do
-        let!(:task1) { FactoryBot.create(:task, created_at: Time.current + 1.days, user: login_user) }
+        let!(:task1) { FactoryBot.create(:task, created_at: Time.current + 1.day, user: login_user) }
         let!(:task2) { FactoryBot.create(:task, created_at: Time.current + 2.days, user: login_user) }
         let!(:task3) { FactoryBot.create(:task, created_at: Time.current + 3.days, user: login_user) }
         let!(:task4) { FactoryBot.create(:task, created_at: Time.current + 4.days, user: login_user) }
@@ -308,7 +308,7 @@ RSpec.describe 'Tasks', type: :system do
         end
         let(:expected_list) { [task13, task14] }
         it_behaves_like '期待した順番で表示されること'
-        let(:unexpected_list) { [task1, task2, task4, task5, task6, task7, task8, task9, task11, task12, task3, task10 ] }
+        let(:unexpected_list) { [task1, task2, task4, task5, task6, task7, task8, task9, task11, task12, task3, task10] }
         it_behaves_like '期待しないタスクが表示されないこと'
       end
     end
