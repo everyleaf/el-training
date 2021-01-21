@@ -52,14 +52,16 @@ RSpec.describe 'Users', type: :system do
     end
 
     it '新規作成したユーザでログインできること' do
-      is_expected.to have_current_path login_path
+      is_expected.to have_current_path root_path
       is_expected.to have_selector('.alert-success', text: '新しいユーザーが登録されました！')
 
+      click_link nil, href: logout_path
+      is_expected.to have_current_path login_path
       fill_in 'email', with: new_user['email']
       fill_in 'password', with: new_user['password']
       click_button 'ログイン'
 
-      expect(current_path).to eq(root_path)
+      is_expected.to have_current_path root_path
       is_expected.to have_selector('.alert-success', text: "ようこそ、#{new_user['name']}さん")
     end
   end

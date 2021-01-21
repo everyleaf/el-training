@@ -21,7 +21,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to login_path, success: I18n.t('flash.create_success', model: I18n.t('activerecord.models.user'))
+      session[:user_id] = @user.id
+      redirect_to root_path, success: I18n.t('flash.create_success', model: I18n.t('activerecord.models.user'))
     else
       flash.now[:danger] = I18n.t('flash.create_error', model: I18n.t('activerecord.models.user'))
       render :new
