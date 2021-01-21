@@ -15,5 +15,9 @@ class Task < ApplicationRecord
   end)
   scope :title_like, -> (title) { where('title LIKE ?', "%#{title}%") if title.present? }
   scope :status_is, -> (status) { where(status: status) if status.present? }
-  scope :sorted, -> (sort, direction) { sort.present? && direction.present? ? order("#{sort} #{direction}, id desc") : order('id desc') }
+  scope :sorted, (lambda do |sort, direction|
+    prm_list = ['title', 'detail', 'end_date', 'status', 'created_at', 'edited_at']
+    sort = prm_list.include?(sort) ? sort : nil
+    sort.present? & direction.present? ? order("#{sort} #{direction}, id desc") : order('id desc')
+  end)
 end
