@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
-  before_action :logged_in?, except: %i[new create]
+  before_action :login_check, except: %i[new create]
 
   def index
     @users = User.all

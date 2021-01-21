@@ -3,9 +3,9 @@
 class ApplicationController < ActionController::Base
   add_flash_types :success, :info, :warning, :danger
 
-  before_action :logged_in?
-  def logged_in?
-    redirect_to login_path if current_user.nil?
+  before_action :login_check
+  def login_check
+    redirect_to login_path unless current_user
   end
 
   helper_method :current_user
