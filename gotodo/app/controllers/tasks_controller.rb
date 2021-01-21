@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = Task.where(user_id: current_user.id)
+    @tasks = Task.where(user_id: @current_user.id)
                  .task_search(title: params[:title], status: params[:status], sort: params[:sort], direction: params[:direction])
                  .page(params[:page])
                  .per(10)
@@ -21,7 +21,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = current_user.tasks.new(task_params)
+    @task = @current_user.tasks.new(task_params)
     if @task.save
       redirect_to root_path, success: I18n.t('flash.create_success', model: I18n.t('activerecord.models.task'))
     else
