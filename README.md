@@ -89,6 +89,7 @@ http://localhost:3001/ にアクセス
 | --- | --- | --- | --- | --- |
 | ID | id | SERIAL | PK | 自動追加 |
 | ユーザ名 | name | VARCHAR(10) | NN | t.string |
+| メールアドレス | email | VARCHAR(30) | NN | t.string |
 | パスワード | password_digest | VARCHAR(255) | NN | t.string |
 | ※ロールID | role_id | INT | FK(ロールテーブル.ロールID) | t.references :role, foreign_key: true |
 | 作成日 | created_at | TIMESTAMP | | t.timestamps |

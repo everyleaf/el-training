@@ -1,4 +1,3 @@
-<h1><%= @task.title %></h1>
 <%= render partial: 'form', locals: { task: @task, disabled: true } %>
 <%= link_to icon('fas', 'arrow-alt-circle-left'), root_path %>
 <%= link_to icon('fas', 'edit'), edit_task_path(@task) %>

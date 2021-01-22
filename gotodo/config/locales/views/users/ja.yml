@@ -1,20 +1,14 @@
 ja:
   activerecord:
     models:
-      user: 'ユーザー'
-    attributes:
-      user:
-        name: 'ユーザー名'
-        email: 'メールアドレス'
-        password: 'パスワード'
-        password_confirmation: 'パスワード（確認）'
+      user: ユーザー
     errors:
       models:
         user:
           attributes:
             name:
-              blank: 'が空です'
+              blank: が空です
             password:
-              blank: 'が空です'
+              blank: が空です
             password_confirmation:
-              blank: 'もう一度入力してください'
+              blank: もう一度入力してください

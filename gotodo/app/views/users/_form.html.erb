@@ -1,0 +1,35 @@
+<div class="mx-auto col-md-6 col-sm-10">
+  <%= form_with(model: user) do |form| %>
+    <% if user.errors.any? %>
+      <div id="error_explanation" class="alert alert-warning">
+        <b><%= I18n.t('errors.validation', count: user.errors.count) %></b>
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="form-group">
+      <%= form.text_field :name,
+                          { disabled: disabled, placeholder: User.human_attribute_name(:name), class: 'form-control' }
+      %>
+    </div>
+    <div class="form-group">
+      <%= form.email_field :email,
+                           { disabled: disabled, placeholder: User.human_attribute_name(:email), class: 'form-control' }
+      %>
+    </div>
+    <div class="form-group">
+      <%= form.password_field :password,
+                              { disabled: disabled, placeholder: User.human_attribute_name(:password), class: 'form-control' }
+      %>
+    </div>
+    <div class="form-group">
+      <%= form.password_field :password_confirmation,
+                              { disabled: disabled, placeholder: User.human_attribute_name(:password_confirmation), class: 'form-control' }
+      %>
+    </div>
+    <% unless disabled %>
+      <%= form.submit class: 'btn btn-info' %>
+    <% end %>
+  <% end %>
+</div>
