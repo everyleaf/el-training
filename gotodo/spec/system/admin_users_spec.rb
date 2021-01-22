@@ -176,4 +176,28 @@ RSpec.describe 'AdminUsers', type: :system do
       end
     end
   end
+
+  describe '#destroy(user_id)' do
+    let!(:login_user) { FactoryBot.create(:user, email: 'natsume@example.com') }
+    let!(:user1) { FactoryBot.create(:user, email: 'tanuma@example.com') }
+    let!(:user2) { FactoryBot.create(:user, email: 'taki@example.com') }
+    let!(:task1) { FactoryBot.create(:task, user: login_user) }
+    let!(:task2) { FactoryBot.create(:task, user: user1) }
+    let!(:task3) { FactoryBot.create(:task, user: user2) }
+    let!(:task4) { FactoryBot.create(:task, user: user2) }
+
+    it '削除したユーザが表示されず、削除していないユーザが表示されること' do
+      visit admin_users_path
+      click_link nil, href: user_path(user1), class: 'delete-link'
+      is_expected.to have_current_path admin_users_path
+      is_expected.to have_selector('.alert-success', text: 'ユーザが削除されました！')
+      is_expected.to have_no_content user1.email
+      is_expected.to have_content login_user.email
+      is_expected.to have_content user2.email
+    end
+
+    it 'ユーザを削除すると、関連したタスクも削除されること' do
+      expect{ user2.destroy }.to change{ Task.count }.by(-2)
+    end
+  end
 end

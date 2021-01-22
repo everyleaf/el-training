@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to root_url, success: I18n.t('flash.destroy_success', model: I18n.t('activerecord.models.user'))
+    redirect_to admin_users_path, success: I18n.t('flash.destroy_success', model: I18n.t('activerecord.models.user'))
   end
 
   private
