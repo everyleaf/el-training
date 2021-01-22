@@ -1,0 +1,17 @@
+<table class="table table-striped text-center">
+  <thead class="thead-dark">
+    <tr>
+      <th><%= sortable :name %></th>
+      <th><%= sortable :email %></th>
+      <th><%= sortable :tasks_count %></th>
+      <th><%= sortable :created_at %></th>
+      <th><%= sortable :updated_at %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'user', collection: @users %>
+  </tbody>
+</table>
+<br>
+<%= paginate @users %>

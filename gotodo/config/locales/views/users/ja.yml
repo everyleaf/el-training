@@ -1,7 +1,7 @@
 ja:
   activerecord:
     models:
-      user: ユーザー
+      user: ユーザ
     errors:
       models:
         user:

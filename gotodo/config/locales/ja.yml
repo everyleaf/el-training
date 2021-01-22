@@ -7,10 +7,13 @@ ja:
         status: ステータス
         end_date: 終了期限
       user:
-        name: ユーザー名
+        name: ユーザ名
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード（確認）
+        tasks_count: タスク数
+  errors:
+    validation: '%{count}つの項目に不備が見つかりました。'
   helpers:
     submit:
       create: 登録する
@@ -18,6 +21,13 @@ ja:
       submit: 保存する
       search: 検索
       login: ログイン
+  date:
+    formats:
+      default: ! '%Y/%m/%d'
+  time:
+    formats:
+      default: ! '%Y/%m/%d %H:%M:%S'
+
   flash:
     create_success: '新しい%{model}が登録されました！'
     update_success: '%{model}が更新されました！'
@@ -37,11 +47,4 @@ ja:
     delete: 本当に削除して良いですか？
   message:
     login_user: '%{name}さん'
-  errors:
-    validation: '%{count}つの項目に不備が見つかりました。'
-  date:
-    formats:
-      default: ! '%Y/%m/%d'
-  time:
-    formats:
-      default: ! '%Y/%m/%d %H:%M:%S'
+

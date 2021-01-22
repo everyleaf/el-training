@@ -1,0 +1,8 @@
+<tr>
+  <td><%= user.name %></td>
+  <td><%= user.email %></td>
+  <td><%= user.count_all %></td>
+  <td><%= I18n.l(user.created_at) %></td>
+  <td><%= I18n.l(user.updated_at) %></td>
+  <td><%= link_to(icon('fas', 'trash-alt'), user, { method: :delete, data: { confirm: I18n.t('confirms.delete') }, class: 'delete-link' }) %></td>
+</tr>
