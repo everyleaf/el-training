@@ -148,7 +148,7 @@
 
 ### ステップ6: Linter を設定しよう
 - `Gemfile` で [retrieva-cop](https://github.com/retrieva/retrieva-cop) をインストールしましょう
-- Circle CIを導入して、PR作成時に Linter が実行されるようにしましょう
+- Circle CI を導入して、PR作成時に Linter が実行されるようにしましょう
   - 難易度を考えて、サポーターが実施する形でも構いません
 - 以降、コーディング規約はサポーター・レビュワーと相談しながら必要に応じて更新していきましょう
 
