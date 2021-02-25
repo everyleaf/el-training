@@ -147,6 +147,8 @@
   - コメントがついたらその対応を行ってください。LGTM（Looks Good To Me）が2つついたらmasterブランチにマージしましょう
 
 ### ステップ6: RuboCop を設定しよう
+- Linter/ Formatter として RuboCop を設定しましょう
+- 当カリキュラムでは Rails アプリ作成にあわせて規約を調整済の [retrieva-cop](https://github.com/retrieva/retrieva-cop) を利用します。
 - `Gemfile` で [retrieva-cop](https://github.com/retrieva/retrieva-cop) をインストールしましょう
 - Circle CI を導入して、PR作成時に RuboCop が実行されるようにしましょう
   - 難易度を考えて、サポーターが実施する形でも構いません
