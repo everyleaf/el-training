@@ -22,8 +22,8 @@ services:
     links:
       - db
     depends_on:
-      - chrome # <-- Link to the chrome container
-    environment: # <-- environment configs for database.yml
+      - chrome # Link to the chrome container
+    environment: # environment configs for config/database.yml, change here if you want to change db user and password
       DB_USER: root
       DB_NAME: myapp
       DB_PASSWORD: password
