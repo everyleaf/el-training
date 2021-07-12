@@ -140,10 +140,10 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
       charset: utf8mb4 # ここを追加
       collation: utf8mb4_general_ci # ここを追加
       pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-      database: <%= ENV['DB_NAME'] %>
-      username: <%= ENV['DB_USER'] %>
-      password: <%= ENV['DB_PASSWORD'] %>
-      host: <%= ENV['DB_HOST'] %>
+      database: <%= ENV['DB_NAME'] %> # from docker-compose.yml 
+      username: <%= ENV['DB_USER'] %> # from docker-compose.yml 
+      password: <%= ENV['DB_PASSWORD'] %> # from docker-compose.yml 
+      host: <%= ENV['DB_HOST'] %> # from docker-compose.yml 
     ```
     - 他の部分はそのままで大丈夫です
 - 以下のコマンドでDockerをビルドしてアプリを立ち上げましょう
