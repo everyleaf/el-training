@@ -140,9 +140,10 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
       charset: utf8mb4 # ここを追加
       collation: utf8mb4_general_ci # ここを追加
       pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-      username: root
-      password: password # ここを修正
-      host: db # ここを修正
+      database: <%= ENV['DB_NAME'] %> # from docker-compose.yml 
+      username: <%= ENV['DB_USER'] %> # from docker-compose.yml 
+      password: <%= ENV['DB_PASSWORD'] %> # from docker-compose.yml 
+      host: <%= ENV['DB_HOST'] %> # from docker-compose.yml 
     ```
     - 他の部分はそのままで大丈夫です
 - 以下のコマンドでDockerをビルドしてアプリを立ち上げましょう
@@ -232,7 +233,40 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
   - 今後、PRが大きくなりそうだったらPRを2回以上に分けることを検討しましょう
 
 ### ステップ8: テスト(system spec)を書こう
+- First make sure that these gems are exist in Gemfile
+  ```
+  group :test do
+    gem 'capybara', '>= 2.15'
+    gem 'selenium-webdriver'
+  end
+  ```
+  **Note**: Remove the `webdrivers` gem from your Gemfile. If `webdrivers` is present, it will attempt to  find Chrome in your application’s container. 
+  As Chrome isn’t installed  in the Dockerfile, the spec will fail.
+  
+- Before start testing we need to register a new driver with Capybara that is configured to use the Selenium container, add the below codes to 
+  `spec/rails_helper.rb`
+  ```
+  Capybara.register_driver :remote_chrome do |app|
+    hub_url = 'https://chrome:4444/wd/hub'
+    chrome_capabilities = ::Selenium::WebDriver::Remote::Capabilities.chrome(
+      'goog:chromeOptions' => {
+        'args' => %w[no-sandbox headless disable-gpu window-size=1680,1050],
+      },
+    )
+    Capybara::Selenium::Driver.new(app, browser: :remote, url: hub_url, desired_capabilities: chrome_capabilities)
+  end
 
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, type: :system, js: true) do
+    driven_by :remote_chrome
+    Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
+    Capybara.server_port = 3000
+    Capybara.app_host = "https://#{Capybara.server_host}:#{Capybara.server_port}"
+  end
+  ```
 - specを書くための準備をしましょう
   - `spec/spec_helper.rb` 、 `spec/rails_helper.rb` を用意しましょう
 - ~~feature spec~~ system specをタスク機能に対して書きましょう
