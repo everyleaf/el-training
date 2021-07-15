@@ -176,7 +176,7 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
   - コントローラとビューに必要な実装を追加しましょう
   - 作成、更新、削除後はそれぞれflashメッセージを画面に表示させましょう
 - `routes.rb` を編集して、 `http://localhost:3000/` でタスクの一覧画面が表示されるようにしましょう
-- `Gemfile` で [rubocop](https://github.com/rubocop/rubocop) か [fablicop](https://github.com/Fablic/fablicop)（Rubyの静的コード解析ツール）をインストールしましょう。設定やコマンド実行方法は各READMEから確認しましょう。
+- `Gemfile` で [RuboCop](https://github.com/rubocop/rubocop)（Rubyの静的コード解析ツール） か [fablicop](https://github.com/Fablic/fablicop)をインストールしましょう。設定やコマンド実行方法は各READMEから確認しましょう。
 - GitHub上でPRを作成してレビューしてもらいましょう
   - 今後、PRが大きくなりそうだったらPRを2回以上に分けることを検討しましょう
 
