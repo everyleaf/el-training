@@ -256,6 +256,7 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
 - ユーザとタスクが紐づくようにしましょう
   - 関連に対してインデックスを貼りましょう
   - N+1問題を回避するための仕組みを取り入れましょう
+    - N+1クエリを自動検出するbulletを導入してみましょう（[参考記事](https://fablic.qiita.com/craftcat/items/b181b67ddae0c7d0702a)）
 
 ### ステップ17: ログイン/ログアウト機能を実装しよう
 
