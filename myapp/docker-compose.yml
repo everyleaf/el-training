@@ -17,6 +17,7 @@ services:
     volumes:
       - .:/myapp
       - bundle-install:/usr/local/bundle:delegated
+      - node_modules:/myapp/node_modules:delegated
     ports:
       - "3001:3000"
     links:
@@ -39,3 +40,4 @@ volumes:
     driver: local
   bundle-install:
     driver: local
+  node_modules:
