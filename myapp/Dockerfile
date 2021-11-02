@@ -1,6 +1,5 @@
-FROM node:12-alpine AS node
-
 FROM ruby:2.6
+ENV NODE_VERSION 12
 
 ENV LANG C.UTF-8
 
@@ -9,14 +8,17 @@ RUN apt-get update -qq && \
       build-essential \
       libpq-dev \
       default-mysql-client \
+      nodejs \
       jq \
       git \
       curl \
       python3 \
       less
 
-COPY --from=node /usr/local/bin/ /usr/local/bin/
-COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+# node install
+RUN curl -SL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
+    && apt-get -y remove nodejs-doc \
+    && apt-get install -y nodejs
 
 # yarn install
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
