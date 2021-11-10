@@ -13,10 +13,18 @@ services:
 
   api:
     build: .
-    command: bash -c "bundle install && yarn install && bundle exec rails webpacker:install && bundle exec rails db:create && bundle exec rails db:migrate && rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: >
+      bash -c "bundle install &&
+      yarn install &&
+      bundle exec rails webpacker:install &&
+      bundle exec rails db:create &&
+      bundle exec rails db:migrate &&
+      rm -f tmp/pids/server.pid &&
+      bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/myapp
       - bundle-install:/usr/local/bundle:delegated
+      - node_modules:/myapp/node_modules:delegated
     ports:
       - "3001:3000"
     links:
@@ -39,3 +47,4 @@ volumes:
     driver: local
   bundle-install:
     driver: local
+  node_modules:

@@ -126,6 +126,11 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
     ```sh
     cd myapp
     ```
+- 自分の名前を`myapp/.env`に追加します
+    ```yml
+    COMPOSE_PROJECT_NAME=〇〇-training # 〇〇に自分の名前を入力
+    # ex) COMPOSE_PROJECT_NAME=Taro-training
+    ```
 - 下記コマンドでアプリケーションに最低限必要なディレクトリやファイルを作成しましょう
     ```sh
     docker-compose run api rails new . --force --database=mysql -G
