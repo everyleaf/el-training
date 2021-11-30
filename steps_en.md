@@ -180,9 +180,42 @@ Create CRUD to manage the tasks. First of all, let's make it with a simple struc
   - In the future, if the PR is likely to grow, consider dividing the PR into two or more times.
 
 ### Step 8: Write a test (system spec)
+- First make sure that these gems are exist in Gemfile
+  ```
+  group :test do
+    gem 'capybara', '>= 2.15'
+    gem 'selenium-webdriver'
+  end
+  ```
+  **Note**: Remove the `webdrivers` gem from your Gemfile. If `webdrivers` is present, it will attempt to  find Chrome in your application’s container. 
+  As Chrome isn’t installed  in the Dockerfile, the spec will fail.
+  
+- Before start testing we need to register a new driver with Capybara that is configured to use the Selenium container, add the below codes to 
+  `spec/rails_helper.rb`
+  ```
+  Capybara.register_driver :remote_chrome do |app|
+    hub_url = 'https://chrome:4444/wd/hub'
+    chrome_capabilities = ::Selenium::WebDriver::Remote::Capabilities.chrome(
+      'goog:chromeOptions' => {
+        'args' => %w[no-sandbox headless disable-gpu window-size=1680,1050],
+      },
+    )
+    Capybara::Selenium::Driver.new(app, browser: :remote, url: hub_url, desired_capabilities: chrome_capabilities)
+  end
 
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, type: :system, js: true) do
+    driven_by :remote_chrome
+    Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
+    Capybara.server_port = 3000
+    Capybara.app_host = "https://#{Capybara.server_host}:#{Capybara.server_port}"
+  end
+  ```
 - Get ready to write a spec
-  - Let's get prepared  `spec/spec_helper.rb`, `spec/rails_helper.rb`
+  - Let's prepare  `spec/spec_helper.rb`, `spec/rails_helper.rb`
 - Let's write a system spec for the task function
   - Rails 5.1 以降、新たにsystem testの機能を追加しました
   - After Rails 5.1, we have added a new system test function
@@ -190,7 +223,7 @@ Create CRUD to manage the tasks. First of all, let's make it with a simple struc
   - After changing system spec, you don't need `database_cleaner` for feature spec.
 - Introducing CI(Continuous Integration) like Circle CI, let's ping Slack
   - Introducing CI is optional when PRing in Fablic/training. There's no execution permission because of no admin permission.
-- cf. https://leanpub.com/everydayrailsrspec/
+- ref. https://leanpub.com/everydayrailsrspec/
 
 ### Step 9: Make various settings for the app
 
