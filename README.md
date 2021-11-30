@@ -1,4 +1,4 @@
-Hello welcome to the Rails Training, below is the links of the training curriculum. Choose the language you prefer.
+Hello welcome to the Rails Training, here are the links of the training curriculum. Choose the language you prefer.
 
 - [English](steps_en.md)
 - [日本語](steps_jp.md)
