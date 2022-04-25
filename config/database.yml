@@ -15,9 +15,6 @@ test:
   <<: *default
   database: task_app_test
 
-#Herokuデプロイ時に再度見直す
 production:
   <<: *default
-  database: task_app_production
-  username: task_app
-  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+  password: <%= ENV['TASK_APP_DATABASE_PASSWORD'] %>
