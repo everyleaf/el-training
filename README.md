@@ -12,10 +12,10 @@
   - オプション課題をまとめたドキュメントです
 
 ## 環境構築
-### DB設定
+### DB設定(postgreSQLのインストール〜DB作成・権限付与)
 `> $ rails new`
 をするとデフォルトでsqlite3の使用を前提とした`database.yml`が作成されます。  
-このタスク管理アプリではDBにPostgreSQLを使用します。  
+このタスク管理アプリではDBにPostgreSQLを使用します。    
 
 1. PostgreSQLをインストール  
 ```
@@ -87,8 +87,11 @@ export PGDATA=user/local/bin/postgres
 >
 > task_app_development=# \q  # 操作終了
 >
->brew services stop postgresql
+> $ brew services stop postgresql
 ```
+
+参考 : [PostgreSQLのインストールからRailsでのDB変更まで](https://qiita.com/krtsato/items/4565051608a63f11b316)
+
 ## ライセンス
 
 このカリキュラムは[クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際 ライセンス](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja)の下に提供されています。
