@@ -35,7 +35,8 @@
 
 4. PGDATAのパスを登録  
 
-`~/.bash_plofile`
+`vi ~/.bash_plofile`
+
 ```
 # PostgreSQL 追加
 export PGDATA=user/local/bin/postgres
