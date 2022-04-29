@@ -47,6 +47,9 @@ export PGDATA=user/local/bin/postgres
 5. ユーザ作成  
 アプリ名をユーザとして定義  
 ```
+> $ brew services start postgresql #DB起動
+==> Successfully started ` postgresql` ...
+...
 > $ createuser task_app
 ```
 
@@ -57,14 +60,7 @@ export PGDATA=user/local/bin/postgres
 ```
 `createdb task_app_production` はHerokuのPostgreSQLを使用するので実行しない。  
 
-7. DB起動
-```
-> $ brew services start postgresql
-==> Successfully started ` postgresql` ...
-...
-```
-
-8. DB権限付与  
+7. DB権限付与  
 ユーザの名前を確認(以下のMacUserの箇所に表示される)
 ```
 > $ psql -c 'select * from pg_user' postgres
