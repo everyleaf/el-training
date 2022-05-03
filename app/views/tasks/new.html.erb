@@ -1,2 +1,26 @@
-<h1>Tasks#new</h1>
-<p>Find me in app/views/tasks/new.html.erb</p>
+<% provide(:title, 'Sign up') %>
+<h1>new task</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@task) do |f| %>
+      <%= f.label :task_name %>
+      <%= f.text_field :task_name %>
+
+      <%= f.label :abdtract_text %>
+      <%= f.text_area :abstract_text %>
+
+      <%= f.label :start_date %>
+      <%= f.text_area :start_date %>
+
+      <%= f.label :deadline_date %>
+      <%= f.text_area :deadline_date%>
+      
+      <%=f.radio_button :status, 0%>未着手
+      <%=f.radio_button :status, 1%>実行中
+      <%=f.radio_button :status, 2%>完了
+
+      <%= f.submit "Create task", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
