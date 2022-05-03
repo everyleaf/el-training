@@ -1,4 +1,3 @@
-<% provide(:title, 'Sign up') %>
 <h1>new task</h1>
 
 <div class="row">
@@ -16,9 +15,19 @@
       <%= f.label :deadline_date %>
       <%= f.text_area :deadline_date%>
       
-      <%=f.radio_button :status, 0%>未着手
-      <%=f.radio_button :status, 1%>実行中
-      <%=f.radio_button :status, 2%>完了
+      <div class="radio-inline">
+      <%=f.label "未着手"%>  
+      <%=f.radio_button :status, 0%>
+      </div>
+      <div class="radio-inline">
+      <%=f.label "実行中"%>
+      <%=f.radio_button :status, 1%>
+      </div>
+      <div class="radio-inline">
+      <%=f.label "完了"%>
+      <%=f.radio_button :status, 2%>
+      </div>
+     
 
       <%= f.submit "Create task", class: "btn btn-primary" %>
     <% end %>
