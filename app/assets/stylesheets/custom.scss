@@ -1,6 +1,28 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+/* universal */
+
+body {
+    padding-top: 60px;
+}
+
+section {
+    overflow: auto;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.center {
+    text-align: center;
+}
+
+.center h1 {
+    margin-bottom: 10px;
+}
+
 /* forms */
 
 input,
@@ -10,7 +32,6 @@ select,
     border: 1px solid #bbb;
     width: 100%;
     margin-bottom: 15px;
-    @include box_sizing;
 }
 
 input {
