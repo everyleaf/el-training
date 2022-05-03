@@ -1,2 +1,24 @@
-<h1>Tasks#show</h1>
-<p>Find me in app/views/tasks/show.html.erb</p>
+<div class="row">
+  <div class="col-md-8 col-md-offset-1">
+  <div>
+    <span>タスク名</span>
+    <%=@task.task_name%>
+  </div>
+  <div>
+    <span>説明</span>
+    <%= @task.abstract_text %>
+  </div>
+  <div>
+    <span>取り掛かり開始日</span>
+    <%= @task.start_date %>
+  </div>
+  <div>
+    <span>締め切り</span>
+    <%= @task.deadline_date %>
+  </div>
+  <div>
+    <span>実行状況</span>
+    <%= @task.status %>
+  </div>
+  </div>
+</div>
