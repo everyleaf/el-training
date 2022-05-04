@@ -41,7 +41,6 @@ class TasksController < ApplicationController
       flash.now[:danger] = I18n.t 'task_update_failed'
       render 'edit'
     end
-  end
 
   private
 
