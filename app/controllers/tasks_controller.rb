@@ -20,6 +20,12 @@ class TasksController < ApplicationController
     @tasks = Task.all
   end
 
+  def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+    redirect_to tasks_url
+  end
+
   private
 
   def task_params
