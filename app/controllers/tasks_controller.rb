@@ -34,6 +34,12 @@ class TasksController < ApplicationController
     end
   end
 
+  def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+    redirect_to tasks_url
+  end
+  
   def edit
     @task = find_task_with_err_handling(params[:id])
   end
