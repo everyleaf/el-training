@@ -18,16 +18,9 @@
       <%= @task.name %>
     </div>
 
-    <% if @task.description.present? %>
-      <div>
-        <span>説明</span>
-        <%= @task.description %>
-      </div>
-    <% end %>
-
     <div>
-      <span>必要日数</span>
-      <%= @task.necessary_days %>日
+      <span>説明</span>
+      <%= @task.abstract_text %>
     </div>
 
     <div>
@@ -39,12 +32,7 @@
 
     <div>
       <span>実行状況</span>
-      <%= @task.progress %>
-    </div>
-    
-    <div>
-      <span>重要度</span>
-      <%= @task.priority %>
+      <span><%= @task.status %></span>
     </div>
 
   </div>
