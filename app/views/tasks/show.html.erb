@@ -2,8 +2,8 @@
   <span><%= link_to "一覧に戻る",  task_url      %></span>
   <span><%= link_to "編集",       edit_task_path%></span>
   <span>
-    <%= button_to "タスクを削除", @task, method: :delete %> 
-    <!-- TODO: 削除時に確認ポップアップを出す -->
+    <%= button_to "タスクを削除", @task, method: :delete,
+                                  data: {confirm: "削除しますか？"}  %>
   </span>
 </div>
 
@@ -14,19 +14,12 @@
 
     <div>
       <span>タスク名</span>
-      <%=@task.name%>
+      <%=@task.task_name%>
     </div>
 
-    <% if @task.description.present? %>
-      <div>
-        <span>説明</span>
-        <%= @task.description %>
-      </div>
-    <% end %>
-
     <div>
-      <span>必要日数</span>
-      <%= @task.necessary_days %>日
+      <span>説明</span>
+      <%= @task.abstract_text %>
     </div>
 
     <div>
@@ -38,12 +31,7 @@
 
     <div>
       <span>実行状況</span>
-      <%= @task.progress %>
-    </div>
-    
-    <div>
-      <span>重要度</span>
-      <%= @task.priority %>
+      <span><%= @task.status %></span>
     </div>
   </div>
 </div>
