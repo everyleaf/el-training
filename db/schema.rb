@@ -15,12 +15,12 @@ ActiveRecord::Schema[7.0].define(version: 20_220_502_063_425) do
   enable_extension 'plpgsql'
 
   create_table 'tasks', force: :cascade do |t|
-    t.string   'name',                             null: false
-    t.text     'description',                      null: false
+    t.string   'name',                              null: false
+    t.text     'description',                       null: false
     t.date     'start_date', default: '2022-05-09', null: false
     t.date     'deadline_date'
-    t.integer  'progress', default: 0, null: false, comment: '0:未実行, 1:実行中, 2:完了'
-    t.datetime 'created_at',                       null: false
-    t.datetime 'updated_at',                       null: false
+    t.integer  'progress', default: 0,              null: false, comment: '0:未実行, 1:実行中, 2:完了'
+    t.datetime 'created_at',                        null: false
+    t.datetime 'updated_at',                        null: false
   end
 end
