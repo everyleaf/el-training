@@ -9,5 +9,6 @@ jobs:
         with:
           ruby-version: 3.1.2
           bundler-cache: true
+      - run: bundle install
       - name: RuboCop実行
         run: bundle exec rubocop --parallel
