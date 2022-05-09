@@ -10,7 +10,7 @@ class TaskTest < ActiveSupport::TestCase
 
     @task.name        = 'example task'
     @task.description = 'abstract text'
-    @start_date       = Time.zone.today
+    @task.start_date  = Time.zone.today
     @task.progress    = 0
 
     assert @task.valid?
