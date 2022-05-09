@@ -8,6 +8,7 @@ jobs:
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: 3.1.2
+          bundler: 2.3.7
           bundler-cache: true
       - run: bundle install
       - name: RuboCop実行
