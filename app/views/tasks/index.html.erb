@@ -4,17 +4,18 @@
   <%= link_to "タスクを作成", new_task_path %>
 </div>
 <br>
+
 <ul class="tasks">
   <% @tasks.each do |task| %>
     <li>
       <div>
         <span>タスク名</span>
-        <span><%= task.task_name%></span>
+        <span><%= task.name%></span>
         <span><%= link_to "詳細",  task%></span>
       </div>
       <div>
         <span>説明文</span>
-        <%= task.abstract_text %>
+        <%= task.description %>
       </div>
       <div>
         <span>取り掛かり開始日</span>
@@ -26,7 +27,7 @@
       </div>
       <div>
         <span>実行状況</span>
-        <%= task.status %>
+        <%= task.progress %>
       </div>
       <br>
     </li>
