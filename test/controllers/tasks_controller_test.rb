@@ -1,18 +1,18 @@
 require 'test_helper'
 
 class TasksControllerTest < ActionDispatch::IntegrationTest
-<<<<<<< HEAD
   test 'should get new' do
-    get tasks_new_url
-=======
+    get new_task_url
+    assert_response :success
+  end
+
   test 'should get show' do
-    get tasks_show_url
+    get task_url
     assert_response :success
   end
 
   test 'should get index' do
-    get tasks_index_url
->>>>>>> step8-1-create-task-view
+    get tasks_url
     assert_response :success
   end
 end
