@@ -1,6 +1,6 @@
 class Task < ApplicationRecord
-  validates :task_name,     presence: true
-  validates :abstract_text, presence: true
-  # validates :start_date,    presence: true
-  validates :status,        presence: true
+  validates :name,        presence: true
+  validates :description, presence: true
+  validates :start_date,  presence: true
+  validates :progress,    presence: true
 end
