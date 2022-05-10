@@ -2,11 +2,11 @@
   <div class="col-md-8 col-md-offset-1">
   <div>
     <span>タスク名</span>
-    <%=@task.task_name%>
+    <%=@task.name%>
   </div>
   <div>
     <span>説明</span>
-    <%= @task.abstract_text %>
+    <%= @task.description %>
   </div>
   <div>
     <span>取り掛かり開始日</span>
@@ -18,7 +18,7 @@
   </div>
   <div>
     <span>実行状況</span>
-    <%= @task.status %>
+    <%= @task.progress %>
   </div>
   </div>
 </div>
