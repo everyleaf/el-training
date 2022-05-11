@@ -1,8 +1,5 @@
 <h1>All tasks</h1>
 
-<div>
-  <%= link_to "タスクを作成", new_task_path %>
-</div>
 <br>
 
 <ul class="tasks">
@@ -33,12 +30,24 @@
 
       <div>
         <span>実行状況</span>
-        <%= task.progress %>
+        <% if    task.progress == 0 %>
+          未実行
+        <% elsif task.progress == 1 %>
+          実行中
+        <% elsif task.progress == 2 %>
+          完了
+        <% end %>
       </div>
-
+      
       <div>
         <span>重要度</span>
-        <%= task.priority %>
+        <% if    task.priority == 0 %>
+          低
+        <% elsif task.priority == 1 %>
+          中
+        <% elsif task.priority == 2 %>
+          高
+        <% end %>
       </div>
       
       <br>

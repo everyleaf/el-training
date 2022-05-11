@@ -5,7 +5,7 @@
     <%=@task.name%>
   </div>
 
-  <% if !task.description.nil? %>
+  <% if !@task.description.nil? %>
     <div>
       <span>説明</span>
       <%= @task.description %>
@@ -32,7 +32,7 @@
       完了
     <% end %>
   </div>
-  
+
   <div>
     <span>重要度</span>
     <% if    @task.priority == 0 %>
