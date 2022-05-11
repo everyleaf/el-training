@@ -14,11 +14,15 @@
   </div>
   <div>
     <span>締め切り</span>
-    <%= @task.deadline_date %>
+    <%= @task.necessary_days %>
   </div>
   <div>
     <span>実行状況</span>
     <%= @task.progress %>
+  </div>
+    <div>
+    <span>重要度</span>
+    <%= @task.priority %>
   </div>
   </div>
 </div>
