@@ -24,10 +24,20 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
+  def update
+    @task = Task.find(params[:id])
+    if @task.update(task_params)
+      redirect_to @task
+    else
+      render 'edit'
+    end
+  end
+
   private
 
   def task_params
-    params.require(:task).permit(:task_name,  :abstract_text,
-                                 :start_date, :deadline_date, :status)
+    params.require(:task).permit(:name,       :description,
+                                 :start_date, :necessary_days,
+                                 :progress,   :priority)
   end
 end
