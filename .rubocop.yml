@@ -12,3 +12,4 @@ AllCops:
   TargetRailsVersion: 7.0
   Exclude:
     - bin/bundle
+    - vendor/**/*
