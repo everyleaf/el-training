@@ -3,31 +3,33 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@task) do |f| %>
-      <%= f.label :task_name %>
-      <%= f.text_field :task_name %>
+      <%= f.label      :task_name %>
+      <%= f.text_field :name %>
 
-      <%= f.label :abdtract_text %>
-      <%= f.text_area :abstract_text %>
+      <%= f.label     :description %>
+      <%= f.text_area :description %>
 
-      <%= f.label :start_date %>
+      <%= f.label     :start_date %>
       <%= f.text_area :start_date %>
 
-      <%= f.label :deadline_date %>
-      <%= f.text_area :deadline_date%>
+      <%= f.label     :necessary_days %>
+      <%= f.text_area :necessary_days %>
       
-      <div class="radio-inline">
-      <%=f.label "未着手"%>  
-      <%=f.radio_button :status, 0%>
+      <%= f.label :progress %>
+      <div>
+        <%= f.radio_button :progress, 0 %>未実行
+        <%= f.radio_button :progress, 1 %>実行中
+        <%= f.radio_button :progress, 2 %>完了
       </div>
-      <div class="radio-inline">
-      <%=f.label "実行中"%>
-      <%=f.radio_button :status, 1%>
+
+      <br>
+      
+      <%= f.label :priority %>
+      <div>
+        <%= f.radio_button :priority, 0 %>低
+        <%= f.radio_button :priority, 1 %>中
+        <%= f.radio_button :priority, 2 %>高
       </div>
-      <div class="radio-inline">
-      <%=f.label "完了"%>
-      <%=f.radio_button :status, 2%>
-      </div>
-     
 
       <%= f.submit "Create task", class: "btn btn-primary" %>
     <% end %>
