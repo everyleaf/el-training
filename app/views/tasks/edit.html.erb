@@ -1,28 +1,35 @@
 <div class="row">
   <div class="col-md-8 col-md-offset-1">
-    <div>
-      <span>タスク名</span>
-      <%=@task.name%>
-    </div>
-    <div>
-      <span>説明</span>
-      <%= @task.description %>
-    </div>
-    <div>
-      <span>取り掛かり開始日</span>
-      <%= @task.start_date %>
-    </div>
-    <div>
-      <span>締め切り</span>
-      <%= @task.necessary_days %>
-    </div>
-    <div>
-      <span>実行状況</span>
-      <%= @task.progress %>
-    </div>
+  <%= form_for(@task) do |f| %>
+      <%= f.label      :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= f.label     :description %>
+      <%= f.text_area :description, class: 'form-control' %>
+
+      <%= f.label     :start_date %>
+      <%= f.text_area :start_date, class: 'form-control' %>
+
+      <%= f.label     :necessary_days %>
+      <%= f.text_area :necessary_days, class: 'form-control' %>
+
+      <%= f.label :progress %>
       <div>
-      <span>重要度</span>
-      <%= @task.priority %>
-    </div>
+        <%= f.radio_button :progress, 0 %>未実行
+        <%= f.radio_button :progress, 1 %>実行中
+        <%= f.radio_button :progress, 2 %>完了
+      </div>
+
+      <br>
+      
+      <%= f.label :priority %>
+      <div>
+        <%= f.radio_button :priority, 0 %>低
+        <%= f.radio_button :priority, 1 %>中
+        <%= f.radio_button :priority, 2 %>高
+      </div>
+
+      <%= f.submit "Save changes", class: "btn btn-primary" %>
+    <% end %>
   </div>
 </div>
