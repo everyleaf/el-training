@@ -16,14 +16,24 @@
     <span>取り掛かり期間</span>
     <%= @task.start_date %> ~ <%= @task.necessary_days %>
   </div>
-  </div>
   <div>
     <span>実行状況</span>
-    <%= @task.progress %>
+    <% if    @task.progress == 0 %>
+      未実行
+    <% elsif @task.progress == 1 %>
+      実行中
+    <% elsif @task.progress == 2 %>
+      完了
+    <% end %>
   </div>
-    <div>
+  <div>
     <span>重要度</span>
-    <%= @task.priority %>
-  </div>
+    <% if    @task.priority == 0 %>
+      低
+    <% elsif @task.priority == 1 %>
+      中
+    <% elsif @task.priority == 2 %>
+      高
+    <% end %>
   </div>
 </div>
