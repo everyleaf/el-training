@@ -4,18 +4,24 @@
     <span>タスク名</span>
     <%=@task.name%>
   </div>
-  <div>
-    <span>説明</span>
-    <%= @task.description %>
-  </div>
+
+  <% if !task.description.nil? %>
+    <div>
+      <span>説明</span>
+      <%= @task.description %>
+    </div>
+  <% end %>
+
   <div>
     <span>必要日数</span>
     <%= @task.necessary_days %>
   </div>
+
   <div>
     <span>取り掛かり期間</span>
-    <%= @task.start_date %> ~ <%= @task.necessary_days %>
+    <%= @task.start_date %> ~ <%= @task.start_date+@task.necessary_days %>
   </div>
+
   <div>
     <span>実行状況</span>
     <% if    @task.progress == 0 %>
@@ -26,6 +32,7 @@
       完了
     <% end %>
   </div>
+  
   <div>
     <span>重要度</span>
     <% if    @task.priority == 0 %>
