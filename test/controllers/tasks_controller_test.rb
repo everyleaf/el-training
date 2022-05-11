@@ -1,13 +1,17 @@
 require 'test_helper'
 
 class TasksControllerTest < ActionDispatch::IntegrationTest
+  def setup
+    @task = tasks(:one)
+  end
+
   test 'should get show' do
-    get tasks_show_url
+    get task_url(@task)
     assert_response :success
   end
 
   test 'should get index' do
-    get tasks_index_url
+    get tasks_url
     assert_response :success
   end
 end
