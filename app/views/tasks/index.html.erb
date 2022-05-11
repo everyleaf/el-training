@@ -11,7 +11,7 @@
         <span><%= link_to "詳細",  task%></span>
       </div>
 
-      <% if !task.description.nil? %>
+      <% if task.description.present? %>
         <div>
           <span>説明文</span>
           <%= task.description %>

@@ -5,7 +5,7 @@
     <%=@task.name%>
   </div>
 
-  <% if !@task.description.nil? %>
+  <% if @task.description.present? %>
     <div>
       <span>説明</span>
       <%= @task.description %>
