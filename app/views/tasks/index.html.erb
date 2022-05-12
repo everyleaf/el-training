@@ -1,8 +1,5 @@
 <h1>All tasks</h1>
 
-<div>
-  <%= link_to "タスクを作成", new_task_path %>
-</div>
 <br>
 
 <ul class="tasks">
@@ -13,26 +10,34 @@
         <span><%= task.name%></span>
         <span><%= link_to "詳細",  task%></span>
       </div>
+
+      <% if task.description.present? %>
+        <div>
+          <span>説明文</span>
+          <%= task.description %>
+        </div>
+      <% end %>
+
       <div>
-        <span>説明文</span>
-        <%= task.description %>
+        <span>必要日数</span>
+        <%= task.necessary_days %>日
       </div>
+
       <div>
-        <span>取り掛かり開始日</span>
-        <%= task.start_date %>
+        <span>取り掛かり期間</span>
+        <%= task.start_date %> ~ <%= task.start_date + task.necessary_days %>
       </div>
-      <div>
-        <span>締め切り</span>
-        <%= task.necessary_days %>
-      </div>
+
       <div>
         <span>実行状況</span>
         <%= task.progress %>
       </div>
+      
       <div>
         <span>重要度</span>
-        <%= task.priority %>
+        <%= task.priority%>
       </div>
+      
       <br>
     </li>
   <% end %>
