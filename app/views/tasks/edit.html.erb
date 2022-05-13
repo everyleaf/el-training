@@ -1,23 +1,21 @@
-<h1>new task</h1>
-
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@task) do |f| %>
+  <div class="col-md-8 col-md-offset-1">
+  <%= form_for(@task) do |f| %>
       <%= f.label      :name %>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, class: 'form-control' %>
 
       <%= f.label     :description %>
-      <%= f.text_area :description %>
+      <%= f.text_area :description, class: 'form-control' %>
 
       <%= f.label     :start_date %>
-      <%= f.text_area :start_date %>
+      <%= f.text_area :start_date, class: 'form-control' %>
 
       <%= f.label     :necessary_days %>
-      <%= f.text_area :necessary_days %>
-      
+      <%= f.text_area :necessary_days, class: 'form-control' %>
+
       <%= f.label :progress %>
       <div>
-        <%= f.radio_button :progress, '未着手' %>未実行
+        <%= f.radio_button :progress, '未着手' %>未着手
         <%= f.radio_button :progress, '実行中' %>実行中
         <%= f.radio_button :progress, '完了' %>完了
       </div>
@@ -31,7 +29,7 @@
         <%= f.radio_button :priority, '高' %>高
       </div>
 
-      <%= f.submit "Create task", class: "btn btn-primary" %>
+      <%= f.submit "Save changes", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>

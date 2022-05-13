@@ -1,15 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  task_name: MyString
-  abstract_text: MyText
+  name: task1
+  description: this is task1
   start_date: 2022-05-02
-  deadline_date: 2022-05-02
-  status: 1
+  necessary_days: 33
+  progress: 1
+  priority: 1
 
 two:
-  task_name: MyString
-  abstract_text: MyText
+  name: MyString
+  description: MyText
   start_date: 2022-05-02
-  deadline_date: 2022-05-02
-  status: 1
+  necessary_days: 2
+  progress: 1
+  priority: 2

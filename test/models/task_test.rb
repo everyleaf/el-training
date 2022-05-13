@@ -8,10 +8,11 @@ class TaskTest < ActiveSupport::TestCase
   test 'parameters validation' do
     assert_not @task.valid?
 
-    @task.task_name = 'example task'
-    @task.abstract_text = 'abstract text'
-    # @start_date = Date.parse('2022-05-03')
-    @task.status = 0
+    @task.name           = 'example task'
+    @task.start_date     = Time.zone.today
+    @task.necessary_days = 2
+    @task.priority       = 1
+
     assert @task.valid?
   end
 end
