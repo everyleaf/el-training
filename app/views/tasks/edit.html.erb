@@ -1,35 +1,6 @@
+<% provide(:button_text, "Save changes") %>
 <div class="row">
   <div class="col-md-8 col-md-offset-1">
-  <%= form_for(@task) do |f| %>
-      <%= f.label      :name %>
-      <%= f.text_field :name, class: 'form-control' %>
-
-      <%= f.label     :description %>
-      <%= f.text_area :description, class: 'form-control' %>
-
-      <%= f.label     :start_date %>
-      <%= f.text_area :start_date, class: 'form-control' %>
-
-      <%= f.label     :necessary_days %>
-      <%= f.text_area :necessary_days, class: 'form-control' %>
-
-      <%= f.label :progress %>
-      <div>
-        <%= f.radio_button :progress, '未着手' %>未着手
-        <%= f.radio_button :progress, '実行中' %>実行中
-        <%= f.radio_button :progress, '完了' %>完了
-      </div>
-
-      <br>
-      
-      <%= f.label :priority %>
-      <div>
-        <%= f.radio_button :priority, '低' %>低
-        <%= f.radio_button :priority, '中' %>中
-        <%= f.radio_button :priority, '高' %>高
-      </div>
-
-      <%= f.submit "Save changes", class: "btn btn-primary" %>
-    <% end %>
+  <%= render 'form' %>
   </div>
 </div>
