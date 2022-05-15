@@ -14,12 +14,12 @@
 
     <div>
       <span>タスク名</span>
-      <%=@task.task_name%>
+      <%=@task.name%>
     </div>
 
     <div>
       <span>説明</span>
-      <%= @task.abstract_text %>
+      <%= @task.description %>
     </div>
 
     <div>
@@ -31,7 +31,12 @@
 
     <div>
       <span>実行状況</span>
-      <span><%= @task.status %></span>
+      <%= @task.progress %>
     </div>
-  </div>
+    
+    <div>
+      <span>重要度</span>
+      <%= @task.priority %>
+    </div>
+
 </div>
