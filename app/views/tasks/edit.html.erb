@@ -1,40 +1,6 @@
 <% provide(:button_text, "Save changes") %>
 <div class="row">
   <div class="col-md-8 col-md-offset-1">
-<<<<<<< HEAD
     <%= render 'form' %>
-=======
-  <%= form_for(@task) do |f| %>
-      <%= f.label      :name %>
-      <%= f.text_field :name, class: 'form-control' %>
-
-      <%= f.label     :description %>
-      <%= f.text_area :description, class: 'form-control' %>
-
-      <%= f.label     :start_date %>
-      <%= f.text_area :start_date, class: 'form-control' %>
-
-      <%= f.label        :necessary_days %>
-      <%= f.number_field :necessary_days, min: 1, class: 'form-control' %>
-
-      <%= f.label :progress %>
-      <div>
-        <%= f.collection_radio_buttons :progress, Task.progresses, :first, :first %>
-      </div>
-
-      <br>
-      
-      <%= f.label :priority %>
-      <div>
-         <%= f.collection_radio_buttons :priority, Task.priorities, :first, :first %>
-      </div>
-
-      <%= f.submit "Save changes", class: "btn btn-primary" %>
-    <% end %>
->>>>>>> 6bbe567 (使用していないCSSクラスuneditable-inputを削除)
   </div>
-</div>
-
-<div class = "col-md-offset-1">
-  <%=link_to "編集をキャンセル", @task%>
 </div>
