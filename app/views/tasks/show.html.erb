@@ -21,7 +21,7 @@
 
   <div>
     <span>取り掛かり期間</span>
-    <%= @task.start_date %> ~ <%= @task.start_date+@task.necessary_days %>
+    <%= @task.start_date %> ~ <%= @task.start_date + @task.necessary_days - 1 %>
   </div>
 
   <div>
