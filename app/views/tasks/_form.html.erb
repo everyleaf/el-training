@@ -1,16 +1,16 @@
   <%= form_for(@task) do |f| %>
     <%= render 'shared/error_messages' %>
-      <%= f.label      :name %>
+      <%= f.label      :name  %>
       <%= f.text_field :name, class: 'form-control' %>
 
-      <%= f.label     :description %>
+      <%= f.label     :description  %>
       <%= f.text_area :description, class: 'form-control' %>
 
-      <%= f.label     :start_date %>
+      <%= f.label      :start_date  %>
       <%= f.date_field :start_date, class: 'form-control' %>
 
-      <%= f.label     :necessary_days %>
-      <%= f.text_area :necessary_days, class: 'form-control' %>
+      <%= f.label        :necessary_days  %>
+      <%= f.number_field :necessary_days, class: 'form-control' %>
 
       <%= f.label :progress %>
       <div>
