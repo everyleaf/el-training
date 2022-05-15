@@ -54,8 +54,8 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:name,       :description,
-                                  :start_date, :necessary_days,
-                                  :progress,   :priority)
+                                 :start_date, :necessary_days,
+                                 :progress,   :priority)
   end
 
   def find_task_with_err_handling(task_id)
