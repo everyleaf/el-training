@@ -1,4 +1,5 @@
   <%= form_for(@task) do |f| %>
+    <%= render 'shared/error_messages' %>
       <%= f.label      :name %>
       <%= f.text_field :name, class: 'form-control' %>
 
