@@ -32,7 +32,7 @@ class TasksController < ApplicationController
       redirect_to @task
     end
   end
-
+  
   def edit
     @task = find_task_with_err_handling(params[:id])
   end
@@ -52,8 +52,8 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:name,       :description,
-                                 :start_date, :necessary_days,
-                                 :progress,   :priority)
+                                  :start_date, :necessary_days,
+                                  :progress,   :priority)
   end
 
   def find_task_with_err_handling(task_id)
@@ -65,4 +65,5 @@ class TasksController < ApplicationController
     end
     task
   end
+
 end
