@@ -10,23 +10,19 @@
       <%= f.label     :start_date %>
       <%= f.text_area :start_date, class: 'form-control' %>
 
-      <%= f.label     :necessary_days %>
-      <%= f.text_area :necessary_days, class: 'form-control' %>
+      <%= f.label        :necessary_days %>
+      <%= f.number_field :necessary_days, min: 1, class: 'form-control' %>
 
       <%= f.label :progress %>
       <div>
-        <%= f.radio_button :progress, '未着手' %>未着手
-        <%= f.radio_button :progress, '実行中' %>実行中
-        <%= f.radio_button :progress, '完了' %>完了
+        <%= f.collection_radio_buttons :progress, Task.progresses.invert, :first, :first %>
       </div>
 
       <br>
       
       <%= f.label :priority %>
       <div>
-        <%= f.radio_button :priority, '低' %>低
-        <%= f.radio_button :priority, '中' %>中
-        <%= f.radio_button :priority, '高' %>高
+         <%= f.collection_radio_buttons :priority, Task.priorities.invert, :first, :first %>
       </div>
 
       <%= f.submit "Save changes", class: "btn btn-primary" %>
