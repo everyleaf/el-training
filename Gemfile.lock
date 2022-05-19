@@ -218,7 +218,6 @@ DEPENDENCIES
   bootstrap-sass (= 3.4.1)
   debug
   enum_help
-
   importmap-rails (~> 1.1)
   pg
   puma (~> 5.0)
