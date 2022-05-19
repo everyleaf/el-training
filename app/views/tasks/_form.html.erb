@@ -22,12 +22,7 @@
   
   <%= f.label :priority %>
   <div>
-      <%= f.collection_radio_buttons :priority, Task.priorities, :first, :first %>
-  </div>
-
-  <%= f.label :priority %>
-  <div>
-        <%= f.collection_radio_buttons :priority, Task.priorities, :first, :first %>
+    <%= f.collection_radio_buttons :priority, Task.priorities, :first, :first %>
   </div>
 
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
