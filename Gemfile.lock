@@ -218,7 +218,10 @@ DEPENDENCIES
   bootstrap-sass (= 3.4.1)
   debug
   enum_help
+<<<<<<< HEAD
   importmap-rails (~> 1.1)
+=======
+>>>>>>> 9399f2a (enum helpをインストール)
   pg
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.3)
