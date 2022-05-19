@@ -2,9 +2,8 @@
   <span><%= link_to "一覧に戻る",  task_url      %></span>
   <span><%= link_to "編集",       edit_task_path%></span>
   <span>
-    <%= button_to "タスクを削除", @task, method: :delete,
-    form: {data: {turbo_confirm: "本当に削除しますか?"} } %> 
-  </span>
+   <%= button_to "タスクを削除", @task, method: :delete,
+                      form: {data: {turbo_confirm: "本当に削除しますか?"} } %> 
 </div>
 
 <br>
@@ -44,11 +43,6 @@
     <div>
       <span>重要度</span>
       <%= @task.priority %>
-
-      <span>
-        <%= button_to "タスクを削除", @task, method: :delete,form: {data: {turbo_confirm: "本当に削除しますか?"} } %> 
-      </span>
-
     </div>
 
   </div>
