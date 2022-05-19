@@ -11,7 +11,7 @@
       <%= f.text_area :start_date, class: 'form-control' %>
 
       <%= f.label        :necessary_days %>
-      <%= f.number_field :necessary_days, class: 'form-control' %>
+      <%= f.number_field :necessary_days, min: 1, class: 'form-control' %>
 
       <%= f.label :progress %>
       <div>

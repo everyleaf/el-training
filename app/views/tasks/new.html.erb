@@ -13,7 +13,7 @@
       <%= f.date_field :start_date %>
 
       <%= f.label        :necessary_days %>
-      <%= f.number_field :necessary_days %>
+      <%= f.number_field :necessary_days, min: 1 %>
       
       <%= f.label :progress %>
       <div>
