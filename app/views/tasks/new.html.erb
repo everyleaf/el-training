@@ -17,18 +17,14 @@
       
       <%= f.label :progress %>
       <div>
-        <%= f.radio_button :progress, '未着手' %>未実行
-        <%= f.radio_button :progress, '実行中' %>実行中
-        <%= f.radio_button :progress, '完了' %>完了
+        <%= f.collection_radio_buttons :progress, Task.progresses, :first, :first %>
       </div>
 
       <br>
       
       <%= f.label :priority %>
       <div>
-        <%= f.radio_button :priority, '低' %>低
-        <%= f.radio_button :priority, '中' %>中
-        <%= f.radio_button :priority, '高' %>高
+         <%= f.collection_radio_buttons :priority, Task.priorities, :first, :first %>
       </div>
 
       <%= f.submit "Create task", class: "btn btn-primary" %>
