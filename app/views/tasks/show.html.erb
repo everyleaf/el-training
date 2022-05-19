@@ -3,7 +3,6 @@
     <div>
       <span>タスク名</span>
       <%=@task.name%>
-      <span><%= link_to "編集", edit_task_path%></span>
     </div>
 
     <% if @task.description.present? %>
@@ -33,9 +32,6 @@
     <div>
       <span>重要度</span>
       <%= @task.priority %>
-      <span>
-        <%= button_to "タスクを削除", @task, method: :delete,form: {data: {turbo_confirm: "本当に削除しますか?"} } %> 
-      </span>
     </div>
   </div>
 </div>
