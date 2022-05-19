@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+
   def new
     @task = Task.new
   end
@@ -33,7 +34,7 @@ class TasksController < ApplicationController
       redirect_to @task
     end
   end
-  
+
   def edit
     @task = find_task_with_err_handling(params[:id])
   end
