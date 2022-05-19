@@ -10,11 +10,10 @@
       <%= f.text_area :description %>
 
       <%= f.label      :start_date %>
-      <%= f.date_field :start_date, class: 'form-control' %>
+      <%= f.date_field :start_date %>
 
-
-      <%= f.label     :necessary_days %>
-      <%= f.text_area :necessary_days %>
+      <%= f.label        :necessary_days %>
+      <%= f.number_field :necessary_days %>
       
       <%= f.label :progress %>
       <div>
