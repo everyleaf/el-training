@@ -1,31 +1,27 @@
   <%= form_for(@task) do |f| %>
     <%= render 'shared/error_messages' %>
-      <%= f.label      :name  %>
+     <%= f.label      :name %>
       <%= f.text_field :name, class: 'form-control' %>
 
-      <%= f.label     :description  %>
+      <%= f.label     :description %>
       <%= f.text_area :description, class: 'form-control' %>
 
-      <%= f.label      :start_date  %>
+      <%= f.label     :start_date %>
       <%= f.date_field :start_date, class: 'form-control' %>
 
-      <%= f.label        :necessary_days  %>
+      <%= f.label        :necessary_days %>
       <%= f.number_field :necessary_days, min: 1, class: 'form-control' %>
 
       <%= f.label :progress %>
       <div>
-        <%= f.radio_button :progress, '未着手' %>未着手
-        <%= f.radio_button :progress, '実行中' %>実行中
-        <%= f.radio_button :progress, '完了' %>完了
+        <%= f.collection_radio_buttons :progress, Task.progresses, :first, :first %>
       </div>
 
       <br>
       
       <%= f.label :priority %>
       <div>
-        <%= f.radio_button :priority, '低' %>低
-        <%= f.radio_button :priority, '中' %>中
-        <%= f.radio_button :priority, '高' %>高
+         <%= f.collection_radio_buttons :priority, Task.priorities, :first, :first %>
       </div>
 
       <%= f.submit yield(:button_text), class: "btn btn-primary" %>
