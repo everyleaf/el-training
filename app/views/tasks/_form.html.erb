@@ -11,7 +11,6 @@
       <%= f.label      :start_date %>
       <%= f.date_field :start_date, class: 'form-control' %>
 
-
       <%= f.label        :necessary_days %>
       <%= f.number_field :necessary_days, min: 1, class: 'form-control' %>
 
@@ -24,7 +23,7 @@
       
       <%= f.label :priority %>
       <div>
-        <%= f.collection_radio_buttons :priority, Task.priorities, :first, :first %>
+         <%= f.collection_radio_buttons :priority, Task.priorities, :first, :first %>
       </div>
 
       <%= f.submit yield(:button_text), class: "btn btn-primary" %>
