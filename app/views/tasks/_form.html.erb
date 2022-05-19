@@ -7,15 +7,15 @@
     <%= f.label      :description %>
     <%= f.text_area  :description, class: 'form-control' %>
 
-    <%= f.label        :necessary_days  %>
-    <%= f.number_field :necessary_days, min: 1, class: 'form-control' %>
+    <%= f.label      :start_date %>
+    <%= f.date_field :start_date,  class: 'form-control' %>
 
     <%= f.label        :necessary_days %>
     <%= f.number_field :necessary_days, min: 1, class: 'form-control' %>
 
     <%= f.label :progress %>
     <div>
-      <%= f.collection_radio_buttons :progress, Task.progresses, :first, :first %>
+      <%= f.collection_radio_buttons   :progress, Task.progresses, :first, :first %>
     </div>
 
     <br>
