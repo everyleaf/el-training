@@ -15,14 +15,14 @@
 
       <%= f.label :progress %>
       <div>
-        <%= f.collection_radio_buttons :progress, Task.progresses.invert, :first, :first %>
+        <%= f.collection_radio_buttons :progress, Task.progresses, :first, :first %>
       </div>
 
       <br>
       
       <%= f.label :priority %>
       <div>
-         <%= f.collection_radio_buttons :priority, Task.priorities.invert, :first, :first %>
+         <%= f.collection_radio_buttons :priority, Task.priorities, :first, :first %>
       </div>
 
       <%= f.submit "Save changes", class: "btn btn-primary" %>
