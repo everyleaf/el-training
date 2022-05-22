@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      flash[:success] = 'Task Created Successfully!'
+      flash[:success] = I18n.t 'create_success'
       redirect_to tasks_url
     else
       render 'new'
