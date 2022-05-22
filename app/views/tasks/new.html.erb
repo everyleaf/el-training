@@ -3,7 +3,37 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+<<<<<<< HEAD
     <%= render 'form' %>
+=======
+    <%= form_for(@task) do |f| %>
+      <%= f.label      :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label     :description %>
+      <%= f.text_area :description %>
+
+      <%= f.label      :start_date %>
+      <%= f.date_field :start_date %>
+
+      <%= f.label        :necessary_days %>
+      <%= f.number_field :necessary_days, min: 1 %>
+      
+      <%= f.label :progress %>
+      <div>
+        <%= f.collection_radio_buttons :progress, Task.progresses, :first, :first %>
+      </div>
+
+      <br>
+      
+      <%= f.label :priority %>
+      <div>
+        <%= f.collection_radio_buttons :priority, Task.priorities, :first, :first %>
+      </div>
+
+      <%= f.submit "Create task", class: "btn btn-primary" %>
+    <% end %>
+>>>>>>> 6bbe567 (使用していないCSSクラスuneditable-inputを削除)
   </div>
 </div>
 
