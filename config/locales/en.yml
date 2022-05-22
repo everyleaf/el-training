@@ -30,4 +30,4 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  create_success: "Task Created Successfully!"
+  task_create_success: "Task Created Successfully!"
