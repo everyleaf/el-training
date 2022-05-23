@@ -33,4 +33,6 @@ group :development do
   gem 'retrieva-cop', require: false
 end
 
-gem "importmap-rails", "~> 1.1"
+gem 'importmap-rails', '~> 1.1'
+
+gem 'turbo-rails'
