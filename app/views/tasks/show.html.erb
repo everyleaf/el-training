@@ -2,7 +2,7 @@
   <span><%= link_to "一覧に戻る",  tasks_url      %></span>
   <span><%= link_to "編集",       edit_task_path %></span>
   <span>
-   <%= button_to "タスクを削除", @task, method: :delete,
+    <%= button_to "タスクを削除", @task, method: :delete,
                       form: {data: {turbo_confirm: "本当に削除しますか?"} } %> 
   </span>
 </div>
@@ -23,12 +23,12 @@
         <%= @task.description %>
       </div>
     <% end %>
-
+    
     <div>
       <span>必要日数</span>
       <%= @task.necessary_days %>日
     </div>
-    
+
     <div>
       <span>取り掛かり期間</span>
       <%  @deadline_date = @task.start_date + @task.necessary_days - 1 %>
