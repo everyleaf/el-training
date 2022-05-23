@@ -32,3 +32,5 @@ group :development do
   # gem "spring"
   gem 'retrieva-cop', require: false
 end
+
+gem "importmap-rails", "~> 1.1"
