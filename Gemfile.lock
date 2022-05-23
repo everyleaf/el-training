@@ -219,9 +219,13 @@ DEPENDENCIES
   debug
   enum_help
 <<<<<<< HEAD
+<<<<<<< HEAD
   importmap-rails (~> 1.1)
 =======
 >>>>>>> 9399f2a (enum helpをインストール)
+=======
+  importmap-rails (~> 1.1)
+>>>>>>> de75136 (importmapをインストール)
   pg
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.3)
