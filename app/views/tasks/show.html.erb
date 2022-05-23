@@ -23,12 +23,12 @@
         <%= @task.description %>
       </div>
     <% end %>
-
+    
     <div>
       <span>必要日数</span>
       <%= @task.necessary_days %>日
     </div>
-    
+
     <div>
       <span>取り掛かり期間</span>
       <%  @deadline_date = @task.start_date + @task.necessary_days - 1 %>
@@ -40,19 +40,11 @@
       <span>実行状況</span>
       <%= @task.progress %>
     </div>
-<<<<<<< HEAD
     
     <div>
       <span>重要度</span>
       <%= @task.priority %>
     </div>
 
-=======
-
-    <div>
-      <span>重要度</span>
-      <%= @task.priority %>
-    </div>
->>>>>>> 4392056 (「一覧に戻る」リンクをshowページに追加)
   </div>
 </div>
