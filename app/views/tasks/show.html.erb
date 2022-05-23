@@ -46,7 +46,7 @@
       <%= @task.priority %>
 
       <span>
-        <%= button_to "タスクを削除", @task, method: :delete, data: {'turbo-confirm': "Are you sure you want to submit this form?"}%> 
+        <%= button_to "タスクを削除", @task, method: :delete,form: {data: {turbo_confirm: "本当に削除しますか?"} } %> 
       </span>
 
     </div>
