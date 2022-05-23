@@ -23,12 +23,12 @@
         <%= @task.description %>
       </div>
     <% end %>
-    
+
     <div>
       <span>必要日数</span>
       <%= @task.necessary_days %>日
     </div>
-
+    
     <div>
       <span>取り掛かり期間</span>
       <%  @deadline_date = @task.start_date + @task.necessary_days - 1 %>
