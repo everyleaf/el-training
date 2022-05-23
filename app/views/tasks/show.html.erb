@@ -39,7 +39,7 @@
 
     <div>
       <span>取り掛かり期間</span>
-      <% @deadline_date = @task.start_date + @task.necessary_days - 1 %>
+      <%  @deadline_date = @task.start_date + @task.necessary_days - 1 %>
       <%= print_month_day_wday @task.start_date %> ~ 
       <%= print_month_day_wday @deadline_date %>
     </div>
