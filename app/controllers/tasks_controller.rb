@@ -9,6 +9,7 @@ class TasksController < ApplicationController
       flash[:success] = I18n.t 'task_create_success'
       redirect_to tasks_url
     else
+      flash.now[:danger] = I18n.t 'task_create_failed'
       render 'new'
     end
   end
