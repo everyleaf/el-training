@@ -12,7 +12,6 @@
 
 <div class="row">
   <div class="col-md-8 col-md-offset-1">
-
     <div>
       <span>タスク名</span>
       <%= @task.name %>
@@ -38,14 +37,6 @@
     </div>
 
     <div>
-      <span>取り掛かり期間</span>
-      <%  @deadline_date = @task.start_date + @task.necessary_days - 1 %>
-      <%= print_month_day_wday @task.start_date %> ~ 
-      <%= print_month_day_wday @deadline_date %>
-    </div>
-
-    <div>
-
       <span>実行状況</span>
       <%= @task.progress %>
     </div>
