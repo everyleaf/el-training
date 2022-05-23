@@ -11,15 +11,21 @@
 
 <div class="row">
   <div class="col-md-8 col-md-offset-1">
-
     <div>
       <span>タスク名</span>
       <%=@task.name%>
     </div>
 
+    <% if @task.description.present? %>
+      <div>
+        <span>説明</span>
+        <%= @task.description %>
+      </div>
+    <% end %>
+
     <div>
-      <span>説明</span>
-      <%= @task.description %>
+      <span>必要日数</span>
+      <%= @task.necessary_days %>日
     </div>
 
     <div>
@@ -38,5 +44,5 @@
       <span>重要度</span>
       <%= @task.priority %>
     </div>
-
+  </div>
 </div>
