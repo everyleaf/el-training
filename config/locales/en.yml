@@ -31,3 +31,4 @@
 
 en:
   task_create_success: "Task Created Successfully!"
+  task_create_failed:    "Failed to create task"
