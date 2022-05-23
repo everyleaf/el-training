@@ -14,10 +14,12 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
+    @wday = Wday.new
   end
 
   def index
     @tasks = Task.all
+    @wday = Wday.new
   end
 
   def destroy

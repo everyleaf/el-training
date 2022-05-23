@@ -22,8 +22,8 @@
   <div>
     <span>取り掛かり期間</span>
     <% @deadline_date = @task.start_date + @task.necessary_days - 1 %>
-    <%= @task.start_date.month %>/<%= @task.start_date.day %>(<%= @task.start_date.wday %>)~
-    <%= @deadline_date.month   %>/<%= @deadline_date.day %>(<%=@deadline_date.wday %>) 
+    <%= @task.start_date.month %>/<%= @task.start_date.day %>(<%= @wday.get_wday_from_int @task.start_date.wday %>)~
+    <%= @deadline_date.month   %>/<%= @deadline_date.day %>(<%= @wday.get_wday_from_int @deadline_date.wday %>) 
   </div>
 
   <div>
