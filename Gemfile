@@ -34,8 +34,6 @@ group :development do
 end
 
 gem 'importmap-rails', '~> 1.1'
-<<<<<<< HEAD
 
 gem 'turbo-rails'
-=======
->>>>>>> de75136 (importmapをインストール)
+
