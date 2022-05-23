@@ -35,8 +35,10 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
+      flash[:success] = I18n.t 'task_update_success'
       redirect_to @task
     else
+      flash.now[:danger] = I18n.t 'task_update_failed'
       render 'edit'
     end
   end
