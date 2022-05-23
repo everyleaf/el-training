@@ -16,4 +16,5 @@ class Task < ApplicationRecord
     '中': 1,
     '高': 2
   }
+
 end
