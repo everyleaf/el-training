@@ -6,15 +6,16 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
+      flash[:success] = I18n.t 'task_create_success'
       redirect_to tasks_url
     else
+      flash.now[:danger] = I18n.t 'task_create_failed'
       render 'new'
     end
   end
 
   def show
-    @task = Task.find(params[:id])
-    @wday = Wday.new
+    @task = find_task_with_err_handling(params[:id])
   end
 
   def index
@@ -23,20 +24,28 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
-    @task.destroy
-    redirect_to tasks_url
+    @task = find_task_with_err_handling(params[:id])
+
+    if @task.destroy
+      flash[:success] = I18n.t 'task_delete_success'
+      redirect_to tasks_url
+    else
+      flash[:danger] = I18n.t 'task_delete_failed'
+      redirect_to @task
+    end
   end
 
   def edit
-    @task = Task.find(params[:id])
+    @task = find_task_with_err_handling(params[:id])
   end
 
   def update
-    @task = Task.find(params[:id])
+    @task = find_task_with_err_handling(params[:id])
     if @task.update(task_params)
+      flash[:success] = I18n.t 'task_update_success'
       redirect_to @task
     else
+      flash.now[:danger] = I18n.t 'task_update_failed'
       render 'edit'
     end
   end
@@ -47,5 +56,14 @@ class TasksController < ApplicationController
     params.require(:task).permit(:name,       :description,
                                  :start_date, :necessary_days,
                                  :progress,   :priority)
+  end
+
+  def find_task_with_err_handling(task_id)
+    task = Task.find_by(id: task_id)
+    if task.blank?
+      flash[:danger] = I18n.t 'task_not_exist'
+      return redirect_to tasks_url
+    end
+    task
   end
 end
