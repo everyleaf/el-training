@@ -1,5 +1,5 @@
 <h1>All tasks</h1>
-
+<div><%= link_to 'タスクを作成', new_task_url %>
 <br>
 
 <ul class="tasks">
@@ -8,7 +8,7 @@
       <div>
         <span>タスク名</span>
         <span><%= task.name%></span>
-        <span><%= link_to "詳細",  task%></span>
+        <span><%= link_to "詳細",  task %></span>
       </div>
 
       <% if task.description.present? %>

@@ -7,6 +7,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get show' do
     get task_url(@task)
+
     assert_response :success
   end
 

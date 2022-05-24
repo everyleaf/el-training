@@ -27,3 +27,17 @@ span {
     display: inline-block;
     width: 9em;
 }
+
+/* forms */
+
+input,
+textarea,
+select {
+    border: 1px solid #bbb;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+input {
+    height: auto !important;
+}
