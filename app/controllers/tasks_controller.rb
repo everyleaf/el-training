@@ -1,5 +1,4 @@
 class TasksController < ApplicationController
-
   def new
     @task = Task.new
   end
@@ -34,7 +33,7 @@ class TasksController < ApplicationController
       redirect_to @task
     end
   end
-  
+
   def edit
     @task = find_task_with_err_handling(params[:id])
   end
@@ -48,7 +47,6 @@ class TasksController < ApplicationController
       flash.now[:danger] = I18n.t 'task_update_failed'
       render 'edit'
     end
-  end
   end
 
   private
@@ -67,6 +65,4 @@ class TasksController < ApplicationController
     end
     task
   end
-
 end
-
