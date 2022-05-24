@@ -14,7 +14,7 @@
 
     <div>
       <span>タスク名</span>
-      <%=@task.name%>
+      <%= @task.name %>
     </div>
 
     <% if @task.description.present? %>
@@ -40,11 +40,19 @@
       <span>実行状況</span>
       <%= @task.progress %>
     </div>
+<<<<<<< HEAD
     
     <div>
       <span>重要度</span>
       <%= @task.priority %>
     </div>
 
+=======
+
+    <div>
+      <span>重要度</span>
+      <%= @task.priority %>
+    </div>
+>>>>>>> 4392056 (「一覧に戻る」リンクをshowページに追加)
   </div>
 </div>

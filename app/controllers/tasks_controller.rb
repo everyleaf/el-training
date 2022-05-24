@@ -65,5 +65,4 @@ class TasksController < ApplicationController
     end
     task
   end
-
 end
