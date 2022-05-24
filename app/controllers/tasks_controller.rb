@@ -34,7 +34,7 @@ class TasksController < ApplicationController
       redirect_to @task
     end
   end
-
+  
   def edit
     @task = find_task_with_err_handling(params[:id])
   end
@@ -49,7 +49,7 @@ class TasksController < ApplicationController
       render 'edit'
     end
   end
-
+  
   private
 
   def task_params
@@ -68,4 +68,3 @@ class TasksController < ApplicationController
   end
 
 end
-
