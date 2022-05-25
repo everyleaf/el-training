@@ -56,7 +56,6 @@ class TasksController < ApplicationController
                                  :progress,   :priority)
   end
 
-
   def find_task_with_err_handling(task_id)
     task = Task.find_by(id: task_id)
 
@@ -66,6 +65,4 @@ class TasksController < ApplicationController
     end
     task
   end
-
 end
-
