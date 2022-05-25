@@ -34,3 +34,4 @@ en:
   task_create_failed:  "Failed to create task"
   task_update_success: "Task Updated Successfully!"
   task_update_failed:  "Failed to update task"
+  task_delete_success: "Task deleted Successfully"

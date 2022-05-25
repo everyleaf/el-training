@@ -25,6 +25,7 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
+    flash[:success] = I18n.t 'task_delete_success'
     redirect_to tasks_url
   end
 
