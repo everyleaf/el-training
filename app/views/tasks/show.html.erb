@@ -3,7 +3,7 @@
   <span><%= link_to "編集",       edit_task_path%></span>
   <span>
     <%= button_to "タスクを削除", @task, method: :delete,
-                                  data: {confirm: "削除しますか？"}  %>
+    form: {data: {turbo_confirm: "本当に削除しますか?"} } %> 
   </span>
 </div>
 
