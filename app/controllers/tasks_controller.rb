@@ -23,12 +23,19 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
+    @task = Task.find_by(id: params[:id])
+
+    if @task.blank?
+      flash[:danger] = I18n.t 'task_not_exist'
+      return redirect_to tasks_url
+    end
+    
     if @task.destroy
       flash[:success] = I18n.t 'task_delete_success'
     else
       flash[:danger] = I18n.t 'task_delete_failed'
     end
+
     redirect_to tasks_url
   end
 
