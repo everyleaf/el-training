@@ -29,12 +29,11 @@ class TasksController < ApplicationController
 
     if @task.destroy
       flash[:success] = I18n.t 'task_delete_success'
-      return redirect_to tasks_url
+      redirect_to tasks_url
     else
       flash[:danger] = I18n.t 'task_delete_failed'
-      return redirect_to task
+      redirect_to task
     end
-
   end
 
   def edit
@@ -62,6 +61,6 @@ class TasksController < ApplicationController
 
   def redirect_to_index_with_msg
     flash[:danger] = I18n.t 'task_not_exist'
-    return redirect_to tasks_url
+    redirect_to tasks_url
   end
 end
