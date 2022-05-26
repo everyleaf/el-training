@@ -15,7 +15,8 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
+    @task = Task.find_by(id: params[:id])
+    return redirect_to_index_with_msg if @task.blank?
   end
 
   def index
@@ -24,21 +25,16 @@ class TasksController < ApplicationController
 
   def destroy
     @task = Task.find_by(id: params[:id])
-
-    if @task.blank?
-      flash[:danger] = I18n.t 'task_not_exist'
-      return redirect_to tasks_url
-    end# メソッドに抽出→showページなどにも適用
+    return redirect_to_index_with_msg if @task.blank?
 
     if @task.destroy
       flash[:success] = I18n.t 'task_delete_success'
-      #indexページにリダイレクト
+      return redirect_to tasks_url
     else
       flash[:danger] = I18n.t 'task_delete_failed'
-      # showページに止まらせる
+      return redirect_to task
     end
 
-   ## redirect_to tasks_url
   end
 
   def edit
@@ -62,5 +58,10 @@ class TasksController < ApplicationController
     params.require(:task).permit(:name,       :description,
                                  :start_date, :necessary_days,
                                  :progress,   :priority)
+  end
+
+  def redirect_to_index_with_msg
+    flash[:danger] = I18n.t 'task_not_exist'
+    return redirect_to tasks_url
   end
 end
