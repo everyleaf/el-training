@@ -63,7 +63,6 @@ class TasksController < ApplicationController
       flash[:danger] = I18n.t 'task_not_exist'
       return redirect_to tasks_url
     end
-    return task
+    task
   end
-  
 end
