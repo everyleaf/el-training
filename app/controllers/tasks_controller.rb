@@ -28,15 +28,17 @@ class TasksController < ApplicationController
     if @task.blank?
       flash[:danger] = I18n.t 'task_not_exist'
       return redirect_to tasks_url
-    end
+    end# メソッドに抽出→showページなどにも適用
 
     if @task.destroy
       flash[:success] = I18n.t 'task_delete_success'
+      #indexページにリダイレクト
     else
       flash[:danger] = I18n.t 'task_delete_failed'
+      # showページに止まらせる
     end
 
-    redirect_to tasks_url
+   ## redirect_to tasks_url
   end
 
   def edit
