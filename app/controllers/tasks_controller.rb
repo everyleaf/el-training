@@ -30,7 +30,7 @@ class TasksController < ApplicationController
       redirect_to tasks_url
     else
       flash[:danger] = I18n.t 'task_delete_failed'
-      redirect_to task
+      redirect_to @task
     end
   end
 
