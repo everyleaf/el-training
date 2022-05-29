@@ -11,9 +11,10 @@
 
 <div class="row">
   <div class="col-md-8 col-md-offset-1">
+
     <div>
       <span>タスク名</span>
-      <%=@task.name%>
+      <%= @task.name %>
     </div>
 
     <% if @task.description.present? %>
@@ -27,12 +28,12 @@
       <span>必要日数</span>
       <%= @task.necessary_days %>日
     </div>
-
+    
     <div>
       <span>取り掛かり期間</span>
-      <% @deadline_date = @task.start_date + @task.necessary_days - 1 %>
-      <%= print_month_day_wday @wday, @task.start_date %> ~ 
-      <%= print_month_day_wday @wday, @deadline_date %>
+      <%  @deadline_date = @task.start_date + @task.necessary_days - 1 %>
+      <%= print_month_day_wday @task.start_date %> ~ 
+      <%= print_month_day_wday @deadline_date %>
     </div>
 
     <div>
@@ -44,5 +45,6 @@
       <span>重要度</span>
       <%= @task.priority %>
     </div>
+
   </div>
 </div>
