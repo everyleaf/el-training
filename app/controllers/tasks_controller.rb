@@ -15,7 +15,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = redirect_to_index_with_msg_if_blank
+    @task = find_task_with_err_handling
   end
 
   def index
@@ -23,7 +23,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = redirect_to_index_with_msg_if_blank
+    @task = find_task_with_err_handling
 
     if @task.destroy
       flash[:success] = I18n.t 'task_delete_success'
@@ -35,11 +35,11 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = redirect_to_index_with_msg_if_blank
+    @task = find_task_with_err_handling
   end
 
   def update
-    @task = redirect_to_index_with_msg_if_blank
+    @task = find_task_with_err_handling
     if @task.update(task_params)
       flash[:success] = I18n.t 'task_update_success'
       redirect_to @task
@@ -57,7 +57,7 @@ class TasksController < ApplicationController
                                  :progress,   :priority)
   end
 
-  def redirect_to_index_with_msg_if_blank
+  def find_task_with_err_handling
     task = Task.find_by(id: params[:id])
     if task.blank?
       flash[:danger] = I18n.t 'task_not_exist'
