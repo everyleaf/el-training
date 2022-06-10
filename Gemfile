@@ -24,6 +24,7 @@ gem 'enum_help'
 
 # javascriptでconfirmメッセージを出すのに使用
 gem "importmap-rails", "~> 1.1"
+gem 'turbo-rails'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
