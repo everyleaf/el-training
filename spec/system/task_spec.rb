@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Tasks', type: :system do
   it 'タスクの作成' do
     # タスク一覧ページを作成
-    visit tasks_url
+    visit tasks_path
 
     # 作成リンクをクリック
     click_on 'タスクを作成'
