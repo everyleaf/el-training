@@ -2,8 +2,8 @@
   <span><%= link_to "一覧に戻る",  tasks_url      %></span>
   <span><%= link_to "編集",       edit_task_path %></span>
   <span>
-    <%= button_to "タスクを削除",  @task, method: :delete %> 
-    <!-- TODO: 削除時に確認ポップアップを出す -->
+    <%= button_to "タスクを削除", @task, method: :delete,
+                      form: {data: {turbo_confirm: "本当に削除しますか?"} } %> 
   </span>
 </div>
 
