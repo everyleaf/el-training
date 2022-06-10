@@ -23,7 +23,7 @@ gem 'tzinfo-data', platforms: %i(mingw mswin x64_mingw jruby)
 gem 'enum_help'
 
 # javascriptでconfirmメッセージを出すのに使用
-gem "importmap-rails", "~> 1.1"
+gem 'importmap-rails', '~> 1.1'
 gem 'turbo-rails'
 
 group :development, :test do
@@ -36,5 +36,3 @@ group :development do
   # gem "spring"
   gem 'retrieva-cop', require: false
 end
-
-
