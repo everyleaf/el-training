@@ -62,4 +62,6 @@ RSpec.describe 'Tasks', type: :system do
     # タスク名が更新されていることを確認
     expect(page).to have_content 'updated task'
   end
+
+  # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
 end
