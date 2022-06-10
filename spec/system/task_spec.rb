@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  it 'タスクの作成' do
+  it 'タスクの作成' do # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
     # タスク一覧ページを作成
     visit tasks_path
 
