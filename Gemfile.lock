@@ -88,6 +88,9 @@ GEM
       activesupport (>= 5.0)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
+    importmap-rails (1.1.0)
+      actionpack (>= 6.0.0)
+      railties (>= 6.0.0)
     io-console (0.5.11)
     irb (1.4.1)
       reline (>= 0.3.0)
@@ -195,6 +198,10 @@ GEM
     strscan (3.0.1)
     thor (1.2.1)
     timeout (0.2.0)
+    turbo-rails (1.1.1)
+      actionpack (>= 6.0.0)
+      activejob (>= 6.0.0)
+      railties (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
@@ -211,11 +218,13 @@ DEPENDENCIES
   bootstrap-sass (= 3.4.1)
   debug
   enum_help
+  importmap-rails (~> 1.1)
   pg
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.3)
   retrieva-cop
   sprockets-rails
+  turbo-rails
   tzinfo-data
 
 RUBY VERSION
