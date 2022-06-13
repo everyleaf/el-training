@@ -20,12 +20,16 @@ RSpec.describe 'Tasks', type: :system do
     # 作成実行
     click_button 'Create'
 
-    # 正しくタスクが作成されていることを確認
+    # 作成成功
+    expect(page).to have_content 'Task Created Successfully!'
+
+    # 正しい内容でタスクが作成されていることを確認
     expect(page).to have_content 'sample task'
     expect(page).to have_content "#{today.mon}/#{today.mday}"
     expect(page).to have_content '3'
     expect(page).to have_content '未着手'
     expect(page).to have_content '低'
+
   end
 
   it 'タスクの更新' do
