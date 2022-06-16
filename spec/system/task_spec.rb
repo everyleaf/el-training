@@ -29,7 +29,6 @@ RSpec.describe 'Tasks', type: :system do
     expect(page).to have_content '3'
     expect(page).to have_content '未着手'
     expect(page).to have_content '低'
-
   end
 
   it 'タスクの更新' do
