@@ -11,9 +11,11 @@
   </head>
 
   <body>
-    <% flash.each do |message_type, message| %>
-      <div class="alert alert-<%= message_type %>"><%= message %></div>
-    <% end %>
+    
+    <turbo-frame id="flash">
+      <%= render 'shared/flash' %>
+    </turbo-frame>
+    
     <%= yield %>
 
   </body>
