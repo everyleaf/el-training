@@ -69,5 +69,30 @@ RSpec.describe 'Tasks', type: :system do
     expect(page).to have_content 'updated task'
   end
 
+  it 'タスクの削除' do
+    # タスク一覧ページを表示
+    visit tasks_path
+
+    # テスト用タスクを作成
+    task = create(:task)
+
+    # 詳細ページに移動
+    visit task_path(task)
+
+    # 削除ボタンを押す
+    click_button 'タスクを削除'
+
+    # 確認のポップアップが表示される
+    expect(page.accept_confirm).to eq '本当に削除しますか?'
+
+    # 「OK」を押す
+
+    # 削除成功のメッセージが表示される
+    'Task Deleted Successfully!'
+
+    # 一覧ページにいる
+    expect(page).to have_content 'All tasks'
+  end
+
   # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
 end
