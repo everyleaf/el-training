@@ -85,10 +85,8 @@ RSpec.describe 'Tasks', type: :system do
     # 確認のポップアップが表示される
     expect(page.accept_confirm).to eq '本当に削除しますか?'
 
-    # 「OK」を押す
-
     # 削除成功のメッセージが表示される
-    'Task Deleted Successfully!'
+    expect(page).to have_content 'Task deleted Successfully'
 
     # 一覧ページにいる
     expect(page).to have_content 'All tasks'
