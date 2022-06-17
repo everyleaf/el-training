@@ -10,7 +10,7 @@ class TasksController < ApplicationController
       redirect_to tasks_url
     else
       flash.now[:danger] = I18n.t 'task_create_failed'
-      render turbo_stream: turbo_stream.update("flash", partial: "shared/flash")
+      render turbo_stream: turbo_stream.update('flash', partial: 'shared/error_messages')
     end
   end
 
@@ -30,7 +30,7 @@ class TasksController < ApplicationController
       redirect_to tasks_url
     else
       flash[:danger] = I18n.t 'task_delete_failed'
-      render turbo_stream: turbo_stream.update("flash", partial: "shared/flash")
+      render turbo_stream: turbo_stream.update('flash', partial: 'shared/error_messages')
     end
   end
 
@@ -45,7 +45,7 @@ class TasksController < ApplicationController
       redirect_to @task
     else
       flash.now[:danger] = I18n.t 'task_update_failed'
-      render turbo_stream: turbo_stream.update("flash", partial: "shared/flash")
+      render turbo_stream: turbo_stream.update('flash', partial: 'shared/error_messages')
     end
   end
 
