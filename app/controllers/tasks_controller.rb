@@ -10,11 +10,7 @@ class TasksController < ApplicationController
       redirect_to tasks_url
     else
       flash.now[:danger] = I18n.t 'task_create_failed'
-<<<<<<< HEAD
       render :new, status: :unprocessable_entity
-=======
-      render turbo_stream: turbo_stream.update('flash', partial: 'shared/flash')
->>>>>>> 2b7dde1 (rubocop)
     end
   end
 
@@ -34,11 +30,8 @@ class TasksController < ApplicationController
       redirect_to tasks_url
     else
       flash[:danger] = I18n.t 'task_delete_failed'
-<<<<<<< HEAD
-      redirect_to @task
-=======
       render turbo_stream: turbo_stream.update('flash', partial: 'shared/flash')
->>>>>>> 2b7dde1 (rubocop)
+      redirect_to @task
     end
   end
 
@@ -53,11 +46,7 @@ class TasksController < ApplicationController
       redirect_to @task
     else
       flash.now[:danger] = I18n.t 'task_update_failed'
-<<<<<<< HEAD
-      render :new, status: :unprocessable_entity
-=======
-      render turbo_stream: turbo_stream.update('flash', partial: 'shared/flash')
->>>>>>> 2b7dde1 (rubocop)
+      render :edit, status: :unprocessable_entity
     end
   end
 
