@@ -18,5 +18,9 @@ ja:
   edit:          '編集'
   detail:        '詳細'
 
+  task_index:  'タスク一覧'
+  task_edit:   'タスク編集'
+  task_create: 'タスク作成'
+
   # 確認メッセージ
   message_before_delete: '本当に削除しますか?'
