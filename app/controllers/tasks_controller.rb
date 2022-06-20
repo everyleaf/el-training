@@ -10,7 +10,7 @@ class TasksController < ApplicationController
       redirect_to tasks_url
     else
       flash.now[:danger] = I18n.t 'task_create_failed'
-      render 'new'
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -45,7 +45,7 @@ class TasksController < ApplicationController
       redirect_to @task
     else
       flash.now[:danger] = I18n.t 'task_update_failed'
-      render 'edit'
+      render :new, status: :unprocessable_entity
     end
   end
 
