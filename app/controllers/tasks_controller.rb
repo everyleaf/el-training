@@ -45,7 +45,7 @@ class TasksController < ApplicationController
       redirect_to @task
     else
       flash.now[:danger] = I18n.t 'task_update_failed'
-      render :new, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
