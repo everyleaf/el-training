@@ -1,9 +1,9 @@
 <div class = "col-md-offset-1">
-  <span><%= link_to "一覧に戻る",  tasks_url      %></span>
-  <span><%= link_to "編集",       edit_task_path %></span>
+  <span><%= link_to  I18n.t('back_to_index'),  tasks_url      %></span>
+  <span><%= link_to  I18n.t('edit'),           edit_task_path %></span>
   <span>
-    <%= button_to "タスクを削除", @task, method: :delete,
-                      form: {data: {turbo_confirm: "本当に削除しますか?"} } %> 
+    <%= button_to I18n.t('delete_task'), @task, method: :delete,
+                      form: {data: {turbo_confirm: I18n.t('message_before_delete')} } %> 
   </span>
 </div>
 
@@ -13,36 +13,36 @@
   <div class="col-md-8 col-md-offset-1">
 
     <div>
-      <span>タスク名</span>
+      <span><%= Task.human_attribute_name(:name) %></span>
       <%= @task.name %>
     </div>
 
     <% if @task.description.present? %>
       <div>
-        <span>説明</span>
+        <span><%= Task.human_attribute_name(:description) %></span>
         <%= @task.description %>
       </div>
     <% end %>
 
     <div>
-      <span>必要日数</span>
+      <span><%= Task.human_attribute_name(:necessary_days) %></span>
       <%= @task.necessary_days %>日
     </div>
     
     <div>
-      <span>取り掛かり期間</span>
+      <span><%= Task.human_attribute_name(:period_on_task) %></span>
       <%  @deadline_date = @task.start_date + @task.necessary_days - 1 %>
       <%= print_month_day_wday @task.start_date %> ~ 
       <%= print_month_day_wday @deadline_date %>
     </div>
 
     <div>
-      <span>実行状況</span>
+      <span><%= Task.human_attribute_name(:progress) %></span>
       <%= @task.progress %>
     </div>
     
     <div>
-      <span>重要度</span>
+      <span><%= Task.human_attribute_name(:priority) %></span>
       <%= @task.priority %>
     </div>
 

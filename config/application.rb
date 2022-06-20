@@ -28,13 +28,16 @@ module TaskApp
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    
+
     # タイムゾーンを設定
     config.time_zone = 'Tokyo'
     config.active_record.default_timezone = :local
 
     # デフォルト言語を日本語に設定
     config.i18n.default_locale = :ja
+
+    # i18nの複数ロケールファイルが読み込まれるようpathを通す
+    config.i18n.load_path += Dir[Rails.root.join('path/to').to_s]
 
     # config.eager_load_paths << Rails.root.join("extras")
 
