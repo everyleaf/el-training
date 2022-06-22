@@ -1,28 +1,39 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  it 'すべての項目が記入されていれば有効' do
-    task = build(:task)
-    expect(task).to be_valid
+
+  context '全ての項目が記入されていれば' do
+    let(:task){ build(:task) }
+    it 'タスクは有効' do
+      expect(task).to be_valid
+    end
   end
 
-  it 'descriptionが空でも有効' do
-    task = build(:task, description: nil)
-    expect(task).to be_valid
+  context 'descriptionが空でも' do
+    let(:task){ build(:task, description: nil) }
+    it 'タスクは有効' do
+      expect(task).to be_valid
+    end
   end
 
-  it 'nameが空だと無効' do
-    task = build(:task, name: nil)
-    expect(task).to be_invalid
+  context 'nameが空だと' do
+    let(:task){ build(:task, name: nil) }
+    it 'タスクは無効' do
+      expect(task).to be_invalid
+    end
   end
 
-  it 'necessary_daysが0だと無効' do
-    task = build(:task, necessary_days: 0)
-    expect(task).to be_invalid
+  context 'necessary_daysが0だと' do
+    let(:task){ build(:task, necessary_days: 0) }
+    it 'タスクは無効' do
+      expect(task).to be_invalid
+    end
   end
 
-  it 'necessary_daysが負の数だと無効' do
-    task = build(:task, necessary_days: -1)
-    expect(task).to be_invalid
+  context 'necessary_daysが負の数だと' do
+    let(:task){ build(:task, necessary_days: -1) }
+    it 'タスクは無効' do
+      expect(task).to be_invalid
+    end
   end
 end
