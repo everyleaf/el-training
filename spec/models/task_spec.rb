@@ -2,9 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   describe 'モデルのバリデーションテスト' do
-
     context '全てのパラメータが要素を持つとき' do
-      let(:task){ build(:task) }
+      let(:task) { build(:task) }
       it 'タスクは有効である' do
         expect(task).to be_valid
       end
