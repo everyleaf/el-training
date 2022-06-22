@@ -1,11 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
-  it 'タスクの作成' do
+  # テスト用タスク
+  let(:task) { create(:task) }
+
+  before do
     # タスク一覧ページを表示
     visit tasks_path
+  end
 
+  # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
+  it 'タスクの作成' do
     # 作成リンクをクリック
     click_on 'タスクを作成'
 
@@ -32,12 +37,6 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   it 'タスクの更新' do
-    # タスク一覧ページを表示
-    visit tasks_path
-
-    # テスト用タスクを作成
-    task = create(:task)
-
     # 詳細ページに移動
     visit task_path(task)
 
@@ -70,12 +69,6 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   it 'タスクの削除' do
-    # タスク一覧ページを表示
-    visit tasks_path
-
-    # テスト用タスクを作成
-    task = create(:task)
-
     # 詳細ページに移動
     visit task_path(task)
 
