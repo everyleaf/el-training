@@ -19,9 +19,10 @@ class TasksController < ApplicationController
   end
 
   def index
-    p params[:sort_by]
-    p 'aaa'
-    sort = params[:sort_by].blank? ? nil : params[:sort_by]
+    Rails.logger.debug 'aaa'
+    Rails.logger.debug params[:sort_by]
+    Rails.logger.debug 'bbb'
+    sort = params[:sort_by].presence
     @tasks = Task.all.order(sort)
   end
 
