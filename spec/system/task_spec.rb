@@ -4,7 +4,6 @@ RSpec.describe 'Tasks', type: :system do
   # テスト用タスク
   let(:task) { create(:task) }
 
-  # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
   describe 'タスクの作成' do
     before do
       # タスク一覧ページを表示
@@ -99,6 +98,4 @@ RSpec.describe 'Tasks', type: :system do
       end
     end
   end
-
-  # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
 end
