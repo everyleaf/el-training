@@ -171,4 +171,6 @@ fabric.properties
 # https://plugins.jetbrains.com/plugin/8053-azure-toolkit-for-intellij
 .idea/**/azureSettings.xml
 
+.idea/
+
 # End of https://www.toptal.com/developers/gitignore/api/rubymine
