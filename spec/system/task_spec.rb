@@ -14,6 +14,11 @@ RSpec.describe 'Tasks', type: :system do
 
     context 'description以外の入力フォームを全て埋める' do
       it 'タスクの作成に成功する' do
+        # タスク一覧ページを表示
+        visit tasks_path
+
+        # 作成リンクをクリック
+        click_on 'タスクを作成'
         # フォームを埋める
         today = Time.zone.today
         fill_in 'Name',           with: 'sample task'
