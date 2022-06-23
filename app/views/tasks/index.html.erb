@@ -2,6 +2,14 @@
 <div><%= link_to 'タスクを作成', new_task_url %>
 <br>
 
+<form method='get' action='index'>
+  <div>
+    <input type='radio' name='sort_by', value='id' %>id
+    <input type='radio' name='sort_by', value='necessary_days' %>n
+  </div>
+  <input type='submit' value='並び替え'>
+</form>
+
 <ul class="tasks">
   <% @tasks.each do |task| %>
     <li>

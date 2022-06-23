@@ -19,7 +19,10 @@ class TasksController < ApplicationController
   end
 
   def index
-    @tasks = Task.all
+    p params[:sort_by]
+    p 'aaa'
+    sort = params[:sort_by].blank? ? nil : params[:sort_by]
+    @tasks = Task.all.order(sort)
   end
 
   def destroy
