@@ -13,7 +13,7 @@ RSpec.describe 'Tasks', type: :system do
       click_on 'タスクを作成'
     end
 
-    context 'description以外の入力フォームを全て埋める' do
+    context 'description以外の入力フォームを全て埋めたとき' do
       it 'タスクの作成に成功する' do
         # フォームを埋める
         today = Time.zone.today
@@ -44,7 +44,7 @@ RSpec.describe 'Tasks', type: :system do
       click_link '編集'
     end
 
-    context 'Nameを書き換えて更新' do
+    context 'Nameを書き換えて更新したとき' do
       it '更新に成功する' do
         # 新しい名前にして更新
         fill_in      'Name', with: 'updated task'
@@ -61,7 +61,7 @@ RSpec.describe 'Tasks', type: :system do
       end
     end
 
-    context 'Nameを空欄にして更新' do
+    context 'Nameを空欄にして更新したとき' do
       it '更新に失敗する' do
         fill_in      'Name', with: ''
         click_button 'Save changes'
@@ -77,8 +77,8 @@ RSpec.describe 'Tasks', type: :system do
       visit task_path(task)
     end
 
-    context '削除ボタンからタスクを削除する' do
-      it '削除が成功する' do
+    context '削除ボタンを押すと' do
+      it 'タスクが削除される' do
         # 削除ボタンを押す
         click_button 'タスクを削除'
 
