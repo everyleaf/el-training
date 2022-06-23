@@ -29,12 +29,8 @@ RSpec.describe 'Tasks', type: :system do
         # 作成成功
         expect(page).to have_content 'Task Created Successfully!'
 
-        # 正しい内容でタスクが作成されていることを確認
-        expect(page).to have_content 'sample task'
-        expect(page).to have_content "#{today.mon}/#{today.mday}"
-        expect(page).to have_content '3'
-        expect(page).to have_content '未着手'
-        expect(page).to have_content '低'
+        # indexページにいる
+        expect(page).to have_content 'All tasks'
       end
     end
   end
@@ -57,20 +53,19 @@ RSpec.describe 'Tasks', type: :system do
         # 更新成功
         expect(page).to have_content 'Task Updated Successfully!'
 
-        # 詳細ページにいることを確認
-        expect(page).to have_link   '編集'
-        expect(page).to have_button 'タスクを削除'
+        # 詳細ページにいる
+        expect(page).to have_link   '一覧に戻る'
 
-        # タスク名が更新されていることを確認
+        # タスク名が更新されている
         expect(page).to have_content 'updated task'
       end
     end
 
     context 'Nameを空欄にして更新' do
       it '更新に失敗する' do
-        # 名前を空欄にして更新しようとすると失敗
         fill_in      'Name', with: ''
         click_button 'Save changes'
+
         expect(page).to have_content "Name can't be blank"
       end
     end
