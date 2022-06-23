@@ -6,19 +6,16 @@ RSpec.describe 'Tasks', type: :system do
 
   # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
   describe 'タスクの作成' do
-    # タスク一覧ページを表示
-    visit tasks_path
+    before do
+      # タスク一覧ページを表示
+      visit tasks_path
 
-    # 作成リンクをクリック
-    click_on 'タスクを作成'
+      # 作成リンクをクリック
+      click_on 'タスクを作成'
+    end
 
     context 'description以外の入力フォームを全て埋める' do
       it 'タスクの作成に成功する' do
-        # タスク一覧ページを表示
-        visit tasks_path
-
-        # 作成リンクをクリック
-        click_on 'タスクを作成'
         # フォームを埋める
         today = Time.zone.today
         fill_in 'Name',           with: 'sample task'
@@ -44,16 +41,13 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'タスクの更新' do
-    # 詳細ページに移動
-    visit task_path(task)
+    before do
+      # 詳細ページに移動
+      visit task_path(task)
 
-    # 正しい詳細ページに飛んだことを確認
-    expect(page).to have_content 'test task'
-    expect(page).to have_link    '編集'
-    expect(page).to have_button  'タスクを削除'
-
-    # 編集ページに遷移
-    click_link '編集'
+      # 編集ページに遷移
+      click_link '編集'
+    end
 
     context 'Nameを書き換えて更新' do
       it '更新に成功する' do
@@ -84,8 +78,10 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'タスクの削除' do
-    # 詳細ページに移動
-    visit task_path(task)
+    before do
+      # 詳細ページに移動
+      visit task_path(task)
+    end
 
     context '削除ボタンからタスクを削除する' do
       it '削除が成功する' do
