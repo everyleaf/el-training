@@ -19,15 +19,9 @@ class TasksController < ApplicationController
   end
 
   def index
-    if params[:latest]
-      @tasks = Task.latest
-    elsif params[:old]
-      @tasks = Task.old
-    elsif params[:important]
-      @tasks = Task.important
-    else
-      @tasks = Task.all
-    end
+    # デフォルトのソート順はid
+    sort = params[:sort_by].blank? ? 'id' : params[:sort_by]
+    @tasks = Task.all.order(sort)
   end
 
   def destroy

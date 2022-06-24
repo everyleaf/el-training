@@ -1,11 +1,15 @@
 <h1>All tasks</h1>
 <div><%= link_to 'タスクを作成', new_task_url %>
-<br>
+<br><br>
 
 <p>
-  <%= link_to '新しい順',  tasks_path(latest: "true") %> | 
-  <%= link_to '古い順',    tasks_path(old: "true") %> | 
-  <%= link_to '重要度順',  tasks_path(important: "true") %>
+  並び替え
+  <br>
+  <%= link_to 'タスク名', tasks_path(sort_by: 'name')           %> |
+  <%= link_to '取り掛り', tasks_path(sort_by: 'start_date')     %> | 
+  <%= link_to '必要日数', tasks_path(sort_by: 'necessary_days') %> | 
+  <%= link_to '実行度',   tasks_path(sort_by: 'progress')       %> | 
+  <%= link_to '重要度',   tasks_path(sort_by: 'priority')       %>
 </p>
 
 <ul class="tasks">
