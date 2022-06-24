@@ -17,7 +17,7 @@ class Task < ApplicationRecord
     '高': 2
   }
 
-  scope :latest, -> {order(created_at: :desc)}
-  scope :old, -> {order(created_at: :asc)}
-  scope :important, -> {order(priority: :desc)}
+  scope :latest, -> { order(created_at: :desc) }
+  scope :old, -> { order(created_at: :asc) }
+  scope :important, -> { order(priority: :desc) }
 end
