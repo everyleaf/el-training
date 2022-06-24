@@ -2,13 +2,11 @@
 <div><%= link_to 'タスクを作成', new_task_url %>
 <br>
 
-<form method='get' action='index'>
-  <div>
-    <input type='radio' name='sort_by', value='id' %>id
-    <input type='radio' name='sort_by', value='necessary_days' %>n
-  </div>
-  <input type='submit' value='並び替え'>
-</form>
+<p>
+  <%= link_to '新しい順',  tasks_path(latest: "true") %> | 
+  <%= link_to '古い順',    tasks_path(old: "true") %> | 
+  <%= link_to '重要度順',  tasks_path(star_count: "true") %>
+</p>
 
 <ul class="tasks">
   <% @tasks.each do |task| %>

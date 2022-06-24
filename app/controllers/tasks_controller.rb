@@ -19,11 +19,15 @@ class TasksController < ApplicationController
   end
 
   def index
-    Rails.logger.debug 'aaa'
-    Rails.logger.debug params[:sort_by]
-    Rails.logger.debug 'bbb'
-    sort = params[:sort_by].presence
-    @tasks = Task.all.order(sort)
+    if params[:latest]
+      @tasks = Task.latest
+    elsif params[:old]
+      @tasks = Task.old
+    elsif params[:important]
+      @tasks = Task.important
+    else
+      @tasks = Task.all
+    end
   end
 
   def destroy
