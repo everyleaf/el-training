@@ -5,11 +5,11 @@
 <p>
   並び替え
   <br>
-  <%= link_to 'タスク名', tasks_path(sort_by: 'name')           %> |
-  <%= link_to '取り掛り', tasks_path(sort_by: 'start_date')     %> | 
-  <%= link_to '必要日数', tasks_path(sort_by: 'necessary_days') %> | 
-  <%= link_to '実行度',   tasks_path(sort_by: 'progress')       %> | 
-  <%= link_to '重要度',   tasks_path(sort_by: 'priority')       %>
+  <%= link_to 'タスク名', tasks_path(sort: 'name')           %> |
+  <%= link_to '取り掛り', tasks_path(sort: 'start_date')     %> | 
+  <%= link_to '必要日数', tasks_path(sort: 'necessary_days') %> | 
+  <%= link_to '実行度',   tasks_path(sort: 'progress')       %> | 
+  <%= link_to '重要度',   tasks_path(sort: 'priority')       %>
 </p>
 
 <ul class="tasks">

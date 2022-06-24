@@ -20,8 +20,8 @@ class TasksController < ApplicationController
 
   def index
     # デフォルトのソート順はid
-    sort = params[:sort_by].presence || 'id'
-    @tasks = Task.all.order(sort)
+    sort_by = params[:sort].presence || 'id'
+    @tasks = Task.all.order(sort_by)
   end
 
   def destroy
