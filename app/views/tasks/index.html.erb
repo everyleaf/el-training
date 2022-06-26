@@ -5,12 +5,14 @@
 <p>
   並び替え
   <br>
-  <%= link_to 'タスク名', tasks_path(sort: 'name',           direction: get_sort_direction('name'))           %> |
-  <%= link_to '取り掛り', tasks_path(sort: 'start_date',     direction: get_sort_direction('start_date'))     %> | 
-  <%= link_to '必要日数', tasks_path(sort: 'necessary_days', direction: get_sort_direction('necessary_days')) %> | 
-  <%= link_to '実行度',   tasks_path(sort: 'progress',      direction: get_sort_direction('progress'))       %> | 
-  <%= link_to '重要度',   tasks_path(sort: 'priority',      direction: get_sort_direction('priority'))       %>
+  <%= sort_by 'タスク名',  'name'           %> |
+  <%= sort_by '取り掛り',  'start_date'     %> | 
+  <%= sort_by '必要日数',  'necessary_days' %> | 
+  <%= sort_by '実行度',    'progress'      %> | 
+  <%= sort_by '重要度',    'priority'      %>
 </p>
+
+
 
 <ul class="tasks">
   <% @tasks.each do |task| %>

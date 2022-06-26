@@ -5,7 +5,7 @@ module TasksHelper
     "#{date.month}/#{date.day}(#{wday_str})"
   end
 
-  # sort_byで現在と同じものが選ばれたらソート順を切り替え(昇順←→降順)
+  # 現在と同じソートソースが選ばれたらソート順を切り替え(昇順←→降順)
   # デフォルトは昇順
   def get_sort_direction(sort_source_of_redirect)
     # params[:sort]は現在のソートソース
@@ -14,5 +14,9 @@ module TasksHelper
     else
       'ASC'
     end
+  end
+
+  def sort_by(label, colmun)
+    link_to label, tasks_path(sort: colmun, direction: get_sort_direction(colmun))
   end
 end
