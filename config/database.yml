@@ -18,3 +18,6 @@ test:
 production:
   <<: *default
   password: <%= ENV['TASK_APP_DATABASE_PASSWORD'] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
