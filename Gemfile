@@ -36,3 +36,7 @@ group :development do
   # gem "spring"
   gem 'retrieva-cop', require: false
 end
+
+group :production do
+  gem 'pg'
+end
