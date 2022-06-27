@@ -150,8 +150,7 @@
 ### ステップ6: RuboCop を設定しよう
 
 - Linter/ Formatter として RuboCop を設定しましょう
-- 当カリキュラムでは Rails アプリ作成にあわせて規約を調整済の [retrieva-cop](https://github.com/retrieva/retrieva-cop) を利用します
-- `Gemfile` で [retrieva-cop](https://github.com/retrieva/retrieva-cop) をインストールしましょう
+- 社内で広く使われているrubocopの設定があれば、それを利用するか検討しましょう
 - (サポーターに依頼)PR作成時に RuboCop が実行されるように、Circle CI を設定してもらいましょう
   - CIの初期設定はカリキュラムで学んで欲しい項目からやや外れているため、サポーターがCIを設定するようにしてください
 - 以降、コーディング規約はサポーター・レビュワーと相談しながら必要に応じて更新していきましょう
