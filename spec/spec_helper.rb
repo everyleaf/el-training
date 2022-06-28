@@ -22,16 +22,16 @@ RSpec.configure do |config|
     driven_by :selenium_chrome_headless
   end
 
-  #Database_cleanerの設定
+  # Database_cleanerの設定
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
   end
 
-  config.before(:each) do
+  config.before do
     DatabaseCleaner.start
   end
 
-  config.after(:each) do
+  config.after do
     DatabaseCleaner.clean
   end
 

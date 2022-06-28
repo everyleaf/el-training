@@ -54,7 +54,7 @@ RSpec.describe 'Tasks', type: :system do
         expect(page).to have_content 'Task Updated Successfully!'
 
         # 詳細ページにいる
-        expect(page).to have_link   '一覧に戻る'
+        expect(page).to have_link '一覧に戻る'
 
         # タスク名が更新されている
         expect(page).to have_content 'updated task'
