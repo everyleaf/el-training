@@ -54,7 +54,7 @@ RSpec.describe 'Tasks', type: :system do
         expect(page).to have_content 'Task Updated Successfully!'
 
         # 詳細ページにいる
-        expect(page).to have_link   '一覧に戻る'
+        expect(page).to have_link '一覧に戻る'
 
         # タスク名が更新されている
         expect(page).to have_content 'updated task'
@@ -71,7 +71,6 @@ RSpec.describe 'Tasks', type: :system do
     end
   end
 
-  
   describe 'タスクの削除' do
     before do
       # 詳細ページに移動
@@ -99,41 +98,39 @@ RSpec.describe 'Tasks', type: :system do
     before do
       # タスク一覧ページを表示
       visit tasks_path
+
+      # テストデータ
+      create(:task, name: 'a', priority: 2)
+      create(:task, name: 'b', priority: 0)
+      create(:task, name: 'c', priority: 1)
     end
 
-    let!(:task_a) { create(:task, name: 'a', priority: 2) }
-    let!(:task_b) { create(:task, name: 'b', priority: 0) }
-    let!(:task_c) { create(:task, name: 'c', priority: 1) }
-  
-    context '並び替えたいパラメータを選択すると'do
-      it 'そのパラメータで並び替えられる' do
-        #昇順
+    context '並び替えたいパラメータを1回だけ選択すると' do
+      it 'そのパラメータで昇順に並び替えられる' do
         click_on '重要度'
-        tasks = page.all(".task") 
-        expect(tasks[0]).to have_content "低"
-        expect(tasks[1]).to have_content "中"
-        expect(tasks[2]).to have_content "高"
+        tasks = page.all('.task')
+        expect(tasks[0]).to have_content '低'
+        expect(tasks[1]).to have_content '中'
+        expect(tasks[2]).to have_content '高'
       end
     end
 
-
     # Failure/Error: expect(tasks_desc[0]).to have_content "高"
-     
+
     # Selenium::WebDriver::Error::StaleElementReferenceError:
     #   stale element reference: element is not attached to the page document
-    
-    # context '同じパラメータを選択すると'do
+
+    # context '同じパラメータを選択すると' do
     #   it '昇順と降順が入れ替わる' do
-        
     #     # 最初は昇順に並べ替える
     #     click_on '重要度'
 
     #     # もう一度押すと降順に並べ替えられる
     #     click_on '重要度'
-    #     tasks = page.all(".task") 
-    #     expect(tasks[0]).to have_content "高"
-    #     expect(tasks[1]).to have_content "中"
-    #     expect(tasks[2]).to have_content "低"
+    #     tasks = page.all('.task')
+    #     expect(tasks[0]).to have_content '高'
+    #     expect(tasks[1]).to have_content '中'
+    #     expect(tasks[2]).to have_content '低'
     #   end
     # end
   end
