@@ -1,4 +1,5 @@
 require 'capybara/rspec'
+require 'database_cleaner'
 
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
@@ -19,6 +20,19 @@ RSpec.configure do |config|
   # ヘッドレスで実行(rspec起動時にブラウザが立ち上がらない)
   config.before(:each, type: :system) do
     driven_by :selenium_chrome_headless
+  end
+
+  #Database_cleanerの設定
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
   end
 
   # rspec-mocks config goes here. You can use an alternate test double
