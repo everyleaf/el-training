@@ -33,6 +33,7 @@ class TasksController < ApplicationController
       redirect_to tasks_url
     else
       flash[:danger] = I18n.t 'task_delete_failed'
+      render turbo_stream: turbo_stream.update('flash', partial: 'shared/flash')
       redirect_to @task
     end
   end
