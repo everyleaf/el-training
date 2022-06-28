@@ -87,6 +87,12 @@ GEM
     childprocess (4.1.0)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
+    database_cleaner (2.0.1)
+      database_cleaner-active_record (~> 2.0.0)
+    database_cleaner-active_record (2.0.1)
+      activerecord (>= 5.a)
+      database_cleaner-core (~> 2.0.0)
+    database_cleaner-core (2.0.1)
     debug (1.5.0)
       irb (>= 1.3.6)
       reline (>= 0.2.7)
@@ -263,10 +269,11 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass (= 3.4.1)
   capybara
+  database_cleaner
   debug
   enum_help
-  importmap-rails (~> 1.1)
   factory_bot_rails
+  importmap-rails (~> 1.1)
   pg
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.3)
