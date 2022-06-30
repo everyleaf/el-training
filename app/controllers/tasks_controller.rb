@@ -19,6 +19,9 @@ class TasksController < ApplicationController
   end
 
   def index
+    pp "*******************"
+    pp params[:search][:priority]
+    pp "*******************"
     @tasks = Task.all
   end
 
