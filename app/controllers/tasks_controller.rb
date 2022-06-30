@@ -68,8 +68,8 @@ class TasksController < ApplicationController
   end
 
   def serch_tasks_from_params
-    search_pri = params.dig(:search, :priority) #見つからなければnil
-    search_prg = params.dig(:search, :progress) #見つからなければnil
+    search_pri = params.dig(:search, :priority) # 見つからなければnil
+    search_prg = params.dig(:search, :progress) # 見つからなければnil
     Task.where(priority: search_pri, progress: search_prg)
   end
 end
