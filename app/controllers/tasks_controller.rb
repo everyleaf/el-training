@@ -19,10 +19,7 @@ class TasksController < ApplicationController
   end
 
   def index
-    search_pri = params.dig(:search, :priority) #見つからなければnil
-    search_prg = params.dig(:search, :progress) #見つからなければnil
-    @tasks = search_pri.nil? && search_prg ?
-     Task.all : Task.where(priority: search_pri, progress: search_prg)
+    @tasks = params[:search].nil? ? Task.all : serch_tasks_from_params
   end
 
   def destroy
@@ -68,5 +65,11 @@ class TasksController < ApplicationController
       return redirect_to tasks_url
     end
     task
+  end
+
+  def serch_tasks_from_params
+    search_pri = params.dig(:search, :priority) #見つからなければnil
+    search_prg = params.dig(:search, :progress) #見つからなければnil
+    Task.where(priority: search_pri, progress: search_prg)
   end
 end
