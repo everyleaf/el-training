@@ -19,10 +19,8 @@ class TasksController < ApplicationController
   end
 
   def index
-    pp "*******************"
-    pp params[:search][:priority]
-    pp "*******************"
-    @tasks = Task.all
+    search_by = params.dig(:search, :priority) #見つからなければnil
+    @tasks    = search_by.nil? ? Task.all : Task.where(priority: search_by)
   end
 
   def destroy
