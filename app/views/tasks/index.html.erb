@@ -5,6 +5,8 @@
 <%= form_with scope: :search, url: tasks_path, method: :get do |f| %>
   <%= f.label(:priority, '優先度') %>
   <%= f.collection_check_boxes :priority, Task.priorities, :first, :first, {include_hidden: false} %>
+  <%= f.label(:progress, '実行状況') %>
+  <%= f.collection_check_boxes :progress, Task.progresses, :first, :first, {include_hidden: false} %>
   <%= f.submit '検索', class: "btn btn-primary" %>
 <% end %>
 <ul class="tasks">

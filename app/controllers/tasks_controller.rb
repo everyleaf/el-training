@@ -19,8 +19,10 @@ class TasksController < ApplicationController
   end
 
   def index
-    search_by = params.dig(:search, :priority) #見つからなければnil
-    @tasks    = search_by.nil? ? Task.all : Task.where(priority: search_by)
+    search_pri = params.dig(:search, :priority) #見つからなければnil
+    search_prg = params.dig(:search, :progress) #見つからなければnil
+    @tasks = search_pri.nil? && search_prg ?
+     Task.all : Task.where(priority: search_pri, progress: search_prg)
   end
 
   def destroy
