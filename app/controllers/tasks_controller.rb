@@ -20,6 +20,8 @@ class TasksController < ApplicationController
 
   def index
     @tasks = params[:search].nil? ? Task.all : serch_tasks_from_params
+    # TODO: デフォルトは全てチェックが入ってる
+    # TODO ページ遷移後にチェックボックスの状態を保存する
   end
 
   def destroy
