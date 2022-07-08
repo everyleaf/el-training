@@ -16,7 +16,7 @@ module TasksHelper
     end
   end
 
-  def sort_by(label, colmun)
-    link_to label, tasks_path(sort: colmun, direction: get_sort_direction(colmun))
+  def sort_by(label, column)
+    link_to label, tasks_path(sort: column, direction: get_sort_direction(column))
   end
 end
