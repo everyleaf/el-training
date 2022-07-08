@@ -77,7 +77,7 @@ RSpec.describe 'Tasks', type: :system do
       visit task_path(task)
     end
 
-    context '削除ボタンを押すと' do
+    context '削除ボタンを押したとき' do
       it 'タスクが削除される' do
         # 削除ボタンを押す
         click_button 'タスクを削除'
