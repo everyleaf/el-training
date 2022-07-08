@@ -13,10 +13,11 @@ RSpec.describe 'Tasks', type: :system do
       click_on 'タスクを作成'
     end
 
+    let(:today) { Time.zone.today }
+
     context 'description以外の入力フォームを全て埋めたとき' do
       it 'タスクの作成に成功する' do
         # フォームを埋める
-        today = Time.zone.today
         fill_in 'Name',           with: 'sample task'
         fill_in 'Start date',     with: today
         fill_in 'Necessary days', with: 3
@@ -37,7 +38,6 @@ RSpec.describe 'Tasks', type: :system do
     context 'Nameを空のままタスクを作成しようとしたとき' do
       it 'タスクの作成に失敗する' do
         # フォームを埋める
-        today = Time.zone.today
         fill_in 'Name',           with: ''
         fill_in 'Start date',     with: today
         fill_in 'Necessary days', with: 3
