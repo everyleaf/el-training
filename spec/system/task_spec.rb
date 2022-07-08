@@ -18,9 +18,9 @@ RSpec.describe 'Tasks', type: :system do
     context 'description以外の入力フォームを全て埋めたとき' do
       it 'タスクの作成に成功する' do
         # フォームを埋める
-        fill_in 'タスク名',        with: 'sample task'
-        fill_in '開始日',          with: today
-        fill_in '必要日数',        with: 3
+        fill_in 'タスク名', with: 'sample task'
+        fill_in '開始日', with: today
+        fill_in '必要日数', with: 3
         choose  '未着手'
         choose  '低'
 
@@ -38,9 +38,9 @@ RSpec.describe 'Tasks', type: :system do
     context 'Nameを空のままタスクを作成しようとしたとき' do
       it 'タスクの作成に失敗する' do
         # フォームを埋める
-        fill_in 'タスク名',   with: ''
-        fill_in '開始日',     with: today
-        fill_in '必要日数',   with: 3
+        fill_in 'タスク名', with: ''
+        fill_in '開始日', with: today
+        fill_in '必要日数', with: 3
         choose  '未着手'
         choose  '低'
 
@@ -87,7 +87,7 @@ RSpec.describe 'Tasks', type: :system do
         fill_in      'タスク名', with: ''
         click_button '変更を保存'
 
-        expect(page).to have_content "タスク名を入力してください"
+        expect(page).to have_content 'タスク名を入力してください'
       end
     end
   end
