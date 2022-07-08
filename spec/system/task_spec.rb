@@ -33,6 +33,27 @@ RSpec.describe 'Tasks', type: :system do
         expect(page).to have_content 'All tasks'
       end
     end
+
+    context 'Nameを空のままタスクを作成しようとしたとき' do
+      it 'タスクの作成に失敗する' do
+        # フォームを埋める
+        today = Time.zone.today
+        fill_in 'Name',           with: ''
+        fill_in 'Start date',     with: today
+        fill_in 'Necessary days', with: 3
+        choose  '未着手'
+        choose  '低'
+
+        # 作成実行
+        click_button 'Create'
+
+        # 作成失敗
+        expect(page).to have_content 'Failed to create task'
+
+        # newページにいる
+        expect(page).to have_content 'new task'
+      end
+    end
   end
 
   describe 'タスクの更新' do
