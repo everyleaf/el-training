@@ -19,7 +19,7 @@ class TasksController < ApplicationController
   end
 
   def index
-    @tasks = params[:search].nil? ? Task.all : serch_tasks_from_params
+    @tasks = search_params_all_blank? ? Task.all : serch_tasks_from_params
     # TODO: デフォルトは全てチェックが入ってる
     # TODO ページ遷移後にチェックボックスの状態を保存する
   end
@@ -73,5 +73,9 @@ class TasksController < ApplicationController
     search_pri = params.dig(:search, :priority) # 見つからなければnil
     search_prg = params.dig(:search, :progress) # 見つからなければnil
     Task.where(priority: search_pri, progress: search_prg)
+  end
+
+  def search_params_all_blank?
+    params.dig(:search, :priority).nil? && params.dig(:search, :progress).nil?
   end
 end
