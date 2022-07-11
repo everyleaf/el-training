@@ -135,6 +135,5 @@ RSpec.describe 'Tasks', type: :system do
         expect(tasks[2]).to have_content '高'
       end
     end
-
   end
 end
