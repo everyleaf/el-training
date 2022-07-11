@@ -2,14 +2,21 @@
 <div><%= link_to 'タスクを作成', new_task_url %>
 <br>
 
+<div class = search_check_boxes>
 <%= form_with scope: :search, url: tasks_path, method: :get do |f| %>
-  <%= f.label(:priority, '優先度') %>
-  <%= f.collection_check_boxes :priority, Task.priorities, :first, :first, {include_hidden: false} %>
-  <%= f.label(:progress, '実行状況') %>
-  <%= f.collection_check_boxes :progress, Task.progresses, :first, :first, {include_hidden: false} %>
+  <% Task.priorities.each do |pri| %>
+    <%= f.label(:priority, pri.first) %>
+    <%= f.check_box :priority, { include_hidden: false, multiple: true, checked: @search_pri.try(:include?, pri.first) }, pri.first %>
+  <% end %>
+
+  <% Task.progresses.each do |prg| %>
+    <%= f.label(:progress, prg.first) %>
+    <%= f.check_box :progress, { include_hidden: false, multiple: true, checked: @search_prg.try(:include?, prg.first) }, prg.first %>
+  <% end %>
   <%= f.submit '検索', class: "btn btn-primary" %>
   <!-- TODO 上のフォームを抽出 -->
 <% end %>
+</div>
 <ul class="tasks">
   <% @tasks.each do |task| %>
     <li>
