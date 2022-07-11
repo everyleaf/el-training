@@ -136,23 +136,5 @@ RSpec.describe 'Tasks', type: :system do
       end
     end
 
-    # Failure/Error: expect(tasks_desc[0]).to have_content "高"
-
-    # Selenium::WebDriver::Error::StaleElementReferenceError:
-    #   stale element reference: element is not attached to the page document
-
-    # context '同じパラメータを選択すると' do
-    #   it '昇順と降順が入れ替わる' do
-    #     # 最初は昇順に並べ替える
-    #     click_on '重要度'
-
-    #     # もう一度押すと降順に並べ替えられる
-    #     click_on '重要度'
-    #     tasks = page.all('.task')
-    #     expect(tasks[0]).to have_content '高'
-    #     expect(tasks[1]).to have_content '中'
-    #     expect(tasks[2]).to have_content '低'
-    #   end
-    # end
   end
 end
