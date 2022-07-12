@@ -129,6 +129,8 @@ RSpec.describe 'Tasks', type: :system do
     context '並び替えたいパラメータを1回だけ選択すると' do
       it 'そのパラメータで昇順に並び替えられる' do
         click_on '重要度'
+        expect(current_url).to include('direction=ASC')
+
         tasks = page.all('.task')
         expect(tasks[0]).to have_content '低'
         expect(tasks[1]).to have_content '中'
