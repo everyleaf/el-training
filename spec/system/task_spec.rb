@@ -147,7 +147,7 @@ RSpec.describe 'Tasks', type: :system do
         # もう一度押すと降順に並べ替えられる
         click_on '重要度'
         expect(current_url).to include('direction=DESC')
-        
+
         # ページがレンダリングされるのを待つ
         # これがないとStaleElementReferenceErrorが発生
         sleep 1
