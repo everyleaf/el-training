@@ -135,5 +135,26 @@ RSpec.describe 'Tasks', type: :system do
         expect(tasks[2]).to have_content '高'
       end
     end
+
+    context '同じパラメータを選択すると' do
+      it '昇順と降順が入れ替わる' do
+        # 最初は昇順に並べ替える
+        click_on '重要度'
+        expect(current_url).to include('direction=ASC')
+
+        # もう一度押すと降順に並べ替えられる
+        click_on '重要度'
+        expect(current_url).to include('direction=DESC')
+        
+        # ページがレンダリングされるのを待つ
+        # これがないとStaleElementReferenceErrorが発生
+        sleep 1
+
+        tasks = page.all('.task')
+        expect(tasks[0]).to have_content '高'
+        expect(tasks[1]).to have_content '中'
+        expect(tasks[2]).to have_content '低'
+      end
+    end
   end
 end
