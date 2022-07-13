@@ -128,7 +128,6 @@ RSpec.describe 'Tasks', type: :system do
 
     context '検索条件に該当するタスクが存在するとき' do
       it '該当するタスクのみ表示される' do
-        
         uncheck('search_priority_中')
         uncheck('search_progress_完了')
 
@@ -136,7 +135,7 @@ RSpec.describe 'Tasks', type: :system do
         # (priority == 低 || 高) && (progress == 未着手 || 実行中)
         # task 'a' のみが条件に当てはまる
 
-        click_on ('検索')
+        click_on('検索')
 
         # 表示されているタスクを取得
         tasks = page.all('.task')
@@ -151,7 +150,6 @@ RSpec.describe 'Tasks', type: :system do
 
     context '検索ボタンを押したとき' do
       it 'チェックボックスの状態は維持される' do
-        
         # デフォルトでは全てのチェックボックスがチェックされている
         expect(page).to have_checked_field('search_priority_低')
         expect(page).to have_checked_field('search_priority_中')
@@ -160,7 +158,7 @@ RSpec.describe 'Tasks', type: :system do
         expect(page).to have_checked_field('search_progress_実行中')
         expect(page).to have_checked_field('search_progress_完了')
 
-        #ある項目のチェックを外す
+        # ある項目のチェックを外す
         uncheck('search_priority_中')
         uncheck('search_progress_未着手')
         uncheck('search_progress_完了')
@@ -177,6 +175,27 @@ RSpec.describe 'Tasks', type: :system do
         expect(page).to have_unchecked_field('search_priority_中')
         expect(page).to have_unchecked_field('search_progress_未着手')
         expect(page).to have_unchecked_field('search_progress_完了')
+      end
+    end
+
+    context '該当するタスクがないとき' do
+      it 'メッセージが表示される' do
+        # 検索結果に該当するタスクがないようにチェックを外す
+        uncheck('search_priority_中')
+        uncheck('search_progress_未着手')
+        uncheck('search_progress_完了')
+
+        # 検索ボタンを押す
+        click_on('検索')
+
+        # 選択されていたものは選択されたまま
+        expect(page).to have_content('該当するタスクがありません')
+
+        # 表示されているタスクを取得
+        tasks = page.all('.task')
+
+        # 表示されているタスク数は0件
+        expect(tasks.size).to eq(0)
       end
     end
   end
