@@ -114,4 +114,70 @@ RSpec.describe 'Tasks', type: :system do
       end
     end
   end
+
+  describe 'タスクの検索' do
+    before do
+      # タスク一覧ページを表示
+      visit tasks_path
+
+      # テストデータ
+      create(:task, name: 'a', priority: 0, progress: 0)
+      create(:task, name: 'b', priority: 1, progress: 1)
+      create(:task, name: 'c', priority: 2, progress: 2)
+    end
+
+    context '検索条件に該当するタスクが存在するとき' do
+      it '該当するタスクのみ表示される' do
+        
+        uncheck('search_priority_中')
+        uncheck('search_progress_完了')
+
+        # このときタスクの検索条件は
+        # (priority == 低 || 高) && (progress == 未着手 || 実行中)
+        # task 'a' のみが条件に当てはまる
+
+        click_on ('検索')
+
+        # 表示されているタスクを取得
+        tasks = page.all('.task')
+
+        # 表示されているタスク数は1件
+        expect(tasks.size).to eq(1)
+
+        # 表示されているタスクは'a'
+        expect(tasks[0]).to have_content '低'
+      end
+    end
+
+    context '検索ボタンを押したとき' do
+      it 'チェックボックスの状態は維持される' do
+        
+        # デフォルトでは全てのチェックボックスがチェックされている
+        expect(page).to have_checked_field('search_priority_低')
+        expect(page).to have_checked_field('search_priority_中')
+        expect(page).to have_checked_field('search_priority_高')
+        expect(page).to have_checked_field('search_progress_未着手')
+        expect(page).to have_checked_field('search_progress_実行中')
+        expect(page).to have_checked_field('search_progress_完了')
+
+        #ある項目のチェックを外す
+        uncheck('search_priority_中')
+        uncheck('search_progress_未着手')
+        uncheck('search_progress_完了')
+
+        # 検索ボタンを押す
+        click_on('検索')
+
+        # 選択されていたものは選択されたまま
+        expect(page).to have_checked_field('search_priority_低')
+        expect(page).to have_checked_field('search_priority_高')
+        expect(page).to have_checked_field('search_progress_実行中')
+
+        # チェックが外れていたものはチェックが外れたまま
+        expect(page).to have_unchecked_field('search_priority_中')
+        expect(page).to have_unchecked_field('search_progress_未着手')
+        expect(page).to have_unchecked_field('search_progress_完了')
+      end
+    end
+  end
 end
