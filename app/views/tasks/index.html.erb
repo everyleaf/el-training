@@ -5,6 +5,10 @@
   <%= render 'search_check_box' %>
 </div>
 
+<% if @tasks.empty? %>
+  該当するタスクがありません
+<% end %>
+
 <ul class="tasks">
   <% @tasks.each do |task| %>
     <li>
