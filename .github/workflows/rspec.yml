@@ -7,12 +7,10 @@
 
 name: Ruby
 
-on: [push]
+on: push
 
 jobs:
   build:
-    # Job name is Greeting
-    name: verify
     # This job runs on Linux
     runs-on: ubuntu-latest
     services:
@@ -25,31 +23,17 @@ jobs:
           POSTGRES_PASSWORD: password
           POSTGRES_DB: test
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-    container:
-      image: ruby:2.5.3
-      env:
-        RAILS_ENV: test
-        POSTGRES_HOST: postgres
-        RAILS_DATABASE_USER: postgres
-        RAILS_DATABASE_PASSWORD: password
 
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: bundler set up
-        run: |
-          gem install bundler
-          bundle install
-      - name: install node
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12'
+  jobs:
+    test:
+      runs-on: ubuntu-latest
 
-      - name: db migrate
-        run: |
-          bundle exec rails db:migrate
-
-      - name: verify
-        run: |
-          bundle exec rubocop
-          bundle exec rspec
+      steps:
+        - uses: actions/checkout@v3
+        - name: Set up Ruby
+          uses: ruby/setup-ruby@2b019609e2b0f1ea1a2bc8ca11cb82ab46ada124
+          with:
+            ruby-version: 3.1.2
+            bundler-cache: true
+        - name: Rspec実行
+          run: bundle exec rspec
