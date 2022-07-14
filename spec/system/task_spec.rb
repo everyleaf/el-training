@@ -18,9 +18,9 @@ RSpec.describe 'Tasks', type: :system do
     context 'description以外の入力フォームを全て埋めたとき' do
       it 'タスクの作成に成功する' do
         # フォームを埋める
-        fill_in 'Name',           with: 'sample task'
-        fill_in 'Start date',     with: today
-        fill_in 'Necessary days', with: 3
+        fill_in 'タスク名', with: 'sample task'
+        fill_in '開始日', with: today
+        fill_in '必要日数', with: 3
         choose  '未着手'
         choose  '低'
 
@@ -28,19 +28,19 @@ RSpec.describe 'Tasks', type: :system do
         click_button 'Create'
 
         # 作成成功
-        expect(page).to have_content 'Task Created Successfully!'
+        expect(page).to have_content 'タスクを作成しました'
 
         # indexページにいる
-        expect(page).to have_content 'All tasks'
+        expect(page).to have_content 'タスク一覧'
       end
     end
 
     context 'Nameを空のままタスクを作成しようとしたとき' do
       it 'タスクの作成に失敗する' do
         # フォームを埋める
-        fill_in 'Name',           with: ''
-        fill_in 'Start date',     with: today
-        fill_in 'Necessary days', with: 3
+        fill_in 'タスク名', with: ''
+        fill_in '開始日', with: today
+        fill_in '必要日数', with: 3
         choose  '未着手'
         choose  '低'
 
@@ -48,10 +48,10 @@ RSpec.describe 'Tasks', type: :system do
         click_button 'Create'
 
         # 作成失敗
-        expect(page).to have_content 'Failed to create task'
+        expect(page).to have_content 'タスクの作成に失敗しました'
 
         # newページにいる
-        expect(page).to have_content 'new task'
+        expect(page).to have_content 'タスク作成'
       end
     end
   end
@@ -68,11 +68,11 @@ RSpec.describe 'Tasks', type: :system do
     context 'Nameを書き換えて更新したとき' do
       it '更新に成功する' do
         # 新しい名前にして更新
-        fill_in      'Name', with: 'updated task'
-        click_button 'Save changes'
+        fill_in      'タスク名', with: 'updated task'
+        click_button '変更を保存'
 
         # 更新成功
-        expect(page).to have_content 'Task Updated Successfully!'
+        expect(page).to have_content 'タスクを更新しました'
 
         # 詳細ページにいる
         expect(page).to have_link '一覧に戻る'
@@ -84,10 +84,10 @@ RSpec.describe 'Tasks', type: :system do
 
     context 'Nameを空欄にして更新したとき' do
       it '更新に失敗する' do
-        fill_in      'Name', with: ''
-        click_button 'Save changes'
+        fill_in      'タスク名', with: ''
+        click_button '変更を保存'
 
-        expect(page).to have_content "Name can't be blank"
+        expect(page).to have_content 'タスク名を入力してください'
       end
     end
   end
@@ -107,10 +107,55 @@ RSpec.describe 'Tasks', type: :system do
         expect(page.accept_confirm).to eq '本当に削除しますか?'
 
         # 削除成功のメッセージが表示される
-        expect(page).to have_content 'Task deleted Successfully'
+        expect(page).to have_content 'タスクを削除しました'
 
         # 一覧ページにいる
-        expect(page).to have_content 'All tasks'
+        expect(page).to have_content 'タスク一覧'
+      end
+    end
+  end
+
+  describe 'タスクの並び替え' do
+    before do
+      # タスク一覧ページを表示
+      visit tasks_path
+
+      # テストデータ
+      create(:task, name: 'a', priority: 2)
+      create(:task, name: 'b', priority: 0)
+      create(:task, name: 'c', priority: 1)
+    end
+
+    context '並び替えたいパラメータを1回だけ選択すると' do
+      it 'そのパラメータで昇順に並び替えられる' do
+        click_on '重要度'
+        expect(current_url).to include('direction=ASC')
+
+        tasks = page.all('.task')
+        expect(tasks[0]).to have_content '低'
+        expect(tasks[1]).to have_content '中'
+        expect(tasks[2]).to have_content '高'
+      end
+    end
+
+    context '同じパラメータを選択すると' do
+      it '昇順と降順が入れ替わる' do
+        # 最初は昇順に並べ替える
+        click_on '重要度'
+        expect(current_url).to include('direction=ASC')
+
+        # もう一度押すと降順に並べ替えられる
+        click_on '重要度'
+        expect(current_url).to include('direction=DESC')
+
+        # ページがレンダリングされるのを待つ
+        # これがないとStaleElementReferenceErrorが発生
+        sleep 1
+
+        tasks = page.all('.task')
+        expect(tasks[0]).to have_content '高'
+        expect(tasks[1]).to have_content '中'
+        expect(tasks[2]).to have_content '低'
       end
     end
   end

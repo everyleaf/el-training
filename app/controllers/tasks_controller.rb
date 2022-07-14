@@ -19,6 +19,7 @@ class TasksController < ApplicationController
   end
 
   def index
+    # タスクの検索
     if search_params_all_blank?
       @tasks = Task.all
       # 検索項目が空のとき、全ての項目にチェックを入れる
@@ -27,6 +28,11 @@ class TasksController < ApplicationController
     else
       @tasks = serch_tasks_from_params
     end
+
+    # タスクのソート(デフォルトはidの昇順)
+    sort_by   = params[:sort].presence      || 'id'
+    direction = params[:direction].presence || 'ASC'
+    @tasks    = @tasks.order("#{sort_by} #{direction}")
   end
 
   def destroy
