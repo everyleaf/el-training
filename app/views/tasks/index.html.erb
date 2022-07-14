@@ -2,45 +2,57 @@
 <div><%= link_to I18n.t('create_task'), new_task_url %>
 <br>
 
+<p>
+  並び替え
+  <br>
+  <%= sort_by 'タスク名',  'name'           %> |
+  <%= sort_by '取り掛り',  'start_date'     %> | 
+  <%= sort_by '必要日数',  'necessary_days' %> | 
+  <%= sort_by '実行度',    'progress'      %> | 
+  <%= sort_by '重要度',    'priority'      %>
+</p>
+
 <ul class="tasks">
   <% @tasks.each do |task| %>
-    <li>
-      <div>
-        <span><%= Task.human_attribute_name(:name) %></span>
-        <span><%= task.name%></span>
-        <span><%= link_to I18n.t('detail'),  task %></span>
-      </div>
-
-      <% if task.description.present? %>
+    <div class = "task">
+      <li>
         <div>
-          <span><%= Task.human_attribute_name(:description) %></span>
-          <%= task.description %>
+          <span><%= Task.human_attribute_name(:name) %></span>
+          <span><%= task.name%></span>
+          <span><%= link_to I18n.t('detail'),  task %></span>
         </div>
-      <% end %>
 
-      <div>
-        <span><%= Task.human_attribute_name(:necessary_days) %></span>
-        <%= task.necessary_days %>日
-      </div>
+        <% if task.description.present? %>
+          <div>
+            <span><%= Task.human_attribute_name(:description) %></span>
+            <%= task.description %>
+          </div>
+        <% end %>
 
-      <div>
-        <span><%= Task.human_attribute_name(:period_on_task) %></span>
-        <%  deadline_date = task.start_date + task.necessary_days - 1  %>
-        <%= print_month_day_wday task.start_date %> ~ 
-        <%= print_month_day_wday deadline_date %>
-      </div>
+        <div>
+          <span><%= Task.human_attribute_name(:necessary_days) %></span>
+          <%= task.necessary_days %>日
+        </div>
 
-      <div>
-        <span><%= Task.human_attribute_name(:progress) %></span>
-        <%= task.progress %>
-      </div>
-      
-      <div>
-        <span><%= Task.human_attribute_name(:priority) %></span>
-        <%= task.priority%>
-      </div>
-      
-      <br>
-    </li>
+        <div>
+          <span><%= Task.human_attribute_name(:period_on_task) %></span>
+          <%  deadline_date = task.start_date + task.necessary_days - 1  %>
+          <%= print_month_day_wday task.start_date %> ~ 
+          <%= print_month_day_wday deadline_date %>
+        </div>
+
+        <div>
+          <span><%= Task.human_attribute_name(:progress) %></span>
+          <%= task.progress %>
+        </div>
+        
+        <div>
+          <span><%= Task.human_attribute_name(:priority) %></span>
+          <%= task.priority%>
+        </div>
+        
+        <br>
+      </li>
+    </div>
   <% end %>
 </ul>
