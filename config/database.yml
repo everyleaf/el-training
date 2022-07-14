@@ -13,6 +13,7 @@ development:
 
 test:
   <<: *default
+  host: localhost
   database: task_app_test
 
 production:
