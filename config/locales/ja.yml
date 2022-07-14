@@ -1,0 +1,26 @@
+ja:
+  # フラッシュメッセージ
+  task_create_success: "タスクを作成しました"
+  task_create_failed:  "タスクの作成に失敗しました"
+  task_update_success: "タスクを更新しました"
+  task_update_failed:  "タスクの更新に失敗しました"
+  task_delete_success: "タスクを削除しました"
+  task_delete_failed:  "タスクの削除に失敗しました"
+  task_not_exist:      "該当するタスクが存在しません"
+
+  # ビュー
+  save_changes:  '変更を保存'
+  cancel_edit:   '編集をキャンセル'
+  cancel_create: '作成をキャンセル'
+  back_to_index: '一覧に戻る'
+  delete_task:   'タスクを削除'
+  create_task:   'タスクを作成'
+  edit:          '編集'
+  detail:        '詳細'
+
+  task_index:  'タスク一覧'
+  task_edit:   'タスク編集'
+  task_create: 'タスク作成'
+
+  # 確認メッセージ
+  message_before_delete: '本当に削除しますか?'

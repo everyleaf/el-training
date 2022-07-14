@@ -1,0 +1,19 @@
+ja:
+  activerecord:
+    models:
+      task: タスク
+    #モデルごとに設定したいattributesを定義
+    attributes:
+      task:
+        name:           タスク名
+        description:    説明
+        start_date:     開始日
+        necessary_days: 必要日数
+        progress:       進行状況
+        priority:       重要度
+        period_on_task: 取り掛かり期間
+
+  # 全てのモデルで共通して使用するattributes
+  attributes:
+    created_at: 作成日時
+    updated_at: 更新日時
