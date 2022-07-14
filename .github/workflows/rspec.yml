@@ -1,7 +1,6 @@
 name: Ruby
 
-on:
-  push:
+on: push
 
 jobs:
   run_spec:
