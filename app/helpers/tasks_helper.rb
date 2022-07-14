@@ -16,7 +16,6 @@ module TasksHelper
     end
   end
 
-
   # 現在のsearchパラメータを残したままsortパラメータを更新
   def sort_by(label, column)
     uri = URI.parse(request.url)
