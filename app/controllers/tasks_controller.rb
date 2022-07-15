@@ -22,7 +22,7 @@ class TasksController < ApplicationController
     # デフォルトのソート順はid
     sort_by       = params[:sort].presence      || 'id'
     direction     = params[:direction].presence || 'ASC'
-    @tasks = Task.all.order("#{sort_by} #{direction}")
+    @tasks = Task.all.order("#{sort_by} #{direction}").page(params[:page])
   end
 
   def destroy
