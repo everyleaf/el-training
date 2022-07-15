@@ -159,4 +159,45 @@ RSpec.describe 'Tasks', type: :system do
       end
     end
   end
+
+  describe 'ページネーション' do
+    let(:today) { Time.zone.today }
+    let(:test_size) { 55 }
+    let(:tasks_num_per_page) { ApplicationController::TASKS_NUM_PER_PAGE }
+    before do
+      # テスト用データの作成
+      test_size.times do |n|
+        name = "test_task_#{n}"
+        start_date = rand(today..(today+365))
+        necessary_days = rand(1..50)
+        priority = rand(0..2)
+        progress = rand(0..2)
+
+        Task.create(  name: name,
+                      start_date: start_date,
+                      necessary_days: necessary_days,
+                      priority: priority,
+                      progress: progress)
+      end
+      # タスク一覧ページを表示
+      visit tasks_path
+    end
+
+    context 'indexページを開いたとき' do
+      it 'ページネーションが適用されている' do
+        
+        # 最初のページに表示されている件数を見る
+        expect(page.all('.task').size).to eq(tasks_num_per_page)
+
+        #　最後のページに移動
+        click_on 'Last'
+
+        # 最後のページのタスクを正確に取得するにはsleepが必要
+        sleep 2
+
+        # 最後のページに表示されている件数を見る
+        expect(page.all('.task').size).to eq(test_size % tasks_num_per_page)
+      end
+    end
+  end
 end
