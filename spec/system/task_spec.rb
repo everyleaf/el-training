@@ -188,7 +188,7 @@ RSpec.describe 'Tasks', type: :system do
         # 最初のページに表示されている件数を見る
         expect(page.all('.task').size).to eq(tasks_num_per_page)
 
-        # 　最後のページに移動
+        # 最後のページに移動
         click_on 'Last'
 
         # 最後のページのタスクを正確に取得するにはsleepが必要
