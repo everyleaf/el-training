@@ -150,7 +150,7 @@ RSpec.describe 'Tasks', type: :system do
 
         # ページがレンダリングされるのを待つ
         # これがないとStaleElementReferenceErrorが発生
-        sleep 1
+        sleep 3
 
         tasks = page.all('.task')
         expect(tasks[0]).to have_content '高'
@@ -193,7 +193,7 @@ RSpec.describe 'Tasks', type: :system do
         click_on 'Last'
 
         # 最後のページのタスクを正確に取得するにはsleepが必要
-        sleep 2
+        sleep 3
 
         # 最後のページに表示されている件数を見る
         expect(page.all('.task').size).to eq(test_size % tasks_num_per_page)
