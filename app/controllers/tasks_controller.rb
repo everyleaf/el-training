@@ -64,7 +64,8 @@ class TasksController < ApplicationController
       :start_date,
       :necessary_days,
       :progress,
-      :priority)
+      :priority
+    )
   end
 
   def find_task_with_err_handling(task_id)

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-
   describe 'タスクの作成' do
     before do
       # タスク一覧ページを表示
@@ -55,7 +54,6 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'タスクの更新' do
-
     let(:task) { create(:task) }
 
     before do
@@ -94,7 +92,6 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'タスクの削除' do
-
     let(:task) { create(:task) }
 
     before do
