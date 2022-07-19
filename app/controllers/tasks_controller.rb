@@ -19,18 +19,16 @@ class TasksController < ApplicationController
   end
 
   def index
-    if params[:name].present?
-      if params[:option] == "perfect_match"
-        @tasks = Task.where(name: params[:name])
-      else # partial_match
-        @tasks = Task.where('name LIKE ?', "%#{params[:name]}%")
-      end
+    if params[:search].present?
+      @tasks = search_task_by_name
     else
-      # デフォルトのソート順はid
-      sort_by       = params[:sort].presence      || 'id'
-      direction     = params[:direction].presence || 'ASC'
-      @tasks = Task.all.order("#{sort_by} #{direction}")
+      @tasks = Task.all
     end
+
+    # デフォルトのソート順はid
+    sort_by       = params[:sort].presence      || 'id'
+    direction     = params[:direction].presence || 'ASC'
+    @tasks = @tasks.order("#{sort_by} #{direction}")
   end
 
   def destroy
@@ -76,5 +74,13 @@ class TasksController < ApplicationController
       return redirect_to tasks_url
     end
     task
+  end
+
+  def search_task_by_name
+    if params[:search_option] == "perfect_match"
+     Task.where(name: params[:search])
+    else # partial_match
+      Task.where('name LIKE ?', "%#{params[:search]}%")
+    end
   end
 end
