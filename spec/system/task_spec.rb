@@ -150,7 +150,7 @@ RSpec.describe 'Tasks', type: :system do
 
         # ページがレンダリングされるのを待つ
         # これがないとStaleElementReferenceErrorが発生
-        sleep 1
+        sleep 2
 
         tasks = page.all('.task')
         expect(tasks[0]).to have_content '高'
