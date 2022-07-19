@@ -5,6 +5,8 @@
 <div class="search_form">
   <%= form_with url: tasks_path, method: :get do |f| %>
       <%= f.text_field :name, placeholder: "タスク名" %>
+      <%= f.select :option, options_for_select([["完全に一致", "perfect_match"],
+                                                ["一部を含む", "partial_match"]]) %>
       <%= f.submit '検索', class: "btn btn-primary" %>
   <% end %>
 </div>

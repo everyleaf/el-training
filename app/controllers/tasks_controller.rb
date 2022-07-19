@@ -20,7 +20,11 @@ class TasksController < ApplicationController
 
   def index
     if params[:name].present?
-      @tasks = Task.where('name LIKE ?', "%#{params[:name]}%")
+      if params[:option] == "perfect_match"
+        @tasks = Task.where(name: params[:name])
+      else # partial_match
+        @tasks = Task.where('name LIKE ?', "%#{params[:name]}%")
+      end
     else
       # デフォルトのソート順はid
       sort_by       = params[:sort].presence      || 'id'
