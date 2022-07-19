@@ -19,15 +19,7 @@ class TasksController < ApplicationController
   end
 
   def index
-    # タスクの検索
-    if search_params_all_blank?
-      @tasks = Task.all
-      # 検索項目が空のとき、全ての項目にチェックを入れる
-      @search_pri = Task.priorities
-      @search_prg = Task.progresses
-    else
-      @tasks = serch_tasks_from_params
-    end
+    @tasks = search_tasks_from_checkbox_params
 
     # タスクのソート(デフォルトはidの昇順)
     sort_by   = params[:sort].presence      || 'id'
@@ -66,9 +58,13 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name,       :description,
-                                 :start_date, :necessary_days,
-                                 :progress,   :priority)
+    params.require(:task).permit(
+      :name,
+      :description,
+      :start_date,
+      :necessary_days,
+      :progress,
+      :priority)
   end
 
   def find_task_with_err_handling(task_id)
@@ -80,10 +76,17 @@ class TasksController < ApplicationController
     task
   end
 
-  def serch_tasks_from_params
-    @search_pri = params.dig(:search, :priority) # 見つからなければnil
-    @search_prg = params.dig(:search, :progress) # 見つからなければnil
-    Task.where(priority: @search_pri, progress: @search_prg)
+  def search_tasks_from_checkbox_params
+    if search_params_all_blank?
+      # 検索項目が空のとき、全ての項目にチェックを入れる
+      @search_pri = Task.priorities
+      @search_prg = Task.progresses
+      Task.all
+    else
+      @search_pri = params.dig(:search, :priority) # 見つからなければnil
+      @search_prg = params.dig(:search, :progress) # 見つからなければnil
+      Task.where(priority: @search_pri, progress: @search_prg)
+    end
   end
 
   def search_params_all_blank?
