@@ -19,11 +19,11 @@ class TasksController < ApplicationController
   end
 
   def index
-    if params[:search].present?
-      @tasks = search_task_by_name
-    else
-      @tasks = Task.all
-    end
+    @tasks = if params[:search].present?
+               search_task_by_name
+             else
+               Task.all
+             end
 
     # デフォルトのソート順はid
     sort_by       = params[:sort].presence      || 'id'
@@ -77,8 +77,8 @@ class TasksController < ApplicationController
   end
 
   def search_task_by_name
-    if params[:search_option] == "perfect_match"
-     Task.where(name: params[:search])
+    if params[:search_option] == 'perfect_match'
+      Task.where(name: params[:search])
     else # partial_match
       Task.where('name LIKE ?', "%#{params[:search]}%")
     end
