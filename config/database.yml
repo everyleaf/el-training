@@ -13,7 +13,8 @@ development:
 
 test:
   <<: *default
-  database: task_app_test
+  database: github-actions
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
 
 production:
   <<: *default
