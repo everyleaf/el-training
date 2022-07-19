@@ -19,10 +19,14 @@ class TasksController < ApplicationController
   end
 
   def index
-    # デフォルトのソート順はid
-    sort_by       = params[:sort].presence      || 'id'
-    direction     = params[:direction].presence || 'ASC'
-    @tasks = Task.all.order("#{sort_by} #{direction}")
+    if params[:name].present?
+      @tasks = Task.where('name LIKE ?', "%#{params[:name]}%")
+    else
+      # デフォルトのソート順はid
+      sort_by       = params[:sort].presence      || 'id'
+      direction     = params[:direction].presence || 'ASC'
+      @tasks = Task.all.order("#{sort_by} #{direction}")
+    end
   end
 
   def destroy
