@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  # テスト用タスク
-  let(:task) { create(:task) }
 
   describe 'タスクの作成' do
     before do
@@ -57,6 +55,9 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'タスクの更新' do
+
+    let(:task) { create(:task) }
+
     before do
       # 詳細ページに移動
       visit task_path(task)
@@ -93,6 +94,9 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'タスクの削除' do
+
+    let(:task) { create(:task) }
+
     before do
       # 詳細ページに移動
       visit task_path(task)
@@ -148,7 +152,7 @@ RSpec.describe 'Tasks', type: :system do
         click_on '重要度'
 
         # ページとURLが更新されるのを待つ
-        sleep 1
+        sleep 2
         expect(current_url).to include('direction=DESC')
 
         tasks = page.all('.task')
