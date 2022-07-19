@@ -16,7 +16,7 @@ module TasksHelper
     end
   end
 
-  # 現在のsearchパラメータを残したままsortパラメータを更新
+  # 現在のfilterパラメータを残したままsortパラメータを更新
   def sort_by(label, column)
     uri = URI.parse(request.url)
     query = Rack::Utils.parse_nested_query(uri.query)

@@ -173,8 +173,8 @@ RSpec.describe 'Tasks', type: :system do
 
     context '検索条件に該当するタスクが存在するとき' do
       it '該当するタスクのみ表示される' do
-        uncheck('search_priority_中')
-        uncheck('search_progress_完了')
+        uncheck('filter_priority_中')
+        uncheck('filter_progress_完了')
 
         # このときタスクの検索条件は
         # (priority == 低 || 高) && (progress == 未着手 || 実行中)
@@ -196,39 +196,39 @@ RSpec.describe 'Tasks', type: :system do
     context '検索ボタンを押したとき' do
       it 'チェックボックスの状態は維持される' do
         # デフォルトでは全てのチェックボックスがチェックされている
-        expect(page).to have_checked_field('search_priority_低')
-        expect(page).to have_checked_field('search_priority_中')
-        expect(page).to have_checked_field('search_priority_高')
-        expect(page).to have_checked_field('search_progress_未着手')
-        expect(page).to have_checked_field('search_progress_実行中')
-        expect(page).to have_checked_field('search_progress_完了')
+        expect(page).to have_checked_field('filter_priority_低')
+        expect(page).to have_checked_field('filter_priority_中')
+        expect(page).to have_checked_field('filter_priority_高')
+        expect(page).to have_checked_field('filter_progress_未着手')
+        expect(page).to have_checked_field('filter_progress_実行中')
+        expect(page).to have_checked_field('filter_progress_完了')
 
         # ある項目のチェックを外す
-        uncheck('search_priority_中')
-        uncheck('search_progress_未着手')
-        uncheck('search_progress_完了')
+        uncheck('filter_priority_中')
+        uncheck('filter_progress_未着手')
+        uncheck('filter_progress_完了')
 
         # 検索ボタンを押す
         click_on('検索')
 
         # 選択されていたものは選択されたまま
-        expect(page).to have_checked_field('search_priority_低')
-        expect(page).to have_checked_field('search_priority_高')
-        expect(page).to have_checked_field('search_progress_実行中')
+        expect(page).to have_checked_field('filter_priority_低')
+        expect(page).to have_checked_field('filter_priority_高')
+        expect(page).to have_checked_field('filter_progress_実行中')
 
         # チェックが外れていたものはチェックが外れたまま
-        expect(page).to have_unchecked_field('search_priority_中')
-        expect(page).to have_unchecked_field('search_progress_未着手')
-        expect(page).to have_unchecked_field('search_progress_完了')
+        expect(page).to have_unchecked_field('filter_priority_中')
+        expect(page).to have_unchecked_field('filter_progress_未着手')
+        expect(page).to have_unchecked_field('filter_progress_完了')
       end
     end
 
     context '該当するタスクがないとき' do
       it 'メッセージが表示される' do
         # 検索結果に該当するタスクがないようにチェックを外す
-        uncheck('search_priority_中')
-        uncheck('search_progress_未着手')
-        uncheck('search_progress_完了')
+        uncheck('filter_priority_中')
+        uncheck('filter_progress_未着手')
+        uncheck('filter_progress_完了')
 
         # 検索ボタンを押す
         click_on('検索')

@@ -1,19 +1,19 @@
-<%= form_with scope: :search, url: tasks_path, method: :get do |f| %>
+<%= form_with scope: :filter, url: tasks_path, method: :get do |f| %>
   <% Task.priorities.each do |pri| %>
     <%= f.label(:priority, pri.first) %>
     <%= f.check_box :priority,
                     { include_hidden: false,
                       multiple:       true,
-                      checked: @search_pri.try(:include?, pri.first) },
+                      checked: @filter_pri.try(:include?, pri.first) },
                     pri.first %>
   <% end %> 
 
   <% Task.progresses.each do |prg| %>
     <%= f.label(:progress, prg.first) %>
-    <%= f.check_box :progress, 
+    <%= f.check_box :progress,
                     { include_hidden: false,
                       multiple:       true,
-                      checked: @search_prg.try(:include?, prg.first) },
+                      checked: @filter_prg.try(:include?, prg.first) },
                     prg.first %>
   <% end %>
 
