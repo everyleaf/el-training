@@ -1,7 +1,7 @@
 name: CI
 on: push
 jobs:
-  build:
+  rspec:
     runs-on: ubuntu-latest
     services:
       postgres:
