@@ -150,7 +150,7 @@ RSpec.describe 'Tasks', type: :system do
 
         # ページがレンダリングされるのを待つ
         # これがないとStaleElementReferenceErrorが発生
-        sleep 1
+        sleep 2
 
         tasks = page.all('.task')
         expect(tasks[0]).to have_content '高'
@@ -185,12 +185,11 @@ RSpec.describe 'Tasks', type: :system do
 
     context '検索ワードに当てはまるタスクがないとき' do
       it 'メッセージが表示される' do
-
         fill_in 'search', with: 'no_name'
         select '完全に一致', from: :search_option
         click_on '検索'
 
-        expect(page).to have_content "該当するタスクがありません"
+        expect(page).to have_content '該当するタスクがありません'
       end
     end
 
@@ -200,11 +199,34 @@ RSpec.describe 'Tasks', type: :system do
         select '完全に一致', from: :search_option
         click_on '検索'
 
+        sleep 1
+
         # 表示されているタスクは1件で、
         expect(page.all('.task').size).to eq(1)
 
         # それはタスク15である
-        expect(page).to     have_content "test_task_15"
+        expect(page).to have_content 'test_task_15'
+      end
+    end
+
+    context '一部を含むオプションを選んだとき' do
+      it 'タスク名に検索ワードを含むタスク全てが表示される' do
+        fill_in 'search', with: '0'
+        select '一部を含む', from: :search_option
+        click_on '検索'
+
+        sleep 1
+
+        # 表示されているタスクは6件で、
+        expect(page.all('.task').size).to eq(6)
+
+        # それは名前に"0"を含むタスクである
+        expect(page).to     have_content 'test_task_0'
+        expect(page).to     have_content 'test_task_10'
+        expect(page).to     have_content 'test_task_20'
+        expect(page).to     have_content 'test_task_30'
+        expect(page).to     have_content 'test_task_40'
+        expect(page).to     have_content 'test_task_50'
       end
     end
   end
