@@ -160,7 +160,7 @@ RSpec.describe 'Tasks', type: :system do
     end
   end
 
-  describe 'タスクのワード検索' do
+  describe 'タスクを名前で検索する' do
     let(:today) { Time.zone.today }
     let(:test_size) { 55 }
     let(:tasks_num_per_page) { ApplicationController::TASKS_NUM_PER_PAGE }
@@ -183,19 +183,14 @@ RSpec.describe 'Tasks', type: :system do
       visit tasks_path
     end
 
-    context 'indexページを開いたとき' do
-      it 'ページネーションが適用されている' do
-        # 最初のページに表示されている件数を見る
-        expect(page.all('.task').size).to eq(tasks_num_per_page)
+    context '検索ワードに当てはまるタスクがないとき' do
+      it 'メッセージが表示される' do
 
-        # 最後のページに移動
-        click_on 'Last'
+        fill_in 'search', with: 'no_name'
+        select '完全に一致', from: :search_option
+        click_on '検索'
 
-        # 最後のページのタスクを正確に取得するにはsleepが必要
-        sleep 3
-
-        # 最後のページに表示されている件数を見る
-        expect(page.all('.task').size).to eq(test_size % tasks_num_per_page)
+        expect(page).to have_content "該当するタスクがありません"
       end
     end
   end
