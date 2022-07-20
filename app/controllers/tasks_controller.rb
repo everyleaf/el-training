@@ -91,8 +91,11 @@ class TasksController < ApplicationController
   end
 
   def filter_tasks_from_checkbox_params
-    filtered_task = Task.where(priority: @filter_priority, progress: @filter_progress)
-    filtered_task.presence || Task.all
+    if filter_params_all_blank? # indexページに遷移直後 or チェックボックスが空のとき
+      Task.all
+    else
+      Task.where(priority: @filter_priority, progress: @filter_progress)
+    end
   end
 
   def filter_params_all_blank?
