@@ -1,12 +1,9 @@
 <h1><%= I18n.t('task_create') %></h1>
 <% provide(:button_text, "Create") %>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
+<div>
     <%= render 'form' %>
-  </div>
 </div>
 
-<div class = "col-md-offset-3">
-  <%=link_to I18n.t('cancel_create'), tasks_url%>
-</div>
+
+<%=link_to I18n.t('cancel_create'), tasks_url%>
