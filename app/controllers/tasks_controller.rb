@@ -85,14 +85,14 @@ class TasksController < ApplicationController
       @filter_progress = Task.progresses
     else
       # 見つからなければnil
-      @filter_priority = params.dig(:filter, :priority) 
+      @filter_priority = params.dig(:filter, :priority)
       @filter_progress = params.dig(:filter, :progress)
     end
   end
 
   def filter_tasks_from_checkbox_params
     filtered_task = Task.where(priority: @filter_priority, progress: @filter_progress)
-    filtered_task.blank? ? Task.all : filtered_task
+    filtered_task.presence || Task.all
   end
 
   def filter_params_all_blank?
