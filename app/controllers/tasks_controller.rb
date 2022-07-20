@@ -91,6 +91,6 @@ class TasksController < ApplicationController
   end
 
   def filter_params_all_blank?
-    params.dig(:filter, :priority).nil? && params.dig(:filter, :progress).nil?
+    params.dig(:filter, :priority).blank? && params.dig(:filter, :progress).blank?
   end
 end
