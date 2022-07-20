@@ -185,12 +185,11 @@ RSpec.describe 'Tasks', type: :system do
 
     context '検索ワードに当てはまるタスクがないとき' do
       it 'メッセージが表示される' do
-
         fill_in 'search', with: 'no_name'
         select '完全に一致', from: :search_option
         click_on '検索'
 
-        expect(page).to have_content "該当するタスクがありません"
+        expect(page).to have_content '該当するタスクがありません'
       end
     end
   end
