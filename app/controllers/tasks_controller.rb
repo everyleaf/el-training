@@ -80,13 +80,13 @@ class TasksController < ApplicationController
   def filter_tasks_from_checkbox_params
     if filter_params_all_blank?
       # 検索項目が空のとき、全ての項目にチェックを入れる
-      @filter_pri = Task.priorities
-      @filter_prg = Task.progresses
+      @filter_priority = Task.priorities
+      @filter_progress = Task.progresses
       Task.all
     else
-      @filter_pri = params.dig(:filter, :priority) # 見つからなければnil
-      @filter_prg = params.dig(:filter, :progress) # 見つからなければnil
-      Task.where(priority: @filter_pri, progress: @filter_prg)
+      @filter_priority = params.dig(:filter, :priority) # 見つからなければnil
+      @filter_progress = params.dig(:filter, :progress) # 見つからなければnil
+      Task.where(priority: @filter_priority, progress: @filter_progress)
     end
   end
 

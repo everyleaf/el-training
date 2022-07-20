@@ -4,7 +4,7 @@
     <%= f.check_box :priority,
                     { include_hidden: false,
                       multiple:       true,
-                      checked: @filter_pri.try(:include?, pri.first) },
+                      checked: @filter_priority.try(:include?, pri.first) },
                     pri.first %>
   <% end %> 
 
@@ -13,7 +13,7 @@
     <%= f.check_box :progress,
                     { include_hidden: false,
                       multiple:       true,
-                      checked: @filter_prg.try(:include?, prg.first) },
+                      checked: @filter_progress.try(:include?, prg.first) },
                     prg.first %>
   <% end %>
 
