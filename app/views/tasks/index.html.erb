@@ -21,6 +21,10 @@
   <%= sort_by '重要度',    'priority'      %>
 </p>
 
+<% if @tasks.empty? %>
+  該当するタスクがありません
+<% end %>
+
 <ul class="tasks">
   <% @tasks.each do |task| %>
     <div class = "task">
