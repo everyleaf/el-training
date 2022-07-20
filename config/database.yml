@@ -18,9 +18,7 @@ test:
 
 test:
   <<: *default
-  database: github-actions
-  username: <%= ENV["POSTGRES_USER"] %>
-  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  database: task_app_test
 
 production:
   <<: *default
