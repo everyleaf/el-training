@@ -19,12 +19,13 @@ class TasksController < ApplicationController
   end
 
   def index
-    @tasks = filter_tasks_from_checkbox_params
+    update_filter_params
+    @filtered_tasks = filter_tasks_from_checkbox_params
 
     # タスクのソート(デフォルトはidの昇順)
     sort_by   = params[:sort].presence      || 'id'
     direction = params[:direction].presence || 'ASC'
-    @tasks    = @tasks.order("#{sort_by} #{direction}")
+    @tasks    = @filtered_tasks.order("#{sort_by} #{direction}")
   end
 
   def destroy
@@ -77,17 +78,21 @@ class TasksController < ApplicationController
     task
   end
 
-  def filter_tasks_from_checkbox_params
+  def update_filter_params
     if filter_params_all_blank?
       # 検索項目が空のとき、全ての項目にチェックを入れる
       @filter_priority = Task.priorities
       @filter_progress = Task.progresses
-      Task.all
     else
-      @filter_priority = params.dig(:filter, :priority) # 見つからなければnil
-      @filter_progress = params.dig(:filter, :progress) # 見つからなければnil
-      Task.where(priority: @filter_priority, progress: @filter_progress)
+      # 見つからなければnil
+      @filter_priority = params.dig(:filter, :priority) 
+      @filter_progress = params.dig(:filter, :progress)
     end
+  end
+
+  def filter_tasks_from_checkbox_params
+    filtered_task = Task.where(priority: @filter_priority, progress: @filter_progress)
+    filtered_task.blank? ? Task.all : filtered_task
   end
 
   def filter_params_all_blank?
