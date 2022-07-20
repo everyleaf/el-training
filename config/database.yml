@@ -14,6 +14,8 @@ development:
 test:
   <<: *default
   database: task_app_test
+  username: <%= ENV["POSTGRES_USER"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
 
 production:
   <<: *default
