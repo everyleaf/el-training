@@ -3,6 +3,10 @@
 
 /* universal */
 
+html{
+    font-size: 16px;
+}
+
 body {
     padding-top: 60px;
 }
@@ -40,4 +44,14 @@ select {
 
 input {
     height: auto !important;
+}
+
+/* card */
+
+.card {
+    font-size: 12px;
+    max-width: 20rem;
+    h4 {
+        font-size: 20px;
+    }
 }

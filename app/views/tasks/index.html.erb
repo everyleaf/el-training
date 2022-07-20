@@ -15,8 +15,8 @@
 <div class="tasks">
   <% @tasks.each do |task| %>
     <div class = "task">
-      <div class="card border-dark mb-3" style="max-width: 24rem;">
-        <div class="card-body">
+      <div class="card border-dark mb-3">
+        <%= link_to task, class: "card-body text-dark" do %>
           <div>
             <h4><%= task.name%></h4>
           </div>
@@ -49,11 +49,7 @@
             <span><%= Task.human_attribute_name(:priority) %></span>
             <%= task.priority%>
           </div>
-
-          <%= link_to I18n.t('detail'),  task %>
-          
-          <br>
-        </div>
+        <% end %>
       </div>
     </div>
   <% end %>
