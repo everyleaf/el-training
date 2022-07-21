@@ -9,12 +9,14 @@
 <br>
 
 <p>
-  並び替え
+  <%= Task.human_attribute_name(@sort_by) %> ,
+  <%= @direction == 'ASC' ? '昇順' : '降順' %> 
   <br>
+  <%= sort_by '作成日',    'created_at'    %> |
   <%= sort_by 'タスク名',  'name'           %> |
   <%= sort_by '取り掛り',  'start_date'     %> | 
   <%= sort_by '必要日数',  'necessary_days' %> | 
-  <%= sort_by '実行度',    'progress'      %> | 
+  <%= sort_by '進行状況',  'progress'       %> | 
   <%= sort_by '重要度',    'priority'      %>
 </p>
 
@@ -27,6 +29,11 @@
         <%= link_to task, class: "card-body text-white" do %>
           <div>
             <h4><%= task.name%></h4>
+          </div>
+
+          <div>
+            <span><%= Task.human_attribute_name(:created_date) %></span>
+            <%= print_month_day_wday task.created_at %>
           </div>
 
           <% if task.description.present? %>
