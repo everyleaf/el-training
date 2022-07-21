@@ -25,6 +25,9 @@ class TasksController < ApplicationController
                Task.all
              end
 
+    @shown_search_praceholder = params[:search].presence || 'タスク名'
+    @shown_search_option = params[:search_option].presence || 'perfect_match'
+
     # デフォルトのソート順はid
     sort_by       = params[:sort].presence      || 'id'
     direction     = params[:direction].presence || 'ASC'
