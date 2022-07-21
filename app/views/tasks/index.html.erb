@@ -23,8 +23,8 @@
 <div class="tasks">
   <% @tasks.each do |task| %>
     <div class = "task">
-      <div class="card border-dark mb-3">
-        <%= link_to task, class: "card-body text-dark" do %>
+      <div class="card mb-3 bg-primary">
+        <%= link_to task, class: "card-body text-white" do %>
           <div>
             <h4><%= task.name%></h4>
           </div>
