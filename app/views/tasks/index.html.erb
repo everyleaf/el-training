@@ -8,19 +8,26 @@
 </div>
 <br>
 
-<p>
-  <%= Task.human_attribute_name(@sort_by) %> ,
-  <%= @direction == 'ASC' ? '昇順' : '降順' %> 
-  <br>
-  <%= sort_by '作成日',    'created_at'    %> |
-  <%= sort_by 'タスク名',  'name'           %> |
-  <%= sort_by '取り掛り',  'start_date'     %> | 
-  <%= sort_by '必要日数',  'necessary_days' %> | 
-  <%= sort_by '進行状況',  'progress'       %> | 
-  <%= sort_by '重要度',    'priority'      %>
-</p>
-
-
+<div>
+  <div class = <%= sorted_by?('created_at')%>>
+    <%= sort_by '作成日',  'created_at' %>
+  </div> |
+  <div class = <%=sorted_by?('name')%>>
+    <%= sort_by 'タスク名', 'name'      %>
+  </div> |
+  <div class = <%=sorted_by?('start_date')%>>
+    <%= sort_by '取り掛り', 'start_date' %>
+  </div> |
+  <div class = <%=sorted_by?('necessary_days')%>> 
+    <%= sort_by '必要日数', 'necessary_days' %>
+  </div> |
+  <div class = <%=sorted_by?('progress')%>>
+    <%= sort_by '進行状況', 'progress'   %>
+  </div> |
+  <div class = <%=sorted_by?('priority')%>>
+    <%= sort_by '重要度',  'priority'   %>
+  </div>
+</div>
 
 <div class="tasks">
   <% @tasks.each do |task| %>

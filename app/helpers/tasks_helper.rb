@@ -19,4 +19,18 @@ module TasksHelper
   def sort_by(label, column)
     link_to label, tasks_path(sort: column, direction: get_sort_direction(column))
   end
+
+  def sorted_by?(column)
+    if @sort_by != column
+      return
+    end
+
+    return_class = "sorting_params"
+    return_class += " "
+    return_class += @direction
+    pp "******"
+    pp return_class
+    pp "******"
+    return_class
+  end
 end
