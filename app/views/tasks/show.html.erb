@@ -1,4 +1,8 @@
-<h1><%= @task.name %></h1>
+<div class="row">
+  <div class="col-4">
+    <h1><%= @task.name %></h1>
+  </div>
+</div>
 <span><%= link_to  I18n.t('back_to_index'),  tasks_url      %></span>
 <span><%= link_to  I18n.t('edit'),           edit_task_path %></span>
 <span>

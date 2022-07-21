@@ -1,5 +1,11 @@
-<h1><%= I18n.t('task_index') %></h1>
-<div><%= link_to I18n.t('create_task'), new_task_url %>
+<div class= "row d-flex align-items-center">
+  <div class="col-4">
+    <h1><%= I18n.t('task_index') %></h1>
+  </div>
+  <div class="col-6">
+    <%= link_to I18n.t('create_task'), new_task_url, class:"btn btn-primary" %>
+  </div>
+</div>
 <br>
 
 <p>
@@ -11,6 +17,8 @@
   <%= sort_by '実行度',    'progress'      %> | 
   <%= sort_by '重要度',    'priority'      %>
 </p>
+
+
 
 <div class="tasks">
   <% @tasks.each do |task| %>
