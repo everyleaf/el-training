@@ -15,16 +15,21 @@
   <%= f.label        :necessary_days %>
   <%= f.number_field :necessary_days, min: 1, class: 'form-control' %>
 
+  <br>
   <%= f.label :progress %>
   <div>
-    <%= f.collection_radio_buttons   :progress, Task.progresses, :first, :first %>
+    <%= f.collection_radio_buttons :progress, Task.progresses, :first, :first do |b|  %>
+      <%= b.label(class: "radio") { b.radio_button + b.text } %>
+    <% end %>
   </div>
 
   <br>
   
   <%= f.label :priority %>
   <div>
-      <%= f.collection_radio_buttons :priority, Task.priorities, :first, :first %>
+    <%= f.collection_radio_buttons :priority, Task.priorities, :first, :first do |b|  %>
+      <%= b.label(class: "radio") { b.radio_button + b.text } %>
+    <% end %>
   </div>
 
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>

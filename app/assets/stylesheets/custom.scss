@@ -46,6 +46,11 @@ input {
     height: auto !important;
 }
 
+.radio-vertical {                                          
+    flex-direction: column;                                                       
+    display: inline-flex;                                                         
+} 
+
 /* sort */
 
 .sorting-params{
