@@ -163,7 +163,7 @@ RSpec.describe 'Tasks', type: :system do
   describe 'ページネーション' do
     let(:today) { Time.zone.today }
     let(:test_size) { 55 }
-    let(:tasks_num_per_page) { ApplicationController::TASKS_NUM_PER_PAGE }
+    let(:tasks_num_per_page) { TasksController::TASKS_NUM_PER_PAGE }
     before do
       # テスト用データの作成
       test_size.times do |n|

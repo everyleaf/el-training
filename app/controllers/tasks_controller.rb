@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  TASKS_NUM_PER_PAGE = 10
+
   def new
     @task = Task.new
   end
