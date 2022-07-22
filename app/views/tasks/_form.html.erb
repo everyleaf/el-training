@@ -1,36 +1,45 @@
 <%= form_for(@task) do |f| %>
 
   <%= render 'shared/error_messages' %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.label      :name , class: 'form-label' %>
+      <%= f.text_field :name,  class: 'form-control' %>
 
-  <%= f.label      :name %>
-  <%= f.text_field :name,        class: 'form-control' %>
-
-  <%= f.label      :description %>
-  <%= f.text_area  :description, class: 'form-control' %>
+      <%= f.label      :description, class: 'form-label'   %>
+      <%= f.text_area  :description, class: 'form-control' %>
 
 
-  <%= f.label      :start_date %>
-  <%= f.date_field :start_date,  class: 'form-control' %>
+      <%= f.label      :start_date, class: 'form-label'   %>
+      <%= f.date_field :start_date, class: 'form-control' %>
 
-  <%= f.label        :necessary_days %>
-  <%= f.number_field :necessary_days, min: 1, class: 'form-control' %>
+      <%= f.label        :necessary_days        , class: 'form-label'   %>
+      <%= f.number_field :necessary_days, min: 1, class: 'form-control' %>
 
-  <br>
-  <%= f.label :progress %>
-  <div>
-    <%= f.collection_radio_buttons :progress, Task.progresses, :first, :first do |b|  %>
-      <%= b.label(class: "radio") { b.radio_button + b.text } %>
-    <% end %>
+      <br>
+      <%= f.label :progress ,class: 'form-label' %>
+      <div>
+        <%= f.collection_radio_buttons :progress, Task.progresses, :first, :first do |b|  %>
+          <%= b.label(class: "radio") { b.radio_button + b.text } %>
+        <% end %>
+      </div>
+
+      <br>
+      
+      <%= f.label :priority, class: 'form-label' %>
+      <div>
+        <%= f.collection_radio_buttons :priority, Task.priorities, :first, :first do |b|  %>
+          <%= b.label(class: "radio") { b.radio_button + b.text } %>
+        <% end %>
+      </div>
+    </div>
   </div>
-
-  <br>
-  
-  <%= f.label :priority %>
-  <div>
-    <%= f.collection_radio_buttons :priority, Task.priorities, :first, :first do |b|  %>
-      <%= b.label(class: "radio") { b.radio_button + b.text } %>
-    <% end %>
+  <div class = "row">
+    <div class = "col-md-6">
+      <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+    </div>
+    <div class="col-md-6">
+      <%= link_to yield(:cancel_link_text), yield(:cancel_link) %>
+    </div>
   </div>
-
-  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>
