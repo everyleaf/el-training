@@ -39,7 +39,7 @@
       <%= f.submit yield(:button_text), class: "btn btn-primary" %>
     </div>
     <div class="col-md-6">
-      <%= link_to yield(:cancel_link_text), yield(:cancel_link) %>
+      <%= link_to yield(:cancel_link_text), yield(:cancel_link), class:"btn btn-warning"%>
     </div>
   </div>
 <% end %>
