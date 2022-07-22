@@ -21,11 +21,14 @@ class TasksController < ApplicationController
   end
 
   def index
-    # デフォルトのソート順はid
-    sort_by       = params[:sort].presence      || 'id'
-    direction     = params[:direction].presence || 'ASC'
-    sorted_tasks  = Task.all.order("#{sort_by} #{direction}")
-    @tasks        = sorted_tasks.page(params[:page]).per(TASKS_NUM_PER_PAGE)
+    update_filter_params
+    filtered_tasks = filter_tasks_from_checkbox_params
+
+    # タスクのソート(デフォルトはidの昇順)
+    sort_by      = params[:sort].presence      || 'id'
+    direction    = params[:direction].presence || 'ASC'
+    sorted_tasks = filtered_tasks.order("#{sort_by} #{direction}")
+    @tasks       = sorted_tasks.page(params[:page]).per(TASKS_NUM_PER_PAGE)
   end
 
   def destroy
@@ -59,9 +62,14 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name,       :description,
-                                 :start_date, :necessary_days,
-                                 :progress,   :priority)
+    params.require(:task).permit(
+      :name,
+      :description,
+      :start_date,
+      :necessary_days,
+      :progress,
+      :priority
+    )
   end
 
   def find_task_with_err_handling(task_id)
@@ -71,5 +79,29 @@ class TasksController < ApplicationController
       return redirect_to tasks_url
     end
     task
+  end
+
+  def update_filter_params
+    if filter_params_all_blank?
+      # 検索項目が空のとき、全ての項目にチェックを入れる
+      @filter_priority = Task.priorities
+      @filter_progress = Task.progresses
+    else
+      # 見つからなければnil
+      @filter_priority = params.dig(:filter, :priority)
+      @filter_progress = params.dig(:filter, :progress)
+    end
+  end
+
+  def filter_tasks_from_checkbox_params
+    if filter_params_all_blank? # indexページに遷移直後 or チェックボックスが空のとき
+      Task.all
+    else
+      Task.where(priority: @filter_priority, progress: @filter_progress)
+    end
+  end
+
+  def filter_params_all_blank?
+    params.dig(:filter, :priority).blank? && params.dig(:filter, :progress).blank?
   end
 end
