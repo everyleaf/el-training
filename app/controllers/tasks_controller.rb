@@ -20,7 +20,7 @@ class TasksController < ApplicationController
 
   def index
     # デフォルトのソート順はid
-    @sort_by       = params[:sort].presence      || 'id'
+    @sort_by       = params[:sort].presence      || 'created_at'
     @direction     = params[:direction].presence || 'ASC'
     @tasks = Task.all.order("#{@sort_by} #{@direction}")
   end
