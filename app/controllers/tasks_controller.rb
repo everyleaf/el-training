@@ -19,19 +19,23 @@ class TasksController < ApplicationController
   end
 
   def index
-    @tasks = if params[:search].present?
-               search_task_by_name
-             else
-               Task.all
-             end
-
+    # タスクの検索
+    searched_tasks = if params[:search].present?
+      search_task_by_name
+    else
+      Task.all
+    end
     @shown_search_praceholder = params[:search].presence || 'タスク名'
     @shown_search_option = params[:search_option].presence || 'perfect_match'
 
-    # デフォルトのソート順はid
-    sort_by       = params[:sort].presence      || 'id'
-    direction     = params[:direction].presence || 'ASC'
-    @tasks = @tasks.order("#{sort_by} #{direction}")
+    # タスクのフィルタリング
+    update_filter_params
+    filtered_tasks = filter_tasks_from_checkbox_params(searched_tasks)
+
+    # タスクのソート(デフォルトはidの昇順)
+    sort_by   = params[:sort].presence      || 'id'
+    direction = params[:direction].presence || 'ASC'
+    @tasks    = filtered_tasks.order("#{sort_by} #{direction}")
   end
 
   def destroy
@@ -65,9 +69,14 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name,       :description,
-                                 :start_date, :necessary_days,
-                                 :progress,   :priority)
+    params.require(:task).permit(
+      :name,
+      :description,
+      :start_date,
+      :necessary_days,
+      :progress,
+      :priority
+    )
   end
 
   def find_task_with_err_handling(task_id)
@@ -85,5 +94,29 @@ class TasksController < ApplicationController
     else # partial_match
       Task.where('name LIKE ?', "%#{params[:search]}%")
     end
+  end
+
+  def update_filter_params
+    if filter_params_all_blank?
+      # 検索項目が空のとき、全ての項目にチェックを入れる
+      @filter_priority = Task.priorities
+      @filter_progress = Task.progresses
+    else
+      # 見つからなければnil
+      @filter_priority = params.dig(:filter, :priority)
+      @filter_progress = params.dig(:filter, :progress)
+    end
+  end
+
+  def filter_tasks_from_checkbox_params(tasks)
+    if filter_params_all_blank? # indexページに遷移直後 or チェックボックスが空のとき
+      tasks.all
+    else
+      tasks.where(priority: @filter_priority, progress: @filter_progress)
+    end
+  end
+
+  def filter_params_all_blank?
+    params.dig(:filter, :priority).blank? && params.dig(:filter, :progress).blank?
   end
 end

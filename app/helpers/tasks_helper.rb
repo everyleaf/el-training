@@ -16,7 +16,14 @@ module TasksHelper
     end
   end
 
+  # 現在のfilterパラメータを残したままsortパラメータを更新
   def sort_by(label, column)
-    link_to label, tasks_path(sort: column, direction: get_sort_direction(column))
+    uri = URI.parse(request.url)
+    query = Rack::Utils.parse_nested_query(uri.query)
+    query['sort']      = column
+    query['direction'] = get_sort_direction(column)
+    uri.query = query.to_param
+    url = uri.to_s
+    link_to label, url
   end
 end

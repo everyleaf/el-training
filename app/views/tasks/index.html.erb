@@ -1,6 +1,9 @@
 <h1><%= I18n.t('task_index') %></h1>
-<div><%= link_to I18n.t('create_task'), new_task_url %>
-<br>
+<div>
+  <%= link_to I18n.t('create_task'), new_task_url %>
+  <br>
+  <%= render 'filter_check_box' %>
+</div>
 
 <div class="search_form">
   <%= form_with url: tasks_path, method: :get do |f| %>
@@ -21,7 +24,7 @@
   <%= sort_by '重要度',    'priority'      %>
 </p>
 
-<% if @tasks.empty? %>
+<% if @tasks.blank? %>
   該当するタスクがありません
 <% end %>
 
