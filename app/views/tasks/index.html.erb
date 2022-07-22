@@ -8,15 +8,15 @@
 </div>
 <br>
 
-<div>
-  <%= sort_by '作成日',  'created_at'      %>|
-  <%= sort_by 'タスク名', 'name'           %>|
-  <%= sort_by '取り掛り', 'start_date'     %>|
-  <%= sort_by '必要日数', 'necessary_days' %>|
-  <%= sort_by '進行状況', 'progress'       %>|
-  <%= sort_by '重要度',  'priority'        %>
+<div class="sorting-params">
+  <%= sort_link  @sort_by, @direction, '作成日',  'created_at'      %> | 
+  <%= sort_link  @sort_by, @direction, 'タスク名', 'name'           %> | 
+  <%= sort_link  @sort_by, @direction, '取り掛り', 'start_date'     %> | 
+  <%= sort_link  @sort_by, @direction, '必要日数', 'necessary_days' %> | 
+  <%= sort_link  @sort_by, @direction, '進行状況', 'progress'       %> | 
+  <%= sort_link  @sort_by, @direction, '重要度',  'priority'        %>
 </div>
-
+<br>
 <div class="tasks">
   <% @tasks.each do |task| %>
     <div class = "task">

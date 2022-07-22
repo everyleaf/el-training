@@ -16,15 +16,11 @@ module TasksHelper
     end
   end
 
-  def sort_by(label, column)
-    link_to label, tasks_path(sort: column, direction: get_sort_direction(column)), class:sorted_by?(column)
-  end
-
-  def sorted_by?(column)
-    if @sort_by != column
-      return
+  def sort_link(sort_by, direction, label, column)
+    if sort_by == column
+      # 現在ソートされているcolumnのみ、並び順(ASC,DESC)をクラスとして付与
+      sort_class = direction
     end
-    pp @direction
-    @direction
+    link_to label, tasks_path(sort: column, direction: get_sort_direction(column)), class: sort_class
   end
 end
