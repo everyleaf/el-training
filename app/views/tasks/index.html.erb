@@ -1,6 +1,9 @@
 <h1><%= I18n.t('task_index') %></h1>
-<div><%= link_to I18n.t('create_task'), new_task_url %>
-<br>
+<div>
+  <%= link_to I18n.t('create_task'), new_task_url %>
+  <br>
+  <%= render 'filter_check_box' %>
+</div>
 
 <p>
   並び替え
@@ -12,6 +15,9 @@
   <%= sort_by '重要度',    'priority'      %>
 </p>
 
+<% if @tasks.blank? %>
+  該当するタスクがありません
+<% end %>
 <ul class="tasks">
   <% @tasks.each do |task| %>
     <div class = "task">
