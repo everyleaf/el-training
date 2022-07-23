@@ -2,22 +2,34 @@
   <div class="col-4">
     <h1><%= I18n.t('task_index') %></h1>
   </div>
+    <div class="col-6">
+      <%= link_to I18n.t('create_task'), new_task_url, class:"btn btn-primary" %>
+    </div>
+</div>
+<div class="row">
   <div class="col-6">
-    <%= link_to I18n.t('create_task'), new_task_url, class:"btn btn-primary" %>
+    <br>
+    <%= render 'filter_check_box' %>
+  
+    <br>
+
+    <div class="sorting-params">
+      <%= sort_link  @sort_by, @direction, '作成日',  'created_at'      %> | 
+      <%= sort_link  @sort_by, @direction, 'タスク名', 'name'           %> | 
+      <%= sort_link  @sort_by, @direction, '取り掛り', 'start_date'     %> | 
+      <%= sort_link  @sort_by, @direction, '必要日数', 'necessary_days' %> | 
+      <%= sort_link  @sort_by, @direction, '進行状況', 'progress'       %> | 
+      <%= sort_link  @sort_by, @direction, '重要度',   'priority'        %>
+    </div>
   </div>
 </div>
+
 <br>
 
-<div class="sorting-params">
-  <%= sort_link  @sort_by, @direction, '作成日',  'created_at'      %> | 
-  <%= sort_link  @sort_by, @direction, 'タスク名', 'name'           %> | 
-  <%= sort_link  @sort_by, @direction, '取り掛り', 'start_date'     %> | 
-  <%= sort_link  @sort_by, @direction, '必要日数', 'necessary_days' %> | 
-  <%= sort_link  @sort_by, @direction, '進行状況', 'progress'       %> | 
-  <%= sort_link  @sort_by, @direction, '重要度',  'priority'        %>
-</div>
-<br>
-<div class="tasks">
+<% if @tasks.blank? %>
+  該当するタスクがありません
+<% end %>
+<ul class="tasks">
   <% @tasks.each do |task| %>
     <div class = "task">
       <div class="card mb-3 bg-primary">

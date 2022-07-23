@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
-  # テスト用タスク
-  let(:task) { create(:task) }
-
   describe 'タスクの作成' do
     before do
       # タスク一覧ページを表示
@@ -57,6 +54,8 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'タスクの更新' do
+    let(:task) { create(:task) }
+
     before do
       # 詳細ページに移動
       visit task_path(task)
@@ -93,6 +92,8 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'タスクの削除' do
+    let(:task) { create(:task) }
+
     before do
       # 詳細ページに移動
       visit task_path(task)
@@ -146,16 +147,100 @@ RSpec.describe 'Tasks', type: :system do
 
         # もう一度押すと降順に並べ替えられる
         click_on '重要度'
-        expect(current_url).to include('direction=DESC')
 
-        # ページがレンダリングされるのを待つ
-        # これがないとStaleElementReferenceErrorが発生
-        sleep 1
+        # ページとURLが更新されるのを待つ
+        sleep 2
+        expect(current_url).to include('direction=DESC')
 
         tasks = page.all('.task')
         expect(tasks[0]).to have_content '高'
         expect(tasks[1]).to have_content '中'
         expect(tasks[2]).to have_content '低'
+      end
+    end
+  end
+
+  describe 'タスクの検索' do
+    before do
+      # タスク一覧ページを表示
+      visit tasks_path
+
+      # テストデータ
+      create(:task, name: 'a', priority: 0, progress: 0)
+      create(:task, name: 'b', priority: 1, progress: 1)
+      create(:task, name: 'c', priority: 2, progress: 2)
+    end
+
+    context '検索条件に該当するタスクが存在するとき' do
+      it '該当するタスクのみ表示される' do
+        uncheck('filter_priority_中')
+        uncheck('filter_progress_完了')
+
+        # このときタスクの検索条件は
+        # (priority == 低 || 高) && (progress == 未着手 || 実行中)
+        # task 'a' のみが条件に当てはまる
+
+        click_on('検索')
+
+        # 表示されているタスクを取得
+        tasks = page.all('.task')
+
+        # 表示されているタスク数は1件
+        expect(tasks.size).to eq(1)
+
+        # 表示されているタスクは'a'
+        expect(tasks[0]).to have_content '低'
+      end
+    end
+
+    context '検索ボタンを押したとき' do
+      it 'チェックボックスの状態は維持される' do
+        # デフォルトでは全てのチェックボックスがチェックされている
+        expect(page).to have_checked_field('filter_priority_低')
+        expect(page).to have_checked_field('filter_priority_中')
+        expect(page).to have_checked_field('filter_priority_高')
+        expect(page).to have_checked_field('filter_progress_未着手')
+        expect(page).to have_checked_field('filter_progress_実行中')
+        expect(page).to have_checked_field('filter_progress_完了')
+
+        # ある項目のチェックを外す
+        uncheck('filter_priority_中')
+        uncheck('filter_progress_未着手')
+        uncheck('filter_progress_完了')
+
+        # 検索ボタンを押す
+        click_on('検索')
+
+        # 選択されていたものは選択されたまま
+        expect(page).to have_checked_field('filter_priority_低')
+        expect(page).to have_checked_field('filter_priority_高')
+        expect(page).to have_checked_field('filter_progress_実行中')
+
+        # チェックが外れていたものはチェックが外れたまま
+        expect(page).to have_unchecked_field('filter_priority_中')
+        expect(page).to have_unchecked_field('filter_progress_未着手')
+        expect(page).to have_unchecked_field('filter_progress_完了')
+      end
+    end
+
+    context '該当するタスクがないとき' do
+      it 'メッセージが表示される' do
+        # 検索結果に該当するタスクがないようにチェックを外す
+        uncheck('filter_priority_中')
+        uncheck('filter_progress_未着手')
+        uncheck('filter_progress_完了')
+
+        # 検索ボタンを押す
+        click_on('検索')
+
+        # 選択されていたものは選択されたまま
+        expect(page).to have_content('該当するタスクがありません')
+
+        # 表示されているタスクを取得
+        tasks = page.all('.task')
+
+        # 表示されているタスク数は0件
+        expect(tasks.size).to eq(0)
       end
     end
   end
