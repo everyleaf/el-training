@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :set_categories, only: [:new,:edit]
   def new
     @task = Task.new
   end
@@ -54,6 +55,10 @@ class TasksController < ApplicationController
       flash.now[:danger] = I18n.t 'task_update_failed'
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def set_categories
+    @categories = TaskCategory.all
   end
 
   private

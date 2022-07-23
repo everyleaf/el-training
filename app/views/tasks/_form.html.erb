@@ -5,6 +5,9 @@
   <%= f.label      :name %>
   <%= f.text_field :name,        class: 'form-control' %>
 
+  <%= f.label      :category %>
+  <%= f.select     :task_category, @categories.map{|cat| [cat.name,cat.id]}, {include_blank: '選択してください'}  , class: 'form-control' %>
+
   <%= f.label      :description %>
   <%= f.text_area  :description, class: 'form-control' %>
 
