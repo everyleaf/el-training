@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_220_502_063_425) do
+# rubocop:disable Metrics/BlockLength
+ActiveRecord::Schema[7.0].define(version: 20_220_723_102_256) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
+
+  create_table 'task_categories', force: :cascade do |t|
+    t.string 'name'
+    t.bigint 'user_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.bigint 'task_id', null: false
+    t.index ['task_id'], name: 'index_task_categories_on_task_id'
+    t.index ['user_id'], name: 'index_task_categories_on_user_id'
+  end
 
   create_table 'tasks', force: :cascade do |t|
     t.string 'name', null: false
@@ -24,4 +35,15 @@ ActiveRecord::Schema[7.0].define(version: 20_220_502_063_425) do
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
+
+  create_table 'users', force: :cascade do |t|
+    t.string 'name'
+    t.string 'email'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
+  add_foreign_key 'task_categories', 'tasks'
+  add_foreign_key 'task_categories', 'users'
 end
+# rubocop:enable Metrics/BlockLength
