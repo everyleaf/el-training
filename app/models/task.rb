@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
+  belongs_to :task_category
+
   validates :name,           presence: true
   validates :start_date,     presence: true
   validates :necessary_days, presence: true, numericality: { greater_than_or_equal_to: 1 }
