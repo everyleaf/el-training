@@ -6,7 +6,7 @@
   <%= f.text_field :name,        class: 'form-control' %>
 
   <%= f.label             :category %>
-  <%= f.collection_select :category, TaskCategory.all, :id, :name, {include_blank: '選択してください'}  , class: 'form-control' %>
+  <%= f.collection_select :category, Category.all, :id, :name, {include_blank: '選択してください'}  , class: 'form-control' %>
 
   <%= f.label      :description %>
   <%= f.text_area  :description, class: 'form-control' %>
