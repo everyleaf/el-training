@@ -1,5 +1,5 @@
 class Task < ApplicationRecord
-  belongs_to :task_category
+  belongs_to :category
 
   validates :name,           presence: true
   validates :start_date,     presence: true

@@ -10,17 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-# rubocop:disable Metrics/BlockLength
-ActiveRecord::Schema[7.0].define(version: 20_220_723_114_654) do
+ActiveRecord::Schema[7.0].define(version: 20_220_725_070_421) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
-  create_table 'task_categories', force: :cascade do |t|
+  create_table 'categories', force: :cascade do |t|
     t.string 'name'
     t.bigint 'user_id', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-    t.index ['user_id'], name: 'index_task_categories_on_user_id'
+    t.index ['user_id'], name: 'index_categories_on_user_id'
   end
 
   create_table 'tasks', force: :cascade do |t|
@@ -32,8 +31,8 @@ ActiveRecord::Schema[7.0].define(version: 20_220_723_114_654) do
     t.integer 'priority', null: false, comment: '0:低, 1:中, 2:高'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-    t.bigint 'task_category_id'
-    t.index ['task_category_id'], name: 'index_tasks_on_task_category_id'
+    t.bigint 'category_id'
+    t.index ['category_id'], name: 'index_tasks_on_category_id'
   end
 
   create_table 'users', force: :cascade do |t|
@@ -43,7 +42,6 @@ ActiveRecord::Schema[7.0].define(version: 20_220_723_114_654) do
     t.datetime 'updated_at', null: false
   end
 
-  add_foreign_key 'task_categories', 'users'
-  add_foreign_key 'tasks', 'task_categories'
+  add_foreign_key 'categories', 'users'
+  add_foreign_key 'tasks', 'categories'
 end
-# rubocop:enable Metrics/BlockLength
