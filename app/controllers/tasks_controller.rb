@@ -1,5 +1,4 @@
 class TasksController < ApplicationController
-  before_action :set_categories, only: [:new,:edit]
   def new
     @task = Task.new
   end
@@ -57,15 +56,12 @@ class TasksController < ApplicationController
     end
   end
 
-  def set_categories
-    @categories = TaskCategory.all
-  end
-
   private
 
   def task_params
     params.require(:task).permit(
       :name,
+      :task_category,
       :description,
       :start_date,
       :necessary_days,
