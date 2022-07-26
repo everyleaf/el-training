@@ -21,10 +21,10 @@ class TasksController < ApplicationController
   def index
     # タスクの検索
     searched_tasks = if params[:search].present?
-      search_task_by_name
-    else
-      Task.all
-    end
+                       search_task_by_name
+                     else
+                       Task.all
+                     end
     @shown_search_praceholder = params[:search].presence || 'タスク名'
     @shown_search_option = params[:search_option].presence || 'perfect_match'
 
