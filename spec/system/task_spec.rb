@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
+  include CreateTestTasksSupport
   describe 'タスクの作成' do
     before do
       # タスク一覧ページを表示
@@ -234,25 +235,11 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'ページネーション' do
-    let(:today) { Time.zone.today }
-    let(:test_size) { 55 }
     let(:tasks_num_per_page) { TasksController::TASKS_NUM_PER_PAGE }
+    let(:test_size) { 55 }
 
     before do
-      # テスト用データの作成
-      test_size.times do |n|
-        name = "test_task_#{n}"
-        start_date = rand(today..(today + 365))
-        necessary_days = rand(1..50)
-        priority = rand(0..2)
-        progress = rand(0..2)
-
-        Task.create(name:,
-                    start_date:,
-                    necessary_days:,
-                    priority:,
-                    progress:)
-      end
+      create_random_tasks_num test_size
       # タスク一覧ページを表示
       visit tasks_path
     end
