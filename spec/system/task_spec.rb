@@ -248,10 +248,10 @@ RSpec.describe 'Tasks', type: :system do
         progress = rand(0..2)
 
         Task.create(name:,
-                      start_date:,
-                      necessary_days:,
-                      priority:,
-                      progress:)
+                    start_date:,
+                    necessary_days:,
+                    priority:,
+                    progress:)
       end
       # タスク一覧ページを表示
       visit tasks_path
