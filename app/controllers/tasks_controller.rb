@@ -27,7 +27,7 @@ class TasksController < ApplicationController
                      else
                        Task.all
                      end
-    @shown_search_praceholder = params[:search].presence || 'タスク名'
+    @shown_search_placeholder = params[:search].presence || 'タスク名'
     @shown_search_option = params[:search_option].presence || 'perfect_match'
 
     # タスクのフィルタリング
