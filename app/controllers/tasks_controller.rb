@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  TASKS_NUM_PER_PAGE = 10
+
   def new
     @task = Task.new
   end
@@ -23,9 +25,10 @@ class TasksController < ApplicationController
     filtered_tasks = filter_tasks_from_checkbox_params
 
     # タスクのソート(デフォルトはidの昇順)
-    sort_by   = params[:sort].presence      || 'id'
-    direction = params[:direction].presence || 'ASC'
-    @tasks    = filtered_tasks.order("#{sort_by} #{direction}")
+    sort_by      = params[:sort].presence      || 'id'
+    direction    = params[:direction].presence || 'ASC'
+    sorted_tasks = filtered_tasks.order("#{sort_by} #{direction}")
+    @tasks       = sorted_tasks.page(params[:page]).per(TASKS_NUM_PER_PAGE)
   end
 
   def destroy
