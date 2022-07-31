@@ -16,4 +16,12 @@ class Task < ApplicationRecord
     '中': 1,
     '高': 2
   }
+
+  scope :filter_from_checkbox, ->(do_filtering, tasks, priority, progress) {
+    if do_filtering # indexページに遷移直後 or チェックボックスが空のとき
+      tasks.all
+    else
+      tasks.where(priority:, progress:)
+    end
+  }
 end
