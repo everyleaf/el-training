@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe 'Tasks', type: :system do
   include CreateTestTasksSupport
   describe 'タスクの作成' do
+    
+    let(:today) { Time.zone.today }
+    let!(:category) { create(:category) }
+
     before do
       # タスク一覧ページを表示
       visit tasks_path
@@ -11,12 +15,12 @@ RSpec.describe 'Tasks', type: :system do
       click_on 'タスクを作成'
     end
 
-    let(:today) { Time.zone.today }
-
     context 'description以外の入力フォームを全て埋めたとき' do
+
       it 'タスクの作成に成功する' do
         # フォームを埋める
         fill_in 'タスク名', with: 'sample task'
+        select  category.name, from: 'task[category_id]'
         fill_in '開始日', with: today
         fill_in '必要日数', with: 3
         choose  '未着手'
@@ -34,9 +38,11 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     context 'Nameを空のままタスクを作成しようとしたとき' do
+
       it 'タスクの作成に失敗する' do
         # フォームを埋める
         fill_in 'タスク名', with: ''
+        select  category.name, from: 'task[category_id]'
         fill_in '開始日', with: today
         fill_in '必要日数', with: 3
         choose  '未着手'
