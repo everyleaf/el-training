@@ -16,4 +16,14 @@ class Task < ApplicationRecord
     '中': 1,
     '高': 2
   }
+
+  scope :search_task, ->(name, option) {
+    if name.blank?
+      Task.all
+    elsif option == 'perfect_match'
+      Task.where(name:)
+    else # partial_match
+      Task.where('name LIKE ?', "%#{name}%")
+    end
+  }
 end

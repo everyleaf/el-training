@@ -22,11 +22,7 @@ class TasksController < ApplicationController
 
   def index
     # タスクの検索
-    searched_tasks = if params[:search].present?
-                       search_task_by_name
-                     else
-                       Task.all
-                     end
+    searched_tasks = Task.search_task(params[:search], params[:search_option])
     @shown_search_placeholder = params[:search].presence || 'タスク名'
     @shown_search_option = params[:search_option].presence || 'perfect_match'
 
@@ -89,14 +85,6 @@ class TasksController < ApplicationController
       return redirect_to tasks_url
     end
     task
-  end
-
-  def search_task_by_name
-    if params[:search_option] == 'perfect_match'
-      Task.where(name: params[:search])
-    else # partial_match
-      Task.where('name LIKE ?', "%#{params[:search]}%")
-    end
   end
 
   def update_filter_params
