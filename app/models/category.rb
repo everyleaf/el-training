@@ -1,3 +1,3 @@
 class Category < ApplicationRecord
-	has_many :task
+  has_many :task
 end

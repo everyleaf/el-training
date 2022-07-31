@@ -18,6 +18,11 @@
       <%= @task.name %>
     </div>
 
+    <div>
+      <span><%= Task.human_attribute_name(:category) %></span>
+      <%= @task.category %>
+    </div>
+
     <% if @task.description.present? %>
       <div>
         <span><%= Task.human_attribute_name(:description) %></span>
