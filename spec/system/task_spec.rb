@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe 'Tasks', type: :system do
   include CreateTestTasksSupport
   describe 'タスクの作成' do
-    
     let(:today) { Time.zone.today }
     let!(:category) { create(:category) }
 
@@ -16,7 +15,6 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     context 'description以外の入力フォームを全て埋めたとき' do
-
       it 'タスクの作成に成功する' do
         # フォームを埋める
         fill_in 'タスク名', with: 'sample task'
@@ -38,7 +36,6 @@ RSpec.describe 'Tasks', type: :system do
     end
 
     context 'Nameを空のままタスクを作成しようとしたとき' do
-
       it 'タスクの作成に失敗する' do
         # フォームを埋める
         fill_in 'タスク名', with: ''
