@@ -1,0 +1,10 @@
+<h1><%= I18n.t('category_index') %></h1>
+<ul class="categories">
+
+  <% @categories.each do |c| %>
+    <div>
+      <%= c.name %>
+    </div>
+  <% end %>
+
+</ul>
