@@ -1,10 +1,18 @@
-<h1><%= I18n.t('category_index') %></h1>
-<ul class="categories">
+<h1><%= Category.model_name.human %></h1>
 
+<%= form_for(@category) do |f| %>
+  <%= render 'shared/category_error_msg' %>
+
+  <%= f.label      :name %>
+  <%= f.text_field :name, class: 'form-control' %>
+
+  <%= f.submit '作成', class: "btn btn-primary" %>
+<% end %>
+
+<ul class="categories">
   <% @categories.each do |c| %>
     <div>
       <%= c.name %>
     </div>
   <% end %>
-
 </ul>

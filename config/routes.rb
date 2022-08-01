@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   resources :tasks
-  resources :categories, only: %i(index)
+  resources :categories, only: %i(index create)
   root 'tasks#index'
 end

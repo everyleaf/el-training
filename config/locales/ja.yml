@@ -1,5 +1,5 @@
 ja:
-  # フラッシュメッセージ
+  # フラッシュメッセージ : タスク
   task_create_success: "タスクを作成しました"
   task_create_failed:  "タスクの作成に失敗しました"
   task_update_success: "タスクを更新しました"
@@ -7,6 +7,10 @@ ja:
   task_delete_success: "タスクを削除しました"
   task_delete_failed:  "タスクの削除に失敗しました"
   task_not_exist:      "該当するタスクが存在しません"
+
+  # フラッシュメッセージ : カテゴリ
+  category_create_success: "カテゴリを作成しました"
+  category_create_failed:  "カテゴリの作成に失敗しました"
 
   # ビュー
   save_changes:  '変更を保存'

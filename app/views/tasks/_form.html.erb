@@ -1,6 +1,7 @@
+<% provide(:button_text, I18n.t('save_changes')) %>
 <%= form_for(@task) do |f| %>
 
-  <%= render 'shared/error_messages' %>
+  <%= render 'shared/task_error_msg' %>
 
   <%= f.label      :name %>
   <%= f.text_field :name,        class: 'form-control' %>
