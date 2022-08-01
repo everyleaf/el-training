@@ -122,14 +122,14 @@ RSpec.describe 'Tasks', type: :system do
 
   describe 'タスクの並び替え' do
     let!(:category) { create(:category) }
+
     before do
       # タスク一覧ページを表示
       visit tasks_path
-
-      # テストデータ
-      create(:task, name: 'a', priority: 2, category:)
-      create(:task, name: 'b', priority: 0, category:)
-      create(:task, name: 'c', priority: 1, category:)
+      # テストデータ 
+      create(:task, name: 'a', priority: 2, category: category)
+      create(:task, name: 'b', priority: 0, category: category)
+      create(:task, name: 'c', priority: 1, category: category)
     end
 
     context '並び替えたいパラメータを1回だけ選択すると' do
@@ -269,14 +269,15 @@ RSpec.describe 'Tasks', type: :system do
 
   describe 'タスクのフィルタリング' do
     let!(:category) { create(:category) }
+
     before do
       # タスク一覧ページを表示
       visit tasks_path
 
       # テストデータ
-      create(:task, name: 'a', priority: 0, progress: 0, category:)
-      create(:task, name: 'b', priority: 1, progress: 1, category:)
-      create(:task, name: 'c', priority: 2, progress: 2, category:)
+      create(:task, name: 'a', priority: 0, progress: 0, category: category)
+      create(:task, name: 'b', priority: 1, progress: 1, category: category)
+      create(:task, name: 'c', priority: 2, progress: 2, category: category)
     end
 
     context 'フィルタリング条件に該当するタスクが存在するとき' do
@@ -295,6 +296,7 @@ RSpec.describe 'Tasks', type: :system do
 
         # 表示されているタスク数は1件
         expect(tasks.size).to eq(1)
+
 
         # 表示されているタスクは'a'
         expect(tasks[0]).to have_content '低'
