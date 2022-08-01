@@ -41,7 +41,7 @@
         
         <div>
           <span><%= Task.human_attribute_name(:category) %></span>
-          <%= task.category %>
+          <%= task.category.name %>
         </div>
 
         <% if task.description.present? %>
