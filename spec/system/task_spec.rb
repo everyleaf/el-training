@@ -168,16 +168,18 @@ RSpec.describe 'Tasks', type: :system do
   describe 'タスクを名前で検索する' do
     let(:today) { Time.zone.today }
     let(:test_size) { 55 }
-    let(:tasks_num_per_page) { ApplicationController::TASKS_NUM_PER_PAGE }
+    let(:tasks_num_per_page) { TasksController::TASKS_NUM_PER_PAGE }
 
     before do
+      create(:category)
+
       # テスト用データの作成
       test_size.times do |n|
-        name = "test_task_#{n}"
-        start_date = rand(today..(today + 365))
+        name           = "test_task_#{n}"
+        start_date     = rand(today..(today + 365))
         necessary_days = rand(1..50)
-        priority = rand(0..2)
-        progress = rand(0..2)
+        priority       = rand(0..2)
+        progress       = rand(0..2)
 
         create(:task, name:,
                       start_date:,
