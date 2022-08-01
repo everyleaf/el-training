@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :category do
-    name { 'ToDo' }
+    name { '未分類' }
   end
 end
