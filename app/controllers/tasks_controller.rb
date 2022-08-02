@@ -23,7 +23,7 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.all
     update_filter_params
-    filtered_tasks = Task.filter_from_checkbox(filter_params_all_blank?, @tasks, @filter_priority, @filter_progress)
+    filtered_tasks = @tasks.filter_from_checkbox(filter_params_all_blank?, @filter_priority, @filter_progress)
 
     # タスクのソート(デフォルトはidの昇順)
     sort_by      = params[:sort].presence      || 'id'
