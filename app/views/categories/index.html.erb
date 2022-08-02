@@ -10,9 +10,13 @@
 <ul class="categories">
   <% @categories.each do |c| %>
     <div>
-      <%= c.name %>
+      <span>
+        <%= c.name %>
+      </span>
+      <span>
       <%= button_to '削除', c, method: :delete,
                     form: {data: {turbo_confirm: I18n.t('message_before_delete')} }%>
+      </span>
     </div>
   <% end %>
 </ul>
