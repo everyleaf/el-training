@@ -6,14 +6,14 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(category_params)
-    # TODO: バグ:同じ名前でカテゴリを作成するとsave分岐に入ってエラーが出る
     if @category.save
       flash[:success] = I18n.t 'category_create_success'
-      redirect_to categories_url
     else
-      flash.now[:danger] = I18n.t 'category_create_failed'
-      render :index, status: :unprocessable_entity
+      @category.errors.full_messages.each do |msg|
+        flash[:danger] = msg
+      end
     end
+    redirect_to categories_url
   end
 
   private
