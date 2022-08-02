@@ -16,6 +16,18 @@ class CategoriesController < ApplicationController
     redirect_to categories_url
   end
 
+  def destroy
+    @category = Category.find(params[:id])
+    #TODO タスクを子に持つカテゴリを削除するとエラーが出る
+    if @category.destroy
+      flash[:success] = I18n.t 'task_delete_success'
+    else
+      flash[:danger] = I18n.t 'task_delete_failed'
+      render turbo_stream: turbo_stream.update('flash', partial: 'shared/flash')
+    end
+    redirect_to categories_url
+  end
+
   private
 
   def category_params

@@ -11,6 +11,8 @@
   <% @categories.each do |c| %>
     <div>
       <%= c.name %>
+      <%= button_to '削除', c, method: :delete,
+                    form: {data: {turbo_confirm: I18n.t('message_before_delete')} }%>
     </div>
   <% end %>
 </ul>
