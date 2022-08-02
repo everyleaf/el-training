@@ -19,11 +19,11 @@ class Task < ApplicationRecord
 
   scope :search_task, ->(name, option) {
     if name.blank?
-      Task.all
+      all
     elsif option == 'perfect_match'
-      Task.where(name:)
+      where(name:)
     else # partial_match
-      Task.where('name LIKE ?', "%#{name}%")
+      where('name LIKE ?', "%#{name}%")
     end
   }
 end
