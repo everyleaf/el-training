@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(category_params)
-    #TODO バグ:同じ名前でカテゴリを作成するとsave分岐に入ってエラーが出る
+    # TODO: バグ:同じ名前でカテゴリを作成するとsave分岐に入ってエラーが出る
     if @category.save
       flash[:success] = I18n.t 'category_create_success'
       redirect_to categories_url
