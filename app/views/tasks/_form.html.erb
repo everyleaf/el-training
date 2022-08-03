@@ -6,12 +6,16 @@
   <%= f.label      :name %>
   <%= f.text_field :name,        class: 'form-control' %>
 
-  <%= f.label             :category_id %>
+  <%= f.label :category %>
+  <%= "(" %>
+  <%= link_to "管理", categories_url, target: :_blank %>
+  <%= "," %>
+  <%= link_to "更新", request.url  %>
+  <%= ")" %>
   <%= f.collection_select :category_id, Category.all, :id, :name, {include_blank: '選択してください'}  , class: 'form-control' %>
 
   <%= f.label      :description %>
   <%= f.text_area  :description, class: 'form-control' %>
-
 
   <%= f.label      :start_date %>
   <%= f.date_field :start_date,  class: 'form-control' %>
