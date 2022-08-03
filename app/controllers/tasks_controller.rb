@@ -21,9 +21,14 @@ class TasksController < ApplicationController
   end
 
   def index
-    @tasks = Task.all
+    # タスクの検索
+    searched_tasks = Task.search_task(params[:search], params[:search_option])
+    @shown_search_placeholder = params[:search].presence || 'タスク名'
+    @shown_search_option = params[:search_option].presence || 'perfect_match'
+
+    # タスクのフィルタリング
     update_filter_params
-    filtered_tasks = @tasks.filter_from_checkbox(filter_params_all_blank?, @filter_priority, @filter_progress)
+    filtered_tasks = searched_tasks.filter_from_checkbox(filter_params_all_blank?, @filter_priority, @filter_progress)
 
     # タスクのソート(デフォルトはidの昇順)
     sort_by      = params[:sort].presence      || 'id'
