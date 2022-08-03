@@ -17,5 +17,17 @@ RSpec.describe 'Categories', type: :system do
         expect(page).to have_content 'test_category'
       end
     end
+
+    context 'カテゴリ名を空のまま作成ボタンを押したとき' do
+      it 'カテゴリの作成に失敗する' do
+        # フォームにカテゴリ名を入力せずに
+        fill_in 'カテゴリ名', with: ''
+        # 作成ボタンを押す
+        click_on '作成'
+
+        # 作成成功のメッセージが表示され
+        expect(page).to have_content 'カテゴリ名を入力してください'
+      end
+    end
   end
 end
