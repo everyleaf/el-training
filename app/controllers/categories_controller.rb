@@ -19,7 +19,7 @@ class CategoriesController < ApplicationController
   def destroy
     category = find_category_with_err_handling(params[:id])
     if category.destroy
-      flash[:success] = I18n.t 'task_delete_success'
+      flash[:success] = I18n.t 'category_delete_success'
     else
       category.errors.full_messages.each do |msg|
         flash[:danger] = msg
@@ -35,7 +35,7 @@ class CategoriesController < ApplicationController
   def update
     @category = find_category_with_err_handling(params[:id])
     if @category.update(category_params)
-      flash[:success] = I18n.t 'task_update_success'
+      flash[:success] = I18n.t 'category_update_success'
       redirect_to categories_url
     else
       @category.errors.full_messages.each do |msg|
