@@ -92,7 +92,7 @@ RSpec.describe 'Categories', type: :system do
   end
 
   describe 'カテゴリの削除' do
-    let!(:category){create(:category,name:'test_category')}
+    let!(:category) { create(:category, name: 'test_category') }
     before do
       visit categories_path
     end
@@ -114,6 +114,30 @@ RSpec.describe 'Categories', type: :system do
         # 削除されたカテゴリ名はページに表示されていない
         expect(page).not_to have_content(name)
       end
+    end
+  end
+
+  context 'タスクを子に持つカテゴリを削除したとき' do
+    let!(:category) { create(:category, name: 'test_category') }
+    before do
+      create(:task, category:)
+    end
+
+    it '削除に失敗する' do
+      visit categories_path
+
+      id = category.id
+
+      # 削除ボタンをクリック
+      find(".delete_category_#{id}").click
+
+      # 確認のポップアップが表示される
+      expect(page.accept_confirm).to eq '本当に削除しますか?'
+
+      # エラーメッセージが表示され
+      expect(page).to have_content('タスクが存在しているので削除できません')
+      # カテゴリは削除されていない
+      expect(page).to have_content('test_category')
     end
   end
 end

@@ -17,6 +17,7 @@ ja:
 
       category:
         name:           カテゴリ名
+        task:           タスク
 
   # 全てのモデルで共通して使用するattributes
   attributes:
