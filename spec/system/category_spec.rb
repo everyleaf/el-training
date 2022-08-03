@@ -7,7 +7,7 @@ RSpec.describe 'Categories', type: :system do
     context 'カテゴリ名を入力して作成ボタンを押したとき' do
       it 'カテゴリが作成される' do
         # フォームにカテゴリ名を入力して
-        fill_in 'カテゴリ名', with: 'test_category'
+        fill_in 'category_name', with: 'test_category'
         # 作成ボタンを押す
         click_on '作成'
 
@@ -21,7 +21,7 @@ RSpec.describe 'Categories', type: :system do
     context 'カテゴリ名を空のまま作成ボタンを押したとき' do
       it 'カテゴリの作成に失敗する' do
         # フォームにカテゴリ名を入力せずに
-        fill_in 'カテゴリ名', with: ''
+        fill_in 'category_name', with: ''
         # 作成ボタンを押す
         click_on '作成'
 
@@ -34,7 +34,7 @@ RSpec.describe 'Categories', type: :system do
       let!(:category) { create(:category, name: 'test_category') }
       it '作成に失敗する' do
         # すでに存在するカテゴリ名を入力して
-        fill_in 'カテゴリ名', with: category.name
+        fill_in 'category_name', with: category.name
         # 作成ボタンを押す
         click_on '作成'
 
@@ -60,7 +60,7 @@ RSpec.describe 'Categories', type: :system do
         expect(page).to have_content('カテゴリ名の変更')
 
         # 新しいカテゴリ名を入力
-        fill_in 'カテゴリ名', with: 'updated_category'
+        fill_in 'category_name', with: 'updated_category'
         # 名前を変更ボタンを押す
         click_on '名前を変更'
 
@@ -81,7 +81,7 @@ RSpec.describe 'Categories', type: :system do
         find(".edit_category_#{id}").click
 
         # すでに存在するカテゴリ名を使用
-        fill_in 'カテゴリ名', with: category.name
+        fill_in 'category_name', with: category.name
         # 名前を変更ボタンを押す
         click_on '名前を変更'
 
