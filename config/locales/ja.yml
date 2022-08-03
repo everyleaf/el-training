@@ -11,6 +11,7 @@ ja:
   # フラッシュメッセージ : カテゴリ
   category_create_success: "カテゴリを作成しました"
   category_create_failed:  "カテゴリの作成に失敗しました"
+  category_not_exist:      "該当するカテゴリが存在しません"
 
   # ビュー
   save_changes:  '変更を保存'

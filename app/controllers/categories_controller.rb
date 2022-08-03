@@ -17,7 +17,7 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    category = Category.find(params[:id])
+    category = find_category_with_err_handling(params[:id])
     if category.destroy
       flash[:success] = I18n.t 'task_delete_success'
     else
@@ -29,11 +29,11 @@ class CategoriesController < ApplicationController
   end
 
   def edit
-    @category = Category.find(params[:id])
+    @category = find_category_with_err_handling(params[:id])
   end
 
   def update
-    @category = Category.find(params[:id])
+    @category = find_category_with_err_handling(params[:id])
     if @category.update(category_params)
       flash[:success] = I18n.t 'task_update_success'
       redirect_to categories_url
@@ -48,4 +48,14 @@ class CategoriesController < ApplicationController
   def category_params
     params.require(:category).permit(:name)
   end
+
+  def find_category_with_err_handling(category_id)
+    category = Category.find_by(id: category_id)
+    if category.blank?
+      flash[:danger] = I18n.t 'category_not_exist'
+      return redirect_to categories_url
+    end
+    category
+  end
+  
 end
