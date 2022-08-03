@@ -65,7 +65,7 @@ RSpec.describe 'Categories', type: :system do
         click_on '名前を変更'
 
         # カテゴリ名が正常に更新されている
-        expect(page).to     have_content('タスクを更新しました')
+        expect(page).to     have_content('カテゴリを更新しました')
         expect(page).to     have_content('updated_category')
         expect(page).not_to have_content('test_category')
       end
@@ -74,7 +74,7 @@ RSpec.describe 'Categories', type: :system do
     context '存在するカテゴリ名を使って更新しようとしたとき' do
       let!(:another_category) { create(:category, name: 'another') }
       it '更新に失敗する' do
-        # another_categoriesの作成をページに反映
+        # another_categoriesの作成をページに反映するために再アクセス
         visit categories_path
 
         id = another_category.id
@@ -92,19 +92,22 @@ RSpec.describe 'Categories', type: :system do
   end
 
   describe 'カテゴリの削除' do
-    let!(:category){create(:category)}
+    let!(:category){create(:category,name:'test_category')}
     before do
       visit categories_path
     end
 
     context '削除を押したとき' do
-      it 'カテゴリが削除れる' do
+      it 'カテゴリが削除される' do
         name = category.name
         expect(page).to have_content(name)
         id = category.id
 
         # 削除ボタンをクリック
         find(".delete_category_#{id}").click
+
+        # 確認のポップアップが表示される
+        expect(page.accept_confirm).to eq '本当に削除しますか?'
 
         # 削除成功のメッセージが出る
         expect(page).to     have_content('カテゴリを削除しました')
