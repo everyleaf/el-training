@@ -43,4 +43,32 @@ RSpec.describe 'Categories', type: :system do
       end
     end
   end
+
+  describe 'カテゴリの編集' do
+    let!(:category) { create(:category, name: 'test_category') }
+
+    before do
+      visit categories_path
+    end
+
+    context 'カテゴリ名を正常に更新したとき' do
+      it 'カテゴリ名の更新に成功する' do
+        id = category.id
+        find(".edit_category_#{id}").click
+
+        # カテゴリ編集ページにいる
+        expect(page).to have_content('カテゴリ名の変更')
+
+        # 新しいカテゴリ名を入力
+        fill_in 'カテゴリ名', with: 'updated_category'
+        # 名前を変更ボタンを押す
+        click_on '名前を変更'
+
+        # カテゴリ名が正常に更新されている
+        expect(page).to     have_content('タスクを更新しました')
+        expect(page).to     have_content('updated_category')
+        expect(page).not_to have_content('test_category')
+      end
+    end
+  end
 end
