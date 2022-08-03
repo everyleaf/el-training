@@ -15,14 +15,16 @@ ja:
   operation_not_allowed:   "このカテゴリへの操作は禁止されています"
 
   # ビュー
-  save_changes:  '変更を保存'
-  cancel_edit:   '編集をキャンセル'
-  cancel_create: '作成をキャンセル'
-  back_to_index: '一覧に戻る'
-  delete_task:   'タスクを削除'
-  create_task:   'タスクを作成'
-  edit:          '編集'
-  detail:        '詳細'
+  save_changes:     '変更を保存'
+  cancel_edit:      '編集をキャンセル'
+  cancel_create:    '作成をキャンセル'
+  back_to_index:    '一覧に戻る'
+  tasks_index:      'タスク一覧'
+  categories_index: 'カテゴリ一覧'
+  delete_task:      'タスクを削除'
+  create_task:      'タスクを作成'
+  edit:             '編集'
+  detail:           '詳細'
 
   task_index:  'タスク一覧'
   task_edit:   'タスク編集'

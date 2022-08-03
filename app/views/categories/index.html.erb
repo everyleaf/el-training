@@ -1,5 +1,9 @@
 <h1><%= Category.model_name.human %></h1>
 
+<div>
+  <%= link_to I18n.t('tasks_index'), tasks_url %>
+</div>
+
 <%= form_for(@category) do |f| %>
   <%= f.label      :name %>
   <%= f.text_field :name, class: 'form-control' %>

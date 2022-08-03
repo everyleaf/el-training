@@ -1,6 +1,7 @@
 <h1><%= I18n.t('task_index') %></h1>
 <div>
-  <%= link_to I18n.t('create_task'), new_task_url %>
+  <%= link_to I18n.t('create_task'),      new_task_url %>
+  <%= link_to I18n.t('categories_index'), categories_url %>
   <br>
   <%= render 'filter_check_box' %>
 </div>
