@@ -90,4 +90,27 @@ RSpec.describe 'Categories', type: :system do
       end
     end
   end
+
+  describe 'カテゴリの削除' do
+    let!(:category){create(:category)}
+    before do
+      visit categories_path
+    end
+
+    context '削除を押したとき' do
+      it 'カテゴリが削除れる' do
+        name = category.name
+        expect(page).to have_content(name)
+        id = category.id
+
+        # 削除ボタンをクリック
+        find(".delete_category_#{id}").click
+
+        # 削除成功のメッセージが出る
+        expect(page).to     have_content('カテゴリを削除しました')
+        # 削除されたカテゴリ名はページに表示されていない
+        expect(page).not_to have_content(name)
+      end
+    end
+  end
 end
