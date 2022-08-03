@@ -29,5 +29,18 @@ RSpec.describe 'Categories', type: :system do
         expect(page).to have_content 'カテゴリ名を入力してください'
       end
     end
+
+    context '存在するカテゴリ名を入力したとき' do
+      let!(:category) { create(:category, name: 'test_category') }
+      it '作成に失敗する' do
+        # すでに存在するカテゴリ名を入力して
+        fill_in 'カテゴリ名', with: category.name
+        # 作成ボタンを押す
+        click_on '作成'
+
+        # カテゴリ名が重複している、とメッセージが出る
+        expect(page).to have_content('カテゴリ名はすでに存在します')
+      end
+    end
   end
 end
