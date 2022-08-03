@@ -14,6 +14,9 @@
         <%= c.name %>
       </span>
       <span>
+      <%= link_to '名前を変更', "categories/#{c.id}/edit" %>
+      </span>
+      <span>
       <%= button_to '削除', c, method: :delete,
                     form: {data: {turbo_confirm: I18n.t('message_before_delete')} }%>
       </span>

@@ -7,6 +7,6 @@ Rails.application.routes.draw do
 
   resources :tasks
 
-  resources :categories, only: %i(index create destroy)
+  resources :categories, only: %i(index create destroy edit update)
   root 'tasks#index'
 end

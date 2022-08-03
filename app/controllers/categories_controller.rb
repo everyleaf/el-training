@@ -28,6 +28,21 @@ class CategoriesController < ApplicationController
     redirect_to categories_url
   end
 
+  def edit
+    @category = Category.find(params[:id])
+  end
+
+  def update
+    @category = Category.find(params[:id])
+    if @category.update(category_params)
+      flash[:success] = I18n.t 'task_update_success'
+      redirect_to categories_url
+    else
+      flash.now[:danger] = I18n.t 'task_update_failed'
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def category_params
