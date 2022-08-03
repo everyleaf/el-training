@@ -70,10 +70,14 @@ RSpec.describe 'Categories', type: :system do
         expect(page).not_to have_content('test_category')
       end
     end
+
     context '存在するカテゴリ名を使って更新しようとしたとき' do
-      let!(:another_category){create(:category,name:'another')}
+      let!(:another_category) { create(:category, name: 'another') }
       it '更新に失敗する' do
-        id = anoher_category.id
+        # another_categoriesの作成をページに反映
+        visit categories_path
+
+        id = another_category.id
         find(".edit_category_#{id}").click
 
         # すでに存在するカテゴリ名を使用
