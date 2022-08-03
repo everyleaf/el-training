@@ -82,7 +82,7 @@ RSpec.describe 'Categories', type: :system do
         click_on '名前を変更'
 
         # カテゴリ名がの更新に失敗する
-        expect(page).to have_content('そのカテゴリ名はすでに存在します')
+        expect(page).to have_content('カテゴリ名はすでに存在します')
       end
     end
   end

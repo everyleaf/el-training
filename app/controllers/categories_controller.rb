@@ -38,7 +38,9 @@ class CategoriesController < ApplicationController
       flash[:success] = I18n.t 'task_update_success'
       redirect_to categories_url
     else
-      flash.now[:danger] = I18n.t 'task_update_failed'
+      @category.errors.full_messages.each do |msg|
+        flash[:danger] = msg
+      end
       render :edit, status: :unprocessable_entity
     end
   end
