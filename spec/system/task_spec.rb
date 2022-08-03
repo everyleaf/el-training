@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
+  include CreateTestTasksSupport
   describe 'タスクの作成' do
     before do
       # タスク一覧ページを表示
@@ -161,10 +162,11 @@ RSpec.describe 'Tasks', type: :system do
     end
   end
 
-  describe 'ページネーション' do
+  describe 'タスクを名前で検索する' do
     let(:today) { Time.zone.today }
     let(:test_size) { 55 }
-    let(:tasks_num_per_page) { TasksController::TASKS_NUM_PER_PAGE }
+    let(:tasks_num_per_page) { ApplicationController::TASKS_NUM_PER_PAGE }
+
     before do
       # テスト用データの作成
       test_size.times do |n|
@@ -180,6 +182,64 @@ RSpec.describe 'Tasks', type: :system do
                       priority:,
                       progress:)
       end
+      # タスク一覧ページを表示
+      visit tasks_path
+    end
+
+    context '検索ワードに当てはまるタスクがないとき' do
+      it 'メッセージが表示される' do
+        fill_in 'search', with: 'no_name'
+        select '完全に一致', from: :search_option
+        click_on '検索'
+
+        expect(page).to have_content '該当するタスクがありません'
+      end
+    end
+
+    context '完全に一致オプションを選んだとき' do
+      it 'タスク名が全一致するタスクのみ表示される' do
+        fill_in 'search', with: 'test_task_15'
+        select '完全に一致', from: :search_option
+        click_on '検索'
+
+        sleep 1
+
+        # 表示されているタスクは1件で、
+        expect(page.all('.task').size).to eq(1)
+
+        # それはタスク15である
+        expect(page).to have_content 'test_task_15'
+      end
+    end
+
+    context '一部を含むオプションを選んだとき' do
+      it 'タスク名に検索ワードを含むタスク全てが表示される' do
+        fill_in 'search', with: '0'
+        select '一部を含む', from: :search_option
+        click_on '検索'
+
+        sleep 1
+
+        # 表示されているタスクは6件で、
+        expect(page.all('.task').size).to eq(6)
+
+        # それは名前に"0"を含むタスクである
+        expect(page).to     have_content 'test_task_0'
+        expect(page).to     have_content 'test_task_10'
+        expect(page).to     have_content 'test_task_20'
+        expect(page).to     have_content 'test_task_30'
+        expect(page).to     have_content 'test_task_40'
+        expect(page).to     have_content 'test_task_50'
+      end
+    end
+  end
+
+  describe 'ページネーション' do
+    let(:tasks_num_per_page) { TasksController::TASKS_NUM_PER_PAGE }
+    let(:test_size) { 55 }
+
+    before do
+      create_random_tasks_num test_size
       # タスク一覧ページを表示
       visit tasks_path
     end
@@ -201,7 +261,7 @@ RSpec.describe 'Tasks', type: :system do
     end
   end
 
-  describe 'タスクの検索' do
+  describe 'タスクのフィルタリング' do
     before do
       # タスク一覧ページを表示
       visit tasks_path
@@ -212,16 +272,16 @@ RSpec.describe 'Tasks', type: :system do
       create(:task, name: 'c', priority: 2, progress: 2)
     end
 
-    context '検索条件に該当するタスクが存在するとき' do
+    context 'フィルタリング条件に該当するタスクが存在するとき' do
       it '該当するタスクのみ表示される' do
         uncheck('filter_priority_中')
         uncheck('filter_progress_完了')
 
-        # このときタスクの検索条件は
+        # このときタスクのフィルタリング条件は
         # (priority == 低 || 高) && (progress == 未着手 || 実行中)
         # task 'a' のみが条件に当てはまる
 
-        click_on('検索')
+        click_on('フィルタリング')
 
         # 表示されているタスクを取得
         tasks = page.all('.task')
@@ -234,7 +294,7 @@ RSpec.describe 'Tasks', type: :system do
       end
     end
 
-    context '検索ボタンを押したとき' do
+    context 'フィルタリングボタンを押したとき' do
       it 'チェックボックスの状態は維持される' do
         # デフォルトでは全てのチェックボックスがチェックされている
         expect(page).to have_checked_field('filter_priority_低')
@@ -250,7 +310,7 @@ RSpec.describe 'Tasks', type: :system do
         uncheck('filter_progress_完了')
 
         # 検索ボタンを押す
-        click_on('検索')
+        click_on('フィルタリング')
 
         # 選択されていたものは選択されたまま
         expect(page).to have_checked_field('filter_priority_低')
@@ -272,7 +332,7 @@ RSpec.describe 'Tasks', type: :system do
         uncheck('filter_progress_完了')
 
         # 検索ボタンを押す
-        click_on('検索')
+        click_on('フィルタリング')
 
         # 選択されていたものは選択されたまま
         expect(page).to have_content('該当するタスクがありません')
