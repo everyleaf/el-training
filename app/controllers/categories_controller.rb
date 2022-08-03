@@ -54,6 +54,7 @@ class CategoriesController < ApplicationController
     if category_exist?(category) && operation_allowed?(category)
       return category
     end
+
     redirect_to categories_url
   end
 
@@ -70,7 +71,6 @@ class CategoriesController < ApplicationController
       flash[:danger] = I18n.t 'operation_not_allowed'
       return
     end
-    return true
+    true
   end
-
 end
