@@ -19,10 +19,10 @@
       </span>
       <% if c.name != "未分類" %>
         <span>
-        <%= link_to '名前を変更', "categories/#{c.id}/edit" %>
+        <%= link_to '名前を変更', "categories/#{c.id}/edit", class: "edit_category_#{c.id}"%>
         </span>
         <span>
-        <%= button_to '削除', c, method: :delete,
+        <%= button_to '削除', c, method: :delete,class: "delete_category_#{c.id}",
                       form: {data: {turbo_confirm: I18n.t('message_before_delete')} }%>
         </span>
       <% end %>
