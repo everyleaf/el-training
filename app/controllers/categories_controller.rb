@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :confirm_current_user, only: %i(index create)
+
   def index
     @categories = Category.all
     @category   = @current_user.categories.build
@@ -45,7 +46,8 @@ class CategoriesController < ApplicationController
   private
 
   def category_params
-    params.require(:category).permit(:name)
+    params.require(:category).permit(:name,
+                                     :current_user)
   end
 
   def find_category_with_err_handling(category_id)
