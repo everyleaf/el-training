@@ -6,6 +6,10 @@
       <div>
         <span><%= user.name%></span>
         <span><%= link_to I18n.t('detail'),  user %></span>
+        <span>
+          <%= button_to I18n.t('delete_user'), user, method: :delete,
+                      form: {data: {turbo_confirm: I18n.t('message_before_delete')} } %> 
+        </span>
       </div>
     </li>
   <% end %>

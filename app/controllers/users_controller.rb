@@ -37,6 +37,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user = User.find(params[:id])
+
+    if @user.destroy
+      flash[:success] = I18n.t 'user_delete_success'
+    else
+      flash[:danger] = I18n.t 'user_delete_failed'
+    end
+    redirect_to users_url
+  end
+
   private
   
   def user_params
