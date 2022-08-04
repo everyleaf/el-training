@@ -3,6 +3,7 @@ RSpec.describe 'Users', type: :system do
     before do
       visit new_user_path
     end
+
     context '全ての項目を正しく埋めたとき' do
       it 'ユーザの作成に成功する' do
         fill_in 'user_name',                  with: 'user'
@@ -15,6 +16,7 @@ RSpec.describe 'Users', type: :system do
         expect(page).to have_content('ユーザを作成しました')
       end
     end
+
     context 'ユーザ名が空のとき' do
       it 'ユーザの作成に失敗する' do
         fill_in 'user_name',                  with: ''
@@ -28,6 +30,7 @@ RSpec.describe 'Users', type: :system do
         expect(page).to have_content('ユーザ名を入力してください')
       end
     end
+
     context 'メールアドレスが有効でないとき' do
       it 'ユーザの作成に失敗する' do
         fill_in 'user_name',                  with: 'user'
@@ -41,7 +44,8 @@ RSpec.describe 'Users', type: :system do
         expect(page).to have_content('メールアドレスは不正な値です')
       end
     end
-    context'パスワードが再確認用と一致しないとき' do
+
+    context 'パスワードが再確認用と一致しないとき' do
       it 'ユーザの作成に失敗する' do
         fill_in 'user_name',                  with: 'user'
         fill_in 'user_email',                 with: 'invalid_email'
