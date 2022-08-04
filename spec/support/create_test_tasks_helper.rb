@@ -1,6 +1,7 @@
 module CreateTestTasksSupport
   def create_random_tasks_num(num)
     today = Time.zone.today
+    category = create(:category)
     # テスト用データの作成
     num.times do |n|
       name = "test_task_#{n}"
@@ -10,6 +11,7 @@ module CreateTestTasksSupport
       progress = rand(0..2)
 
       create(:task, name:,
+                    category:,
                     start_date:,
                     necessary_days:,
                     priority:,
