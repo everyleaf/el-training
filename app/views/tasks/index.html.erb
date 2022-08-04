@@ -27,21 +27,19 @@
       <% end %>
     </div>
   </div>
-
 </div>
+
 並び替え
-    <div class="sorting-params">
-      <%= sort_link  @sort_by, @direction, '作成日',  'created_at'      %> | 
-      <%= sort_link  @sort_by, @direction, 'タスク名', 'name'           %> | 
-      <%= sort_link  @sort_by, @direction, '取り掛り', 'start_date'     %> | 
-      <%= sort_link  @sort_by, @direction, '必要日数', 'necessary_days' %> | 
-      <%= sort_link  @sort_by, @direction, '進行状況', 'progress'       %> | 
-      <%= sort_link  @sort_by, @direction, '重要度',   'priority'        %>
-    </div>
+<div class="sorting-params">
+  <%= sort_link  @sort_by, @direction, '作成日',  'created_at'      %> | 
+  <%= sort_link  @sort_by, @direction, 'タスク名', 'name'           %> | 
+  <%= sort_link  @sort_by, @direction, '取り掛り', 'start_date'     %> | 
+  <%= sort_link  @sort_by, @direction, '必要日数', 'necessary_days' %> | 
+  <%= sort_link  @sort_by, @direction, '進行状況', 'progress'       %> | 
+  <%= sort_link  @sort_by, @direction, '重要度',   'priority'        %>
+</div>
 
 <br>
-
-
 
 <% if @tasks.blank? %>
   該当するタスクがありません
