@@ -3,17 +3,17 @@
 
   <%= render 'shared/user_error_msg' %>
 
-  <%= f.label       :name                        %>
+  <%= f.label       :name %>
   <%= f.text_field  :name, class: 'form-control' %>
 
-  <%= f.label       :email                        %>
+  <%= f.label       :email %>
   <%= f.text_field  :email, class: 'form-control' %>
 
-  <%= f.label       :password                        %>
-  <%= f.text_field  :password, class: 'form-control' %>
+  <%= f.label       :password  %>
+  <%= f.text_field  :password, class: 'form-control', type: "password" %>
 
-  <%= f.label       :password_confirmation                        %>
-  <%= f.text_field  :password_confirmation, class: 'form-control' %>
+  <%= f.label       :password_confirmation %>
+  <%= f.text_field  :password_confirmation, class: 'form-control', type: "password" %>
 
   <%= f.submit "create account", class: "btn btn-primary" %>
 <% end %>
