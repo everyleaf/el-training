@@ -1,7 +1,23 @@
+<div class = "col-md-offset-1">
+  <h1><%= "user profile" %></h1>
+  <span><%= link_to  I18n.t('user_index'),  users_url      %></span>
+  <span><%= link_to  I18n.t('edit'),           edit_user_path %></span>
+  <span>
+    <%= button_to I18n.t('delete_user'), @user, method: :delete,
+                      form: {data: {turbo_confirm: I18n.t('message_before_delete')} } %> 
+  </span>
+</div>
+
+<br>
 <div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1><%= @user.name %></h1>
-    </section>
-  </aside>
+  <div class="col-md-8 col-md-offset-1">
+    <div>
+      <span><%= User.human_attribute_name(:name) %></span>
+      <%= @user.name %>
+    </div>
+    <div>
+      <span><%= User.human_attribute_name(:email) %></span>
+      <%= @user.email %>
+    </div>
+  </div>
 </div>

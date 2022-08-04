@@ -39,5 +39,8 @@ ja:
   task_edit:   'タスク編集'
   task_create: 'タスク作成'
 
+  user_index: 'ユーザ一覧'
+  delete_user: 'ユーザを削除'
+
   # 確認メッセージ
   message_before_delete: '本当に削除しますか?'
