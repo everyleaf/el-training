@@ -17,5 +17,19 @@ RSpec.describe User, type: :model do
         expect(another_user).not_to be_valid
       end
     end
+
+    context 'メールアドレスが無効なとき' do
+      it 'ユーザは無効である' do
+        invalid_addresses = %w(test
+                               test@example,com
+                               test@example
+                               test@@example
+                               test@@example+com)
+        invalid_addresses.each do |email|
+          user = build(:user, email:)
+          expect(user).not_to be_valid
+        end
+      end
+    end
   end
 end
