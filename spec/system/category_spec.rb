@@ -26,7 +26,7 @@ RSpec.describe 'Categories', type: :system do
         click_on '作成'
 
         # 作成成功のメッセージが表示され
-        expect(page).to have_content 'カテゴリ名を入力してください'
+        expect(page).to have_content 'カテゴリの作成に失敗しました'
       end
     end
 
@@ -39,7 +39,7 @@ RSpec.describe 'Categories', type: :system do
         click_on '作成'
 
         # カテゴリ名が重複している、とメッセージが出る
-        expect(page).to have_content('カテゴリ名はすでに存在します')
+        expect(page).to have_content('カテゴリの作成に失敗しました')
       end
     end
   end
@@ -85,8 +85,8 @@ RSpec.describe 'Categories', type: :system do
         # 名前を変更ボタンを押す
         click_on '名前を変更'
 
-        # カテゴリ名がの更新に失敗する
-        expect(page).to have_content('カテゴリ名はすでに存在します')
+        # カテゴリの更新に失敗する
+        expect(page).to have_content('カテゴリの更新に失敗しました')
       end
     end
   end
@@ -135,7 +135,7 @@ RSpec.describe 'Categories', type: :system do
       expect(page.accept_confirm).to eq '本当に削除しますか?'
 
       # エラーメッセージが表示され
-      expect(page).to have_content('タスクが存在しているので削除できません')
+      expect(page).to have_content('カテゴリの削除に失敗しました')
       # カテゴリは削除されていない
       expect(page).to have_content('test_category')
     end
