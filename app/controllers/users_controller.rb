@@ -22,6 +22,17 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def update
+    @user = User.find(params[:id])
+    if @user.save
+      flash[:success] = I18n.t 'user_create_success'
+      redirect_to tasks_url
+    else
+      flash.now[:danger] = I18n.t 'user_create_failed'
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
   
   def user_params
