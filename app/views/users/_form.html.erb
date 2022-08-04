@@ -13,5 +13,5 @@
   <%= f.label       :password_confirmation %>
   <%= f.text_field  :password_confirmation, class: 'form-control', type: "password" %>
 
-  <%= f.submit "Update", class: "btn btn-primary" %>
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>
