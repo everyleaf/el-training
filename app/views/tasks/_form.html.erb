@@ -9,6 +9,7 @@
   <%= "(" %>
   <%= link_to "管理", categories_url, target: :_blank %>
   <%= "," %>
+  <!-- TODO: 更新を押すとフォームに記入したテキストなどの内容が消えてしまう -->
   <%= link_to "更新", request.url  %>
   <%= ")" %>
   <%= f.collection_select :category_id, Category.all, :id, :name, {include_blank: '選択してください'}  , class: 'form-control' %>
