@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :logged_in_user
+  before_action :confirm_current_user, only: %i(index create)
 
   def index
     @categories = current_user.categories
