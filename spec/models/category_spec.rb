@@ -10,9 +10,10 @@ RSpec.describe Category, type: :model do
     end
 
     context 'カテゴリ名はユニーク' do
-      let!(:category) { create(:category, name: 'cat_1') }
+      let!(:user) { create(:user) }
+      let!(:category) { create(:category, name: 'cat_1', user_id: user.id) }
       it 'カテゴリは無効である' do
-        another_category = build(:category)
+        another_category = build(:category, user_id: user.id)
         another_category.name = category.name
         expect(another_category).not_to be_valid
       end

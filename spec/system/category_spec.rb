@@ -1,5 +1,6 @@
 RSpec.describe 'Categories', type: :system do
   describe 'カテゴリの作成' do
+    let!(:user) { create(:user) }
     before do
       visit categories_path
     end
@@ -31,7 +32,7 @@ RSpec.describe 'Categories', type: :system do
     end
 
     context '存在するカテゴリ名を入力したとき' do
-      let!(:category) { create(:category, name: 'test_category') }
+      let!(:category) { create(:category, name: 'test_category', user_id: user.id) }
       it '作成に失敗する' do
         # すでに存在するカテゴリ名を入力して
         fill_in 'category_name', with: category.name
@@ -45,7 +46,8 @@ RSpec.describe 'Categories', type: :system do
   end
 
   describe 'カテゴリの編集' do
-    let!(:category) { create(:category, name: 'test_category') }
+    let!(:user) { create(:user) }
+    let!(:category) { create(:category, name: 'test_category', user_id: user.id) }
 
     before do
       visit categories_path
@@ -72,7 +74,7 @@ RSpec.describe 'Categories', type: :system do
     end
 
     context '存在するカテゴリ名を使って更新しようとしたとき' do
-      let!(:another_category) { create(:category, name: 'another') }
+      let!(:another_category) { create(:category, name: 'another', user_id: user.id) }
       it '更新に失敗する' do
         # another_categoriesの作成をページに反映するために再アクセス
         visit categories_path
