@@ -1,9 +1,12 @@
-<h1>All users</h1>
+<h1><%= I18n.t('user_index') %></h1>
 
 <ul class="users">
   <% @users.each do |user| %>
     <li>
-      <%= link_to user.name, user %>
+      <div>
+        <span><%= user.name%></span>
+        <span><%= link_to I18n.t('detail'),  user %></span>
+      </div>
     </li>
   <% end %>
 </ul>
