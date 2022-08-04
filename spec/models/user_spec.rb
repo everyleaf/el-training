@@ -31,5 +31,19 @@ RSpec.describe User, type: :model do
         end
       end
     end
+
+    context 'パスワードが8文字未満のとき' do
+      let(:user) { build(:user,password: "a"*7,password_confirmation: "a"*7 ) }
+      it 'ユーザは無効である' do
+        expect(user).not_to be_valid
+      end
+    end
+
+    context 'パスワードが8文字以上のとき' do
+      let(:user) { build(:user,password: "a"*8,password_confirmation: "a"*8 ) }
+      it 'ユーザは無効である' do
+        expect(user).to be_valid
+      end
+    end
   end
 end
