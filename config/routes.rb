@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   resources :tasks
-  resources :users, only: %i(show)
+  resources :users
   resources :categories, only: %i(index create destroy edit update)
   root 'tasks#index'
 end
