@@ -9,9 +9,9 @@ class CategoriesController < ApplicationController
     if @category.save
       flash[:success] = I18n.t 'category_create_success'
     else
-      @category.errors.full_messages.each do |msg|
-        flash[:danger] = msg
-      end
+      # TODO: レスキューを用いて具体的なエラーメッセージを
+      # TODO: フラッシュメッセージで表示(別Issue)
+      flash[:danger] = I18n.t 'category_create_failed'
     end
     redirect_to categories_url
   end
@@ -21,9 +21,7 @@ class CategoriesController < ApplicationController
     if category.destroy
       flash[:success] = I18n.t 'category_delete_success'
     else
-      category.errors.full_messages.each do |msg|
-        flash[:danger] = msg
-      end
+      flash[:danger] = I18n.t 'category_delete_failed'
     end
     redirect_to categories_url
   end
@@ -38,9 +36,7 @@ class CategoriesController < ApplicationController
       flash[:success] = I18n.t 'category_update_success'
       redirect_to categories_url
     else
-      @category.errors.full_messages.each do |msg|
-        flash[:danger] = msg
-      end
+      flash[:danger] = I18n.t 'category_update_failed'
       render :edit, status: :unprocessable_entity
     end
   end
