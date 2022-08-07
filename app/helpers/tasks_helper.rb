@@ -18,10 +18,8 @@ module TasksHelper
 
   # 現在のfilterパラメータを残したままsortパラメータを更新
   def sort_link(sort_by, direction, label, column)
-    if sort_by == column
-      # 現在ソートされているcolumnのみ、並び順(ASC,DESC)をクラスとして付与
-      sort_class = direction
-    end
+    # 現在ソートされているcolumnのみ、並び順(ASC,DESC)をクラスとして付与
+    sort_class = direction if column == sort_by
 
     # URL中のソートのクエリパラメータを更新
     uri = URI.parse(request.url)
