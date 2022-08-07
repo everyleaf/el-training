@@ -1,0 +1,12 @@
+.card {
+    font-size: 12px;
+    max-width: 20rem;
+    h4 {
+        font-size: 20px;
+    }
+}
+
+.card:hover {
+    border-color: red;
+    border-width: 3px;
+}
