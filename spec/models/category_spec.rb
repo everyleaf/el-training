@@ -11,9 +11,9 @@ RSpec.describe Category, type: :model do
 
     context '単一ユーザ内で同じ名前のカテゴリが作られたとき' do
       let!(:user) { create(:user) }
-      let!(:category) { create(:category, name: 'cat_1', user_id: user.id) }
+      let!(:category) { create(:category, name: 'category', user:) }
       it 'カテゴリは無効である' do
-        another_category = build(:category, user_id: user.id)
+        another_category = build(:category, user:)
         another_category.name = category.name
         expect(another_category).not_to be_valid
       end
