@@ -5,6 +5,9 @@
   <%= f.label      :name %>
   <%= f.text_field :name,        class: 'form-control' %>
 
+  <%= f.label             :category_id %>
+  <%= f.collection_select :category_id, Category.all, :id, :name, {include_blank: '選択してください'}  , class: 'form-control' %>
+
   <%= f.label      :description %>
   <%= f.text_area  :description, class: 'form-control' %>
 

@@ -18,6 +18,7 @@
   並び替え
   <br>
   <%= sort_by 'タスク名',  'name'           %> |
+  <%= sort_by 'カテゴリ',  'category_id'    %> |
   <%= sort_by '取り掛り',  'start_date'     %> | 
   <%= sort_by '必要日数',  'necessary_days' %> | 
   <%= sort_by '実行度',    'progress'      %> | 
@@ -36,6 +37,11 @@
           <span><%= Task.human_attribute_name(:name) %></span>
           <span><%= task.name%></span>
           <span><%= link_to I18n.t('detail'),  task %></span>
+        </div>
+        
+        <div>
+          <span><%= Task.human_attribute_name(:category) %></span>
+          <%= task.category.name %>
         </div>
 
         <% if task.description.present? %>
