@@ -1,6 +1,5 @@
 class Category < ApplicationRecord
   belongs_to :user
   has_many :task, dependent: :restrict_with_error
-  # TODO: ユーザモデルが追加されたら、nameのユニーク性のスコープをユーザに変更する
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { scope: :user }
 end

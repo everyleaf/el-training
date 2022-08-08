@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 20_220_804_095_531) do
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.bigint 'user_id', null: false
+    t.index %w(name user_id), name: 'index_categories_on_name_and_user_id', unique: true
     t.index ['name'], name: 'index_categories_on_name', unique: true
     t.index ['user_id'], name: 'index_categories_on_user_id'
   end
