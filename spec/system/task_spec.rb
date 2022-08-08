@@ -176,14 +176,13 @@ RSpec.describe 'Tasks', type: :system do
       # テスト用データの作成
       test_size.times do |n|
         name           = "test_task_#{n}"
-        category_id    = category.id
         start_date     = rand(today..(today + 365))
         necessary_days = rand(1..50)
         priority       = rand(0..2)
         progress       = rand(0..2)
 
         create(:task, name:,
-                      category_id:,
+                      category:,
                       start_date:,
                       necessary_days:,
                       priority:,
