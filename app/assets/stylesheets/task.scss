@@ -11,3 +11,27 @@
     }
   }
 }
+
+.task-form{
+  input{
+    border: 1px solid #bbb;
+    width: 100%;
+    margin-bottom: 15px;
+    height: auto !important;
+  }
+
+  .form-label {
+      margin: 8px 0 0 0
+  }
+}
+
+.task-sorting{
+  font-size: 16px;
+
+  .ASC {
+    color: red;
+  }
+  .DESC {
+    color: green;
+  }
+}
