@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe 'Tasks', type: :system do
   include CreateTestTasksSupport
   describe 'タスクの作成' do
+    let(:today) { Time.zone.today }
+    let!(:category) { create(:category) }
+
     before do
       # タスク一覧ページを表示
       visit tasks_path
@@ -11,12 +14,11 @@ RSpec.describe 'Tasks', type: :system do
       click_on 'タスクを作成'
     end
 
-    let(:today) { Time.zone.today }
-
     context 'description以外の入力フォームを全て埋めたとき' do
       it 'タスクの作成に成功する' do
         # フォームを埋める
         fill_in 'タスク名', with: 'sample task'
+        select  category.name, from: 'task[category_id]'
         fill_in '開始日', with: today
         fill_in '必要日数', with: 3
         choose  '未着手'
@@ -37,6 +39,7 @@ RSpec.describe 'Tasks', type: :system do
       it 'タスクの作成に失敗する' do
         # フォームを埋める
         fill_in 'タスク名', with: ''
+        select  category.name, from: 'task[category_id]'
         fill_in '開始日', with: today
         fill_in '必要日数', with: 3
         choose  '未着手'
@@ -118,14 +121,15 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'タスクの並び替え' do
+    let!(:category) { create(:category) }
     before do
       # タスク一覧ページを表示
       visit tasks_path
 
       # テストデータ
-      create(:task, name: 'a', priority: 2)
-      create(:task, name: 'b', priority: 0)
-      create(:task, name: 'c', priority: 1)
+      create(:task, name: 'a', priority: 2, category:)
+      create(:task, name: 'b', priority: 0, category:)
+      create(:task, name: 'c', priority: 1, category:)
     end
 
     context '並び替えたいパラメータを1回だけ選択すると' do
@@ -165,18 +169,20 @@ RSpec.describe 'Tasks', type: :system do
   describe 'タスクを名前で検索する' do
     let(:today) { Time.zone.today }
     let(:test_size) { 55 }
-    let(:tasks_num_per_page) { ApplicationController::TASKS_NUM_PER_PAGE }
+    let(:tasks_num_per_page) { TasksController::TASKS_NUM_PER_PAGE }
+    let(:category) { create(:category) }
 
     before do
       # テスト用データの作成
       test_size.times do |n|
-        name = "test_task_#{n}"
-        start_date = rand(today..(today + 365))
+        name           = "test_task_#{n}"
+        start_date     = rand(today..(today + 365))
         necessary_days = rand(1..50)
-        priority = rand(0..2)
-        progress = rand(0..2)
+        priority       = rand(0..2)
+        progress       = rand(0..2)
 
         create(:task, name:,
+                      category:,
                       start_date:,
                       necessary_days:,
                       priority:,
@@ -262,14 +268,15 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'タスクのフィルタリング' do
+    let!(:category) { create(:category) }
     before do
       # タスク一覧ページを表示
       visit tasks_path
 
       # テストデータ
-      create(:task, name: 'a', priority: 0, progress: 0)
-      create(:task, name: 'b', priority: 1, progress: 1)
-      create(:task, name: 'c', priority: 2, progress: 2)
+      create(:task, name: 'a', priority: 0, progress: 0, category:)
+      create(:task, name: 'b', priority: 1, progress: 1, category:)
+      create(:task, name: 'c', priority: 2, progress: 2, category:)
     end
 
     context 'フィルタリング条件に該当するタスクが存在するとき' do

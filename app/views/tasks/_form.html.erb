@@ -6,9 +6,11 @@
       <%= f.label      :name , class: 'form-label' %>
       <%= f.text_field :name,  class: 'form-control' %>
 
+      <%= f.label             :category_id , class: 'form-label'%>
+      <%= f.collection_select :category_id, Category.all, :id, :name, {include_blank: '選択してください'}  , class: 'form-control' %>
+
       <%= f.label      :description, class: 'form-label'   %>
       <%= f.text_area  :description, class: 'form-control' %>
-
 
       <%= f.label      :start_date, class: 'form-label'   %>
       <%= f.date_field :start_date, class: 'form-control' %>

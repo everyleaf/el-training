@@ -1,11 +1,13 @@
 ja:
   activerecord:
     models:
-      task: タスク
+      task:     タスク
+      category: カテゴリ
     #モデルごとに設定したいattributesを定義
     attributes:
       task:
         name:           タスク名
+        category:       カテゴリ
         description:    説明
         start_date:     開始日
         necessary_days: 必要日数
@@ -13,6 +15,9 @@ ja:
         priority:       重要度
         period_on_task: 取り掛かり期間
         created_date:   作成日
+
+      category:
+        name:           カテゴリ名
 
   # 全てのモデルで共通して使用するattributes
   attributes:
