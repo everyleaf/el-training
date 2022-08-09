@@ -15,7 +15,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = I18n.t 'user_create_success'
-      redirect_to tasks_url
+      log_in @user
+      redirect_to @user
     else
       flash.now[:danger] = I18n.t 'user_create_failed'
       render :new, status: :unprocessable_entity
