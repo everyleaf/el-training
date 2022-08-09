@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :categories, dependent: :destroy
+  has_many :tasks, through: :categories, dependent: :destroy
+
   has_secure_password
 
   VALID_EMAIL_REGEX = VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
