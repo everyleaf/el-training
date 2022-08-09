@@ -25,6 +25,11 @@ ja:
   user_update_failed:  "ユーザの更新に失敗しました"
   user_delete_success: "ユーザを削除しました"
   user_delete_failed:  "ユーザの削除に失敗しました"
+
+  # ログイン
+  login_success:             "ログインしました"
+  invalid_login_information: "ログイン情報が間違っています"
+
   # ビュー
   save_changes:     '変更を保存'
   cancel_edit:      '編集をキャンセル'
