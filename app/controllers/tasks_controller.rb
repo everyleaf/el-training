@@ -3,11 +3,11 @@ class TasksController < ApplicationController
   TASKS_NUM_PER_PAGE = 10
 
   def new
-    @task = Task.new
+    @task = @current_user.tasks.build
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = @current_user.tasks.build(task_params)
     if @task.save
       flash[:success] = I18n.t 'task_create_success'
       redirect_to tasks_url
