@@ -20,10 +20,10 @@
   <div class="col-6 d-flex align-items-end">
     <div class="search_form">
       <%= form_with url: tasks_path, method: :get do |f| %>
-        <%= f.text_field :search, placeholder: @shown_search_placeholder, class: "search_item" %>
+        <%= f.text_field :search, placeholder: @shown_search_placeholder, class: "search-item" %>
         <%= f.select :search_option, options_for_select([%w(完全に一致 perfect_match),
-                                                  %w(一部を含む partial_match)], @shown_search_option), {}, {class: "search_item"} %>
-        <%= f.submit '検索', class: "btn btn-primary search_item" %>
+                                                  %w(一部を含む partial_match)], @shown_search_option), {}, {class: "search-item"} %>
+        <%= f.submit '検索', class: "btn btn-primary search-item" %>
       <% end %>
     </div>
   </div>
