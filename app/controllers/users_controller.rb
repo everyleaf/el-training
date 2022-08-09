@@ -60,14 +60,6 @@ class UsersController < ApplicationController
                                  :password_confirmation)
   end
 
-  # ユーザがログインしているか確認
-  def logged_in_user
-    unless logged_in?
-      flash[:danger] = "Please Login"
-      redirect_to login_url
-    end
-  end
-
   # ログイン中のユーザが正しいか確認
   def correct_user
     user_to_edit = User.find(params[:id]) 
