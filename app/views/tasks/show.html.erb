@@ -1,18 +1,19 @@
-<div class = "col-md-offset-1">
-  <h1><%= @task.name %></h1>
-  <span><%= link_to  I18n.t('back_to_index'),  tasks_url      %></span>
-  <span><%= link_to  I18n.t('edit'),           edit_task_path %></span>
-  <span>
-    <%= button_to I18n.t('delete_task'), @task, method: :delete,
-                      form: {data: {turbo_confirm: I18n.t('message_before_delete')} } %> 
-  </span>
+<div class="row">
+  <div class="col-4">
+    <h1><%= @task.name %></h1>
+  </div>
 </div>
+<span><%= link_to  I18n.t('back_to_index'), tasks_url     , class:"btn btn-primary" %></span>
+<span><%= link_to  I18n.t('edit'),          edit_task_path, class:"btn btn-primary" %></span>
+<span>
+  <%= button_to I18n.t('delete_task'), @task, method: :delete, class:"btn btn-danger", 
+                    form: {data: {turbo_confirm: I18n.t('message_before_delete')} } %> 
+</span>
 
 <br>
 
-<div class="row">
-  <div class="col-md-8 col-md-offset-1">
-
+<div class="task-show">
+  <div>
     <div>
       <span><%= Task.human_attribute_name(:name) %></span>
       <%= @task.name %>

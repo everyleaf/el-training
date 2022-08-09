@@ -17,13 +17,18 @@ module TasksHelper
   end
 
   # 現在のfilterパラメータを残したままsortパラメータを更新
-  def sort_by(label, column)
+  def sort_link(sort_by, direction, label, column)
+    # 現在ソートされているcolumnのみ、並び順(ASC,DESC)をクラスとして付与
+    sort_class = direction if column == sort_by
+
+    # URL中のソートのクエリパラメータを更新
     uri = URI.parse(request.url)
     query = Rack::Utils.parse_nested_query(uri.query)
     query['sort']      = column
     query['direction'] = get_sort_direction(column)
     uri.query = query.to_param
     url = uri.to_s
-    link_to label, url
+
+    link_to label, url, class: sort_class
   end
 end
