@@ -1,44 +1,63 @@
-<h1><%= I18n.t('task_index') %></h1>
-<div>
-  <%= link_to I18n.t('create_task'), new_task_url %>
-  <br>
-  <%= render 'filter_check_box' %>
+<div class="row">
+  <div>
+    <h1><%= I18n.t('task_index') %></h1>
+  </div> 
 </div>
 
-<div class="search_form">
-  <%= form_with url: tasks_path, method: :get do |f| %>
-      <%= f.text_field :search, placeholder: @shown_search_placeholder %>
-      <%= f.select :search_option, options_for_select([%w(完全に一致 perfect_match),
-                                                %w(一部を含む partial_match)], @shown_search_option) %>
-      <%= f.submit '検索', class: "btn btn-primary" %>
-  <% end %>
+<br>
+
+<div class="row">
+  <%= link_to I18n.t('create_task'), new_task_url, class:"btn btn-primary" %>
 </div>
 
-<p>
-  並び替え
-  <br>
-  <%= sort_by 'タスク名',  'name'           %> |
-  <%= sort_by 'カテゴリ',  'category_id'    %> |
-  <%= sort_by '取り掛り',  'start_date'     %> | 
-  <%= sort_by '必要日数',  'necessary_days' %> | 
-  <%= sort_by '実行度',    'progress'      %> | 
-  <%= sort_by '重要度',    'priority'      %>
-</p>
+<br>
+
+<div class="row border task-search">
+  <div class="col-6">
+    <%= render 'filter_check_box' %>
+  </div>
+
+  <div class="col-6 d-flex align-items-end">
+    <div class="search_form">
+      <%= form_with url: tasks_path, method: :get do |f| %>
+        <%= f.text_field :search, placeholder: @shown_search_placeholder, class: "search-item" %>
+        <%= f.select :search_option, options_for_select([%w(完全に一致 perfect_match),
+                                                  %w(一部を含む partial_match)], @shown_search_option), {}, {class: "search-item"} %>
+        <%= f.submit '検索', class: "btn btn-primary search-item" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+並び替え
+<div class="task-sorting">
+  <%= sort_link  @sort_by, @direction, '作成日',  'created_at'      %> | 
+  <%= sort_link  @sort_by, @direction, 'タスク名', 'name'           %> | 
+  <%= sort_link  @sort_by, @direction, '取り掛り', 'start_date'     %> | 
+  <%= sort_link  @sort_by, @direction, '必要日数', 'necessary_days' %> | 
+  <%= sort_link  @sort_by, @direction, '進行状況', 'progress'       %> | 
+  <%= sort_link  @sort_by, @direction, '重要度',   'priority'        %>
+</div>
+
+<br>
 
 <% if @tasks.blank? %>
   該当するタスクがありません
 <% end %>
 
-<ul class="tasks">
+<ul class="tasks task-index">
   <% @tasks.each do |task| %>
-    <div class = "task">
-      <li>
+    <div class = "task card mb-3 bg-primary">
+      <%= link_to task, class: "card-body text-white" do %>
         <div>
-          <span><%= Task.human_attribute_name(:name) %></span>
-          <span><%= task.name%></span>
-          <span><%= link_to I18n.t('detail'),  task %></span>
+          <h4><%= task.name%></h4>
         </div>
-        
+
+        <div>
+          <span><%= Task.human_attribute_name(:created_date) %></span>
+          <%= print_month_day_wday task.created_at %>
+        </div>
+
         <div>
           <span><%= Task.human_attribute_name(:category) %></span>
           <%= task.category.name %>
@@ -72,9 +91,7 @@
           <span><%= Task.human_attribute_name(:priority) %></span>
           <%= task.priority%>
         </div>
-        
-        <br>
-      </li>
+      <% end %>
     </div>
   <% end %>
 </ul>

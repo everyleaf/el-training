@@ -1,0 +1,59 @@
+.task-index{
+  .card {
+    font-size: 12px;
+    max-width: 20rem;
+
+    h4 {
+        font-size: 20px;
+    }
+
+    :hover {
+      border-color: red;
+      border-width: 3px;
+    }
+  }
+}
+
+.task-form{
+  input{
+    border: 1px solid #bbb;
+    width: 100%;
+    margin-bottom: 15px;
+    height: auto !important;
+  }
+
+  .form-label {
+      margin: 8px 0 0 0
+  }
+}
+
+.task-sorting{
+  font-size: 16px;
+
+  .ASC {
+    color: red;
+  }
+  
+  .DESC {
+    color: green;
+  }
+}
+
+.task-search{
+  width: 100%;
+  margin: 15px;
+  padding: 15px;
+
+  .btn {
+    width: 100%;
+  }
+
+  .search-item {
+    margin-top: 10px;
+    width: 100%;
+  }
+}
+
+.task-show{
+  margin-top: 20px;
+}

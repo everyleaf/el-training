@@ -14,6 +14,7 @@ ja:
         progress:       進行状況
         priority:       重要度
         period_on_task: 取り掛かり期間
+        created_date:   作成日
 
       category:
         name:           カテゴリ名

@@ -31,11 +31,11 @@ class TasksController < ApplicationController
     update_filter_params
     filtered_tasks = searched_tasks.filter_from_checkbox(filter_params_all_blank?, @filter_priority, @filter_progress)
 
-    # タスクのソート(デフォルトはidの昇順)
-    sort_by      = params[:sort].presence      || 'id'
-    direction    = params[:direction].presence || 'ASC'
-    sorted_tasks = filtered_tasks.order("#{sort_by} #{direction}")
-    @tasks       = sorted_tasks.page(params[:page]).per(TASKS_NUM_PER_PAGE)
+    # タスクのソート(デフォルトは作成日の昇順)
+    @sort_by      = params[:sort].presence      || 'created_at'
+    @direction    = params[:direction].presence || 'ASC'
+    sorted_tasks  = filtered_tasks.order("#{@sort_by} #{@direction}")
+    @tasks        = sorted_tasks.page(params[:page]).per(TASKS_NUM_PER_PAGE)
   end
 
   def destroy

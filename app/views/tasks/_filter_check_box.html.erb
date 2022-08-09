@@ -1,21 +1,32 @@
 <%= form_with scope: :filter, url: tasks_path, method: :get do |f| %>
-  <% Task.priorities.each do |pri| %>
-    <%= f.label(:priority, pri.first) %>
-    <%= f.check_box :priority,
-                    { include_hidden: false,
-                      multiple:       true,
-                      checked: @filter_priority.try(:include?, pri.first) },
-                    pri.first %>
-  <% end %> 
-
-  <% Task.progresses.each do |prg| %>
-    <%= f.label(:progress, prg.first) %>
-    <%= f.check_box :progress,
-                    { include_hidden: false,
-                      multiple:       true,
-                      checked: @filter_progress.try(:include?, prg.first) },
-                    prg.first %>
-  <% end %>
+  <div class="row">
+    <div class="col-6">
+      <%= Task.human_attribute_name(:priority) %>
+      <% Task.priorities.each do |pri| %>
+        <div class = "checkbox">
+          <%= f.check_box :priority,
+                          { include_hidden: false,
+                            multiple:       true,
+                            checked: @filter_priority.try(:include?, pri.first) },
+                          pri.first %>
+          <%= f.label(:priority, pri.first) %>
+        </div>
+      <% end %> 
+    </div>
+    <div class="col-6">
+      <%= Task.human_attribute_name(:progress) %>
+      <% Task.progresses.each do |prg| %>
+        <div class = "checkbox">
+          <%= f.check_box :progress,
+                          { include_hidden: false,
+                            multiple:       true,
+                            checked: @filter_progress.try(:include?, prg.first) },
+                          prg.first %>
+          <%= f.label(:progress, prg.first) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
   <%= f.submit 'フィルタリング', class: "btn btn-primary" %>
 <% end %>
