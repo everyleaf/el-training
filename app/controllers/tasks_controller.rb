@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :logged_in_user
   TASKS_NUM_PER_PAGE = 10
 
   def new
