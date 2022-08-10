@@ -2,8 +2,11 @@ class CategoriesController < ApplicationController
   before_action :logged_in_user
 
   def index
-    @categories = Category.all
-    @category   = @current_user.categories.build
+    @categories = @current_user.categories
+    
+    # @current_user.categories.build と書くと
+    # カテゴリ一覧にsave前のカテゴリが表示されてしまう
+    @category   = Category.new
   end
 
   def create
