@@ -1,0 +1,27 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <div name="header">
+            <h1>タスク詳細画面</h1>
+        </div>
+        <div name="content">
+            <p>タイトル</p>
+            <p><%= @item[:title] %></p>
+
+            <p>内容</p>
+            <p><%= @item[:content] %></p>
+
+            <p>ラベル</p>
+            <p><%= @item[:label] %></p>
+
+            <p>担当者</p>
+            <p><%= @item[:name] %></p>
+       </div>
+        <div name="footer">
+            <%= link_to("編集", tasks_edit_path(@item)) %>
+            <%= link_to("削除", "/") %>
+            <%= link_to("一覧へ", "/") %>
+        </div>
+    </body>
+</html>
