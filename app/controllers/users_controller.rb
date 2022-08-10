@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = I18n.t 'user_create_success'
+      Category.create(name: '未分類', user: @user)
       log_in @user
       redirect_to @user
     else
