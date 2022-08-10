@@ -10,9 +10,10 @@ class Task < ApplicationRecord
     }
 
     # ステータス変換用Enum
+    # :区切りにすると構文エラーとなるためアローで記述 ※調査中
     STATUS_VIEW = {
-        Task.statuses['not_started'] => '未着手',
-        Task.statuses['in_progress'] => '着手中',
-        Task.statuses['closed'] => '完了'
-    }
+        Task.statuses[:not_started] => '未着手',
+        Task.statuses[:in_progress] => '着手中',
+        Task.statuses[:closed] => '完了'
+    }.freeze
 end

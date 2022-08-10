@@ -30,7 +30,7 @@
                                 <td><span><%= list_item.label %></span></td>
                                 <td><span><%= list_item.name %></span></td>
                                 <td><span><%= get_status_view(list_item.status) %></span></td>
-                                <td><input type="button" value="詳細"></td>
+                                <td><%= link_to("詳細", tasks_details_path(list_item.user_id)) %></td>
                             </tr>
                         <% end %>
                     </tbody>
