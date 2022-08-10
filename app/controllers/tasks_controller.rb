@@ -22,8 +22,10 @@ class TasksController < ApplicationController
   end
 
   def index
+    # 現在ログイン中のユーザのタスクを取得
+    tasks = @current_user.tasks.preload(:category).all # N+1対策でpreloadを使用
+
     # タスクの検索
-    tasks = Task.preload(:category).all # N+1対策でpreloadを使用
     searched_tasks = tasks.search_task(params[:search], params[:search_option])
     @shown_search_placeholder = params[:search].presence || 'タスク名'
     @shown_search_option = params[:search_option].presence || 'perfect_match'
