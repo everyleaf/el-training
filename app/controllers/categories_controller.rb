@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = @current_user.categories
-    
+
     # @current_user.categories.build と書くと
     # カテゴリ一覧にsave前のカテゴリが表示されてしまう
     @category   = Category.new
