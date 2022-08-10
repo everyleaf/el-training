@@ -1,7 +1,6 @@
 class Task < ApplicationRecord
-  TASK_DEFAULT_BELONG_NAME = '未分類'.freeze
-  belongs_to :category, default: -> { Category.find_by(name: Category::TASK_DEFAULT_BELONG_NAME) }
-  has_one    :user,     through: :category
+  has_one    :user, through: :category
+  belongs_to :category
 
   validates :name,           presence: true
   validates :start_date,     presence: true
