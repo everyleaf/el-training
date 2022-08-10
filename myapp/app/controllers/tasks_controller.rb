@@ -1,5 +1,6 @@
-class TasksController < ApplicationController
+# frozen_string_literal: true
 
+class TasksController < ApplicationController
   # タスク一覧画面
   def list
     # タスク一覧オブジェクト取得
@@ -7,15 +8,15 @@ class TasksController < ApplicationController
     # ただし、Formではないのでこれでよいと判断
     @list_items =
       Task
-        .joins(:user)
-        .select(
-          'tasks.id,
+      .joins(:user)
+      .select(
+        'tasks.id,
           tasks.title,
           tasks.label,
           users.id as user_id,
           users.name,
           tasks.status'
-        )
+      )
   end
 
   # タスク作成画面
@@ -50,18 +51,18 @@ class TasksController < ApplicationController
   def show
     @item =
       Task
-        .joins(:user)
-        .select(
-          'tasks.id,
+      .joins(:user)
+      .select(
+        'tasks.id,
           tasks.title,
           tasks.content,
           tasks.label,
           tasks.user_id,
-          users.name, 
+          users.name,
           tasks.status'
-        )
-        .where(id: params[:id])
-        .first
+      )
+      .where(id: params[:id])
+      .first
   end
 
   # タスク編集画面
@@ -102,28 +103,28 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.destroy
-      format.html { redirect_to('/', notice: 'タスク削除成功') }
-      format.json { head :no_content }
+        format.html { redirect_to('/', notice: 'タスク削除成功') }
+        format.json { head :no_content }
       end
     end
   end
+
   private
 
   # Taskパラメータ
   def task_params
     task =
       params
-        .require(:task)
-        .permit(
-          :title,
-          :content,
-          :label,
-          :user_id,
-          :status
-        )
+      .require(:task)
+      .permit(
+        :title,
+        :content,
+        :label,
+        :user_id,
+        :status
+      )
     task[:user_id] = task[:user_id].to_i
 
-    return task
+    task
   end
-
 end

@@ -1,0 +1,18 @@
+# 自動生成ファイル除外
+AllCops:
+  Exclude:
+    - "vendor/**/*"
+    - "db/schema.rb"
+  DisplayCopNames: true
+
+# 日本語のコメント許可
+Style/AsciiComments:
+  Enabled: false
+
+# ブロック記述許容
+Style/GuardClause:
+  MinBodyLength: 5
+
+# 1行の文字数
+Layout/LineLength:
+ Max: 130
