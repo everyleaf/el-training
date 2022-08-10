@@ -3,6 +3,9 @@
     </head>
     <body>
         <div name="header">
+            <div name="message-area">
+                <%= notice %>
+            </div>
             <h1>タスク一覧画面</h1>
         </div>
         <div name="content">
@@ -30,7 +33,7 @@
                                 <td><span><%= list_item.label %></span></td>
                                 <td><span><%= list_item.name %></span></td>
                                 <td><span><%= get_status_view(list_item.status) %></span></td>
-                                <td><%= link_to("詳細", tasks_details_path(list_item.user_id)) %></td>
+                                <td><%= link_to("詳細", tasks_details_path(list_item)) %></td>
                             </tr>
                         <% end %>
                     </tbody>
