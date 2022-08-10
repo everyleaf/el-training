@@ -20,7 +20,7 @@
        </div>
         <div name="footer">
             <%= link_to("編集", tasks_edit_path(@item)) %>
-            <%= link_to("削除", "/") %>
+            <%= link_to("削除", tasks_delete_path(@item), method: :delete, data: { confirm: "削除しますか？" }) %>
             <%= link_to("一覧へ", "/") %>
         </div>
     </body>

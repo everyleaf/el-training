@@ -9,7 +9,8 @@ class TasksController < ApplicationController
       Task
         .joins(:user)
         .select(
-          'tasks.title,
+          'tasks.id,
+          tasks.title,
           tasks.label,
           users.id as user_id,
           users.name,
@@ -95,6 +96,17 @@ class TasksController < ApplicationController
     end
   end
 
+  # タスク削除
+  def delete
+    @task = Task.find(params[:id])
+
+    respond_to do |format|
+      if @task.destroy
+      format.html { redirect_to('/', notice: 'タスク削除成功') }
+      format.json { head :no_content }
+      end
+    end
+  end
   private
 
   # Taskパラメータ
