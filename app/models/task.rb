@@ -1,5 +1,5 @@
 class Task < ApplicationRecord
-  DEAFULT_CATEGORY = '未分類'
+  DEAFULT_CATEGORY = '未分類'.freeze
   belongs_to :category, default: -> { Category.find_by(name: DEAFULT_CATEGORY) }
   validates :name,           presence: true
   validates :start_date,     presence: true
