@@ -19,7 +19,7 @@
       </span>
       <% if c.name != "未分類" %>
         <span>
-        <%= link_to '名前を変更', "categories/#{c.id}/edit", class: "edit_category_#{c.id}"%>
+        <%= link_to '名前を変更', edit_category_path(c), class: "edit_category_#{c.id}"%>
         </span>
         <span>
         <%= button_to '削除', c, method: :delete,class: "delete_category_#{c.id}",
