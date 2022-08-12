@@ -65,4 +65,20 @@ class CategoriesController < ApplicationController
 
     category
   end
+
+  def confirm_current_user
+    return unless @current_user.nil?
+
+    # TODO: ログインユーザに置き換える
+    @current_user = User.find_by(email: 'user_0@example.com') # seedで作成されるユーザ
+  end
+
+  def operation_allowed?(category)
+    if category.name == '未分類'
+      flash[:danger] = I18n.t 'operation_not_allowed'
+      return false
+    end
+
+    true
+  end
 end
