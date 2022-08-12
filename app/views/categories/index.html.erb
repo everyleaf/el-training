@@ -18,6 +18,7 @@
       <span>
         <%= c.name %>
       </span>
+
       <% unless c.operation_prohibited? %>
         <span>
         <%= link_to '名前を変更', edit_category_path(c), class: "edit_category_#{c.id}"%>
