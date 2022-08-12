@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
-  belongs_to :category, default: -> { Category.find_by(name: '未分類') }
+  DEAFULT_CATEGORY = '未分類'
+  belongs_to :category, default: -> { Category.find_by(name: DEAFULT_CATEGORY) }
   validates :name,           presence: true
   validates :start_date,     presence: true
   validates :necessary_days, presence: true, numericality: { greater_than_or_equal_to: 1 }
