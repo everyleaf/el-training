@@ -64,8 +64,10 @@ class UsersController < ApplicationController
   # ログイン中のユーザが正しいか確認
   def correct_user
     user_to_edit = User.find(params[:id])
-    if user_to_edit != current_user
-      flash[:danger] = 'permission denied'
+    if user_to_edit == current_user # 正しいユーザ
+      nil
+    else # 正しくないユーザ
+      flash[:danger] = I18n.t 'permission denied'
       redirect_to root_url
     end
   end

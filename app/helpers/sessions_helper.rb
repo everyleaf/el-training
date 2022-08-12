@@ -16,8 +16,11 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  # ヘルパー内でのインスタンス変数使用を許可
+  # rubocop:disable Rails/HelperInstanceVariable
   def log_out
     session.delete(:user_id)
     @current_user = nil
   end
+  # rubocop:enable all
 end

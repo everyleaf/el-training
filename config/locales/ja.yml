@@ -31,6 +31,9 @@ ja:
   invalid_login_information: "ログイン情報が間違っています"
   login_required:            "ログインしてください"
 
+  # その他
+  permission denied: "アクセス権限がありません"
+
   # ビュー
   save_changes:     '変更を保存'
   cancel_edit:      '編集をキャンセル'
