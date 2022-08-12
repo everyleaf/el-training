@@ -8,12 +8,12 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params)
     if @category.save
       flash[:success] = I18n.t 'category_create_success'
+      redirect_to categories_url
     else
-      # TODO: レスキューを用いて具体的なエラーメッセージを
-      # TODO: フラッシュメッセージで表示(別Issue)
-      flash[:danger] = I18n.t 'category_create_failed'
+      flash.now[:danger] = I18n.t 'category_create_failed'
+      @categories = Category.all
+      render :index, status: :unprocessable_entity
     end
-    redirect_to categories_url
   end
 
   def destroy
@@ -70,7 +70,7 @@ class CategoriesController < ApplicationController
       flash[:danger] = I18n.t 'operation_not_allowed'
       return false
     end
-    
+
     true
   end
 end

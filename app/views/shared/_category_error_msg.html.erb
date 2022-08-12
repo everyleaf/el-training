@@ -1,0 +1,10 @@
+<% if @category.errors.any? %>
+ <% pp "***************" %>
+  <div id="error_explanation">
+    <ul>
+    <% @category.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

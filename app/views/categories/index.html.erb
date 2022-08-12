@@ -5,6 +5,7 @@
 </div>
 
 <%= form_for(@category) do |f| %>
+  <%= render 'shared/category_error_msg' %>
   <%= f.label      :name %>
   <%= f.text_field :name, class: 'form-control' %>
 
