@@ -61,6 +61,7 @@ class CategoriesController < ApplicationController
       flash[:danger] = I18n.t 'category_not_exist'
       return false
     end
+
     true
   end
 
@@ -69,6 +70,7 @@ class CategoriesController < ApplicationController
       flash[:danger] = I18n.t 'operation_not_allowed'
       return false
     end
+    
     true
   end
 end
