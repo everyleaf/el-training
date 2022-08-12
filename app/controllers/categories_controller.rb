@@ -59,7 +59,7 @@ class CategoriesController < ApplicationController
   def category_exist?(category)
     if category.blank?
       flash[:danger] = I18n.t 'category_not_exist'
-      return
+      return false
     end
     true
   end
@@ -67,7 +67,7 @@ class CategoriesController < ApplicationController
   def operation_allowed?(category)
     if category.name == '未分類'
       flash[:danger] = I18n.t 'operation_not_allowed'
-      return
+      return false
     end
     true
   end
