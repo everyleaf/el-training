@@ -273,6 +273,8 @@ RSpec.describe 'Tasks', type: :system do
 
         click_on('フィルタリング')
 
+        sleep 1
+
         # 表示されているタスクを取得
         tasks = page.all('.task')
 
