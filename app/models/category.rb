@@ -4,4 +4,8 @@ class Category < ApplicationRecord
 
   # TODO: ユーザモデルが追加されたら、nameのユニーク性のスコープをユーザに変更する
   validates :name, presence: true, uniqueness: true
+
+  def operation_prohibited?
+    self.name == Category::TASK_DEFAULT_BELONG
+  end
 end

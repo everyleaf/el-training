@@ -49,28 +49,16 @@ class CategoriesController < ApplicationController
 
   def find_category_with_err_handling(category_id)
     category = Category.find_by(id: category_id)
-    if category_exist?(category) && operation_allowed?(category)
-      return category
-    end
 
-    redirect_to categories_url
-  end
-
-  def category_exist?(category)
-    if category.blank?
+    if category.nil?
       flash[:danger] = I18n.t 'category_not_exist'
-      return false
-    end
+      return redirect_to categories_url
 
-    true
-  end
-
-  def operation_allowed?(category)
-    if category.name == Category::TASK_DEFAULT_BELONG
+    elsif category.operation_prohibited?
       flash[:danger] = I18n.t 'operation_not_allowed'
-      return false
+      return redirect_to categories_url
     end
 
-    true
+    category
   end
 end
