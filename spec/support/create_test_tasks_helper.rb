@@ -1,5 +1,5 @@
 module CreateTestTasksSupport
-  def create_random_tasks_num(num,category)
+  def create_random_tasks_num(num, category)
     today = Time.zone.today
     # テスト用データの作成
     num.times do |n|
