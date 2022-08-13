@@ -99,7 +99,7 @@ RSpec.describe 'Categories', type: :system do
   end
 
   describe 'カテゴリの削除' do
-    let!(:category) { create(:category, name: 'test_category',user:) }
+    let!(:category) { create(:category, name: 'test_category', user:) }
     before do
       login_as(user)
       click_on 'カテゴリ一覧'
@@ -126,7 +126,7 @@ RSpec.describe 'Categories', type: :system do
   end
 
   context 'タスクを子に持つカテゴリを削除したとき' do
-    let!(:category) { create(:category, name: 'test_category',user:) }
+    let!(:category) { create(:category, name: 'test_category', user:) }
     before do
       login_as(user)
       create(:task, category:)

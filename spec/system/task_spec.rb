@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Tasks', type: :system do
   include CreateTestTasksSupport
   include LoginSupport
-  
+
   let!(:user) { create(:user) }
   let!(:category) { create(:category, user:) }
 
@@ -124,7 +124,7 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'タスクの並び替え' do
-    let!(:category){create(:category,user:)}
+    let!(:category) { create(:category, user:) }
     before do
       # テストデータ
       create(:task, name: 'a', priority: 2, category:)
