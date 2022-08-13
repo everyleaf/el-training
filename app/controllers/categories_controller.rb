@@ -72,18 +72,13 @@ class CategoriesController < ApplicationController
   def category_exist?(category)
     if category.blank?
       flash[:danger] = I18n.t 'category_not_exist'
-      return false
-    end
+      return redirect_to categories_url
 
-    true
-  end
-
-  def operation_allowed?(category)
-    if category.name == Category::TASK_DEFAULT_BELONG
+    elsif category.operation_prohibited?
       flash[:danger] = I18n.t 'operation_not_allowed'
-      return false
+      return redirect_to categories_url
     end
 
-    true
+    category
   end
 end
