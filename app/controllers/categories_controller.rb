@@ -66,7 +66,7 @@ class CategoriesController < ApplicationController
   end
 
   def operation_allowed?(category)
-    if category.name == Task::DEFAULT_CATEGORY
+    if category.name == Category::TASK_DEFAULT_BELONG
       flash[:danger] = I18n.t 'operation_not_allowed'
       return false
     end

@@ -18,7 +18,7 @@
       <span>
         <%= c.name %>
       </span>
-      <% if c.name !=  Task::DEFAULT_CATEGORY %>
+      <% if c.name !=  Category::TASK_DEFAULT_BELONG %>
         <span>
         <%= link_to '名前を変更', edit_category_path(c), class: "edit_category_#{c.id}"%>
         </span>
