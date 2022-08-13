@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       flash[:success] = I18n.t 'user_create_success'
       Category.create(name: '未分類', user: @user)
       log_in @user
-      redirect_to @user
+      redirect_to tasks_url
     else
       flash.now[:danger] = I18n.t 'user_create_failed'
       render :new, status: :unprocessable_entity
