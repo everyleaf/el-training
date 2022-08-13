@@ -6,7 +6,6 @@ RSpec.describe 'Categories', type: :system do
   let!(:user) { create(:user) }
 
   describe 'カテゴリの作成' do
-    let!(:user) { create(:user) }
     before do
       login_as(user)
       click_on 'カテゴリ一覧'
