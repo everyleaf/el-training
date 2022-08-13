@@ -1,5 +1,19 @@
 require 'rails_helper'
 
+def retry_on_stale_element_reference_error(&block)
+  first_try = true
+  begin
+    block.call
+  rescue Selenium::WebDriver::Error::StaleElementReferenceError
+    warn 'Retry on StaleElementReferenceError'
+    if first_try
+      first_try = false
+      retry
+    end
+    raise
+  end
+end
+
 RSpec.describe 'Tasks', type: :system do
   include CreateTestTasksSupport
   describe 'タスクの作成' do
@@ -137,10 +151,12 @@ RSpec.describe 'Tasks', type: :system do
         click_on '重要度'
         expect(current_url).to include('direction=ASC')
 
-        tasks = page.all('.task')
-        expect(tasks[0]).to have_content '低'
-        expect(tasks[1]).to have_content '中'
-        expect(tasks[2]).to have_content '高'
+        retry_on_stale_element_reference_error do
+          tasks = page.all('.task')
+          expect(tasks[0]).to have_content '低'
+          expect(tasks[1]).to have_content '中'
+          expect(tasks[2]).to have_content '高'
+        end
       end
     end
 
@@ -152,16 +168,14 @@ RSpec.describe 'Tasks', type: :system do
 
         # もう一度押すと降順に並べ替えられる
         click_on '重要度'
-
-        # ページとURLが更新されるのを待つ
-        # これがないとStaleElementReferenceErrorが発生
-        sleep 3
         expect(current_url).to include('direction=DESC')
 
-        tasks = page.all('.task')
-        expect(tasks[0]).to have_content '高'
-        expect(tasks[1]).to have_content '中'
-        expect(tasks[2]).to have_content '低'
+        retry_on_stale_element_reference_error do
+          tasks = page.all('.task')
+          expect(tasks[0]).to have_content '高'
+          expect(tasks[1]).to have_content '中'
+          expect(tasks[2]).to have_content '低'
+        end
       end
     end
   end
