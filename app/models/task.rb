@@ -34,7 +34,7 @@ class Task < ApplicationRecord
     elsif option == 'perfect_match'
       where(name:)
     else # partial_match
-      where('name LIKE ?', "%#{name}%")
+      where('tasks.name LIKE ?', "%#{name}%")
     end
   }
 end
