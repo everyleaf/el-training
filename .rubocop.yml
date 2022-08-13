@@ -22,8 +22,20 @@ Metrics/AbcSize:
   Max: 30
 
 Metrics/BlockLength:
-  Max: 50
-  
+  Exclude:
+    - db/schema.rb
+
+Style/StringLiterals:
+  Exclude:
+    - db/schema.rb
+
+Style/NumericLiterals:
+  Exclude:
+    - db/schema.rb
+
+Style/WordArray:
+  Exclude:
+    - db/schema.rb
 
 AllCops:
   TargetRubyVersion: 3.1

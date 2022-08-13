@@ -10,42 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_220_804_095_531) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_04_095531) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+  enable_extension "plpgsql"
 
-  create_table 'categories', force: :cascade do |t|
-    t.string 'name', null: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.bigint 'user_id', null: false
-    t.index %w(name user_id), name: 'index_categories_on_name_and_user_id', unique: true
-    t.index ['name'], name: 'index_categories_on_name', unique: true
-    t.index ['user_id'], name: 'index_categories_on_user_id'
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["name", "user_id"], name: "index_categories_on_name_and_user_id", unique: true
+    t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
-  create_table 'tasks', force: :cascade do |t|
-    t.string 'name', null: false
-    t.text 'description'
-    t.date 'start_date', null: false
-    t.integer 'necessary_days', null: false
-    t.integer 'progress', default: 0, null: false, comment: '0:未実行, 1:実行中, 2:完了'
-    t.integer 'priority', null: false, comment: '0:低, 1:中, 2:高'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.bigint 'category_id', null: false
-    t.index ['category_id'], name: 'index_tasks_on_category_id'
+  create_table "tasks", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.date "start_date", null: false
+    t.integer "necessary_days", null: false
+    t.integer "progress", default: 0, null: false, comment: "0:未実行, 1:実行中, 2:完了"
+    t.integer "priority", null: false, comment: "0:低, 1:中, 2:高"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "category_id", null: false
+    t.index ["category_id"], name: "index_tasks_on_category_id"
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'name', null: false
-    t.string 'email', null: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.string 'password_digest'
-    t.index ['email'], name: 'index_users_on_email', unique: true
+  create_table "users", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "password_digest"
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key 'categories', 'users'
-  add_foreign_key 'tasks', 'categories'
+  add_foreign_key "categories", "users"
+  add_foreign_key "tasks", "categories"
 end
