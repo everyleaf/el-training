@@ -71,11 +71,6 @@ class CategoriesController < ApplicationController
   end
 
   def operation_allowed?(category)
-    if category.name == '未分類'
-      flash[:danger] = I18n.t 'operation_not_allowed'
-      return false
-    end
-
-    true
+    category.name != '未分類'
   end
 end
