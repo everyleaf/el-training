@@ -7,4 +7,8 @@ class Category < ApplicationRecord
   def operation_prohibited?
     self.name == Category::TASK_DEFAULT_BELONG_NAME
   end
+
+  def operation_allowed?
+    !self.operation_prohibited?
+  end
 end
