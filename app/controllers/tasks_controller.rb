@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :logged_in_user
+  before_action -> { belongs_to_current_user?(find_task_with_err_handling(params[:id])) }, only: [:show,:destroy,:edit,:update]
   TASKS_NUM_PER_PAGE = 10
 
   def new
@@ -106,5 +107,19 @@ class TasksController < ApplicationController
 
   def filter_params_all_blank?
     params.dig(:filter, :priority).blank? && params.dig(:filter, :progress).blank?
+  end
+
+  def belongs_to_current_user?(task)
+    if task.class != Task # find_task_with_err_handlingメソッドで
+      return              # redirect_to tasks_urlが返ってくる場合
+
+    elsif task.user == @current_user # タスクに紐づくユーザでログインしている場合
+      true                           # 操作が許可される
+
+    else # タスクに紐づかないユーザでログインしてる場合
+         # 操作は許可されない
+      flash[:danger] = I18n.t 'permission denied'
+      redirect_to root_url
+    end
   end
 end
