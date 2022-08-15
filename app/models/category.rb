@@ -10,6 +10,6 @@ class Category < ApplicationRecord
   end
 
   def operation_allowed?
-    !(self.operation_prohibited?)
+    !self.operation_prohibited?
   end
 end

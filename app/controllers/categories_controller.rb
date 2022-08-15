@@ -49,7 +49,6 @@ class CategoriesController < ApplicationController
 
   def find_category_with_err_handling(category_id)
     category = Category.find_by(id: category_id)
-
     if category.nil?
       flash[:danger] = I18n.t 'category_not_exist'
       return redirect_to categories_url
