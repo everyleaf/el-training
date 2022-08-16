@@ -31,6 +31,10 @@ ja:
   invalid_login_information: "ログイン情報が間違っています"
   login_required:            "ログインしてください"
 
+  # メーラー
+  account_authentication: "アカウント認証"
+  reset_password        : "パスワード再設定"
+
   # その他
   permission denied:     "アクセス権限がありません"
   send_activation_email: "登録したアドレスにメールを送信しました" 
