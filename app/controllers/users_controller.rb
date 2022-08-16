@@ -18,9 +18,7 @@ class UsersController < ApplicationController
     if @user.save
       UserMailer.account_activation(@user).deliver_now
       flash[:info] = I18n.t 'send_activation_email'
-      # Category.create(name: '未分類', user: @user)
-      # log_in @user
-      # redirect_to tasks_url
+
       redirect_to root_url
     else
       flash.now[:danger] = I18n.t 'user_create_failed'
