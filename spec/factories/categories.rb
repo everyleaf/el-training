@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :category do
-    name { Category::TASK_DEFAULT_BELONG }
+    name { Category::TASK_DEFAULT_BELONG_NAME }
   end
 end
