@@ -9,12 +9,12 @@ class CategoriesController < ApplicationController
     @category = @current_user.categories.build(category_params)
     if @category.save
       flash[:success] = I18n.t 'category_create_success'
+      redirect_to categories_url
     else
-      # TODO: レスキューを用いて具体的なエラーメッセージを
-      # TODO: フラッシュメッセージで表示(別Issue)
-      flash[:danger] = I18n.t 'category_create_failed'
+      flash.now[:danger] = I18n.t 'category_create_failed'
+      @categories = Category.all
+      render :index, status: :unprocessable_entity
     end
-    redirect_to categories_url
   end
 
   def destroy
@@ -50,27 +50,16 @@ class CategoriesController < ApplicationController
 
   def find_category_with_err_handling(category_id)
     category = Category.find_by(id: category_id)
-    if category_exist?(category) && operation_allowed?(category)
-      return category
-    end
-
-    redirect_to categories_url
-  end
-
-  def category_exist?(category)
-    if category.blank?
+    if category.nil?
       flash[:danger] = I18n.t 'category_not_exist'
-      return
-    end
-    true
-  end
+      return redirect_to categories_url
 
-  def operation_allowed?(category)
-    if category.name == '未分類'
+    elsif category.operation_prohibited?
       flash[:danger] = I18n.t 'operation_not_allowed'
-      return
+      return redirect_to categories_url
     end
-    true
+
+    category
   end
 
   def confirm_current_user

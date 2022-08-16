@@ -5,6 +5,7 @@
 </div>
 
 <%= form_for(@category) do |f| %>
+  <%= render 'shared/category_error_msg' %>
   <%= f.label      :name %>
   <%= f.text_field :name, class: 'form-control' %>
 
@@ -17,9 +18,9 @@
       <span>
         <%= c.name %>
       </span>
-      <% if c.name != "未分類" %>
+      <% unless c.operation_prohibited? %>
         <span>
-        <%= link_to '名前を変更', "categories/#{c.id}/edit", class: "edit_category_#{c.id}"%>
+        <%= link_to '名前を変更', edit_category_path(c), class: "edit_category_#{c.id}"%>
         </span>
         <span>
         <%= button_to '削除', c, method: :delete,class: "delete_category_#{c.id}",
