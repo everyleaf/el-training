@@ -38,9 +38,10 @@ class User < ApplicationRecord
   end
 
   # トークンがダイジェストに一致したらtrue
-  def authenticated?(token) 
+  def authenticated?(token)
     digest = self.activation_digest
     return false if digest.nil?
+
     BCrypt::Password.new(digest).is_password?(token)
   end
 
