@@ -8,8 +8,4 @@ class Category < ApplicationRecord
   def operation_prohibited?
     self.name == Category::TASK_DEFAULT_BELONG
   end
-
-  def operation_allowed?
-    !self.operation_prohibited?
-  end
 end
