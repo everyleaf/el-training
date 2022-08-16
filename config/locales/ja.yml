@@ -32,7 +32,8 @@ ja:
   login_required:            "ログインしてください"
 
   # その他
-  permission denied: "アクセス権限がありません"
+  permission denied:     "アクセス権限がありません"
+  send_activation_email: "登録したアドレスにメールを送信しました" 
 
   # ビュー
   save_changes:     '変更を保存'
