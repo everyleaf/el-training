@@ -1,6 +1,6 @@
 class Task < ApplicationRecord
-  has_one    :user, through: :category
   belongs_to :category
+  has_one    :user, through: :category
 
   validates :name,           presence: true
   validates :start_date,     presence: true
