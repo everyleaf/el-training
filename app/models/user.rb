@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  attr_accessor :activation_token
+  before_save   :downcase_email
+  before_create :create_activation_digest
+
   has_many :categories, dependent: :destroy
   has_many :tasks, through: :categories, dependent: :destroy
 
@@ -15,4 +19,14 @@ class User < ApplicationRecord
                        format: { with: VALID_EMAIL_REGEX }
 
   before_save { self.email = email.downcase }
+
+  private
+  def downcase_email
+    self.email = email.downcase
+  end
+
+  def create_activation_digest
+    self.activation_token  = User.new_token
+    self.activation_digest = User.digest(activation_token)
+  end
 end
