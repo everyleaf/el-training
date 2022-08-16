@@ -20,6 +20,11 @@ class User < ApplicationRecord
 
   before_save { self.email = email.downcase }
 
+  # ランダムな22文字のトークンを返す
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
+
   private
   def downcase_email
     self.email = email.downcase
