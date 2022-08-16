@@ -5,4 +5,4 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-Category.create(name: '未分類')
+Category.create(name: Category::TASK_DEFAULT_BELONG_NAME)

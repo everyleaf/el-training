@@ -1,13 +1,20 @@
 <div class="row">
-  <div>
     <h1><%= I18n.t('task_index') %></h1>
-  </div> 
 </div>
 
 <br>
 
 <div class="row">
-  <%= link_to I18n.t('create_task'), new_task_url, class:"btn btn-primary" %>
+  <span>
+    <%= link_to I18n.t('create_task'),
+                new_task_url,
+                class:"btn btn-primary" %>
+  </span>
+  <span>
+    <%= link_to I18n.t('categories_index'),
+                categories_url,
+                class:"btn btn-primary"  %>
+  </span>
 </div>
 
 <br>
