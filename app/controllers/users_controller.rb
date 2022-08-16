@@ -16,10 +16,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = I18n.t 'user_create_success'
-      Category.create(name: '未分類', user: @user)
-      log_in @user
-      redirect_to tasks_url
+      UserMailer.account_activation(@user).deliver_now
+      flash[:info] = I18n.t 'send_activation_email'
+      # Category.create(name: '未分類', user: @user)
+      # log_in @user
+      # redirect_to tasks_url
+      redirect_to root_url
     else
       flash.now[:danger] = I18n.t 'user_create_failed'
       render :new, status: :unprocessable_entity
