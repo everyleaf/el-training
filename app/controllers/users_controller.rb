@@ -42,6 +42,13 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
+    
+    
+    # category has many tasks, dependent: :restrict_with_error につき
+    # タスクを持つカテゴリは削除できないため、タスクを先に削除する
+    @user.categories.each do |c|
+      c.task.destroy_all
+    end
 
     if @user.destroy
       flash[:success] = I18n.t 'user_delete_success'
