@@ -7,7 +7,7 @@ class User < ApplicationRecord
   validates :name,     presence: true
   validates :password, presence: true,
                        length: { minimum: 8 },
-                       allow_nil: true
+                       allow_nil: true  # editフォームのパスワード欄を空欄でもupdate可能にする
   validates :email,    presence: true,
                        uniqueness: true,
                        format: { with: VALID_EMAIL_REGEX }
