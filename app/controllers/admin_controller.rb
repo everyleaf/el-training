@@ -5,6 +5,7 @@ class AdminController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    #preloadを使用してN+1問題に対応
+    @user = User.preload(:categories,:tasks).find(params[:id])
   end
 end
