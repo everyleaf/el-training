@@ -6,7 +6,7 @@ RSpec.describe UserMailer, type: :mailer do
     let(:mail) { UserMailer.account_activation(user) }
 
     it '宛先が正常である' do
-      expect(mail.subject).to eq(I18n.t 'account_authentication')
+      expect(mail.subject).to eq(I18n.t('account_authentication'))
       expect(mail.to).to eq([user.email])
       expect(mail.from).to eq(['from@example.com'])
     end

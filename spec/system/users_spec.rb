@@ -14,7 +14,7 @@ RSpec.describe 'Users', type: :system do
         fill_in 'user_password_confirmation', with: 'password'
 
         click_on 'Create'
-        
+
         expect(page).to have_content('登録したアドレスにメールを送信しました')
       end
     end
