@@ -46,8 +46,7 @@ class CategoriesController < ApplicationController
   private
 
   def category_params
-    params.require(:category).permit(:name,
-                                     :current_user)
+    params.require(:category).permit(:name)
   end
 
   def find_category_with_err_handling(category_id)
