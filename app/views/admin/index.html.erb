@@ -20,7 +20,7 @@
         <% else %>
           <td class="align-middle">ー</td>
         <% end %>
-        <td class="align-middle"><%= link_to user.name,  user %></td>
+        <td class="align-middle"><%= link_to user.name, admin_path(user.id) %></td>
         <td class="align-middle"><%= user.email %></td>
         <td class="align-middle"><%= user.categories.size %></td>
         <td class="align-middle"><%= user.tasks.size %></td>

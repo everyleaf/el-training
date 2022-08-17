@@ -1,2 +1,66 @@
-<h1>Admin#show</h1>
-<p>Find me in app/views/admin/show.html.erb</p>
+<div class="row">
+  
+    <span><h1><%= @user.name %></h1></span>
+    <span><%= link_to  I18n.t('back_to_index'), admin_index_path     , class:"btn btn-primary" %></span>
+    <span>
+      <%= button_to I18n.t('delete_user'), @user, method: :delete, class:"btn btn-danger", 
+                    form: {data: {turbo_confirm: I18n.t('message_before_delete')} } %> 
+    </span>
+  
+</div>
+
+<br><br>
+
+<h2>ユーザ情報</h2>
+<table class="table users">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">認証</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">カテゴリ数</th>
+      <th scope="col">タスク数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row", class="align-middle"><%= @user.id %></th>
+      <% if @user.activated %>
+        <td class="align-middle">済</td>
+      <% else %>
+        <td class="align-middle">ー</td>
+      <% end %>
+      <td class="align-middle"><%= link_to @user.name,  @user %></td>
+      <td class="align-middle"><%= @user.email %></td>
+      <td class="align-middle"><%= @user.categories.size %></td>
+      <td class="align-middle"><%= @user.tasks.size %></td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<h2>タスク一覧</h2>
+<table class="table tasks">
+  <thead>
+    <tr>
+      <th scope="col">タスクid</th>
+      <th scope="col">タスク名</th>
+      <th scope="col">作成日</th>
+      <th scope="col">カテゴリ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.tasks.each do |t| %>
+      <tr>
+        <th scope="row"><%= t.id %></th>
+        <td><%= t.name %></td>
+        <td><%= print_month_day_wday t.created_at %></td>
+        <td><%= t.category.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+  
