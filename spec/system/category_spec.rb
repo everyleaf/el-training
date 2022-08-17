@@ -1,7 +1,6 @@
 RSpec.describe 'Categories', type: :system do
   describe 'カテゴリの作成' do
     let!(:user) { create(:user) }
-
     before do
       visit categories_path
     end
