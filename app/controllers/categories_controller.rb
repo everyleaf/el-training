@@ -70,17 +70,4 @@ class CategoriesController < ApplicationController
     # TODO: ログインユーザに置き換える
     @current_user = User.find_by(email: 'user_0@example.com') # seedで作成されるユーザ
   end
-
-  def category_exist?(category)
-    if category.blank?
-      flash[:danger] = I18n.t 'category_not_exist'
-      return redirect_to categories_url
-
-    elsif category.operation_prohibited?
-      flash[:danger] = I18n.t 'operation_not_allowed'
-      return redirect_to categories_url
-    end
-
-    category
-  end
 end
