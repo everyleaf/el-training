@@ -47,6 +47,7 @@ ja:
   create_task:      'タスクを作成'
   edit:             '編集'
   detail:           '詳細'
+  delete:           '削除'
 
   task_index:  'タスク一覧'
   task_edit:   'タスク編集'

@@ -14,16 +14,20 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <th scope="row"><%= user.id %></th>
+        <th scope="row", class="align-middle"><%= user.id %></th>
         <% if user.activated %>
-          <td>済</td>
+          <td class="align-middle">済</td>
         <% else %>
-          <td>ー</td>
+          <td class="align-middle">ー</td>
         <% end %>
-        <td><%= link_to user.name,  user %></td>
-        <td><%= user.email %></td>
-        <td><%= user.categories.size %></td>
-        <td><%= user.tasks.size %></td>
+        <td class="align-middle"><%= link_to user.name,  user %></td>
+        <td class="align-middle"><%= user.email %></td>
+        <td class="align-middle"><%= user.categories.size %></td>
+        <td class="align-middle"><%= user.tasks.size %></td>
+        <td class="align-middle"> 
+          <%= button_to I18n.t('delete'), user, method: :delete, class: "btn btn-link",
+                form: {data: {turbo_confirm: I18n.t('message_before_delete')} } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
