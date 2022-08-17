@@ -72,4 +72,18 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # 本番環境でMailgunを使用するための設定
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  host = 'el-task-management.herokuapp.com'
+  config.action_mailer.default_url_options = { host: }
+  ActionMailer::Base.smtp_settings = {
+    port: ENV.fetch('MAILGUN_SMTP_PORT', nil),
+    address: ENV.fetch('MAILGUN_SMTP_SERVER', nil),
+    user_name: ENV.fetch('MAILGUN_SMTP_LOGIN', nil),
+    password: ENV.fetch('MAILGUN_SMTP_PASSWORD', nil),
+    domain: host,
+    authentication: :plain
+  }
 end
