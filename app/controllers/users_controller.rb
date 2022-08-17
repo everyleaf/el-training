@@ -46,14 +46,14 @@ class UsersController < ApplicationController
     end
 
     if @user.destroy
-      pp I18n.t 'user_delete_success'
+      Rails.logger.debug I18n.t 'user_delete_success'
       flash[:success] = I18n.t 'user_delete_success'
     else
-      pp I18n.t 'user_delete_failed'
+      Rails.logger.debug I18n.t 'user_delete_failed'
       flash[:danger] = I18n.t 'user_delete_failed'
     end
-    
-    # TODO adminユーザでログインしてたらユーザ管理一覧に、
+
+    # TODO: adminユーザでログインしてたらユーザ管理一覧に、
     # TODO それ以外ならroot_urlにリダイレクト
     redirect_to root_url
   end
