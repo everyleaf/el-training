@@ -41,6 +41,30 @@
 
 <br>
 
+<h2>カテゴリ一覧</h2>
+<table class="table tasks">
+  <thead>
+    <tr>
+      <th scope="col">カテゴリid</th>
+      <th scope="col">カテゴリ名</th>
+      <th scope="col">作成日</th>
+      <th scope="col">タスク数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.categories.each do |c| %>
+      <tr>
+        <th scope="row"><%= c.id %></th>
+        <td><%= c.name %></td>
+        <td><%= print_month_day_wday c.created_at %></td>
+        <td><%= c.task.size %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
 <h2>タスク一覧</h2>
 <table class="table tasks">
   <thead>
