@@ -7,11 +7,11 @@ RSpec.describe 'AccountActivations', type: :request do
     end
 
     let(:user_params) {
-        { user: { name: 'test user',
-                  email: 'test_user@example.com',
-                  password: 'password',
-                  password_confirmation: 'password' } }
-      }
+      { user: { name: 'test user',
+                email: 'test_user@example.com',
+                password: 'password',
+                password_confirmation: 'password' } }
+    }
 
     context 'ユーザ情報をPOSTしたとき' do
       it 'メールが送信される' do
@@ -35,6 +35,7 @@ RSpec.describe 'AccountActivations', type: :request do
         post users_path params: user_params
         @user = controller.instance_variable_get('@user')
       end
+
       it 'ユーザは有効化される' do
         # まだ有効化されていないことを確認
         expect(@user).not_to be_activated
