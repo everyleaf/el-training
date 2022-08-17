@@ -8,9 +8,14 @@ Rails.application.routes.draw do
   resources :users
   resources :categories, only: %i(index create destroy edit update)
   resources :account_activations, only: :edit
+
   root 'sessions#new'
 
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
+
+  get    '/admin',   to: 'users#index'
+  post   '/admin',   to: 'users#create'
+  delete '/admin',   to: 'users#destroy'
 end
