@@ -1,6 +1,4 @@
 <div class="row">
-  
-    <span><h1><%= @user.name %></h1></span>
     <span><%= link_to  I18n.t('back_to_index'), admin_index_path     , class:"btn btn-primary" %></span>
     <span>
       <%= button_to I18n.t('delete_user'), @user, method: :delete, class:"btn btn-danger", 
