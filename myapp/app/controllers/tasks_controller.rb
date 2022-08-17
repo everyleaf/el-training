@@ -15,8 +15,10 @@ class TasksController < ApplicationController
           tasks.label,
           users.id as user_id,
           users.name,
-          tasks.status'
+          tasks.status,
+          tasks.created_at'
       )
+      .order('tasks.created_at')
   end
 
   # タスク作成画面
