@@ -1,8 +1,8 @@
 class TasksController < ApplicationController
   before_action :logged_in_user
-  before_action -> { 
-    belongs_to_current_user?(find_task_with_err_handling(params[:id])) 
-    }, only: %i(show destroy edit update)
+  before_action -> {
+                  belongs_to_current_user?(find_task_with_err_handling(params[:id]))
+                }, only: %i(show destroy edit update)
   TASKS_NUM_PER_PAGE = 10
 
   def new
