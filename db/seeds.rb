@@ -5,4 +5,8 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-Category.create(name: Category::TASK_DEFAULT_BELONG_NAME)
+user = User.create(name: 'user_0',
+                   email: 'user_0@example.com',
+                   password: 'password',
+                   password_confirmation: 'password')
+Category.create(name: Category::TASK_DEFAULT_BELONG_NAME, user:)

@@ -1,11 +1,12 @@
 class CategoriesController < ApplicationController
+  before_action :confirm_current_user, only: %i(index create)
   def index
     @categories = Category.all
-    @category   = Category.new
+    @category   = @current_user.categories.build
   end
 
   def create
-    @category = Category.new(category_params)
+    @category = @current_user.categories.build(category_params)
     if @category.save
       flash[:success] = I18n.t 'category_create_success'
       redirect_to categories_url
@@ -59,5 +60,12 @@ class CategoriesController < ApplicationController
     end
 
     category
+  end
+
+  def confirm_current_user
+    return unless @current_user.nil?
+
+    # TODO: ログインユーザに置き換える
+    @current_user = User.find_by(email: 'user_0@example.com') # seedで作成されるユーザ
   end
 end
