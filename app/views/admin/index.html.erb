@@ -1,2 +1,34 @@
-<h1>Admin#index</h1>
-<p>Find me in app/views/admin/index.html.erb</p>
+<h1><%= I18n.t('user_index') %></h1>
+
+<table class="table users">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">認証</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">カテゴリ数</th>
+      <th scope="col">タスク数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <th scope="row", class="align-middle"><%= user.id %></th>
+        <% if user.activated %>
+          <td class="align-middle">済</td>
+        <% else %>
+          <td class="align-middle">ー</td>
+        <% end %>
+        <td class="align-middle"><%= link_to user.name,  user %></td>
+        <td class="align-middle"><%= user.email %></td>
+        <td class="align-middle"><%= user.categories.size %></td>
+        <td class="align-middle"><%= user.tasks.size %></td>
+        <td class="align-middle"> 
+          <%= button_to I18n.t('delete'), user, method: :delete, class: "btn btn-link",
+                form: {data: {turbo_confirm: I18n.t('message_before_delete')} } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
