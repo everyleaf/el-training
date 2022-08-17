@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.preload(:categories,:tasks).all #preloadを使用してN+1問題に対応
   end
 
   def create

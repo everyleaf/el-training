@@ -22,8 +22,8 @@
         <% end %>
         <td><%= link_to user.name,  user %></td>
         <td><%= user.email %></td>
-        <td><%= user.categories.count %></td>
-        <td><%= user.tasks.count %></td>
+        <td><%= user.categories.size %></td>
+        <td><%= user.tasks.size %></td>
       </tr>
     <% end %>
   </tbody>
