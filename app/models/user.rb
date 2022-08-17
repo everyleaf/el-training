@@ -26,6 +26,10 @@ class User < ApplicationRecord
     update(:activated_at, Time.zone.now)
   end
 
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+
   # ランダムな22文字のトークンを返す
   def self.new_token
     SecureRandom.urlsafe_base64
