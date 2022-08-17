@@ -27,6 +27,7 @@ Metrics/BlockLength:
   Exclude:
     - db/schema.rb
     - spec/*/*.rb
+    - config/*/*.rb
 
 Style/StringLiterals:
   Exclude:
