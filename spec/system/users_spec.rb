@@ -5,15 +5,15 @@ RSpec.describe 'Users', type: :system do
     end
 
     context '全ての項目を正しく埋めたとき' do
-      it 'ユーザの作成に成功する' do
+      it 'アカウント有効化のメールが送信される' do
         fill_in 'user_name',                  with: 'user'
         fill_in 'user_email',                 with: 'user@example.com'
         fill_in 'user_password',              with: 'password'
         fill_in 'user_password_confirmation', with: 'password'
 
         click_on 'Create'
-
-        expect(page).to have_content('ユーザを作成しました')
+        
+        expect(page).to have_content('登録したアドレスにメールを送信しました')
       end
     end
 
