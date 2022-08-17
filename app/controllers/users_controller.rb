@@ -66,7 +66,7 @@ class UsersController < ApplicationController
     if user_to_edit == current_user # 正しいユーザ
       nil
     else # 正しくないユーザ
-      flash[:danger] = 'permission denied'
+      flash[:danger] = I18n.t 'permission_denied'
       redirect_to root_url
     end
   end

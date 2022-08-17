@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
         log_in user
         flash[:success] = I18n.t 'login_success'
         redirect_to tasks_url
-        
+
       else
         flash[:warning] = I18n.t 'please_activate'
         redirect_to root_url

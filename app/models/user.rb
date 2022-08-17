@@ -22,7 +22,7 @@ class User < ApplicationRecord
   before_save { self.email = email.downcase }
 
   def activate
-    update(:activated,     true)
+    update(:activated, true)
     update(:activated_at, Time.zone.now)
   end
 
