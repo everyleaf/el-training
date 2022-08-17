@@ -34,12 +34,14 @@ RSpec.describe 'Categories', type: :system do
         fill_in 'session_password', with: not_activated_user.password
         click_on 'Log in'
       end
+
       it 'ログインできない' do
-        expect(page).to     have_content ('アカウントを作成')
-        expect(page).not_to have_content ('タスク一覧')
+        expect(page).to     have_content('アカウントを作成')
+        expect(page).not_to have_content('タスク一覧')
       end
+
       it 'メールを確認するメッセージが表示される' do
-        expect(page).to have_content(I18n.t 'please_activate')
+        expect(page).to have_content(I18n.t('please_activate'))
       end
     end
   end

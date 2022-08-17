@@ -33,19 +33,20 @@ RSpec.describe 'AccountActivations', type: :request do
     context 'activationリンクにアクセスしたとき' do
       before do
         post users_path params: user_params
-        @user = controller.instance_variable_get('@user')
       end
+
+      let!(:user) { controller.instance_variable_get('@user') }
 
       it 'ユーザは有効化される' do
         # まだ有効化されていないことを確認
-        expect(@user).not_to be_activated
+        expect(user).not_to be_activated
 
         # activationリンクにアクセスし、
-        get edit_account_activation_url(@user.activation_token, email: @user.email)
+        get edit_account_activation_url(user.activation_token, email: user.email)
         # @userを再読み込みすると、
-        @user.reload
+        user.reload
         # ユーザが有効化されている
-        expect(@user).to be_activated
+        expect(user).to be_activated
       end
     end
   end
