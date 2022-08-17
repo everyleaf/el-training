@@ -1,16 +1,30 @@
 <h1><%= I18n.t('user_index') %></h1>
 
-<ul class="users">
-  <% @users.each do |user| %>
-    <li>
-      <div>
-        <span><%= user.name%></span>
-        <span><%= link_to I18n.t('detail'),  user %></span>
-        <span>
-          <%= button_to I18n.t('delete_user'), user, method: :delete,
-                      form: {data: {turbo_confirm: I18n.t('message_before_delete')} } %> 
-        </span>
-      </div>
-    </li>
-  <% end %>
-</ul>
+<table class="table users">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">認証</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">カテゴリ数</th>
+      <th scope="col">タスク数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <th scope="row"><%= user.id %></th>
+        <% if user.activated %>
+          <td>済</td>
+        <% else %>
+          <td>ー</td>
+        <% end %>
+        <td><%= link_to user.name,  user %></td>
+        <td><%= user.email %></td>
+        <td><%= user.categories.count %></td>
+        <td><%= user.tasks.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
