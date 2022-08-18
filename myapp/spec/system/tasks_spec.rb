@@ -5,7 +5,7 @@ describe 'Tasks', type: :system do
     ###################################################
     # タスク一覧画面
     ###################################################
-    describe '#list', type: :system do
+    describe '#index', type: :system do
         include TaskHelper
 
         ###################################################
@@ -21,29 +21,17 @@ describe 'Tasks', type: :system do
                 Task.create!(
                     title: "テスト#{i + 1}",
                     content: "こちらはテスト#{i + 1}の内容です。テストテストテストテストテストテストテスト",
-                    user_id: user[:id],
+                    user_id: user.id,
                     status: '1',
                     label: "テスト"
                 )
             end
 
             # 画面遷移
-            visit(tasks_path())
+            visit('/')
 
             # DBからデータ取得
-            @db_items =
-            Task
-            .joins(:user)
-            .select(
-                'tasks.id,
-                tasks.title,
-                tasks.label,
-                users.id as user_id,
-                users.name,
-                tasks.status,
-                tasks.created_at'
-            )
-            .order('tasks.created_at')
+            @db_items = Task.joins(:user).all.order('tasks.created_at desc')
 
             # 画面の一覧取得
             @view_items = all('div[name="list-task"] tbody tr')
@@ -61,11 +49,11 @@ describe 'Tasks', type: :system do
                 expect(@view_items.size).to(eq(@db_items.size))
                 @view_items.size.times do |i|
                     columns = @view_items[i].all('td')
-                    expect(columns[0]).to(have_content(@db_items[i][:title]))
-                    expect(columns[1]).to(have_content(@db_items[i][:label]))
-                    expect(columns[2]).to(have_content(@db_items[i][:name]))
-                    expect(columns[3]).to(have_content(get_status_view(@db_items[i][:status])))
-                    expect(columns[4]).to(have_link('詳細', href: tasks_details_path(@db_items[i])))
+                    expect(columns[0]).to(have_content(@db_items[i].title))
+                    expect(columns[1]).to(have_content(@db_items[i].label))
+                    expect(columns[2]).to(have_content(@db_items[i].user.name))
+                    expect(columns[3]).to(have_content(get_status_view(@db_items[i].status)))
+                    expect(columns[4]).to(have_link('詳細', href: task_path(@db_items[i])))
                 end
             }
         end
@@ -105,13 +93,13 @@ describe 'Tasks', type: :system do
             User.create!(name: 'テスト二郎')
 
             # 画面遷移
-            visit(tasks_new_path())
+            visit(new_task_path())
 
             # 新規タスク登録
             fill_in('task[title]', with: new_task[:title])
             fill_in('task[content]', with: new_task[:content])
             fill_in('task[label]', with: new_task[:label])
-            find("option[value='#{@user[:id]}']").select_option
+            find("option[value='#{@user.id}']").select_option
             
             # タスク登録確認
             expect{ click_button '作成' }.to change(Task, :count).by(1)
@@ -135,7 +123,7 @@ describe 'Tasks', type: :system do
                 expect(@task.title).to eq(new_task[:title])
                 expect(@task.content).to eq(new_task[:content])
                 expect(@task.label).to eq(new_task[:label])
-                expect(@task.user_id).to eq(@user[:id])
+                expect(@task.user_id).to eq(@user.id)
                 expect(@task.status).to eq('not_started')
             }
         end
@@ -200,30 +188,17 @@ describe 'Tasks', type: :system do
                 @task = Task.create!(
                     title: "テスト#{i + 1}",
                     content: "こちらはテスト#{i + 1}の内容です。テストテストテストテストテストテストテスト",
-                    user_id: user[:id],
+                    user_id: user.id,
                     status: '1',
                     label: "テスト"
                 )
             end
 
             # 画面遷移
-            visit(tasks_details_path(@task))
+            visit(task_path(@task))
 
             # DBからデータ取得
-            @db_item =
-            Task
-            .joins(:user)
-            .select(
-              'tasks.id,
-                tasks.title,
-                tasks.content,
-                tasks.label,
-                tasks.user_id,
-                users.name,
-                tasks.status'
-            )
-            .where(id: @task[:id])
-            .first
+            @db_item = Task.joins(:user).all.where(id: @task.id).first
 
             # 画面の一覧取得
             @view_item = find('div[name="content"]')
@@ -238,10 +213,10 @@ describe 'Tasks', type: :system do
         shared_examples_for 'compare_details_view_to_db' do
             it {
                 # 項目比較
-                expect(@view_item).to(have_content(@db_item[:title]))
-                expect(@view_item).to(have_content(@db_item[:content]))
-                expect(@view_item).to(have_content(@db_item[:label]))
-                expect(@view_item).to(have_content(@db_item[:name]))
+                expect(@view_item).to(have_content(@db_item.title))
+                expect(@view_item).to(have_content(@db_item.content))
+                expect(@view_item).to(have_content(@db_item.label))
+                expect(@view_item).to(have_content(@db_item.user.name))
             }
         end
 
@@ -249,16 +224,16 @@ describe 'Tasks', type: :system do
         shared_examples_for 'delete_task' do
             it {
                 # 画面遷移
-                visit(tasks_details_path(@task))
+                visit(task_path(@task))
 
                 # 削除
                 expect{ click_on('削除') }.to change(Task, :count).by(-1)
                 expect(
                     Task.find_by(
-                        title: @task[:title],
-                        content: @task[:content],
-                        label: @task[:label],
-                        user_id: @task[:user_id]
+                        title: @task.title,
+                        content: @task.content,
+                        label: @task.label,
+                        user_id: @task.user_id
                     )
                 ).to be nil
 
@@ -314,29 +289,16 @@ describe 'Tasks', type: :system do
             @task = Task.create!(
                 title: "テスト1",
                 content: "こちらはテスト1の内容です。テストテストテストテストテストテストテスト",
-                user_id: @user1[:id],
+                user_id: @user1.id,
                 status: '1',
                 label: "テスト"
             )
 
             # 画面遷移
-            visit(tasks_edit_path(@task))
+            visit(edit_task_path(@task))
 
             # DBからデータ取得
-            @before_db_item =
-            Task
-            .joins(:user)
-            .select(
-              'tasks.id,
-                tasks.title,
-                tasks.content,
-                tasks.label,
-                tasks.user_id,
-                users.name,
-                tasks.status'
-            )
-            .where(id: @task[:id])
-            .first
+            @before_db_item = Task.joins(:user).all.where(id: @task.id).first
 
             # 更新
             if defined? update_task
@@ -348,20 +310,7 @@ describe 'Tasks', type: :system do
                 click_button '更新'
             end
 
-            @after_db_item =
-            Task
-            .joins(:user)
-            .select(
-              'tasks.id,
-                tasks.title,
-                tasks.content,
-                tasks.label,
-                tasks.user_id,
-                users.name,
-                tasks.status'
-            )
-            .where(id: @task[:id])
-            .first
+            @after_db_item =Task.joins(:user).all.where(id: @task.id).first
             
         end
 
@@ -385,14 +334,14 @@ describe 'Tasks', type: :system do
 
             it '各項目にDBの値が表示されていること' do
                 # 画面遷移
-                visit(tasks_edit_path(@task))
+                visit(edit_task_path(@task))
 
                 # 項目比較
-                expect(page).to(have_field('task[title]', with: @before_db_item[:title]))
-                expect(page).to(have_field('task[content]', with: @before_db_item[:content]))
-                expect(page).to(have_field('task[label]', with: @before_db_item[:label]))
-                expect(page).to(have_field('task[status]', with: Task.statuses[@before_db_item[:status]]))
-                expect(page).to(have_field('task[user_id]', with: @before_db_item[:user_id]))
+                expect(page).to(have_field('task[title]', with: @before_db_item.title))
+                expect(page).to(have_field('task[content]', with: @before_db_item.content))
+                expect(page).to(have_field('task[label]', with: @before_db_item.label))
+                expect(page).to(have_field('task[status]', with: Task.statuses[@before_db_item.status]))
+                expect(page).to(have_field('task[user_id]', with: @before_db_item.user_id))
             end
 
         end
