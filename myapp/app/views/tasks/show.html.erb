@@ -2,10 +2,10 @@
     <head>
     </head>
     <body>
-        <div name="header">
+        <div name='header'>
             <h1>タスク詳細画面</h1>
         </div>
-        <div name="content">
+        <div name='content'>
             <p>タイトル</p>
             <p><%= @task.title %></p>
 
@@ -18,10 +18,10 @@
             <p>担当者</p>
             <p><%= @task.user.name %></p>
        </div>
-        <div name="footer">
-            <%= link_to("編集", tasks_edit_path(@task)) %>
-            <%= link_to("削除", tasks_delete_path(@task), method: :delete, data: { confirm: "削除しますか？" }) %>
-            <%= link_to("一覧へ", "/") %>
+        <div name='footer'>
+            <%= link_to('編集', tasks_edit_path(@task)) %>
+            <%= link_to('削除', tasks_delete_path(@task), method: :delete, data: { confirm: '削除しますか？' }) %>
+            <%= link_to('一覧へ', '/') %>
         </div>
     </body>
 </html>

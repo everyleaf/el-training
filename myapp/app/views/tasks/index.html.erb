@@ -2,20 +2,20 @@
     <head>
     </head>
     <body>
-        <div name="header">
-            <div name="message-area">
+        <div name='header'>
+            <div name='message-area'>
                 <%= notice %>
             </div>
             <h1>タスク一覧画面</h1>
         </div>
-        <div name="content">
-            <div name="create-task">
-                <%= link_to("作成", tasks_new_path) %>
+        <div name='content'>
+            <div name='create-task'>
+                <%= link_to('作成', tasks_new_path) %>
             </div>
-            <div name="serch-task">
+            <div name='serch-task'>
 
             </div>
-            <div name="list-task">
+            <div name='list-task'>
                 <table>
                     <thead>
                         <tr>
@@ -33,14 +33,14 @@
                                 <td><span><%= task.label %></span></td>
                                 <td><span><%= task.user.name %></span></td>
                                 <td><span><%= get_status_view(task.status) %></span></td>
-                                <td><%= link_to("詳細", tasks_details_path(task)) %></td>
+                                <td><%= link_to('詳細', tasks_details_path(task)) %></td>
                             </tr>
                         <% end %>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div name="footer">
+        <div name='footer'>
         </div>
     </body>
 </html>
