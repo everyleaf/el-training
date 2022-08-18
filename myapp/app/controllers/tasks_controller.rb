@@ -71,7 +71,7 @@ class TasksController < ApplicationController
   end
 
   # タスク削除
-  def delete
+  def destroy
     @task = Task.find(params[:id])
 
     respond_to do |format|

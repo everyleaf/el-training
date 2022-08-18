@@ -6,7 +6,7 @@
             <h1>タスク作成画面</h1>
         </div>
         <div name='content'>
-            <%= form_with(model: @task, url: tasks_create_path) do |f| %>
+            <%= form_with(model: @task, url: create_task_path) do |f| %>
                 <p>タイトル</p>
                 <%= f.text_field(:title) %>
 

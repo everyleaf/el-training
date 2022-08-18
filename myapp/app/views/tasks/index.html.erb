@@ -10,7 +10,7 @@
         </div>
         <div name='content'>
             <div name='create-task'>
-                <%= link_to('作成', tasks_new_path) %>
+                <%= link_to('作成', new_task_path) %>
             </div>
             <div name='serch-task'>
 
@@ -33,7 +33,7 @@
                                 <td><span><%= task.label %></span></td>
                                 <td><span><%= task.user.name %></span></td>
                                 <td><span><%= get_status_view(task.status) %></span></td>
-                                <td><%= link_to('詳細', tasks_details_path(task)) %></td>
+                                <td><%= link_to('詳細', task_path(task)) %></td>
                             </tr>
                         <% end %>
                     </tbody>
