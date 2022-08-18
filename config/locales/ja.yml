@@ -18,6 +18,14 @@ ja:
   category_not_exist:      "該当するカテゴリが存在しません"
   operation_not_allowed:   "このカテゴリへの操作は禁止されています"
 
+  # フラッシュメッセージ : ユーザ
+  user_create_success: "ユーザを作成しました"
+  user_create_failed:  "ユーザの作成に失敗しました"
+  user_update_success: "ユーザ情報を更新しました"
+  user_update_failed:  "ユーザの更新に失敗しました"
+  user_delete_success: "ユーザを削除しました"
+  user_delete_failed:  "ユーザの削除に失敗しました"
+  
   # ビュー
   save_changes:     '変更を保存'
   cancel_edit:      '編集をキャンセル'
@@ -33,6 +41,9 @@ ja:
   task_index:  'タスク一覧'
   task_edit:   'タスク編集'
   task_create: 'タスク作成'
+
+  user_index: 'ユーザ一覧'
+  delete_user: 'ユーザを削除'
 
   # 確認メッセージ
   message_before_delete: '本当に削除しますか?'
