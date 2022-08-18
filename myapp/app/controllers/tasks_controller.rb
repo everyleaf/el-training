@@ -29,10 +29,8 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         format.html { redirect_to('/', notice: 'タスク作成成功') }
-        format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -66,10 +64,8 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to('/', notice: 'タスク更新成功') }
-        format.json { render :show, status: :created, location: @task }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -81,7 +77,6 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.destroy
         format.html { redirect_to('/', notice: 'タスク削除成功') }
-        format.json { head :no_content }
       end
     end
   end
