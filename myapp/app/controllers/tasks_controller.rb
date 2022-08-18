@@ -3,7 +3,7 @@
 class TasksController < ApplicationController
   # タスク一覧画面
   def index
-    @tasks = Task.joins(:user).all
+    @tasks = Task.joins(:user).all.order('tasks.created_at desc')
   end
 
   # タスク作成画面
