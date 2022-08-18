@@ -11,7 +11,7 @@
   Task.create!(
     title: "タスク#{i}",
     content: "こちらはタスク#{i}の内容です。テストテストテストテストテストテストテスト",
-    user_id: user[:id],
+    user_id: user.id,
     status: '1',
     label: "ラベル#{i}"
   )

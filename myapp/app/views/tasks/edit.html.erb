@@ -6,7 +6,7 @@
             <h1>タスク編集画面</h1>
         </div>
         <div name="content">
-            <%= form_with(model: @task, url: tasks_update_path(@task[:id])) do |f| %>
+            <%= form_with(model: @task, url: tasks_update_path(@task.id)) do |f| %>
                 <p>タイトル</p>
                 <%= f.text_field(:title) %>
 
@@ -17,10 +17,10 @@
                 <%= f.text_field(:label) %>
 
                 <p>状況</p>
-                <%= f.select(:status, @statuses, selected: @task[:status]) %>
+                <%= f.select(:status, @statuses, selected: @task.status) %>
 
                 <p>担当者</p>
-                <%= f.select(:user_id, @select_user_names, selected: @task[:user_id]) %>
+                <%= f.select(:user_id, @select_user_names, selected: @task.user_id) %>
                 <br><br>
                 <%= f.submit("更新") %>
             <% end %>

@@ -85,7 +85,7 @@ class TasksController < ApplicationController
 
   # Taskパラメータ
   def task_params
-    task =
+    task_params =
       params
       .require(:task)
       .permit(
@@ -95,8 +95,8 @@ class TasksController < ApplicationController
         :user_id,
         :status
       )
-    task[:user_id] = task[:user_id].to_i
+    task_params[:user_id] = task_params[:user_id].to_i
 
-    task
+    task_params
   end
 end

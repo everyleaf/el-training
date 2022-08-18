@@ -7,16 +7,16 @@
         </div>
         <div name="content">
             <p>タイトル</p>
-            <p><%= @task[:title] %></p>
+            <p><%= @task.title %></p>
 
             <p>内容</p>
-            <p><%= @task[:content] %></p>
+            <p><%= @task.content %></p>
 
             <p>ラベル</p>
-            <p><%= @task[:label] %></p>
+            <p><%= @task.label %></p>
 
             <p>担当者</p>
-            <p><%= @task[:name] %></p>
+            <p><%= @task.user.name %></p>
        </div>
         <div name="footer">
             <%= link_to("編集", tasks_edit_path(@task)) %>
