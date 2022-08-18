@@ -9,6 +9,7 @@ inherit_gem:
 RSpec/ExampleLength:
   Exclude:
     - spec/system/*
+    - spec/models/*
 
 RSpec/MultipleExpectations:
   Exclude:
@@ -19,6 +20,23 @@ Metrics/ClassLength:
 
 Metrics/AbcSize:
   Max: 30
+
+Metrics/BlockLength:
+  Exclude:
+    - db/schema.rb
+    - spec/*/*.rb
+
+Style/StringLiterals:
+  Exclude:
+    - db/schema.rb
+
+Style/NumericLiterals:
+  Exclude:
+    - db/schema.rb
+
+Style/WordArray:
+  Exclude:
+    - db/schema.rb
 
 AllCops:
   TargetRubyVersion: 3.1

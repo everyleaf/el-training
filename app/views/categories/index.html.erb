@@ -1,0 +1,32 @@
+<h1><%= Category.model_name.human %></h1>
+
+<div>
+  <%= link_to I18n.t('tasks_index'), tasks_url %>
+</div>
+
+<%= form_for(@category) do |f| %>
+  <%= render 'shared/category_error_msg' %>
+  <%= f.label      :name %>
+  <%= f.text_field :name, class: 'form-control' %>
+
+  <%= f.submit '作成', class: "btn btn-primary" %>
+<% end %>
+
+<ul class="categories">
+  <% @categories.each do |c| %>
+    <div>
+      <span>
+        <%= c.name %>
+      </span>
+      <% unless c.operation_prohibited? %>
+        <span>
+        <%= link_to '名前を変更', edit_category_path(c), class: "edit_category_#{c.id}"%>
+        </span>
+        <span>
+        <%= button_to '削除', c, method: :delete,class: "delete_category_#{c.id}",
+                      form: {data: {turbo_confirm: I18n.t('message_before_delete')} }%>
+        </span>
+      <% end %>
+    </div>
+  <% end %>
+</ul>

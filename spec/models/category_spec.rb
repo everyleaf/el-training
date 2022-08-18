@@ -8,5 +8,25 @@ RSpec.describe Category, type: :model do
         expect(category).not_to be_valid
       end
     end
+
+    context '単一ユーザ内で同じ名前のカテゴリが作られたとき' do
+      let!(:user) { create(:user) }
+      let!(:category) { create(:category, name: 'category', user:) }
+      it 'カテゴリは無効である' do
+        another_category = build(:category, user:)
+        another_category.name = category.name
+        expect(another_category).not_to be_valid
+      end
+    end
+
+    context '異なるユーザ間で同じ名前のカテゴリが作られたとき' do
+      let!(:user1) { create(:user, email: 'user1@example.com') }
+      let!(:user2) { create(:user, email: 'user2@example.com') }
+      let!(:category) { create(:category, name: 'category', user: user1) }
+      it 'どちらも有効である' do
+        another_category = build(:category, name: category.name, user: user2)
+        expect(another_category).to be_valid
+      end
+    end
   end
 end

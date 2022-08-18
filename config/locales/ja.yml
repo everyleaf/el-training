@@ -1,5 +1,5 @@
 ja:
-  # フラッシュメッセージ
+  # フラッシュメッセージ : タスク
   task_create_success: "タスクを作成しました"
   task_create_failed:  "タスクの作成に失敗しました"
   task_update_success: "タスクを更新しました"
@@ -8,19 +8,42 @@ ja:
   task_delete_failed:  "タスクの削除に失敗しました"
   task_not_exist:      "該当するタスクが存在しません"
 
+  # フラッシュメッセージ : カテゴリ
+  category_create_success: "カテゴリを作成しました"
+  category_create_failed:  "カテゴリの作成に失敗しました"
+  category_update_success: "カテゴリを更新しました"
+  category_update_failed:  "カテゴリの更新に失敗しました"
+  category_delete_success: "カテゴリを削除しました"
+  category_delete_failed:  "カテゴリの削除に失敗しました"
+  category_not_exist:      "該当するカテゴリが存在しません"
+  operation_not_allowed:   "このカテゴリへの操作は禁止されています"
+
+  # フラッシュメッセージ : ユーザ
+  user_create_success: "ユーザを作成しました"
+  user_create_failed:  "ユーザの作成に失敗しました"
+  user_update_success: "ユーザ情報を更新しました"
+  user_update_failed:  "ユーザの更新に失敗しました"
+  user_delete_success: "ユーザを削除しました"
+  user_delete_failed:  "ユーザの削除に失敗しました"
+  
   # ビュー
-  save_changes:  '変更を保存'
-  cancel_edit:   '編集をキャンセル'
-  cancel_create: '作成をキャンセル'
-  back_to_index: '一覧に戻る'
-  delete_task:   'タスクを削除'
-  create_task:   'タスクを作成'
-  edit:          '編集'
-  detail:        '詳細'
+  save_changes:     '変更を保存'
+  cancel_edit:      '編集をキャンセル'
+  cancel_create:    '作成をキャンセル'
+  back_to_index:    '一覧に戻る'
+  tasks_index:      'タスク一覧'
+  categories_index: 'カテゴリ一覧'
+  delete_task:      'タスクを削除'
+  create_task:      'タスクを作成'
+  edit:             '編集'
+  detail:           '詳細'
 
   task_index:  'タスク一覧'
   task_edit:   'タスク編集'
   task_create: 'タスク作成'
+
+  user_index: 'ユーザ一覧'
+  delete_user: 'ユーザを削除'
 
   # 確認メッセージ
   message_before_delete: '本当に削除しますか?'

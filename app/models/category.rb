@@ -1,5 +1,11 @@
 class Category < ApplicationRecord
-  has_many :task, dependent: :restrict_with_exception
-  # TODO: ユーザモデルが追加されたら、nameのユニーク性のスコープをユーザに変更する
-  validates :name, presence: true
+  TASK_DEFAULT_BELONG_NAME = '未分類'.freeze
+
+  belongs_to :user
+  has_many :task, dependent: :restrict_with_error
+  validates :name, presence: true, uniqueness: { scope: :user }
+
+  def operation_prohibited?
+    self.name == Category::TASK_DEFAULT_BELONG_NAME
+  end
 end

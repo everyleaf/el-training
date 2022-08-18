@@ -7,7 +7,7 @@ ja:
     attributes:
       task:
         name:           タスク名
-        category:       カテゴリ
+        category_id:    カテゴリ
         description:    説明
         start_date:     開始日
         necessary_days: 必要日数
@@ -18,7 +18,13 @@ ja:
 
       category:
         name:           カテゴリ名
-
+        task:           タスク
+      
+      user:
+        name:                  ユーザ名
+        email:                 メールアドレス
+        password:              パスワード
+        password_confirmation: パスワード確認
   # 全てのモデルで共通して使用するattributes
   attributes:
     created_at: 作成日時

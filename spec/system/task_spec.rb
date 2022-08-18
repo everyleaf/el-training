@@ -31,10 +31,10 @@ RSpec.describe 'Tasks', type: :system do
     context 'description以外の入力フォームを全て埋めたとき' do
       it 'タスクの作成に成功する' do
         # フォームを埋める
-        fill_in 'タスク名', with: 'sample task'
-        select  category.name, from: 'task[category_id]'
-        fill_in '開始日', with: today
-        fill_in '必要日数', with: 3
+        fill_in 'task_name',           with: 'sample task'
+        select  category.name,         from: 'task[category_id]'
+        fill_in 'task_start_date',     with: today
+        fill_in 'task_necessary_days', with: 3
         choose  '未着手'
         choose  '低'
 
@@ -52,10 +52,10 @@ RSpec.describe 'Tasks', type: :system do
     context 'Nameを空のままタスクを作成しようとしたとき' do
       it 'タスクの作成に失敗する' do
         # フォームを埋める
-        fill_in 'タスク名', with: ''
-        select  category.name, from: 'task[category_id]'
-        fill_in '開始日', with: today
-        fill_in '必要日数', with: 3
+        fill_in 'task_name',           with: ''
+        select  category.name,         from: 'task[category_id]'
+        fill_in 'task_start_date',     with: today
+        fill_in 'task_necessary_days', with: 3
         choose  '未着手'
         choose  '低'
 
@@ -85,7 +85,7 @@ RSpec.describe 'Tasks', type: :system do
     context 'Nameを書き換えて更新したとき' do
       it '更新に成功する' do
         # 新しい名前にして更新
-        fill_in      'タスク名', with: 'updated task'
+        fill_in      'task_name', with: 'updated task'
         click_button '変更を保存'
 
         # 更新成功
@@ -101,7 +101,7 @@ RSpec.describe 'Tasks', type: :system do
 
     context 'Nameを空欄にして更新したとき' do
       it '更新に失敗する' do
-        fill_in      'タスク名', with: ''
+        fill_in      'task_name', with: ''
         click_button '変更を保存'
 
         expect(page).to have_content 'タスク名を入力してください'
@@ -136,10 +136,10 @@ RSpec.describe 'Tasks', type: :system do
 
   describe 'タスクの並び替え' do
     let!(:category) { create(:category) }
+
     before do
       # タスク一覧ページを表示
       visit tasks_path
-
       # テストデータ
       create(:task, name: 'a', priority: 2, category:)
       create(:task, name: 'b', priority: 0, category:)
@@ -221,7 +221,7 @@ RSpec.describe 'Tasks', type: :system do
     context '完全に一致オプションを選んだとき' do
       it 'タスク名が全一致するタスクのみ表示される' do
         fill_in 'search', with: 'test_task_15'
-        select '完全に一致', from: :search_option
+        select  '完全に一致', from: :search_option
         click_on '検索'
 
         sleep 1
@@ -237,7 +237,7 @@ RSpec.describe 'Tasks', type: :system do
     context '一部を含むオプションを選んだとき' do
       it 'タスク名に検索ワードを含むタスク全てが表示される' do
         fill_in 'search', with: '0'
-        select '一部を含む', from: :search_option
+        select  '一部を含む', from: :search_option
         click_on '検索'
 
         sleep 1
@@ -285,6 +285,7 @@ RSpec.describe 'Tasks', type: :system do
 
   describe 'タスクのフィルタリング' do
     let!(:category) { create(:category) }
+
     before do
       # タスク一覧ページを表示
       visit tasks_path
