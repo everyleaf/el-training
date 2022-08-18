@@ -6,17 +6,7 @@ class TasksController < ApplicationController
     # タスク一覧オブジェクト取得
     # Formのようなオブジェクトを作成すべきか？
     # ただし、Formではないのでこれでよいと判断
-    @list_items =
-      Task
-      .joins(:user)
-      .select(
-        'tasks.id,
-          tasks.title,
-          tasks.label,
-          users.id as user_id,
-          users.name,
-          tasks.status'
-      )
+    @tasks = Task.joins(:user).all
   end
 
   # タスク作成画面
@@ -25,7 +15,7 @@ class TasksController < ApplicationController
 
     # 担当者名リスト取得
     @select_user_names = []
-    users = User.all.select('users.id, users.name')
+    users = User.all
     users.each do |user|
       @select_user_names.push([user.name, user.id])
     end
@@ -49,20 +39,7 @@ class TasksController < ApplicationController
 
   # タスク詳細画面
   def show
-    @item =
-      Task
-      .joins(:user)
-      .select(
-        'tasks.id,
-          tasks.title,
-          tasks.content,
-          tasks.label,
-          tasks.user_id,
-          users.name,
-          tasks.status'
-      )
-      .where(id: params[:id])
-      .first
+    @task = Task.joins(:user).all.where(id: params[:id]).first
   end
 
   # タスク編集画面
@@ -71,7 +48,7 @@ class TasksController < ApplicationController
 
     # 担当者名リスト取得
     @select_user_names = []
-    users = User.all.select('users.id, users.name')
+    users = User.all
     users.each do |user|
       @select_user_names.push([user.name, user.id])
     end
