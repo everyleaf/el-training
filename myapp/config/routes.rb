@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get '/', to:'tasks#list'
+  get '/', to:'tasks#index'
   get 'tasks/new'
   post 'tasks/create'
   patch 'tasks/update/:id', to:'tasks#update', as:'tasks_update'

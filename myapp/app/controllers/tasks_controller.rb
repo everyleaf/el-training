@@ -2,7 +2,7 @@
 
 class TasksController < ApplicationController
   # タスク一覧画面
-  def list
+  def index
     # タスク一覧オブジェクト取得
     # Formのようなオブジェクトを作成すべきか？
     # ただし、Formではないのでこれでよいと判断
