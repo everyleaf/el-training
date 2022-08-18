@@ -48,7 +48,7 @@ id:1　→ tasks.user_id:N
 <br>
 【タスク一覧画面】  
 URL:    
-　/task/list  
+　/
 
 表示：  
   
