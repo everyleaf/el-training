@@ -169,6 +169,8 @@ RSpec.describe 'Tasks', type: :system do
         # もう一度押すと降順に並べ替えられる
         click_on '重要度'
 
+        # TODO find css 赤文字のcss
+
         retry_on_stale_element_reference_error do
           tasks = page.all('.task')
           expect(current_url).to include('direction=DESC')
