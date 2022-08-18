@@ -155,9 +155,9 @@ RSpec.describe 'Tasks', type: :system do
         # もう一度押すと降順に並べ替えられる
         click_on '重要度'
         find('.DESC', wait: 10)
+        expect(current_url).to include('direction=DESC')
 
         tasks = page.all('.task')
-        expect(current_url).to include('direction=DESC')
         expect(tasks[0]).to have_content '高'
         expect(tasks[1]).to have_content '中'
         expect(tasks[2]).to have_content '低'
