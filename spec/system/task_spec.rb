@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
   include CreateTestTasksSupport
-  include RetryTestSupport
   describe 'タスクの作成' do
     let(:today) { Time.zone.today }
     let!(:category) { create(:category) }
@@ -136,14 +135,13 @@ RSpec.describe 'Tasks', type: :system do
     context '並び替えたいパラメータを1回だけ選択すると' do
       it 'そのパラメータで昇順に並び替えられる' do
         click_on '重要度'
+        find('.ASC', wait: 10)
         expect(current_url).to include('direction=ASC')
 
-        retry_on_stale_element_reference_error do
-          tasks = page.all('.task')
-          expect(tasks[0]).to have_content '低'
-          expect(tasks[1]).to have_content '中'
-          expect(tasks[2]).to have_content '高'
-        end
+        tasks = page.all('.task')
+        expect(tasks[0]).to have_content '低'
+        expect(tasks[1]).to have_content '中'
+        expect(tasks[2]).to have_content '高'
       end
     end
 
@@ -158,13 +156,11 @@ RSpec.describe 'Tasks', type: :system do
         click_on '重要度'
         find('.DESC', wait: 10)
 
-        # retry_on_stale_element_reference_error do
-          tasks = page.all('.task')
-          expect(current_url).to include('direction=DESC')
-          expect(tasks[0]).to have_content '高'
-          expect(tasks[1]).to have_content '中'
-          expect(tasks[2]).to have_content '低'
-        # end
+        tasks = page.all('.task')
+        expect(current_url).to include('direction=DESC')
+        expect(tasks[0]).to have_content '高'
+        expect(tasks[1]).to have_content '中'
+        expect(tasks[2]).to have_content '低'
       end
     end
   end
