@@ -1,0 +1,33 @@
+# 自動生成ファイル除外
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'db/**/*'
+    - 'Gemfile'
+    - 'bin/**/*'
+    - 'test/**/*'
+    - 'node_modules/**/*'
+    - 'config/**/*'
+  DisplayCopNames: true
+
+# 日本語のコメント許可
+Style/AsciiComments:
+  Enabled: false
+
+# ブロック記述許容
+Style/GuardClause:
+  MinBodyLength: 5
+
+# 1行の文字数
+Layout/LineLength:
+ Max: 130
+
+inherit_gem:
+  fablicop:
+    - "config/.base_rubocop.yml"
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false

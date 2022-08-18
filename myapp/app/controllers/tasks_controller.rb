@@ -24,7 +24,7 @@ class TasksController < ApplicationController
   # タスク作成画面
   def create
     @task = Task.new(task_params)
-    @task.update_attributes(task_params[:task]) unless task_params[:task].blank?
+    @task.update(task_params[:task]) if task_params[:task].present?
 
     respond_to do |format|
       if @task.save
@@ -75,9 +75,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     respond_to do |format|
-      if @task.destroy
-        format.html { redirect_to('/', notice: 'タスク削除成功') }
-      end
+      format.html { redirect_to('/', notice: 'タスク削除成功') } if @task.destroy
     end
   end
 
@@ -93,7 +91,7 @@ class TasksController < ApplicationController
         :content,
         :label,
         :user_id,
-        :status
+        :status,
       )
     task_params[:user_id] = task_params[:user_id].to_i
 
