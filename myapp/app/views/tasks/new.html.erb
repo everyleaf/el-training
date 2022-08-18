@@ -2,11 +2,11 @@
     <head>
     </head>
     <body>
-        <div name="header">
+        <div name='header'>
             <h1>タスク作成画面</h1>
         </div>
-        <div name="content">
-            <%= form_with(model: @task, url: tasks_create_path()) do |f| %>
+        <div name='content'>
+            <%= form_with(model: @task, url: create_task_path) do |f| %>
                 <p>タイトル</p>
                 <%= f.text_field(:title) %>
 
@@ -19,11 +19,11 @@
                 <p>担当者</p>
                 <%= f.select(:user_id, @select_user_names) %>
                 <br><br>
-                <%= f.submit("作成") %>
+                <%= f.submit('作成') %>
             <% end %>
         </div>
-        <div name="footer">
-            <%= link_to("一覧へ", "/") %>
+        <div name='footer'>
+            <%= link_to('一覧へ', '/') %>
         </div>
     </body>
 </html>

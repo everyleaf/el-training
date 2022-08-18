@@ -2,23 +2,8 @@
 
 class TasksController < ApplicationController
   # タスク一覧画面
-  def list
-    # タスク一覧オブジェクト取得
-    # Formのようなオブジェクトを作成すべきか？
-    # ただし、Formではないのでこれでよいと判断
-    @list_items =
-      Task
-      .joins(:user)
-      .select(
-        'tasks.id,
-          tasks.title,
-          tasks.label,
-          users.id as user_id,
-          users.name,
-          tasks.status,
-          tasks.created_at'
-      )
-      .order('tasks.created_at')
+  def index
+    @tasks = Task.joins(:user).all
   end
 
   # タスク作成画面
@@ -27,7 +12,7 @@ class TasksController < ApplicationController
 
     # 担当者名リスト取得
     @select_user_names = []
-    users = User.all.select('users.id, users.name')
+    users = User.all
     users.each do |user|
       @select_user_names.push([user.name, user.id])
     end
@@ -36,35 +21,20 @@ class TasksController < ApplicationController
   # タスク作成画面
   def create
     @task = Task.new(task_params)
-    @task.update_attributes(task_params[:task]) unless task_params[:task].blank?
+    @task.update(task_params[:task]) if task_params[:task].present?
 
     respond_to do |format|
       if @task.save
         format.html { redirect_to('/', notice: 'タスク作成成功') }
-        format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # タスク詳細画面
   def show
-    @item =
-      Task
-      .joins(:user)
-      .select(
-        'tasks.id,
-          tasks.title,
-          tasks.content,
-          tasks.label,
-          tasks.user_id,
-          users.name,
-          tasks.status'
-      )
-      .where(id: params[:id])
-      .first
+    @task = Task.joins(:user).all.where(id: params[:id]).first
   end
 
   # タスク編集画面
@@ -73,7 +43,7 @@ class TasksController < ApplicationController
 
     # 担当者名リスト取得
     @select_user_names = []
-    users = User.all.select('users.id, users.name')
+    users = User.all
     users.each do |user|
       @select_user_names.push([user.name, user.id])
     end
@@ -91,23 +61,18 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to('/', notice: 'タスク更新成功') }
-        format.json { render :show, status: :created, location: @task }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # タスク削除
-  def delete
+  def destroy
     @task = Task.find(params[:id])
 
     respond_to do |format|
-      if @task.destroy
-        format.html { redirect_to('/', notice: 'タスク削除成功') }
-        format.json { head :no_content }
-      end
+      format.html { redirect_to('/', notice: 'タスク削除成功') } if @task.destroy
     end
   end
 
@@ -115,7 +80,7 @@ class TasksController < ApplicationController
 
   # Taskパラメータ
   def task_params
-    task =
+    task_params =
       params
       .require(:task)
       .permit(
@@ -123,10 +88,10 @@ class TasksController < ApplicationController
         :content,
         :label,
         :user_id,
-        :status
+        :status,
       )
-    task[:user_id] = task[:user_id].to_i
+    task_params[:user_id] = task_params[:user_id].to_i
 
-    task
+    task_params
   end
 end

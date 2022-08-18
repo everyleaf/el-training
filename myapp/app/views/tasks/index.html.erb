@@ -2,20 +2,20 @@
     <head>
     </head>
     <body>
-        <div name="header">
-            <div name="message-area">
+        <div name='header'>
+            <div name='message-area'>
                 <%= notice %>
             </div>
             <h1>タスク一覧画面</h1>
         </div>
-        <div name="content">
-            <div name="create-task">
-                <%= link_to("作成", tasks_new_path()) %>
+        <div name='content'>
+            <div name='create-task'>
+                <%= link_to('作成', new_task_path) %>
             </div>
-            <div name="serch-task">
+            <div name='serch-task'>
 
             </div>
-            <div name="list-task">
+            <div name='list-task'>
                 <table>
                     <thead>
                         <tr>
@@ -27,20 +27,20 @@
                         </tr>
                     <thead>
                     <tbody>
-                        <% @list_items.each do |list_item| %>
+                        <% @tasks.each do |task| %>
                             <tr>
-                                <td><span><%= list_item.title %></span></td>
-                                <td><span><%= list_item.label %></span></td>
-                                <td><span><%= list_item.name %></span></td>
-                                <td><span><%= get_status_view(list_item.status) %></span></td>
-                                <td><%= link_to("詳細", tasks_details_path(list_item)) %></td>
+                                <td><span><%= task.title %></span></td>
+                                <td><span><%= task.label %></span></td>
+                                <td><span><%= task.user.name %></span></td>
+                                <td><span><%= get_status_view(task.status) %></span></td>
+                                <td><%= link_to('詳細', task_path(task)) %></td>
                             </tr>
                         <% end %>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div name="footer">
+        <div name='footer'>
         </div>
     </body>
 </html>
