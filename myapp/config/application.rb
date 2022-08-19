@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module Myapp
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
     # タイムゾーン設定
@@ -21,8 +22,3 @@ module Myapp
   end
 end
 
-module I18nApp
-  class Application < Rails::Application
-    config.i18n.default_locale = :ja
-  end
-end
