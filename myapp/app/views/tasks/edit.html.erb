@@ -16,8 +16,9 @@
                 <p>ラベル</p>
                 <%= f.text_field(:label) %>
 
-                <p>状況</p>
-                <%= f.select(:status, @statuses, selected: @task.status) %>
+                <!-- status対応コメントアウト -->
+                <!-- <p>状況</p> -->
+                <%#= f.select(:status, @statuses, selected: @task.status) %>
 
                 <!-- user対応コメントアウト -->
                 <!-- <p>担当者</p> -->

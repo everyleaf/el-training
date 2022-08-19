@@ -56,11 +56,12 @@ class TasksController < ApplicationController
     #   @select_user_names.push([user.name, user.id])
     # end
 
+    # status対応コメントアウト
     # 状況リスト取得
-    @statuses = []
-    Task::STATUS_VIEW.each do |key, value|
-      @statuses.push([value, key])
-    end
+    # @statuses = []
+    # Task::STATUS_VIEW.each do |key, value|
+    #   @statuses.push([value, key])
+    # end
   end
 
   # タスク更新
