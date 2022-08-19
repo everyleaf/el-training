@@ -30,7 +30,9 @@ describe 'Tasks', type: :system do
       visit('/')
 
       # DBからデータ取得
-      @db_items = Task.joins(:user).all.order('tasks.created_at desc')
+      # user対応コメントアウト
+      # @db_items = Task.joins(:user).all.order('tasks.created_at desc')
+      @db_items = Task.all.order('tasks.created_at desc')
 
       # 画面の一覧取得
       @view_items = all('div[name="list-task"] tbody tr')
@@ -49,9 +51,12 @@ describe 'Tasks', type: :system do
           columns = @view_items[i].all('td')
           expect(columns[0]).to(have_content(@db_items[i].title))
           expect(columns[1]).to(have_content(@db_items[i].label))
-          expect(columns[2]).to(have_content(@db_items[i].user.name))
-          expect(columns[3]).to(have_content(get_status_view(@db_items[i].status)))
-          expect(columns[4]).to(have_link('詳細', href: task_path(@db_items[i])))
+          # user対応コメントアウト
+          # expect(columns[2]).to(have_content(@db_items[i].user.name))
+          # status対応コメントアウト
+          # expect(columns[3]).to(have_content(get_status_view(@db_items[i].status)))
+          expect(columns[2]).to(have_link('詳細', href: task_path(@db_items[i])))
+          # expect(columns[4]).to(have_link('詳細', href: task_path(@db_items[i])))
         end
       }
     end
@@ -210,7 +215,9 @@ describe 'Tasks', type: :system do
       visit(task_path(@task))
 
       # DBからデータ取得
-      @db_item = Task.joins(:user).all.where(id: @task.id).first
+      # user対応コメントアウト
+      # @db_item = Task.joins(:user).find(params[:id])
+      @db_item = Task.find(params[:id])
 
       # 画面の一覧取得
       @view_item = find('div[name="content"]')
@@ -227,7 +234,8 @@ describe 'Tasks', type: :system do
         expect(@view_item).to(have_content(@db_item.title))
         expect(@view_item).to(have_content(@db_item.content))
         expect(@view_item).to(have_content(@db_item.label))
-        expect(@view_item).to(have_content(@db_item.user.name))
+        # user対応コメントアウト
+        # expect(@view_item).to(have_content(@db_item.user.name))
       }
     end
 
@@ -310,7 +318,9 @@ describe 'Tasks', type: :system do
       visit(edit_task_path(@task))
 
       # DBからデータ取得
-      @before_db_item = Task.joins(:user).all.where(id: @task.id).first
+      # user対応コメントアウト
+      # @before_db_item = Task.joins(:user).find(params[:id])
+      @before_db_item = Task.find(params[:id])
 
       # 更新
       if defined? update_task
@@ -322,7 +332,9 @@ describe 'Tasks', type: :system do
         click_button '更新'
       end
 
-      @after_db_item = Task.joins(:user).all.where(id: @task.id).first
+      # user対応コメントアウト
+      # @after_db_item = Task.joins(:user).find(params[:id])
+      @after_db_item = Task.find(params[:id])
     end
 
     ###################################################
