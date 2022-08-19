@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :tasks
-  get '/', to: 'tasks#index'
+  root to: 'tasks#index'
   post 'tasks', to: 'tasks#create', as: 'create_task'
   delete 'tasks/:id', to: 'tasks#delete', as: 'delete_task'
   patch 'tasks/:id', to: 'tasks#update', as: 'update_task'

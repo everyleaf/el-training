@@ -30,7 +30,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to('/', notice: 'タスク作成成功') }
+        format.html { redirect_to(root_path, notice: 'タスク作成成功') }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -69,7 +69,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to('/', notice: 'タスク更新成功') }
+        format.html { redirect_to(root_path, notice: 'タスク更新成功') }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -81,7 +81,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     respond_to do |format|
-      format.html { redirect_to('/', notice: 'タスク削除成功') } if @task.destroy
+      format.html { redirect_to(root_path, notice: 'タスク削除成功') } if @task.destroy
     end
   end
 
