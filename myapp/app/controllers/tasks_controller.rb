@@ -40,8 +40,8 @@ class TasksController < ApplicationController
   # タスク詳細画面
   def show
     # user対応コメントアウト
-    # @task = Task.joins(:user).find_by(params[:id])
-    @task = Task.find_by(params[:id])
+    # @task = Task.joins(:user).find(params[:id])
+    @task = Task.find(params[:id])
   end
 
   # タスク編集画面
