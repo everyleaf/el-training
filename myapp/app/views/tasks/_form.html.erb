@@ -1,0 +1,17 @@
+<%= form_with(model: @task, url: url, method: method) do |f| %>
+  <p>タイトル</p>
+  <%= f.text_field(:title) %>
+
+  <p>内容</p>
+  <%= f.text_field(:content) %>
+
+  <p>ラベル</p>
+  <%= f.text_field(:label) %>
+
+  <!-- user対応コメントアウト -->
+  <!-- <p>担当者</p> -->
+  <%#= f.select(:user_id, @select_user_names) %>
+  
+  <br><br>
+  <%= f.submit(button_name) %>
+<% end %>

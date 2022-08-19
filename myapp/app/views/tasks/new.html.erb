@@ -1,0 +1,9 @@
+<div name='header'>
+  <h1>タスク作成画面</h1>
+</div>
+<div name='content'>
+  <%= render partial: 'form', locals: { url: tasks_path, method: 'post', button_name: '作成' } %>
+</div>
+<div name='footer'>
+  <%= link_to('一覧へ', root_path) %>
+</div>

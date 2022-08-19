@@ -1,0 +1,22 @@
+<div name='header'>
+  <h1>タスク詳細画面</h1>
+</div>
+<div name='content'>
+  <p>タイトル</p>
+  <p><%= @task.title %></p>
+
+  <p>内容</p>
+  <p><%= @task.content %></p>
+
+  <p>ラベル</p>
+  <p><%= @task.label %></p>
+
+  <!-- user対応コメントアウト -->
+  <!-- <p>担当者</p> -->
+  <!-- <p><%#= @task.user.name %></p> -->
+</div>
+<div name='footer'>
+  <%= link_to('編集', edit_task_path(@task)) %>
+  <%= link_to('削除', task_path(@task), method: :delete, data: { confirm: '削除しますか？' }) %>
+  <%= link_to('一覧へ', root_path) %>
+</div>
