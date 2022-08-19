@@ -2,26 +2,7 @@
   <h1>タスク編集画面</h1>
 </div>
 <div name='content'>
-  <%= form_with(model: @task, url: update_task_path(@task.id)) do |f| %>
-    <p>タイトル</p>
-    <%= f.text_field(:title) %>
-
-    <p>内容</p>
-    <%= f.text_field(:content) %>
-
-    <p>ラベル</p>
-    <%= f.text_field(:label) %>
-
-    <!-- status対応コメントアウト -->
-    <!-- <p>状況</p> -->
-    <%#= f.select(:status, @statuses, selected: @task.status) %>
-
-    <!-- user対応コメントアウト -->
-    <!-- <p>担当者</p> -->
-    <%#= f.select(:user_id, @select_user_names, selected: @task.user_id) %>
-    <br><br>
-    <%= f.submit('更新') %>
-  <% end %>
+  <%= render partial: 'form', locals: { url: task_path(@task), method: 'put', button_name: '更新' } %>
 </div>
 <div name='footer'>
   <%= link_to('一覧へ', root_path) %>

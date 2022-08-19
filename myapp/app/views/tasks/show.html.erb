@@ -17,6 +17,6 @@
 </div>
 <div name='footer'>
   <%= link_to('編集', edit_task_path(@task)) %>
-  <%= link_to('削除', delete_task_path(@task), method: :delete, data: { confirm: '削除しますか？' }) %>
+  <%= link_to('削除', task_path(@task), method: :delete, data: { confirm: '削除しますか？' }) %>
   <%= link_to('一覧へ', root_path) %>
 </div>
