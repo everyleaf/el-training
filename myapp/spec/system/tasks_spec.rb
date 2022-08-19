@@ -13,7 +13,7 @@ describe 'Tasks', type: :system do
 
     before do
       # User作成
-      user = User.create!(name: 'テスト一郎')
+      user = User.create!(id: 1, name: 'テスト一郎')
 
       # Task作成
       tasks_number.times do |i|
@@ -27,7 +27,7 @@ describe 'Tasks', type: :system do
       end
 
       # 画面遷移
-      visit('/')
+      visit(root_path)
 
       # DBからデータ取得
       # user対応コメントアウト
@@ -95,19 +95,19 @@ describe 'Tasks', type: :system do
 
     before do
       # User作成
-      @user = User.create!(name: 'テスト一郎')
-      User.create!(name: 'テスト二郎')
+      @user = User.create!(id: 1, name: 'テスト一郎')
+      User.create!(id: 2, name: 'テスト二郎')
 
       # 画面遷移
-      visit(new_task_path())
+      visit(new_task_path)
 
       # 新規タスク登録
       fill_in('task[title]', with: new_task[:title])
       fill_in('task[content]', with: new_task[:content])
       fill_in('task[label]', with: new_task[:label])
-      find("option[value='#{@user.id}']").select_option
+      # user対応コメントアウト
+      # find("option[value='#{@user.id}']").select_option
 
-      # タスク登録確認
       expect { click_button '作成' }.to change(Task, :count).by(1)
 
       # 登録データ確認
@@ -191,13 +191,14 @@ describe 'Tasks', type: :system do
   # タスク詳細画面
   ###################################################
   describe '#show', type: :system do
+
     ###################################################
     # 事前処理
     ###################################################
 
     before do
       # User作成
-      user = User.create!(name: 'テスト一郎')
+      user = User.create!(id: 1, name: 'テスト一郎')
 
       # Task作成
       @task = nil
@@ -216,8 +217,8 @@ describe 'Tasks', type: :system do
 
       # DBからデータ取得
       # user対応コメントアウト
-      # @db_item = Task.joins(:user).find(params[:id])
-      @db_item = Task.find(params[:id])
+      # @db_item = Task.joins(:user).find(@task.id)
+      @db_item = Task.find(@task.id)
 
       # 画面の一覧取得
       @view_item = find('div[name="content"]')
@@ -302,8 +303,8 @@ describe 'Tasks', type: :system do
     # 事前処理
     before do
       # User作成
-      @user1 = User.create!(name: 'テスト一郎')
-      @user2 = User.create!(name: 'テスト二郎')
+      @user1 = User.create!(id: 1, name: 'テスト一郎')
+      @user2 = User.create!(id: 2, name: 'テスト二郎')
 
       # Task作成
       @task = Task.create!(
@@ -319,22 +320,24 @@ describe 'Tasks', type: :system do
 
       # DBからデータ取得
       # user対応コメントアウト
-      # @before_db_item = Task.joins(:user).find(params[:id])
-      @before_db_item = Task.find(params[:id])
+      # @before_db_item = Task.joins(:user).find(@task.id)
+      @before_db_item = Task.find(@task.id)
 
       # 更新
       if defined? update_task
         fill_in 'task[title]', with: update_task[:title]
         fill_in 'task[content]', with: update_task[:content]
         fill_in 'task[label]', with: update_task[:label]
-        select(value = update_task[:status], from: 'task[status]')
-        select(value = update_task[:user_name], from: 'task[user_id]')
+        # status対応コメントアウト
+        # select(value = update_task[:status], from: 'task[status]')
+        # user対応コメントアウト
+        # select(value = update_task[:user_name], from: 'task[user_id]')
         click_button '更新'
       end
 
       # user対応コメントアウト
-      # @after_db_item = Task.joins(:user).find(params[:id])
-      @after_db_item = Task.find(params[:id])
+      # @after_db_item = Task.joins(:user).find(@task.id)
+      @after_db_item = Task.find(@task.id)
     end
 
     ###################################################
@@ -362,8 +365,10 @@ describe 'Tasks', type: :system do
         expect(page).to(have_field('task[title]', with: @before_db_item.title))
         expect(page).to(have_field('task[content]', with: @before_db_item.content))
         expect(page).to(have_field('task[label]', with: @before_db_item.label))
-        expect(page).to(have_field('task[status]', with: Task.statuses[@before_db_item.status]))
-        expect(page).to(have_field('task[user_id]', with: @before_db_item.user_id))
+        # status対応コメントアウト
+        # expect(page).to(have_field('task[status]', with: Task.statuses[@before_db_item.status]))
+        # user対応コメントアウト
+        # expect(page).to(have_field('task[user_id]', with: @before_db_item.user_id))
       end
     end
 
