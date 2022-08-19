@@ -1,11 +1,11 @@
 <%= form_with(model: @task, url: url, method: method) do |f| %>
-  <p>タイトル</p>
+  <p><%= I18n.t('task.title') %></p>
   <%= f.text_field(:title) %>
 
-  <p>内容</p>
+  <p><%= I18n.t('task.content') %></p>
   <%= f.text_field(:content) %>
 
-  <p>ラベル</p>
+  <p><%= I18n.t('task.label') %></p>
   <%= f.text_field(:label) %>
 
   <!-- user対応コメントアウト -->

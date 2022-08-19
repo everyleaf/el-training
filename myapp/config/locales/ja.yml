@@ -30,3 +30,23 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 ja:
+  view_title:
+    index: 'タスク一覧画面'
+    new: 'タスク作成画面'
+    show: 'タスク詳細画面'
+    edit: 'タスク編集画面'
+  task:
+    title: 'タイトル'
+    content: '内容'
+    label: 'ラベル'
+  button:
+    create: '作成'
+    delete: '削除'
+    update: '更新'
+  link:
+    create: '作成'
+    detail: '詳細'
+    edit: '編集'
+    list_back: '一覧へ'
+  message:
+    delete_confirm: '削除しますか?'

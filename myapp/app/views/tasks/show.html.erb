@@ -1,14 +1,14 @@
 <div name='header'>
-  <h1>タスク詳細画面</h1>
+  <h1><%= I18n.t('view_title.show') %></h1>
 </div>
 <div name='content'>
-  <p>タイトル</p>
+  <p><%= I18n.t('task.title') %></p>
   <p><%= @task.title %></p>
 
-  <p>内容</p>
+  <p><%= I18n.t('task.content') %></p>
   <p><%= @task.content %></p>
 
-  <p>ラベル</p>
+  <p><%= I18n.t('task.label') %></p>
   <p><%= @task.label %></p>
 
   <!-- user対応コメントアウト -->
@@ -16,7 +16,7 @@
   <!-- <p><%#= @task.user.name %></p> -->
 </div>
 <div name='footer'>
-  <%= link_to('編集', edit_task_path(@task)) %>
-  <%= link_to('削除', task_path(@task), method: :delete, data: { confirm: '削除しますか？' }) %>
-  <%= link_to('一覧へ', root_path) %>
+  <%= link_to(I18n.t('link.edit'), edit_task_path(@task)) %>
+  <%= link_to(I18n.t('button.delete'), task_path(@task), method: :delete, data: { confirm: I18n.t('message.delete_confirm') }) %>
+  <%= link_to(I18n.t('link.list_back'), root_path) %>
 </div>

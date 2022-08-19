@@ -29,6 +29,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # add 2022.08.18
 gem 'fablicop', require: false
 
+# add 2022.08.19
+gem 'rails-i18n'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

@@ -30,4 +30,23 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  view_title:
+    index: 'Task List'
+    new: 'Task Create'
+    show: 'Task Detail'
+    edit: 'Task Edit'
+  task:
+    title: 'Title'
+    content: 'Content'
+    label: 'Label'
+  button:
+    create: 'Create'
+    delete: 'Delete'
+    update: 'Update'
+  link:
+    create: 'Create'
+    detail: 'Detail'
+    edit: 'Edit'
+    list_back: 'Back'
+  message:
+    delete_confirm: 'Delete?'

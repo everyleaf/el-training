@@ -1,9 +1,9 @@
 <div name='header'>
-  <h1>タスク作成画面</h1>
+  <h1><%= I18n.t('view_title.new') %></h1>
 </div>
 <div name='content'>
-  <%= render partial: 'form', locals: { url: tasks_path, method: 'post', button_name: '作成' } %>
+  <%= render partial: 'form', locals: { url: tasks_path, method: 'post', button_name: I18n.t('button.create') } %>
 </div>
 <div name='footer'>
-  <%= link_to('一覧へ', root_path) %>
+  <%= link_to(I18n.t('link.list_back'), root_path) %>
 </div>
