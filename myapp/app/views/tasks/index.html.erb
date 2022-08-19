@@ -1,50 +1,44 @@
-<html>
-    <head>
-    </head>
-    <body>
-        <div name='header'>
-            <div name='message-area'>
-                <%= notice %>
-            </div>
-            <h1>タスク一覧画面</h1>
-        </div>
-        <div name='content'>
-            <div name='create-task'>
-                <%= link_to('作成', new_task_path) %>
-            </div>
-            <div name='serch-task'>
+<div name='header'>
+  <div name='message-area'>
+    <%= notice %>
+  </div>
+  <h1>タスク一覧画面</h1>
+</div>
+<div name='content'>
+  <div name='create-task'>
+      <%= link_to('作成', new_task_path) %>
+  </div>
+  <div name='serch-task'>
 
-            </div>
-            <div name='list-task'>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>タイトル</th>
-                            <th>ラベル</th>
-                            <!-- user対応コメントアウト -->
-                            <!-- <th>担当者</th> -->
-                            <!-- status対応コメントアウト -->
-                            <!-- <th>状況</th> -->
-                            <th></th>
-                        </tr>
-                    <thead>
-                    <tbody>
-                        <% @tasks.each do |task| %>
-                            <tr>
-                                <td><span><%= task.title %></span></td>
-                                <td><span><%= task.label %></span></td>
-                                <!-- user対応コメントアウト -->
-                                <!-- <td><span><%#= task.user.name %></span></td> -->
-                                <!-- status対応コメントアウト -->
-                                <!-- <td><span><%#= get_status_view(task.status) %></span></td> -->
-                                <td><%= link_to('詳細', task_path(task)) %></td>
-                            </tr>
-                        <% end %>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div name='footer'>
-        </div>
-    </body>
-</html>
+  </div>
+  <div name='list-task'>
+    <table>
+      <thead>
+        <tr>
+          <th>タイトル</th>
+          <th>ラベル</th>
+          <!-- user対応コメントアウト -->
+          <!-- <th>担当者</th> -->
+          <!-- status対応コメントアウト -->
+          <!-- <th>状況</th> -->
+          <th></th>
+        </tr>
+      <thead>
+      <tbody>
+        <% @tasks.each do |task| %>
+          <tr>
+            <td><span><%= task.title %></span></td>
+            <td><span><%= task.label %></span></td>
+            <!-- user対応コメントアウト -->
+            <!-- <td><span><%#= task.user.name %></span></td> -->
+            <!-- status対応コメントアウト -->
+            <!-- <td><span><%#= get_status_view(task.status) %></span></td> -->
+            <td><%= link_to('詳細', task_path(task)) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div name='footer'>
+</div>
