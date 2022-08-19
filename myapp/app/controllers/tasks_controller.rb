@@ -28,12 +28,10 @@ class TasksController < ApplicationController
     # user対応コメントアウトのためID決め打ち
     @task.user_id = 1
 
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to(root_path, notice: 'タスク作成成功') }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-      end
+    if @task.save
+      format.html { redirect_to(root_path, notice: 'タスク作成成功') }
+    else
+      format.html { render :new, status: :unprocessable_entity }
     end
   end
 
@@ -67,12 +65,11 @@ class TasksController < ApplicationController
   # タスク更新
   def update
     @task = Task.find(params[:id])
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to(root_path, notice: 'タスク更新成功') }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
+    
+    if @task.update(task_params)
+      format.html { redirect_to(root_path, notice: 'タスク更新成功') }
+    else
+      format.html { render :edit, status: :unprocessable_entity }
     end
   end
 
@@ -80,9 +77,7 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
 
-    respond_to do |format|
-      format.html { redirect_to(root_path, notice: 'タスク削除成功') } if @task.destroy
-    end
+    format.html { redirect_to(root_path, notice: 'タスク削除成功') } if @task.destroy
   end
 
   private
