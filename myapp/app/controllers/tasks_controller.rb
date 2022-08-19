@@ -37,7 +37,7 @@ class TasksController < ApplicationController
 
   # タスク詳細画面
   def show
-    @task = Task.joins(:user).all.where(id: params[:id]).first
+    @task = Task.joins(:user).find_by(params[:id])
   end
 
   # タスク編集画面
