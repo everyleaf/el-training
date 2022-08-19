@@ -19,8 +19,9 @@
                 <p>状況</p>
                 <%= f.select(:status, @statuses, selected: @task.status) %>
 
-                <p>担当者</p>
-                <%= f.select(:user_id, @select_user_names, selected: @task.user_id) %>
+                <!-- user対応コメントアウト -->
+                <!-- <p>担当者</p> -->
+                <%#= f.select(:user_id, @select_user_names, selected: @task.user_id) %>
                 <br><br>
                 <%= f.submit('更新') %>
             <% end %>

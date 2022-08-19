@@ -15,8 +15,9 @@
             <p>ラベル</p>
             <p><%= @task.label %></p>
 
-            <p>担当者</p>
-            <p><%= @task.user.name %></p>
+            <!-- user対応コメントアウト -->
+            <!-- <p>担当者</p> -->
+            <!-- <p><%#= @task.user.name %></p> -->
        </div>
         <div name='footer'>
             <%= link_to('編集', edit_task_path(@task)) %>

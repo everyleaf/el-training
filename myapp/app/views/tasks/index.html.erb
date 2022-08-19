@@ -21,7 +21,9 @@
                         <tr>
                             <th>タイトル</th>
                             <th>ラベル</th>
-                            <th>担当者</th>
+                            <!-- user対応コメントアウト -->
+                            <!-- <th>担当者</th> -->
+
                             <th>状況</th>
                             <th></th>
                         </tr>
@@ -31,8 +33,9 @@
                             <tr>
                                 <td><span><%= task.title %></span></td>
                                 <td><span><%= task.label %></span></td>
-                                <td><span><%= task.user.name %></span></td>
-                                <td><span><%= get_status_view(task.status) %></span></td>
+                                <!-- user対応コメントアウト -->
+                                <!-- <td><span><%#= task.user.name %></span></td> -->
+                                <!-- <td><span><%#= get_status_view(task.status) %></span></td> -->
                                 <td><%= link_to('詳細', task_path(task)) %></td>
                             </tr>
                         <% end %>
