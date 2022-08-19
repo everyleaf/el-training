@@ -29,9 +29,9 @@ class TasksController < ApplicationController
     @task.user_id = 1
 
     if @task.save
-      format.html { redirect_to(root_path, notice: 'タスク作成成功') }
+      redirect_to(root_path, notice: 'タスク作成成功')
     else
-      format.html { render :new, status: :unprocessable_entity }
+      render(:new, status: :unprocessable_entity)
     end
   end
 
@@ -67,9 +67,9 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     
     if @task.update(task_params)
-      format.html { redirect_to(root_path, notice: 'タスク更新成功') }
+      redirect_to(root_path, notice: 'タスク更新成功')
     else
-      format.html { render :edit, status: :unprocessable_entity }
+      render(:edit, status: :unprocessable_entity)
     end
   end
 
@@ -77,7 +77,7 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
 
-    format.html { redirect_to(root_path, notice: 'タスク削除成功') } if @task.destroy
+    redirect_to(root_path, notice: 'タスク削除成功') if @task.destroy
   end
 
   private
