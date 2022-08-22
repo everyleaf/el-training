@@ -18,15 +18,7 @@ describe 'Tasks', type: :system do
 
       # Task作成
       tasks_number.times do |i|
-        Task.create!(
-          title: "テスト#{i + 1}",
-          content: "こちらはテスト#{i + 1}の内容です。テストテストテストテストテストテストテスト",
-          # user対応コメントアウト
-          # user_id: user.id,
-          user_id: 1,
-          status: '1',
-          label: 'テスト',
-        )
+        FactoryBot.create(:task_not_started)
       end
 
       # 画面遷移
@@ -210,15 +202,9 @@ describe 'Tasks', type: :system do
       # Task作成
       @task = nil
       tasks_number.times do |i|
-        @task = Task.create!(
-          title: "テスト#{i + 1}",
-          content: "こちらはテスト#{i + 1}の内容です。テストテストテストテストテストテストテスト",
-          # user対応コメントアウト
-          # user_id: user.id,
-          user_id: 1,
-          status: '1',
-          label: 'テスト',
-        )
+        # user対応コメントアウト
+        # @task = FactoryBot.create(:task_not_started, user_id: user.id)
+        @task = FactoryBot.create(:task_not_started)
       end
 
       # 画面遷移
@@ -317,15 +303,9 @@ describe 'Tasks', type: :system do
       # @user2 = User.create!(id: 2, name: 'テスト二郎')
 
       # Task作成
-      @task = Task.create!(
-        title: 'テスト1',
-        content: 'こちらはテスト1の内容です。テストテストテストテストテストテストテスト',
-        # user対応コメントアウト
-        # user_id: @user1.id,
-        user_id: 1,
-        status: '1',
-        label: 'テスト',
-      )
+      # user対応コメントアウト
+      # @task = FactoryBot.create(:task_not_started, user_id: user.id)
+      @task = FactoryBot.create(:task_not_started)
 
       # 画面遷移
       visit(edit_task_path(@task))
