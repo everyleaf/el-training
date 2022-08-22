@@ -136,6 +136,7 @@ RSpec.describe 'Tasks', type: :system do
     context '並び替えたいパラメータを1回だけ選択すると' do
       it 'そのパラメータで昇順に並び替えられる' do
         click_on '重要度'
+        find('.ASC', wait: 10)
         expect(current_url).to include('direction=ASC')
 
         tasks = page.all('.task')
@@ -149,14 +150,12 @@ RSpec.describe 'Tasks', type: :system do
       it '昇順と降順が入れ替わる' do
         # 最初は昇順に並べ替える
         click_on '重要度'
+        find('.ASC', wait: 10)
         expect(current_url).to include('direction=ASC')
 
         # もう一度押すと降順に並べ替えられる
         click_on '重要度'
-
-        # ページとURLが更新されるのを待つ
-        # これがないとStaleElementReferenceErrorが発生
-        sleep 3
+        find('.DESC', wait: 10)
         expect(current_url).to include('direction=DESC')
 
         tasks = page.all('.task')
