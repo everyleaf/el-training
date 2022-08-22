@@ -104,14 +104,6 @@ describe 'Tasks', type: :system do
       # user対応コメントアウト
       # find("option[value='#{@user.id}']").select_option
 
-      expect { click_button '作成' }.to change(Task, :count).by(1)
-
-      # 登録データ確認
-      @task = Task.find_by(
-        title: new_task[:title],
-        content: new_task[:content],
-        label: new_task[:label],
-      )
     end
 
     ###################################################
@@ -121,14 +113,24 @@ describe 'Tasks', type: :system do
     # 登録データの項目比較
     shared_examples_for 'compare_new_task_db_to_assumed' do
       it {
+        # ボタン押下
+        expect { click_button '作成' }.to change(Task, :count).by(1)
+
+        # 登録データ確認
+        task = Task.find_by(
+          title: new_task[:title],
+          content: new_task[:content],
+          label: new_task[:label],
+        )
+
         # 項目比較
-        expect(@task.title).to eq(new_task[:title])
-        expect(@task.content).to eq(new_task[:content])
-        expect(@task.label).to eq(new_task[:label])
+        expect(task.title).to eq(new_task[:title])
+        expect(task.content).to eq(new_task[:content])
+        expect(task.label).to eq(new_task[:label])
         # user対応コメントアウト
         # expect(@task.user_id).to eq(@user.id)
-        expect(@task.user_id).to eq(1)
-        expect(@task.status).to eq('not_started')
+        expect(task.user_id).to eq(1)
+        expect(task.status).to eq('not_started')
       }
     end
 
