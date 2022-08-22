@@ -12,15 +12,18 @@ describe 'Tasks', type: :system do
     ###################################################
 
     before do
-      # User作成
-      user = User.create!(id: 1, name: 'テスト一郎')
+      # user対応コメントアウト
+      # # User作成
+      # user = User.create!(id: 1, name: 'テスト一郎')
 
       # Task作成
       tasks_number.times do |i|
         Task.create!(
           title: "テスト#{i + 1}",
           content: "こちらはテスト#{i + 1}の内容です。テストテストテストテストテストテストテスト",
-          user_id: user.id,
+          # user対応コメントアウト
+          # user_id: user.id,
+          user_id: 1,
           status: '1',
           label: 'テスト',
         )
@@ -94,9 +97,10 @@ describe 'Tasks', type: :system do
     ###################################################
 
     before do
-      # User作成
-      @user = User.create!(id: 1, name: 'テスト一郎')
-      User.create!(id: 2, name: 'テスト二郎')
+      # user対応コメントアウト
+      # # User作成
+      # @user = User.create!(id: 1, name: 'テスト一郎')
+      # User.create!(id: 2, name: 'テスト二郎')
 
       # 画面遷移
       visit(new_task_path)
@@ -129,7 +133,9 @@ describe 'Tasks', type: :system do
         expect(@task.title).to eq(new_task[:title])
         expect(@task.content).to eq(new_task[:content])
         expect(@task.label).to eq(new_task[:label])
-        expect(@task.user_id).to eq(@user.id)
+        # user対応コメントアウト
+        # expect(@task.user_id).to eq(@user.id)
+        expect(@task.user_id).to eq(1)
         expect(@task.status).to eq('not_started')
       }
     end
@@ -197,8 +203,9 @@ describe 'Tasks', type: :system do
     ###################################################
 
     before do
-      # User作成
-      user = User.create!(id: 1, name: 'テスト一郎')
+      # user対応コメントアウト
+      # # User作成
+      # user = User.create!(id: 1, name: 'テスト一郎')
 
       # Task作成
       @task = nil
@@ -206,7 +213,9 @@ describe 'Tasks', type: :system do
         @task = Task.create!(
           title: "テスト#{i + 1}",
           content: "こちらはテスト#{i + 1}の内容です。テストテストテストテストテストテストテスト",
-          user_id: user.id,
+          # user対応コメントアウト
+          # user_id: user.id,
+          user_id: 1,
           status: '1',
           label: 'テスト',
         )
@@ -302,15 +311,18 @@ describe 'Tasks', type: :system do
 
     # 事前処理
     before do
-      # User作成
-      @user1 = User.create!(id: 1, name: 'テスト一郎')
-      @user2 = User.create!(id: 2, name: 'テスト二郎')
+      # user対応コメントアウト
+      # # User作成
+      # @user1 = User.create!(id: 1, name: 'テスト一郎')
+      # @user2 = User.create!(id: 2, name: 'テスト二郎')
 
       # Task作成
       @task = Task.create!(
         title: 'テスト1',
         content: 'こちらはテスト1の内容です。テストテストテストテストテストテストテスト',
-        user_id: @user1.id,
+        # user対応コメントアウト
+        # user_id: @user1.id,
+        user_id: 1,
         status: '1',
         label: 'テスト',
       )
@@ -379,8 +391,11 @@ describe 'Tasks', type: :system do
           content: '全項目変更 内容',
           label: '全項目変更 ラベル',
           status: '着手中',
-          user_id: @user2.id,
-          user_name: @user2.name,
+          # user対応コメントアウト
+          # user_id: @user2.id,
+          # user_name: @user2.name,
+          user_id: 2,
+          user_name: 'テスト二郎',
         }
       }
 
@@ -395,8 +410,11 @@ describe 'Tasks', type: :system do
           content: 'こちらはテスト1の内容です。テストテストテストテストテストテストテスト',
           label: 'テスト',
           status: '未着手',
-          user_id: @user1.id,
-          user_name: @user1.name,
+          # user対応コメントアウト
+          # user_id: @user1.id,
+          # user_name: @user1.name,
+          user_id: 1,
+          user_name: 'テスト一郎',
         }
       }
 
@@ -411,8 +429,11 @@ describe 'Tasks', type: :system do
           content: '全項目変更 内容',
           label: 'テスト',
           status: '未着手',
-          user_id: @user1.id,
-          user_name: @user1.name,
+          # user対応コメントアウト
+          # user_id: @user1.id,
+          # user_name: @user1.name,
+          user_id: 1,
+          user_name: 'テスト一郎',
         }
       }
 
@@ -427,8 +448,11 @@ describe 'Tasks', type: :system do
           content: 'こちらはテスト1の内容です。テストテストテストテストテストテストテスト',
           label: '全項目変更 ラベル',
           status: '未着手',
-          user_id: @user1.id,
-          user_name: @user1.name,
+          # user対応コメントアウト
+          # user_id: @user1.id,
+          # user_name: @user1.name,
+          user_id: 1,
+          user_name: 'テスト一郎',
         }
       }
 
@@ -443,8 +467,11 @@ describe 'Tasks', type: :system do
           content: 'こちらはテスト1の内容です。テストテストテストテストテストテストテスト',
           label: 'テスト',
           status: '着手中',
-          user_id: @user1.id,
-          user_name: @user1.name,
+          # user対応コメントアウト
+          # user_id: @user1.id,
+          # user_name: @user1.name,
+          user_id: 1,
+          user_name: 'テスト一郎',
         }
       }
 
@@ -459,8 +486,11 @@ describe 'Tasks', type: :system do
           content: 'こちらはテスト1の内容です。テストテストテストテストテストテストテスト',
           label: 'テスト',
           status: '未着手',
-          user_id: @user2.id,
-          user_name: @user2.name,
+          # user対応コメントアウト
+          # user_id: @user2.id,
+          # user_name: @user2.name,
+          user_id: 2,
+          user_name: 'テスト二郎',
         }
       }
 
