@@ -61,19 +61,19 @@ describe 'Tasks', type: :system do
     ###################################################
 
     context 'タスク0件' do
-      let!(:tasks_number) { 0 }
+      let(:tasks_number) { 0 }
 
       it_behaves_like 'compare_list_view_to_db'
     end
 
     context 'タスク1件' do
-      let!(:tasks_number) { 1 }
+      let(:tasks_number) { 1 }
 
       it_behaves_like 'compare_list_view_to_db'
     end
 
     context 'タスク複数件' do
-      let!(:tasks_number) { 5 }
+      let(:tasks_number) { 5 }
 
       it_behaves_like 'compare_list_view_to_db'
     end
@@ -139,7 +139,7 @@ describe 'Tasks', type: :system do
     ###################################################
 
     context '全項目入力' do
-      let!(:new_task) {
+      let(:new_task) {
         {
           title: '新規タスク 全項目入力 タイトル',
           content: '新規タスク 全項目入力 内容',
@@ -151,7 +151,7 @@ describe 'Tasks', type: :system do
     end
 
     context 'タイトルのみ入力' do
-      let!(:new_task) {
+      let(:new_task) {
         {
           title: '新規タスク タイトルのみ入力 タイトル',
           content: '',
@@ -163,7 +163,7 @@ describe 'Tasks', type: :system do
     end
 
     context '内容のみ入力' do
-      let!(:new_task) {
+      let(:new_task) {
         {
           title: '',
           content: '新規タスク 内容のみ入力 内容',
@@ -175,7 +175,7 @@ describe 'Tasks', type: :system do
     end
 
     context 'ラベルのみ入力' do
-      let!(:new_task) {
+      let(:new_task) {
         {
           title: '',
           content: '',
@@ -269,7 +269,7 @@ describe 'Tasks', type: :system do
     ###################################################
 
     context 'タスク1件' do
-      let!(:tasks_number) { 1 }
+      let(:tasks_number) { 1 }
       # 表示確認
 
       it_behaves_like 'compare_details_view_to_db'
@@ -278,7 +278,7 @@ describe 'Tasks', type: :system do
     end
 
     context 'タスク複数件' do
-      let!(:tasks_number) { 5 }
+      let(:tasks_number) { 5 }
       # 表示確認
 
       it_behaves_like 'compare_details_view_to_db'
@@ -367,7 +367,7 @@ describe 'Tasks', type: :system do
     end
 
     context '全項目変更' do
-      let!(:update_task) {
+      let(:update_task) {
         {
           title: '全項目変更 タイトル',
           content: '全項目変更 内容',
@@ -386,7 +386,7 @@ describe 'Tasks', type: :system do
     end
 
     context 'タイトルのみ変更' do
-      let!(:update_task) {
+      let(:update_task) {
         {
           title: '全項目変更 タイトル',
           content: 'こちらはテスト1の内容です。テストテストテストテストテストテストテスト',
@@ -405,7 +405,7 @@ describe 'Tasks', type: :system do
     end
 
     context '内容のみ変更' do
-      let!(:update_task) {
+      let(:update_task) {
         {
           title: 'テスト1',
           content: '全項目変更 内容',
@@ -424,7 +424,7 @@ describe 'Tasks', type: :system do
     end
 
     context 'ラベルのみ変更' do
-      let!(:update_task) {
+      let(:update_task) {
         {
           title: 'テスト1',
           content: 'こちらはテスト1の内容です。テストテストテストテストテストテストテスト',
@@ -443,7 +443,7 @@ describe 'Tasks', type: :system do
     end
 
     context 'ステータスのみ変更' do
-      let!(:update_task) {
+      let(:update_task) {
         {
           title: 'テスト1',
           content: 'こちらはテスト1の内容です。テストテストテストテストテストテストテスト',
@@ -462,7 +462,7 @@ describe 'Tasks', type: :system do
     end
 
     context 'ユーザのみ変更' do
-      let!(:update_task) {
+      let(:update_task) {
         {
           title: 'テスト1',
           content: 'こちらはテスト1の内容です。テストテストテストテストテストテストテスト',
