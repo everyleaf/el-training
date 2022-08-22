@@ -12,25 +12,6 @@ describe 'Tasks', type: :system do
     ###################################################
 
     before do
-      # user対応コメントアウト
-      # # User作成
-      # user = User.create!(id: 1, name: 'テスト一郎')
-
-      # Task作成
-      tasks_number.times do |i|
-        FactoryBot.create(:task_not_started)
-      end
-
-      # 画面遷移
-      visit(root_path)
-
-      # DBからデータ取得
-      # user対応コメントアウト
-      # @db_items = Task.joins(:user).all.order('tasks.created_at desc')
-      @db_items = Task.all.order('tasks.created_at desc')
-
-      # 画面の一覧取得
-      @view_items = all('div[name="list-task"] tbody tr')
     end
 
     ###################################################
@@ -40,18 +21,29 @@ describe 'Tasks', type: :system do
     # 一覧の項目比較
     shared_examples_for 'compare_list_view_to_db' do
       it {
+        # DBからデータ取得
+        # user対応コメントアウト
+        # db_items = Task.joins(:user).all.order('tasks.created_at desc')
+        db_items = Task.all.order('tasks.created_at desc')
+
+        # 画面遷移
+        visit(root_path)
+
+        # 画面の一覧取得
+        view_items = all('div[name="list-task"] tbody tr')
+
         # 項目比較
-        expect(@view_items.size).to(eq(@db_items.size))
-        @view_items.size.times do |i|
-          columns = @view_items[i].all('td')
-          expect(columns[0]).to(have_content(@db_items[i].title))
-          expect(columns[1]).to(have_content(@db_items[i].label))
+        expect(view_items.size).to(eq(db_items.size))
+        view_items.size.times do |i|
+          columns = view_items[i].all('td')
+          expect(columns[0]).to(have_content(db_items[i].title))
+          expect(columns[1]).to(have_content(db_items[i].label))
           # user対応コメントアウト
-          # expect(columns[2]).to(have_content(@db_items[i].user.name))
+          # expect(columns[2]).to(have_content(db_items[i].user.name))
           # status対応コメントアウト
-          # expect(columns[3]).to(have_content(get_status_view(@db_items[i].status)))
-          expect(columns[2]).to(have_link('詳細', href: task_path(@db_items[i])))
-          # expect(columns[4]).to(have_link('詳細', href: task_path(@db_items[i])))
+          # expect(columns[3]).to(have_content(get_status_view(db_items[i].status)))
+          expect(columns[2]).to(have_link('詳細', href: task_path(db_items[i])))
+          # expect(columns[4]).to(have_link('詳細', href: task_path(db_items[i])))
         end
       }
     end
@@ -61,20 +53,42 @@ describe 'Tasks', type: :system do
     ###################################################
 
     context 'タスク0件' do
-      let(:tasks_number) { 0 }
+      ### テスト準備
+      # user対応コメントアウト
+      # # User作成
+      # user = User.create!(id: 1, name: 'テスト一郎')
 
+      ### テスト
       it_behaves_like 'compare_list_view_to_db'
     end
 
     context 'タスク1件' do
-      let(:tasks_number) { 1 }
+      ### テスト準備
+      # user対応コメントアウト
+      # # User作成
+      # user = User.create!(id: 1, name: 'テスト一郎')
 
+      # Task作成
+      1.times do |i|
+        FactoryBot.create(:task_not_started)
+      end
+
+      ### テスト
       it_behaves_like 'compare_list_view_to_db'
     end
 
     context 'タスク複数件' do
-      let(:tasks_number) { 5 }
+      ### テスト準備
+      # user対応コメントアウト
+      # # User作成
+      # user = User.create!(id: 1, name: 'テスト一郎')
 
+      # Task作成
+      5.times do |i|
+        FactoryBot.create(:task_not_started)
+      end
+
+      ### テスト
       it_behaves_like 'compare_list_view_to_db'
     end
   end
@@ -89,21 +103,6 @@ describe 'Tasks', type: :system do
     ###################################################
 
     before do
-      # user対応コメントアウト
-      # # User作成
-      # @user = User.create!(id: 1, name: 'テスト一郎')
-      # User.create!(id: 2, name: 'テスト二郎')
-
-      # 画面遷移
-      visit(new_task_path)
-
-      # 新規タスク登録
-      fill_in('task[title]', with: new_task[:title])
-      fill_in('task[content]', with: new_task[:content])
-      fill_in('task[label]', with: new_task[:label])
-      # user対応コメントアウト
-      # find("option[value='#{@user.id}']").select_option
-
     end
 
     ###################################################
@@ -113,6 +112,16 @@ describe 'Tasks', type: :system do
     # 登録データの項目比較
     shared_examples_for 'compare_new_task_db_to_assumed' do
       it {
+        # 画面遷移
+        visit(new_task_path)
+
+        # 新規タスク登録
+        fill_in('task[title]', with: new_task[:title])
+        fill_in('task[content]', with: new_task[:content])
+        fill_in('task[label]', with: new_task[:label])
+        # user対応コメントアウト
+        # find("option[value='#{@user.id}']").select_option
+
         # ボタン押下
         expect { click_button '作成' }.to change(Task, :count).by(1)
 
@@ -147,6 +156,13 @@ describe 'Tasks', type: :system do
         }
       }
 
+      ### テスト準備
+      # user対応コメントアウト
+      # # User作成
+      # @user = User.create!(id: 1, name: 'テスト一郎')
+      # User.create!(id: 2, name: 'テスト二郎')
+
+      ### テスト
       it_behaves_like 'compare_new_task_db_to_assumed'
     end
 
@@ -159,6 +175,13 @@ describe 'Tasks', type: :system do
         }
       }
 
+      ### テスト準備
+      # user対応コメントアウト
+      # # User作成
+      # @user = User.create!(id: 1, name: 'テスト一郎')
+      # User.create!(id: 2, name: 'テスト二郎')
+
+      ### テスト
       it_behaves_like 'compare_new_task_db_to_assumed'
     end
 
@@ -171,6 +194,13 @@ describe 'Tasks', type: :system do
         }
       }
 
+      ### テスト準備
+      # user対応コメントアウト
+      # # User作成
+      # @user = User.create!(id: 1, name: 'テスト一郎')
+      # User.create!(id: 2, name: 'テスト二郎')
+
+      ### テスト
       it_behaves_like 'compare_new_task_db_to_assumed'
     end
 
@@ -183,6 +213,13 @@ describe 'Tasks', type: :system do
         }
       }
 
+      ### テスト準備
+      # user対応コメントアウト
+      # # User作成
+      # @user = User.create!(id: 1, name: 'テスト一郎')
+      # User.create!(id: 2, name: 'テスト二郎')
+
+      ### テスト
       it_behaves_like 'compare_new_task_db_to_assumed'
     end
   end
@@ -197,28 +234,6 @@ describe 'Tasks', type: :system do
     ###################################################
 
     before do
-      # user対応コメントアウト
-      # # User作成
-      # user = User.create!(id: 1, name: 'テスト一郎')
-
-      # Task作成
-      @task = nil
-      tasks_number.times do |i|
-        # user対応コメントアウト
-        # @task = FactoryBot.create(:task_not_started, user_id: user.id)
-        @task = FactoryBot.create(:task_not_started)
-      end
-
-      # 画面遷移
-      visit(task_path(@task))
-
-      # DBからデータ取得
-      # user対応コメントアウト
-      # @db_item = Task.joins(:user).find(@task.id)
-      @db_item = Task.find(@task.id)
-
-      # 画面の一覧取得
-      @view_item = find('div[name="content"]')
     end
 
     ###################################################
@@ -226,33 +241,37 @@ describe 'Tasks', type: :system do
     ###################################################
 
     # 項目比較
-    shared_examples_for 'compare_details_view_to_db' do
+    shared_examples_for 'compare_details_view_to_db' do |task|
       it {
+        # 画面遷移
+        visit(task_path(task))
+
+        # DBからデータ取得
+        # user対応コメントアウト
+        # @db_item = Task.joins(:user).find(@task.id)
+        db_item = Task.find(task.id)
+
+        # 画面の一覧取得
+        view_item = find('div[name="content"]')
+
         # 項目比較
-        expect(@view_item).to(have_content(@db_item.title))
-        expect(@view_item).to(have_content(@db_item.content))
-        expect(@view_item).to(have_content(@db_item.label))
+        expect(view_item).to(have_content(db_item.title))
+        expect(view_item).to(have_content(db_item.content))
+        expect(view_item).to(have_content(db_item.label))
         # user対応コメントアウト
         # expect(@view_item).to(have_content(@db_item.user.name))
       }
     end
 
     # 削除
-    shared_examples_for 'delete_task' do
+    shared_examples_for 'delete_task' do |task|
       it {
         # 画面遷移
-        visit(task_path(@task))
+        visit(task_path(task))
 
         # 削除
         expect { click_on('削除') }.to change(Task, :count).by(-1)
-        expect(
-          Task.find_by(
-            title: @task.title,
-            content: @task.content,
-            label: @task.label,
-            user_id: @task.user_id,
-          ),
-        ).to be_nil
+        expect { Task.find(task.id) }.to raise_error
 
         ## 以下、confirm対応バージョン
         ## 現在はエラーが発生するためコメントアウト
@@ -269,21 +288,45 @@ describe 'Tasks', type: :system do
     ###################################################
 
     context 'タスク1件' do
-      let(:tasks_number) { 1 }
-      # 表示確認
+      ### テスト準備
+      # user対応コメントアウト
+      # # User作成
+      # user = User.create!(id: 1, name: 'テスト一郎')
 
-      it_behaves_like 'compare_details_view_to_db'
+      # Task作成
+      task = nil
+      1.times do |i|
+        # user対応コメントアウト
+        # @task = FactoryBot.create(:task_not_started, user_id: user.id)
+        task = FactoryBot.create(:task_not_started)
+      end
+
+      ### テスト
+      # 表示確認
+      it_behaves_like 'compare_details_view_to_db', task
       # 削除確認
-      it_behaves_like 'delete_task'
+      it_behaves_like 'delete_task', task
     end
 
     context 'タスク複数件' do
-      let(:tasks_number) { 5 }
-      # 表示確認
+      ### テスト準備
+      # user対応コメントアウト
+      # # User作成
+      # user = User.create!(id: 1, name: 'テスト一郎')
 
-      it_behaves_like 'compare_details_view_to_db'
+      # Task作成
+      task = nil
+      1.times do |i|
+        # user対応コメントアウト
+        # @task = FactoryBot.create(:task_not_started, user_id: user.id)
+        task = FactoryBot.create(:task_not_started)
+      end
+
+      ### テスト
+      # 表示確認
+      it_behaves_like 'compare_details_view_to_db', task
       # 削除確認
-      it_behaves_like 'delete_task'
+      it_behaves_like 'delete_task', task
     end
   end
 
@@ -299,39 +342,6 @@ describe 'Tasks', type: :system do
 
     # 事前処理
     before do
-      # user対応コメントアウト
-      # # User作成
-      # @user1 = User.create!(id: 1, name: 'テスト一郎')
-      # @user2 = User.create!(id: 2, name: 'テスト二郎')
-
-      # Task作成
-      # user対応コメントアウト
-      # @task = FactoryBot.create(:task_not_started, user_id: user.id)
-      @task = FactoryBot.create(:task_not_started)
-
-      # 画面遷移
-      visit(edit_task_path(@task))
-
-      # DBからデータ取得
-      # user対応コメントアウト
-      # @before_db_item = Task.joins(:user).find(@task.id)
-      @before_db_item = Task.find(@task.id)
-
-      # 更新
-      if defined? update_task
-        fill_in 'task[title]', with: update_task[:title]
-        fill_in 'task[content]', with: update_task[:content]
-        fill_in 'task[label]', with: update_task[:label]
-        # status対応コメントアウト
-        # select(value = update_task[:status], from: 'task[status]')
-        # user対応コメントアウト
-        # select(value = update_task[:user_name], from: 'task[user_id]')
-        click_button '更新'
-      end
-
-      # user対応コメントアウト
-      # @after_db_item = Task.joins(:user).find(@task.id)
-      @after_db_item = Task.find(@task.id)
     end
 
     ###################################################
@@ -339,10 +349,29 @@ describe 'Tasks', type: :system do
     ###################################################
 
     # 項目比較
-    shared_examples_for 'compare_details_before_to_after' do
+    shared_examples_for 'compare_details_before_to_after' do |task|
       it {
+        # 画面遷移
+        visit(edit_task_path(task))
+
+        # 更新
+        if defined? update_task
+          fill_in 'task[title]', with: update_task[:title]
+          fill_in 'task[content]', with: update_task[:content]
+          fill_in 'task[label]', with: update_task[:label]
+          # status対応コメントアウト
+          # select(value = update_task[:status], from: 'task[status]')
+          # user対応コメントアウト
+          # select(value = update_task[:user_name], from: 'task[user_id]')
+          click_button '更新'
+        end
+
+        # user対応コメントアウト
+        # @after_db_item = Task.joins(:user).find(@task.id)
+        after_db_item = Task.find(task.id)
+
         # 項目比較
-        expect(@after_db_item.title).to eq(update_task[:title])
+        expect(after_db_item.title).to eq(update_task[:title])
       }
     end
 
@@ -351,18 +380,33 @@ describe 'Tasks', type: :system do
     ###################################################
 
     context '初期表示' do
+      # user対応コメントアウト
+      # # User作成
+      # @user1 = User.create!(id: 1, name: 'テスト一郎')
+      # @user2 = User.create!(id: 2, name: 'テスト二郎')
+
+      # Task作成
+      # user対応コメントアウト
+      # task = FactoryBot.create(:task_not_started, user_id: user.id)
+      task = FactoryBot.create(:task_not_started)
+
       it '各項目にDBの値が表示されていること' do
+        # DBからデータ取得
+        # user対応コメントアウト
+        # before_db_item = Task.joins(:user).find(@task.id)
+        before_db_item = Task.find(task.id)
+
         # 画面遷移
-        visit(edit_task_path(@task))
+        visit(edit_task_path(task))
 
         # 項目比較
-        expect(page).to(have_field('task[title]', with: @before_db_item.title))
-        expect(page).to(have_field('task[content]', with: @before_db_item.content))
-        expect(page).to(have_field('task[label]', with: @before_db_item.label))
+        expect(page).to(have_field('task[title]', with: before_db_item.title))
+        expect(page).to(have_field('task[content]', with: before_db_item.content))
+        expect(page).to(have_field('task[label]', with: before_db_item.label))
         # status対応コメントアウト
-        # expect(page).to(have_field('task[status]', with: Task.statuses[@before_db_item.status]))
+        # expect(page).to(have_field('task[status]', with: Task.statuses[before_db_item.status]))
         # user対応コメントアウト
-        # expect(page).to(have_field('task[user_id]', with: @before_db_item.user_id))
+        # expect(page).to(have_field('task[user_id]', with: before_db_item.user_id))
       end
     end
 
@@ -381,8 +425,18 @@ describe 'Tasks', type: :system do
         }
       }
 
+      # user対応コメントアウト
+      # # User作成
+      # @user1 = User.create!(id: 1, name: 'テスト一郎')
+      # @user2 = User.create!(id: 2, name: 'テスト二郎')
+
+      # Task作成
+      # user対応コメントアウト
+      # task = FactoryBot.create(:task_not_started, user_id: user.id)
+      task = FactoryBot.create(:task_not_started)
+
       # 表示確認
-      it_behaves_like 'compare_details_before_to_after'
+      it_behaves_like 'compare_details_before_to_after', task
     end
 
     context 'タイトルのみ変更' do
@@ -400,8 +454,18 @@ describe 'Tasks', type: :system do
         }
       }
 
+      # user対応コメントアウト
+      # # User作成
+      # @user1 = User.create!(id: 1, name: 'テスト一郎')
+      # @user2 = User.create!(id: 2, name: 'テスト二郎')
+
+      # Task作成
+      # user対応コメントアウト
+      # task = FactoryBot.create(:task_not_started, user_id: user.id)
+      task = FactoryBot.create(:task_not_started)
+
       # 表示確認
-      it_behaves_like 'compare_details_before_to_after'
+      it_behaves_like 'compare_details_before_to_after', task
     end
 
     context '内容のみ変更' do
@@ -419,8 +483,18 @@ describe 'Tasks', type: :system do
         }
       }
 
+      # user対応コメントアウト
+      # # User作成
+      # @user1 = User.create!(id: 1, name: 'テスト一郎')
+      # @user2 = User.create!(id: 2, name: 'テスト二郎')
+
+      # Task作成
+      # user対応コメントアウト
+      # task = FactoryBot.create(:task_not_started, user_id: user.id)
+      task = FactoryBot.create(:task_not_started)
+
       # 表示確認
-      it_behaves_like 'compare_details_before_to_after'
+      it_behaves_like 'compare_details_before_to_after', task
     end
 
     context 'ラベルのみ変更' do
@@ -437,9 +511,19 @@ describe 'Tasks', type: :system do
           user_name: 'テスト一郎',
         }
       }
+      
+      # user対応コメントアウト
+      # # User作成
+      # @user1 = User.create!(id: 1, name: 'テスト一郎')
+      # @user2 = User.create!(id: 2, name: 'テスト二郎')
+
+      # Task作成
+      # user対応コメントアウト
+      # task = FactoryBot.create(:task_not_started, user_id: user.id)
+      task = FactoryBot.create(:task_not_started)
 
       # 表示確認
-      it_behaves_like 'compare_details_before_to_after'
+      it_behaves_like 'compare_details_before_to_after', task
     end
 
     context 'ステータスのみ変更' do
@@ -456,9 +540,19 @@ describe 'Tasks', type: :system do
           user_name: 'テスト一郎',
         }
       }
+      
+      # user対応コメントアウト
+      # # User作成
+      # @user1 = User.create!(id: 1, name: 'テスト一郎')
+      # @user2 = User.create!(id: 2, name: 'テスト二郎')
+
+      # Task作成
+      # user対応コメントアウト
+      # task = FactoryBot.create(:task_not_started, user_id: user.id)
+      task = FactoryBot.create(:task_not_started)
 
       # 表示確認
-      it_behaves_like 'compare_details_before_to_after'
+      it_behaves_like 'compare_details_before_to_after', task
     end
 
     context 'ユーザのみ変更' do
@@ -475,9 +569,19 @@ describe 'Tasks', type: :system do
           user_name: 'テスト二郎',
         }
       }
+      
+      # user対応コメントアウト
+      # # User作成
+      # @user1 = User.create!(id: 1, name: 'テスト一郎')
+      # @user2 = User.create!(id: 2, name: 'テスト二郎')
+
+      # Task作成
+      # user対応コメントアウト
+      # task = FactoryBot.create(:task_not_started, user_id: user.id)
+      task = FactoryBot.create(:task_not_started)
 
       # 表示確認
-      it_behaves_like 'compare_details_before_to_after'
+      it_behaves_like 'compare_details_before_to_after', task
     end
   end
 end
