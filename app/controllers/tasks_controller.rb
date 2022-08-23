@@ -87,7 +87,7 @@ class TasksController < ApplicationController
     task = Task.find_by(id: task_id)
     if task.blank?
       flash[:danger] = I18n.t 'task_not_exist'
-      return redirect_to tasks_url
+      return redirect_to root_url
 
     elsif task.user != @current_user
       flash[:danger] = I18n.t 'permission denied'
@@ -112,5 +112,4 @@ class TasksController < ApplicationController
   def filter_params_all_blank?
     params.dig(:filter, :priority).blank? && params.dig(:filter, :progress).blank?
   end
-
 end
