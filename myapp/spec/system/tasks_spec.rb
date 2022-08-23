@@ -109,15 +109,8 @@ describe 'Tasks', type: :system do
         # ボタン押下
         click_button '作成'
 
-        # 登録データ確認
-        task = Task.find_by(
-          title: new_task[:title],
-          content: new_task[:content],
-          label: new_task[:label],
-        )
-
         # 項目比較
-        expect(task).to have_attributes title: new_task[:title], content: new_task[:content], label: new_task[:label], user_id: 1, status: 'not_started'
+        expect(Task.find_by(title: new_task[:title], content: new_task[:content], label: new_task[:label])).not_to be_nil 
 
       end
 
@@ -145,15 +138,8 @@ describe 'Tasks', type: :system do
         # ボタン押下
         click_button '作成'
 
-        # 登録データ確認
-        task = Task.find_by(
-          title: new_task[:title],
-          content: new_task[:content],
-          label: new_task[:label],
-        )
-
         # 項目比較
-        expect(task).to have_attributes title: new_task[:title], content: new_task[:content], label: new_task[:label], user_id: 1, status: 'not_started'
+        expect(Task.find_by(title: new_task[:title], content: new_task[:content], label: new_task[:label])).not_to be_nil 
 
       end
 
@@ -180,15 +166,8 @@ describe 'Tasks', type: :system do
         # ボタン押下
         click_button '作成'
 
-        # 登録データ確認
-        task = Task.find_by(
-          title: new_task[:title],
-          content: new_task[:content],
-          label: new_task[:label],
-        )
-
         # 項目比較
-        expect(task).to have_attributes title: new_task[:title], content: new_task[:content], label: new_task[:label], user_id: 1, status: 'not_started'
+        expect(Task.find_by(title: new_task[:title], content: new_task[:content], label: new_task[:label])).not_to be_nil 
 
       end
 
@@ -216,15 +195,8 @@ describe 'Tasks', type: :system do
         # ボタン押下
         click_button '作成'
 
-        # 登録データ確認
-        task = Task.find_by(
-          title: new_task[:title],
-          content: new_task[:content],
-          label: new_task[:label],
-        )
-
         # 項目比較
-        expect(task).to have_attributes title: new_task[:title], content: new_task[:content], label: new_task[:label], user_id: 1, status: 'not_started'
+        expect(Task.find_by(title: new_task[:title], content: new_task[:content], label: new_task[:label])).not_to be_nil 
 
       end
 
