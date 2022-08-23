@@ -1,129 +1,113 @@
 require 'rails_helper'
 
 describe 'Tasks', type: :system do
-  ###################################################
-  # タスク一覧画面
-  ###################################################
+  include TaskHelper
+
   describe '#index' do
-    include TaskHelper
 
-    ###################################################
-    # 事前処理
-    ###################################################
+    let(:task_one) { FactoryBot.create(:task_not_started) }
+    let(:task_two) { FactoryBot.create(:task_not_started) }
 
-    before do
-    end
+    context '1 タスク1件' do
 
-    ###################################################
-    # 共通処理
-    ###################################################
+      # !を付けないとexpectのタイミングでデータが存在しない
+      let!(:task_index_1) { task_one }
 
-    # 一覧の項目比較
-    shared_examples_for 'compare_list_view_to_db' do
-      it {
-        # DBからデータ取得
-        # user対応コメントアウト
-        # db_items = Task.joins(:user).all.order('tasks.created_at desc')
-        db_items = Task.all.order('tasks.created_at desc')
-
-        # 画面遷移
-        visit(root_path)
-
-        # 画面の一覧取得
-        view_items = all('div[name="list-task"] tbody tr')
-
-        # 項目比較
-        expect(view_items.size).to(eq(db_items.size))
-        view_items.size.times do |i|
-          columns = view_items[i].all('td')
-          expect(columns[0]).to(have_content(db_items[i].title))
-          expect(columns[1]).to(have_content(db_items[i].label))
-          # user対応コメントアウト
-          # expect(columns[2]).to(have_content(db_items[i].user.name))
-          # status対応コメントアウト
-          # expect(columns[3]).to(have_content(get_status_view(db_items[i].status)))
-          expect(columns[2]).to(have_link('詳細', href: task_path(db_items[i])))
-          # expect(columns[4]).to(have_link('詳細', href: task_path(db_items[i])))
-        end
-      }
-    end
-
-    ###################################################
-    # 各テスト
-    ###################################################
-
-    context 'タスク0件' do
-      ### テスト準備
-      # user対応コメントアウト
-      # # User作成
-      # user = User.create!(id: 1, name: 'テスト一郎')
-
-      ### テスト
-      it_behaves_like 'compare_list_view_to_db'
-    end
-
-    context 'タスク1件' do
-      ### テスト準備
-      # user対応コメントアウト
-      # # User作成
-      # user = User.create!(id: 1, name: 'テスト一郎')
-
-      # Task作成
-      1.times do |i|
-        FactoryBot.create(:task_not_started)
+      it '1-1 タイトルが一致すること' do
+        visit root_path
+        expect(page).to have_content task_index_1.title
       end
 
-      ### テスト
-      it_behaves_like 'compare_list_view_to_db'
-    end
-
-    context 'タスク複数件' do
-      ### テスト準備
-      # user対応コメントアウト
-      # # User作成
-      # user = User.create!(id: 1, name: 'テスト一郎')
-
-      # Task作成
-      5.times do |i|
-        FactoryBot.create(:task_not_started)
+      it '1-2 ラベルが一致すること' do
+        visit root_path
+        expect(page).to have_content task_index_1.label
       end
 
-      ### テスト
-      it_behaves_like 'compare_list_view_to_db'
+      it '1-3 作成ボタンを押下することでタスク作成画面へ遷移すること' do
+        visit root_path
+        click_on '作成', match: :first
+        expect(page).to have_current_path new_task_path
+      end
+
+      it '1-4 詳細ボタンを押下することでタスク詳細画面へ遷移すること' do
+        visit root_path
+        click_on '詳細', match: :first
+        expect(page).to have_current_path task_path(task_index_1)
+      end
+
     end
+
+    context '2 タスク複数件' do
+
+      # !を付けないとexpectのタイミングでデータが存在しない
+      let!(:task_index_2_one) { task_one }
+      let!(:task_index_2_two) { task_two }
+
+      it '2-1 1件目 タイトルが一致すること' do
+        visit root_path
+        expect(page).to have_content task_index_2_one.title
+      end
+
+      it '2-2 1件目 ラベルが一致すること' do
+        visit root_path
+        expect(page).to have_content task_index_2_one.label
+      end
+
+      it '2-3 2件目 タイトルが一致すること' do
+        visit root_path
+        expect(page).to have_content task_index_2_two.title
+      end
+
+      it '2-4 2件目 ラベルが一致すること' do
+        visit root_path
+        expect(page).to have_content task_index_2_two.label
+      end
+
+      it '2-5 作成ボタンを押下することでタスク作成画面へ遷移すること' do
+        visit root_path
+        click_on '作成', match: :first
+        expect(page).to have_current_path new_task_path
+      end
+
+      it '2-6 1件目 詳細ボタンを押下することでタスク詳細画面へ遷移すること' do
+        visit root_path
+        all('a', :text => '詳細')[0].click
+        expect(page).to have_current_path task_path(task_index_2_two)
+      end
+
+      it '2-7 2件目 詳細ボタンを押下することでタスク詳細画面へ遷移すること' do
+        visit root_path
+        all('a', :text => '詳細')[1].click
+        expect(page).to have_current_path task_path(task_index_2_one)
+      end
+
+    end
+
   end
 
-  ###################################################
-  # タスク作成画面
-  ###################################################
   describe '#new' do
 
-    ###################################################
-    # 事前処理
-    ###################################################
+    context '1 全項目入力' do
 
-    before do
-    end
+      let(:new_task) {
+        {
+          title: '新規タスク 全項目入力 タイトル',
+          content: '新規タスク 全項目入力 内容',
+          label: '新規タスク 全項目入力 ラベル',
+        }
+      }
 
-    ###################################################
-    # 共通処理
-    ###################################################
+      it '1-1 登録内容が想定通りであること' do
 
-    # 登録データの項目比較
-    shared_examples_for 'compare_new_task_db_to_assumed' do
-      it {
         # 画面遷移
-        visit(new_task_path)
+        visit new_task_path
 
         # 新規タスク登録
-        fill_in('task[title]', with: new_task[:title])
-        fill_in('task[content]', with: new_task[:content])
-        fill_in('task[label]', with: new_task[:label])
-        # user対応コメントアウト
-        # find("option[value='#{@user.id}']").select_option
-
+        fill_in 'task[title]', with: new_task[:title]
+        fill_in 'task[content]', with: new_task[:content]
+        fill_in 'task[label]', with: new_task[:label]
         # ボタン押下
-        expect { click_button '作成' }.to change(Task, :count).by(1)
+        click_button '作成'
 
         # 登録データ確認
         task = Task.find_by(
@@ -133,40 +117,14 @@ describe 'Tasks', type: :system do
         )
 
         # 項目比較
-        expect(task.title).to eq(new_task[:title])
-        expect(task.content).to eq(new_task[:content])
-        expect(task.label).to eq(new_task[:label])
-        # user対応コメントアウト
-        # expect(@task.user_id).to eq(@user.id)
-        expect(task.user_id).to eq(1)
-        expect(task.status).to eq('not_started')
-      }
+        expect(task).to have_attributes title: new_task[:title], content: new_task[:content], label: new_task[:label], user_id: 1, status: 'not_started'
+
+      end
+
     end
 
-    ###################################################
-    # 各テスト
-    ###################################################
+    context '2 タイトルのみ入力' do
 
-    context '全項目入力' do
-      let(:new_task) {
-        {
-          title: '新規タスク 全項目入力 タイトル',
-          content: '新規タスク 全項目入力 内容',
-          label: '新規タスク 全項目入力 ラベル',
-        }
-      }
-
-      ### テスト準備
-      # user対応コメントアウト
-      # # User作成
-      # @user = User.create!(id: 1, name: 'テスト一郎')
-      # User.create!(id: 2, name: 'テスト二郎')
-
-      ### テスト
-      it_behaves_like 'compare_new_task_db_to_assumed'
-    end
-
-    context 'タイトルのみ入力' do
       let(:new_task) {
         {
           title: '新規タスク タイトルのみ入力 タイトル',
@@ -175,17 +133,33 @@ describe 'Tasks', type: :system do
         }
       }
 
-      ### テスト準備
-      # user対応コメントアウト
-      # # User作成
-      # @user = User.create!(id: 1, name: 'テスト一郎')
-      # User.create!(id: 2, name: 'テスト二郎')
+      it '2-1 登録内容が想定通りであること' do
 
-      ### テスト
-      it_behaves_like 'compare_new_task_db_to_assumed'
+        # 画面遷移
+        visit new_task_path
+
+        # 新規タスク登録
+        fill_in 'task[title]', with: new_task[:title]
+        fill_in 'task[content]', with: new_task[:content]
+        fill_in 'task[label]', with: new_task[:label]
+        # ボタン押下
+        click_button '作成'
+
+        # 登録データ確認
+        task = Task.find_by(
+          title: new_task[:title],
+          content: new_task[:content],
+          label: new_task[:label],
+        )
+
+        # 項目比較
+        expect(task).to have_attributes title: new_task[:title], content: new_task[:content], label: new_task[:label], user_id: 1, status: 'not_started'
+
+      end
+
     end
 
-    context '内容のみ入力' do
+    context '3 内容のみ入力' do
       let(:new_task) {
         {
           title: '',
@@ -194,17 +168,34 @@ describe 'Tasks', type: :system do
         }
       }
 
-      ### テスト準備
-      # user対応コメントアウト
-      # # User作成
-      # @user = User.create!(id: 1, name: 'テスト一郎')
-      # User.create!(id: 2, name: 'テスト二郎')
+      it '3-1 登録内容が想定通りであること' do
 
-      ### テスト
-      it_behaves_like 'compare_new_task_db_to_assumed'
+        # 画面遷移
+        visit new_task_path
+
+        # 新規タスク登録
+        fill_in 'task[title]', with: new_task[:title]
+        fill_in 'task[content]', with: new_task[:content]
+        fill_in 'task[label]', with: new_task[:label]
+        # ボタン押下
+        click_button '作成'
+
+        # 登録データ確認
+        task = Task.find_by(
+          title: new_task[:title],
+          content: new_task[:content],
+          label: new_task[:label],
+        )
+
+        # 項目比較
+        expect(task).to have_attributes title: new_task[:title], content: new_task[:content], label: new_task[:label], user_id: 1, status: 'not_started'
+
+      end
+
     end
 
-    context 'ラベルのみ入力' do
+    context '4 ラベルのみ入力' do
+
       let(:new_task) {
         {
           title: '',
@@ -213,375 +204,293 @@ describe 'Tasks', type: :system do
         }
       }
 
-      ### テスト準備
-      # user対応コメントアウト
-      # # User作成
-      # @user = User.create!(id: 1, name: 'テスト一郎')
-      # User.create!(id: 2, name: 'テスト二郎')
+      it '4-1 登録内容が想定通りであること' do
 
-      ### テスト
-      it_behaves_like 'compare_new_task_db_to_assumed'
+        # 画面遷移
+        visit new_task_path
+
+        # 新規タスク登録
+        fill_in 'task[title]', with: new_task[:title]
+        fill_in 'task[content]', with: new_task[:content]
+        fill_in 'task[label]', with: new_task[:label]
+        # ボタン押下
+        click_button '作成'
+
+        # 登録データ確認
+        task = Task.find_by(
+          title: new_task[:title],
+          content: new_task[:content],
+          label: new_task[:label],
+        )
+
+        # 項目比較
+        expect(task).to have_attributes title: new_task[:title], content: new_task[:content], label: new_task[:label], user_id: 1, status: 'not_started'
+
+      end
+
     end
+
+    context '5 画面遷移' do
+
+      it '1-1 一覧へボタン押下でタスク一覧画面へ遷移すること' do
+        visit(new_task_path)
+        click_on '一覧へ', match: :first
+        expect(page).to have_current_path root_path
+      end
+
+    end
+
   end
 
-  ###################################################
-  # タスク詳細画面
-  ###################################################
   describe '#show' do
 
-    ###################################################
-    # 事前処理
-    ###################################################
+    let(:task_one) { FactoryBot.create(:task_not_started) }
 
-    before do
-    end
+    context '1 タスク1件' do
 
-    ###################################################
-    # 共通処理
-    ###################################################
-
-    # 項目比較
-    shared_examples_for 'compare_details_view_to_db' do |task|
-      it {
-        # 画面遷移
-        visit(task_path(task))
-
-        # DBからデータ取得
-        # user対応コメントアウト
-        # @db_item = Task.joins(:user).find(@task.id)
-        db_item = Task.find(task.id)
-
-        # 画面の一覧取得
-        view_item = find('div[name="content"]')
-
-        # 項目比較
-        expect(view_item).to(have_content(db_item.title))
-        expect(view_item).to(have_content(db_item.content))
-        expect(view_item).to(have_content(db_item.label))
-        # user対応コメントアウト
-        # expect(@view_item).to(have_content(@db_item.user.name))
-      }
-    end
-
-    # 削除
-    shared_examples_for 'delete_task' do |task|
-      it {
-        # 画面遷移
-        visit(task_path(task))
-
-        # 削除
-        expect { click_on('削除') }.to change(Task, :count).by(-1)
-        expect { Task.find(task.id) }.to raise_error
-
-        ## 以下、confirm対応バージョン
-        ## 現在はエラーが発生するためコメントアウト
-        # click_link '削除'
-        # expect {
-        #     page.accept_confirm '削除しますか？'
-        #     expect(page).to have_content '削除しました'
-        # }.to change { Task.count }.by(-1)
-      }
-    end
-
-    ###################################################
-    # 各テスト
-    ###################################################
-
-    context 'タスク1件' do
-      ### テスト準備
-      # user対応コメントアウト
-      # # User作成
-      # user = User.create!(id: 1, name: 'テスト一郎')
-
-      # Task作成
-      task = nil
-      1.times do |i|
-        # user対応コメントアウト
-        # @task = FactoryBot.create(:task_not_started, user_id: user.id)
-        task = FactoryBot.create(:task_not_started)
+      it '1-1 タイトルが一致すること' do
+        visit task_path(task_one)
+        expect(page).to have_content task_one.title
       end
 
-      ### テスト
-      # 表示確認
-      it_behaves_like 'compare_details_view_to_db', task
-      # 削除確認
-      it_behaves_like 'delete_task', task
-    end
-
-    context 'タスク複数件' do
-      ### テスト準備
-      # user対応コメントアウト
-      # # User作成
-      # user = User.create!(id: 1, name: 'テスト一郎')
-
-      # Task作成
-      task = nil
-      1.times do |i|
-        # user対応コメントアウト
-        # @task = FactoryBot.create(:task_not_started, user_id: user.id)
-        task = FactoryBot.create(:task_not_started)
+      it '1-2 ラベルが一致すること' do
+        visit task_path(task_one)
+        expect(page).to have_content task_one.label
       end
 
-      ### テスト
-      # 表示確認
-      it_behaves_like 'compare_details_view_to_db', task
-      # 削除確認
-      it_behaves_like 'delete_task', task
+      it '1-3 内容が一致すること' do
+        visit task_path(task_one)
+        expect(page).to have_content task_one.content
+      end
+
+      it '1-4 編集ボタン押下で編集画面へ遷移すること' do
+        visit task_path(task_one)
+        click_link '編集', match: :first
+        expect(page).to have_current_path edit_task_path(task_one)
+      end
+
+      it '1-5 削除ボタン押下で項目が削除されること' do
+        visit task_path(task_one)
+        click_on '削除', match: :first
+        expect(Task.find_by(id: task_one.id)).to be_nil
+      end
+
+      it '1-6 一覧へボタン押下でタスク一覧画面へ遷移すること' do
+        visit task_path(task_one)
+        click_on '一覧へ', match: :first
+        expect(page).to have_current_path root_path
+      end
+
     end
+
   end
 
-  ###################################################
-  # タスク編集画面
-  ###################################################
   describe '#edit' do
-    include TaskHelper
 
-    ###################################################
-    # 事前処理
-    ###################################################
+    context '1 初期表示' do
 
-    # 事前処理
-    before do
-    end
+      let(:task_one) { FactoryBot.create(:task_not_started) }
 
-    ###################################################
-    # 共通処理
-    ###################################################
+      it '1-1 タイトルが表示されていること' do
 
-    # 項目比較
-    shared_examples_for 'compare_details_before_to_after' do |task|
-      it {
-        # 画面遷移
-        visit(edit_task_path(task))
+        visit edit_task_path task_one
+        expect(page).to have_field('task[title]', with: task_one.title)
 
-        # 更新
-        if defined? update_task
-          fill_in 'task[title]', with: update_task[:title]
-          fill_in 'task[content]', with: update_task[:content]
-          fill_in 'task[label]', with: update_task[:label]
-          # status対応コメントアウト
-          # select(value = update_task[:status], from: 'task[status]')
-          # user対応コメントアウト
-          # select(value = update_task[:user_name], from: 'task[user_id]')
-          click_button '更新'
-        end
-
-        # user対応コメントアウト
-        # @after_db_item = Task.joins(:user).find(@task.id)
-        after_db_item = Task.find(task.id)
-
-        # 項目比較
-        expect(after_db_item.title).to eq(update_task[:title])
-      }
-    end
-
-    ###################################################
-    # 各テスト
-    ###################################################
-
-    context '初期表示' do
-      # user対応コメントアウト
-      # # User作成
-      # @user1 = User.create!(id: 1, name: 'テスト一郎')
-      # @user2 = User.create!(id: 2, name: 'テスト二郎')
-
-      # Task作成
-      # user対応コメントアウト
-      # task = FactoryBot.create(:task_not_started, user_id: user.id)
-      task = FactoryBot.create(:task_not_started)
-
-      it '各項目にDBの値が表示されていること' do
-        # DBからデータ取得
-        # user対応コメントアウト
-        # before_db_item = Task.joins(:user).find(@task.id)
-        before_db_item = Task.find(task.id)
-
-        # 画面遷移
-        visit(edit_task_path(task))
-
-        # 項目比較
-        expect(page).to(have_field('task[title]', with: before_db_item.title))
-        expect(page).to(have_field('task[content]', with: before_db_item.content))
-        expect(page).to(have_field('task[label]', with: before_db_item.label))
-        # status対応コメントアウト
-        # expect(page).to(have_field('task[status]', with: Task.statuses[before_db_item.status]))
-        # user対応コメントアウト
-        # expect(page).to(have_field('task[user_id]', with: before_db_item.user_id))
       end
+
+      it '1-2 内容が表示されていること' do
+
+        visit edit_task_path task_one
+        expect(page).to have_field('task[content]', with: task_one.content)
+
+      end
+
+      it '1-3 ラベルが表示されていること' do
+
+        visit edit_task_path(task_one)
+        expect(page).to have_field('task[label]', with: task_one.label)
+
+      end
+
     end
 
-    context '全項目変更' do
+    context '2 全項目変更' do
+
+      let(:task_one) { FactoryBot.create(:task_not_started) }
+
       let(:update_task) {
         {
           title: '全項目変更 タイトル',
           content: '全項目変更 内容',
           label: '全項目変更 ラベル',
-          status: '着手中',
-          # user対応コメントアウト
-          # user_id: @user2.id,
-          # user_name: @user2.name,
-          user_id: 2,
-          user_name: 'テスト二郎',
         }
       }
 
-      # user対応コメントアウト
-      # # User作成
-      # @user1 = User.create!(id: 1, name: 'テスト一郎')
-      # @user2 = User.create!(id: 2, name: 'テスト二郎')
+      it '2-1 更新されていること' do
 
-      # Task作成
-      # user対応コメントアウト
-      # task = FactoryBot.create(:task_not_started, user_id: user.id)
-      task = FactoryBot.create(:task_not_started)
+        visit edit_task_path task_one
+        fill_in 'task[title]', with: update_task[:title]
+        fill_in 'task[content]', with: update_task[:content]
+        fill_in 'task[label]', with: update_task[:label]
+        click_button '更新'
+        expect(Task.find_by(title: update_task[:title], content: update_task[:content], label: update_task[:label])).not_to be_nil
 
-      # 表示確認
-      it_behaves_like 'compare_details_before_to_after', task
+      end
+
     end
 
-    context 'タイトルのみ変更' do
+    context '3 タイトルのみ変更' do
+
+      let(:task_one) { FactoryBot.create(:task_not_started) }
+
       let(:update_task) {
         {
           title: '全項目変更 タイトル',
           content: 'こちらはテスト1の内容です。テストテストテストテストテストテストテスト',
           label: 'テスト',
           status: '未着手',
-          # user対応コメントアウト
-          # user_id: @user1.id,
-          # user_name: @user1.name,
           user_id: 1,
           user_name: 'テスト一郎',
         }
       }
 
-      # user対応コメントアウト
-      # # User作成
-      # @user1 = User.create!(id: 1, name: 'テスト一郎')
-      # @user2 = User.create!(id: 2, name: 'テスト二郎')
+      it '3-1 更新されていること' do
 
-      # Task作成
-      # user対応コメントアウト
-      # task = FactoryBot.create(:task_not_started, user_id: user.id)
-      task = FactoryBot.create(:task_not_started)
+        visit edit_task_path task_one
+        fill_in 'task[title]', with: update_task[:title]
+        fill_in 'task[content]', with: update_task[:content]
+        fill_in 'task[label]', with: update_task[:label]
+        click_button '更新'
+        expect(Task.find_by(title: update_task[:title], content: update_task[:content], label: update_task[:label])).not_to be_nil
 
-      # 表示確認
-      it_behaves_like 'compare_details_before_to_after', task
-    end
+      end
 
-    context '内容のみ変更' do
+      end
+
+    context '4 内容のみ変更' do
+
+      let(:task_one) { FactoryBot.create(:task_not_started) }
+
       let(:update_task) {
         {
           title: 'テスト1',
           content: '全項目変更 内容',
           label: 'テスト',
           status: '未着手',
-          # user対応コメントアウト
-          # user_id: @user1.id,
-          # user_name: @user1.name,
           user_id: 1,
           user_name: 'テスト一郎',
         }
       }
 
-      # user対応コメントアウト
-      # # User作成
-      # @user1 = User.create!(id: 1, name: 'テスト一郎')
-      # @user2 = User.create!(id: 2, name: 'テスト二郎')
+      it '4-1 更新されていること' do
 
-      # Task作成
-      # user対応コメントアウト
-      # task = FactoryBot.create(:task_not_started, user_id: user.id)
-      task = FactoryBot.create(:task_not_started)
+        visit edit_task_path task_one
+        fill_in 'task[title]', with: update_task[:title]
+        fill_in 'task[content]', with: update_task[:content]
+        fill_in 'task[label]', with: update_task[:label]
+        click_button '更新'
+        expect(Task.find_by(title: update_task[:title], content: update_task[:content], label: update_task[:label])).not_to be_nil
 
-      # 表示確認
-      it_behaves_like 'compare_details_before_to_after', task
+      end
+
     end
 
-    context 'ラベルのみ変更' do
+    context '5 ラベルのみ変更' do
+
+      let(:task_one) { FactoryBot.create(:task_not_started) }
+
       let(:update_task) {
         {
           title: 'テスト1',
           content: 'こちらはテスト1の内容です。テストテストテストテストテストテストテスト',
           label: '全項目変更 ラベル',
           status: '未着手',
-          # user対応コメントアウト
-          # user_id: @user1.id,
-          # user_name: @user1.name,
           user_id: 1,
           user_name: 'テスト一郎',
         }
       }
-      
-      # user対応コメントアウト
-      # # User作成
-      # @user1 = User.create!(id: 1, name: 'テスト一郎')
-      # @user2 = User.create!(id: 2, name: 'テスト二郎')
 
-      # Task作成
-      # user対応コメントアウト
-      # task = FactoryBot.create(:task_not_started, user_id: user.id)
-      task = FactoryBot.create(:task_not_started)
+      it '5-1 更新されていること' do
 
-      # 表示確認
-      it_behaves_like 'compare_details_before_to_after', task
+        visit edit_task_path task_one
+        fill_in 'task[title]', with: update_task[:title]
+        fill_in 'task[content]', with: update_task[:content]
+        fill_in 'task[label]', with: update_task[:label]
+        click_button '更新'
+        expect(Task.find_by(title: update_task[:title], content: update_task[:content], label: update_task[:label])).not_to be_nil
+
+      end
+
     end
 
-    context 'ステータスのみ変更' do
+    context '6 ステータスのみ変更' do
+
+      let(:task_one) { FactoryBot.create(:task_not_started) }
+
       let(:update_task) {
         {
           title: 'テスト1',
           content: 'こちらはテスト1の内容です。テストテストテストテストテストテストテスト',
           label: 'テスト',
           status: '着手中',
-          # user対応コメントアウト
-          # user_id: @user1.id,
-          # user_name: @user1.name,
           user_id: 1,
           user_name: 'テスト一郎',
         }
       }
-      
-      # user対応コメントアウト
-      # # User作成
-      # @user1 = User.create!(id: 1, name: 'テスト一郎')
-      # @user2 = User.create!(id: 2, name: 'テスト二郎')
 
-      # Task作成
-      # user対応コメントアウト
-      # task = FactoryBot.create(:task_not_started, user_id: user.id)
-      task = FactoryBot.create(:task_not_started)
+      it '6-1 更新されていること' do
 
-      # 表示確認
-      it_behaves_like 'compare_details_before_to_after', task
+        visit edit_task_path task_one
+        fill_in 'task[title]', with: update_task[:title]
+        fill_in 'task[content]', with: update_task[:content]
+        fill_in 'task[label]', with: update_task[:label]
+        click_button '更新'
+        expect(Task.find_by(title: update_task[:title], content: update_task[:content], label: update_task[:label])).not_to be_nil
+
+      end
+
     end
 
-    context 'ユーザのみ変更' do
+    context '7 ユーザのみ変更' do
+
+      let(:task_one) { FactoryBot.create(:task_not_started) }
+
       let(:update_task) {
         {
           title: 'テスト1',
           content: 'こちらはテスト1の内容です。テストテストテストテストテストテストテスト',
           label: 'テスト',
           status: '未着手',
-          # user対応コメントアウト
-          # user_id: @user2.id,
-          # user_name: @user2.name,
           user_id: 2,
           user_name: 'テスト二郎',
         }
       }
-      
-      # user対応コメントアウト
-      # # User作成
-      # @user1 = User.create!(id: 1, name: 'テスト一郎')
-      # @user2 = User.create!(id: 2, name: 'テスト二郎')
+     
+      it '7-1 更新されていること' do
 
-      # Task作成
-      # user対応コメントアウト
-      # task = FactoryBot.create(:task_not_started, user_id: user.id)
-      task = FactoryBot.create(:task_not_started)
+        visit edit_task_path task_one
+        fill_in 'task[title]', with: update_task[:title]
+        fill_in 'task[content]', with: update_task[:content]
+        fill_in 'task[label]', with: update_task[:label]
+        click_button '更新'
+        expect(Task.find_by(title: update_task[:title], content: update_task[:content], label: update_task[:label])).not_to be_nil
 
-      # 表示確認
-      it_behaves_like 'compare_details_before_to_after', task
+      end
+
     end
+
+    context '8 画面遷移' do
+
+      it '8-1 一覧へボタン押下でタスク一覧画面へ遷移すること' do
+
+        visit(new_task_path)
+        click_on '一覧へ', match: :first
+        expect(page).to have_current_path root_path
+
+      end
+
+    end
+
   end
+
 end
