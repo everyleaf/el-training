@@ -2,15 +2,15 @@ class CategoriesController < ApplicationController
   before_action :logged_in_user
 
   def index
-    @categories = @current_user.categories
+    @categories = current_user.categories
 
-    # @current_user.categories.build と書くと
+    # current_user.categories.build と書くと
     # カテゴリ一覧にsave前のカテゴリが表示されてしまう
     @category   = Category.new
   end
 
   def create
-    @category = @current_user.categories.build(category_params)
+    @category = current_user.categories.build(category_params)
     if @category.save
       flash[:success] = I18n.t 'category_create_success'
       redirect_to categories_url

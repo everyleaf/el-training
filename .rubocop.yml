@@ -20,6 +20,8 @@ Metrics/ClassLength:
 
 Metrics/AbcSize:
   Max: 30
+  Exclude:
+    - app/controllers/tasks_controller.rb
 
 Metrics/BlockLength:
   Exclude:

@@ -13,7 +13,7 @@
       <!-- TODO: 更新を押すとフォームに記入したテキストなどの内容が消えてしまう -->
       <%= link_to "更新", request.url  %>
       <%= ")" %>
-      <%= f.collection_select :category_id, @current_user.categories, :id, :name, {include_blank: '選択してください'}  , class: 'form-control' %>
+      <%= f.collection_select :category_id, current_user.categories, :id, :name, {include_blank: '選択してください'}  , class: 'form-control' %>
 
       <%= f.label      :description, class: 'form-label'   %>
       <%= f.text_area  :description, class: 'form-control' %>
