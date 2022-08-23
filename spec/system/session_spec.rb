@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe 'Categories', type: :system do
   describe 'ユーザログイン' do
     let!(:user) { create(:user, email: 'registered_user@example.com') }

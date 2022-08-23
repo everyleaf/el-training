@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe 'Users', type: :system do
   describe 'ユーザの作成' do
     before do
