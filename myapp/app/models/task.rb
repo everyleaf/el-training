@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
-  # 結合キー
-  belongs_to :user
+  # user対応コメントアウト
+  # # 結合キー
+  # belongs_to :user
 
   # ステータスEnum
   enum status: {
