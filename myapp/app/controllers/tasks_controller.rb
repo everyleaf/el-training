@@ -6,7 +6,7 @@ class TasksController < ApplicationController
     # タスク一覧オブジェクト取得
     # user対応コメントアウト
     # @tasks = Task.joins(:user).all
-    @tasks = Task.all
+    @tasks = Task.all.order('tasks.created_at desc')
   end
 
   # タスク作成画面

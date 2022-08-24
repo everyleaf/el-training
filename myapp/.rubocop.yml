@@ -8,6 +8,8 @@ AllCops:
     - 'test/**/*'
     - 'node_modules/**/*'
     - 'config/**/*'
+    - 'spec/rails_helper.rb'
+    - 'spec/spec_helper.rb'
   DisplayCopNames: true
 
 # 日本語のコメント許可
@@ -30,4 +32,7 @@ Style/Documentation:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
+  Enabled: false
+
+RSpec/MultipleExpectations:
   Enabled: false
