@@ -21,6 +21,7 @@
           <!-- <th>担当者</th> -->
           <!-- status対応コメントアウト -->
           <!-- <th>状況</th> -->
+          <th><%= I18n.t('task.created_at') %></th>
           <th></th>
         </tr>
       <thead>
@@ -33,6 +34,7 @@
             <!-- <td><span><%#= task.user.name %></span></td> -->
             <!-- status対応コメントアウト -->
             <!-- <td><span><%#= get_status_view(task.status) %></span></td> -->
+            <td><span><%= l(task.created_at) %></span></td>
             <td><%= link_to(I18n.t('link.detail'), task_path(task)) %></td>
           </tr>
         <% end %>
