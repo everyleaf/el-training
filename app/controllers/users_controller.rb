@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: %i(edit update show destroy index)
-  before_action :correct_user,   only: %i(edit update show)
+  before_action :check_user_permission,   only: %i(edit update show)
   def new
     @user = User.new
   end
@@ -62,11 +62,9 @@ class UsersController < ApplicationController
   end
 
   # ログイン中のユーザが正しいか確認
-  def correct_user
+  def check_user_permission
     user_to_edit = User.find(params[:id])
-    if user_to_edit == current_user # 正しいユーザ
-      true
-    else # 正しくないユーザ
+    if user_to_edit != current_user # 正しくないユーザ
       flash[:danger] = I18n.t 'permission denied'
       redirect_to root_url
     end
