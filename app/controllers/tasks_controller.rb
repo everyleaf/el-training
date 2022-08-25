@@ -87,14 +87,13 @@ class TasksController < ApplicationController
     task = Task.find_by(id: task_id)
     if task.blank?
       flash[:danger] = I18n.t 'task_not_exist'
-      return redirect_to root_url
-
+      redirect_to root_url
     elsif task.user != @current_user
       flash[:danger] = I18n.t 'permission denied'
-      return redirect_to root_url
+      redirect_to root_url
+    else
+      task
     end
-
-    task
   end
 
   def update_filter_params
