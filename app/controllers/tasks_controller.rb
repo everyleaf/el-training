@@ -99,7 +99,6 @@ class TasksController < ApplicationController
     end
   end
 
-  
   def update_filter_params
     if filter_params_all_blank?
       # 検索項目が空のとき、全ての項目にチェックを入れる
