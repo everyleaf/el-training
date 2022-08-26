@@ -11,4 +11,4 @@ user = User.create(name: 'user_0',
                    password_confirmation: 'password',
                    activated: true,
                    activated_at: Time.zone.now)
-Category.create(name: Category::TASK_DEFAULT_BELONG_NAME, user:)
+Category.create(name: Category::DEFAULT_CREATED_CATEGORY, user:)
