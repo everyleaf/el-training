@@ -3,6 +3,6 @@ class AddReferencesToTask < ActiveRecord::Migration[7.0]
     add_reference         :tasks, :category,
                           foreign_key: true,
                           null: false,
-                          default: Category.find_by(name: Catedory::DEFAULT_CREATED_CATEGORY)
+                          default: Category.find_by(name: Category::DEFAULT_CREATED_CATEGORY)
   end
 end
