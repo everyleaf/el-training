@@ -1,7 +1,6 @@
 module CreateTestTasksSupport
-  def create_random_tasks_num(num)
+  def create_random_tasks_num(num, category)
     today = Time.zone.today
-    category = create(:category)
     # テスト用データの作成
     num.times do |n|
       name = "test_task_#{n}"

@@ -2,14 +2,16 @@ require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :system do
   include CreateTestTasksSupport
+  include LoginSupport
+
+  let!(:user) { create(:user) }
+  let!(:category) { create(:category, user:) }
+
   describe 'タスクの作成' do
     let(:today) { Time.zone.today }
-    let!(:category) { create(:category) }
 
     before do
-      # タスク一覧ページを表示
-      visit tasks_path
-
+      login_as(user)
       # 作成リンクをクリック
       click_on 'タスクを作成'
     end
@@ -58,14 +60,14 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'タスクの更新' do
-    let(:task) { create(:task) }
+    let!(:task) { create(:task, category:) }
 
     before do
-      # 詳細ページに移動
-      visit task_path(task)
+      login_as(user)
 
-      # 編集ページに遷移
-      click_link '編集'
+      # 詳細ページに移動
+      click_on task.name
+      click_on '編集'
     end
 
     context 'Nameを書き換えて更新したとき' do
@@ -96,11 +98,12 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'タスクの削除' do
-    let(:task) { create(:task) }
+    let!(:task) { create(:task, category:) }
 
     before do
+      login_as(user)
       # 詳細ページに移動
-      visit task_path(task)
+      click_on task.name
     end
 
     context '削除ボタンを押したとき' do
@@ -121,15 +124,13 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'タスクの並び替え' do
-    let!(:category) { create(:category) }
-
+    let!(:category) { create(:category, user:) }
     before do
-      # タスク一覧ページを表示
-      visit tasks_path
       # テストデータ
       create(:task, name: 'a', priority: 2, category:)
       create(:task, name: 'b', priority: 0, category:)
       create(:task, name: 'c', priority: 1, category:)
+      login_as(user)
     end
 
     context '並び替えたいパラメータを1回だけ選択すると' do
@@ -169,26 +170,11 @@ RSpec.describe 'Tasks', type: :system do
     let(:today) { Time.zone.today }
     let(:test_size) { 55 }
     let(:tasks_num_per_page) { TasksController::TASKS_NUM_PER_PAGE }
-    let(:category) { create(:category) }
 
     before do
       # テスト用データの作成
-      test_size.times do |n|
-        name           = "test_task_#{n}"
-        start_date     = rand(today..(today + 365))
-        necessary_days = rand(1..50)
-        priority       = rand(0..2)
-        progress       = rand(0..2)
-
-        create(:task, name:,
-                      category:,
-                      start_date:,
-                      necessary_days:,
-                      priority:,
-                      progress:)
-      end
-      # タスク一覧ページを表示
-      visit tasks_path
+      create_random_tasks_num(test_size, category)
+      login_as(user)
     end
 
     context '検索ワードに当てはまるタスクがないとき' do
@@ -244,9 +230,9 @@ RSpec.describe 'Tasks', type: :system do
     let(:test_size) { 55 }
 
     before do
-      create_random_tasks_num test_size
+      create_random_tasks_num(test_size, category)
       # タスク一覧ページを表示
-      visit tasks_path
+      login_as(user)
     end
 
     context 'indexページを開いたとき' do
@@ -267,16 +253,12 @@ RSpec.describe 'Tasks', type: :system do
   end
 
   describe 'タスクのフィルタリング' do
-    let!(:category) { create(:category) }
-
     before do
-      # タスク一覧ページを表示
-      visit tasks_path
-
       # テストデータ
       create(:task, name: 'a', priority: 0, progress: 0, category:)
       create(:task, name: 'b', priority: 1, progress: 1, category:)
       create(:task, name: 'c', priority: 2, progress: 2, category:)
+      login_as(user)
     end
 
     context 'フィルタリング条件に該当するタスクが存在するとき' do
@@ -289,6 +271,8 @@ RSpec.describe 'Tasks', type: :system do
         # task 'a' のみが条件に当てはまる
 
         click_on('フィルタリング')
+
+        sleep 1
 
         # 表示されているタスクを取得
         tasks = page.all('.task')

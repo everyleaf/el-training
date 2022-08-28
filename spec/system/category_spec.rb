@@ -1,8 +1,15 @@
+require 'rails_helper'
+
 RSpec.describe 'Categories', type: :system do
+  include LoginSupport
+
+  let!(:user) { create(:user) }
+
   describe 'カテゴリの作成' do
     let!(:user) { create(:user) }
     before do
-      visit categories_path
+      login_as(user)
+      click_on 'カテゴリ一覧'
     end
 
     context 'カテゴリ名を入力して作成ボタンを押したとき' do
@@ -46,11 +53,11 @@ RSpec.describe 'Categories', type: :system do
   end
 
   describe 'カテゴリの編集' do
-    let!(:user) { create(:user) }
     let!(:category) { create(:category, name: 'test_category', user:) }
 
     before do
-      visit categories_path
+      login_as(user)
+      click_on 'カテゴリ一覧'
     end
 
     context 'カテゴリ名を正常に更新したとき' do
@@ -94,9 +101,10 @@ RSpec.describe 'Categories', type: :system do
   end
 
   describe 'カテゴリの削除' do
-    let!(:category) { create(:category, name: 'test_category') }
+    let!(:category) { create(:category, name: 'test_category', user:) }
     before do
-      visit categories_path
+      login_as(user)
+      click_on 'カテゴリ一覧'
     end
 
     context '削除を押したとき' do
@@ -120,13 +128,14 @@ RSpec.describe 'Categories', type: :system do
   end
 
   context 'タスクを子に持つカテゴリを削除したとき' do
-    let!(:category) { create(:category, name: 'test_category') }
+    let!(:category) { create(:category, name: 'test_category', user:) }
     before do
+      login_as(user)
       create(:task, category:)
     end
 
     it '削除に失敗する' do
-      visit categories_path
+      click_on 'カテゴリ一覧'
 
       id = category.id
 

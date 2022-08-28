@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :logged_in_user, only: %i(edit update show destroy index)
+  before_action :check_user_permission, only: %i(edit update show)
   def new
     @user = User.new
   end
@@ -15,6 +17,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = I18n.t 'user_create_success'
+      Category.create(name: Category::DEFAULT_CREATED_CATEGORY, user: @user)
+      log_in @user
       redirect_to tasks_url
     else
       flash.now[:danger] = I18n.t 'user_create_failed'
@@ -55,5 +59,14 @@ class UsersController < ApplicationController
                                  :email,
                                  :password,
                                  :password_confirmation)
+  end
+
+  # ログイン中のユーザが正しいか確認
+  def check_user_permission
+    user_to_edit = User.find(params[:id])
+    return if user_to_edit == current_user # 正しいユーザ
+
+    flash[:danger] = I18n.t 'permission denied' # 正しくないユーザ
+    redirect_to root_url
   end
 end

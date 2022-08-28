@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
-  belongs_to :category, default: -> { Category.find_by(name: Category::TASK_DEFAULT_BELONG_NAME) }
+  belongs_to :category
+  has_one    :user, through: :category
 
   validates :name,           presence: true
   validates :start_date,     presence: true
@@ -33,7 +34,7 @@ class Task < ApplicationRecord
     elsif option == 'perfect_match'
       where(name:)
     else # partial_match
-      where('name LIKE ?', "%#{name}%")
+      where('tasks.name LIKE ?', "%#{name}%")
     end
   }
 end

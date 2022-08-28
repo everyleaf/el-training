@@ -13,8 +13,16 @@
   <span>
     <%= link_to I18n.t('categories_index'),
                 categories_url,
-                class:"btn btn-primary"  %>
+                class:"btn btn-primary" %>
   </span>
+  <% if logged_in? %>
+  <span>
+    <%= button_to "Log out",
+                logout_path,
+                method: :delete,
+                class:"btn btn-danger"%>
+  </span>
+  <% end %>
 </div>
 
 <br>
