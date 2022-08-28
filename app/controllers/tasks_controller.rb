@@ -21,6 +21,8 @@ class TasksController < ApplicationController
     @task = find_task_with_err_handling(params[:id])
   end
 
+  # TODO: タスクのソートをメソッド分割
+  # rubocop:disable Metrics/AbcSize
   def index
     # 現在ログイン中のユーザのタスクを取得
     tasks = current_user.tasks.preload(:category).all # N+1対策でpreloadを使用
@@ -40,6 +42,7 @@ class TasksController < ApplicationController
     sorted_tasks  = filtered_tasks.order("#{@sort_by} #{@direction}")
     @tasks        = sorted_tasks.page(params[:page]).per(TASKS_NUM_PER_PAGE)
   end
+  # rubocop:enable Metrics/AbcSize
 
   def destroy
     @task = find_task_with_err_handling(params[:id])
@@ -87,14 +90,13 @@ class TasksController < ApplicationController
     task = Task.find_by(id: task_id)
     if task.blank?
       flash[:danger] = I18n.t 'task_not_exist'
-      return redirect_to root_url
-
+      redirect_to root_url
     elsif task.user != @current_user
       flash[:danger] = I18n.t 'permission denied'
-      return redirect_to root_url
+      redirect_to root_url
+    else
+      task
     end
-
-    task
   end
 
   def update_filter_params

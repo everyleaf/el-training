@@ -22,5 +22,5 @@ module SessionsHelper
     session.delete(:user_id)
     @current_user = nil
   end
-  # rubocop:enable all
+  # rubocop:enable Rails/HelperInstanceVariable
 end
