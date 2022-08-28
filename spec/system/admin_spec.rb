@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'admin page', type: :system do
-  let(:admin_user) {create(:user, name:  'admin',
-                                  email: 'admin@example.com')}
+  let(:admin_user) {
+    create(:user, name: 'admin',
+                  email: 'admin@example.com')
+  }
   before do
     5.times do |user_idx|
       create(:user, name: "user_#{user_idx}",
@@ -14,7 +16,6 @@ RSpec.describe 'admin page', type: :system do
   end
 
   describe 'adminページトップ' do
-
     before do
       visit admin_index_path
     end
@@ -43,7 +44,7 @@ RSpec.describe 'admin page', type: :system do
         expect(page).to have_content("user_#{id}")
 
         # ユーザに割り当てられた削除ボタンを押す
-        find(".delete_user_#{id}").click 
+        find(".delete_user_#{id}").click
 
         # 確認のポップアップが表示される
         expect(page.accept_confirm).to eq '本当に削除しますか?'
