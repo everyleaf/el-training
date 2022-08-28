@@ -25,7 +25,7 @@
         <td class="align-middle"><%= user.categories.size %></td>
         <td class="align-middle"><%= user.tasks.size %></td>
         <td class="align-middle"> 
-          <%= button_to I18n.t('delete'), user, method: :delete, class: "btn btn-link",
+          <%= button_to I18n.t('delete'), user, method: :delete, class: "btn btn-link delete_user_#{user.id}",
                 form: {data: {turbo_confirm: I18n.t('message_before_delete')} } %>
         </td>
       </tr>
