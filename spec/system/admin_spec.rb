@@ -30,7 +30,7 @@ RSpec.describe 'admin page', type: :system do
 
     context '削除ボタンを押したとき' do
       it 'ユーザが削除される' do
-        id = User.find_by(name: "user_0").id
+        id = User.find_by(name: 'user_0').id
 
         # 削除するユーザ
         expect(page).to have_content("user_#{id}")
@@ -67,13 +67,13 @@ RSpec.describe 'admin page', type: :system do
     context '削除ボタンを押したとき' do
       it 'ユーザが削除される' do
         # 削除するユーザ
-        id = User.find_by(name: "user_0").id
+        id = User.find_by(name: 'user_0').id
 
         # 詳細ページへ移動
         visit admin_path(id)
 
         # ユーザに割り当てられた削除ボタンを押す
-        click_on "ユーザを削除"
+        click_on 'ユーザを削除'
 
         # 確認のポップアップが表示される
         expect(page.accept_confirm).to eq '本当に削除しますか?'
