@@ -46,10 +46,8 @@ class UsersController < ApplicationController
     end
 
     if @user.destroy
-      Rails.logger.debug I18n.t 'user_delete_success'
       flash[:success] = I18n.t 'user_delete_success'
     else
-      Rails.logger.debug I18n.t 'user_delete_failed'
       flash[:danger] = I18n.t 'user_delete_failed'
     end
 
