@@ -5,7 +5,7 @@ class AccountActivationsController < ApplicationController
 
       user.activate
       flash[:info] = I18n.t 'user_create_success'
-      Category.create(name: DEFAULT_CREATED_CATEGORY, user:)
+      Category.create(name: Category::DEFAULT_CREATED_CATEGORY, user:)
       log_in user
       redirect_to tasks_url
     else

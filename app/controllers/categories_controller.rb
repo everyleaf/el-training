@@ -74,7 +74,7 @@ class CategoriesController < ApplicationController
   end
 
   def operation_allowed?(category)
-    if category.name == '未分類'
+    if category.name == Category::DEFAULT_CREATED_CATEGORY
       flash[:danger] = I18n.t 'operation_not_allowed'
       return false
     end
