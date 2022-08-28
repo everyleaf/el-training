@@ -1,4 +1,6 @@
 class AdminController < ApplicationController
+  # TODO: ユーザにロールを追加後、before_actionでcurrent_userがadminユーザか確認
+
   include TasksHelper
   def index
     # preloadを使用してN+1問題に対応
