@@ -1,17 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe 'admin page', type: :system do
+  let(:admin_user) {create(:user, name:  'admin',
+                                  email: 'admin@example.com')}
+  before do
+    5.times do |user_idx|
+      create(:user, name: "user_#{user_idx}",
+                    email: "user_#{user_idx}@example.com",
+                    password: 'password',
+                    password_confirmation: 'password')
+    end
+    login_as(admin_user)
+  end
+
   describe 'adminページトップ' do
-    let(:admin_user) {create(:user, name:  'admin',
-                                    email: 'admin@example.com')}
+
     before do
-      5.times do |user_idx|
-        create(:user, name: "user_#{user_idx}",
-                      email: "user_#{user_idx}@example.com",
-                      password: 'password',
-                      password_confirmation: 'password')
-      end
-      login_as(admin_user)
       visit admin_index_path
     end
 
