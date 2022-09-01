@@ -1,6 +1,8 @@
 class Task < ApplicationRecord
   belongs_to :category
-  has_one    :user, through: :category
+  has_one    :user,         through: :category
+  has_many   :label_tables, dependent: :destroy
+  has_many   :labels,       through: :label_tables
 
   validates :name,           presence: true
   validates :start_date,     presence: true
