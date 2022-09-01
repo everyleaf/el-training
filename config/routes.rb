@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :tasks
   resources :users
   resources :categories, only: %i(index create destroy edit update)
-  resources :labels, only: :index
+  resources :labels,     only: %i(index create)
   root 'sessions#new'
 
   get    '/login',   to: 'sessions#new'
