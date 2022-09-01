@@ -28,6 +28,21 @@ class LabelsController < ApplicationController
     redirect_to labels_url
   end
 
+  def edit
+    @label = find_label_with_err_handling(params[:id])
+  end
+
+  def update
+    @label = find_label_with_err_handling(params[:id])
+    if @label.update(label_params)
+      flash[:success] = I18n.t 'label_update_success'
+      redirect_to labels_url
+    else
+      flash[:danger] = I18n.t 'label_update_failed'
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def label_params

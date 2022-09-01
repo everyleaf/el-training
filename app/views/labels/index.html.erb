@@ -18,7 +18,7 @@
         <%= l.name %>
       </span>
       <span>
-      <%= link_to '名前を変更', '' , class: "edit_label_#{l.id}"%>
+        <%= link_to '名前を変更', edit_label_path(l), class: "edit_label_#{l.id}"%>
       </span>
       <span>
         <%= button_to '削除', l, method: :delete,class: "delete_label_#{l.id}",
