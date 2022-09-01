@@ -34,8 +34,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_091725) do
 
   create_table "labels", force: :cascade do |t|
     t.string "name"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_labels_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -57,15 +59,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_091725) do
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "activation_digest"
-    t.boolean "activated", default: false
-    t.datetime "activated_at", precision: nil
-    t.integer "role", default: 1, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "categories", "users"
   add_foreign_key "label_tables", "labels"
   add_foreign_key "label_tables", "tasks"
+  add_foreign_key "labels", "users"
   add_foreign_key "tasks", "categories"
 end

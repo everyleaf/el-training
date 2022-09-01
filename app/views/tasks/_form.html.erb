@@ -44,7 +44,7 @@
 
       <%= f.label :label, class: 'form-label' %>
       <div>
-        <%= f.collection_check_boxes :label_ids, Label.all, :id, :name do |l| %>
+        <%= f.collection_check_boxes :label_ids, current_user.labels, :id, :name do |l| %>
           <%= l.label(class: "checkbox") { l.check_box + l.text } %>
         <% end %>
       </div>
