@@ -4,6 +4,13 @@
   <%= link_to I18n.t('tasks_index'), tasks_url %>
 </div>
 
+<%= form_for(@label) do |f| %>
+  <%= f.label      :name %>
+  <%= f.text_field :name, class: 'form-control' %>
+
+  <%= f.submit '作成', class: "btn btn-primary" %>
+<% end %>
+
 <ul class="labels">
   <% @labels.each do |l| %>
     <div>
