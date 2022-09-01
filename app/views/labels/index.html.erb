@@ -1,0 +1,24 @@
+<h1><%= Label.model_name.human %></h1>
+
+<div>
+  <%= link_to I18n.t('tasks_index'), tasks_url %>
+</div>
+
+<ul class="labels">
+  <% @labels.each do |l| %>
+    <div>
+      <span>
+        <%= l.name %>
+      </span>
+      <% unless l.operation_prohibited? %>
+        <span>
+        <%= link_to '名前を変更', edit_label_path(l), class: "edit_label_#{l.id}"%>
+        </span>
+        <span>
+        <%= button_to '削除', l, method: :delete,class: "delete_label_#{l.id}",
+                      form: {data: {turbo_confirm: I18n.t('message_before_delete')} }%>
+        </span>
+      <% end %>
+    </div>
+  <% end %>
+</ul>
