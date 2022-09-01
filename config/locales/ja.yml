@@ -18,6 +18,15 @@ ja:
   category_not_exist:      "該当するカテゴリが存在しません"
   operation_not_allowed:   "このカテゴリへの操作は禁止されています"
 
+  # フラッシュメッセージ : ラベル
+  label_create_success: "ラベルを作成しました"
+  label_create_failed:  "ラベルの作成に失敗しました"
+  label_update_success: "ラベルを更新しました"
+  label_update_failed:  "ラベルの更新に失敗しました"
+  label_delete_success: "ラベルを削除しました"
+  label_delete_failed:  "ラベルの削除に失敗しました"
+  label_not_exist:      "該当するラベルが存在しません"
+
   # フラッシュメッセージ : ユーザ
   user_create_success: "ユーザを作成しました"
   user_create_failed:  "ユーザの作成に失敗しました"
