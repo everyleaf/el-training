@@ -21,7 +21,8 @@
       <%= link_to '名前を変更', '' , class: "edit_label_#{l.id}"%>
       </span>
       <span>
-      <%= button_to '削除'%>
+        <%= button_to '削除', l, method: :delete,class: "delete_label_#{l.id}",
+                      form: {data: {turbo_confirm: I18n.t('message_before_delete')} }%>
       </span>
     </div>
   <% end %>
