@@ -41,6 +41,13 @@
           <%= b.label(class: "radio") { b.radio_button + b.text } %>
         <% end %>
       </div>
+
+      <%= f.label :label, class: 'form-label' %>
+      <div>
+        <%= f.collection_check_boxes :label_ids, Label.all, :id, :name do |l| %>
+          <%= l.label(class: "checkbox") { l.check_box + l.text } %>
+        <% end %>
+      </div>
     </div>
   </div>
   <div class = "row">
