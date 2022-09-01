@@ -3,6 +3,6 @@
 
   <%= form_with url: tasks_path, method: :get, local: true do |f| %>
     <%= f.select "label_id", current_user.labels.pluck(:name, :id), { prompt: @filter_label }, class: "search-item"  %>
-    <%= f.submit '検索', name: nil, class: 'btn btn-primary search-item' %>
+    <%= f.submit 'ラベルで検索', name: nil, class: 'btn btn-primary search-item' %>
   <% end %>
 </div>
