@@ -36,10 +36,13 @@ class TasksController < ApplicationController
     update_filter_params
     filtered_tasks = searched_tasks.filter_from_checkbox(filter_params_all_blank?, @filter_priority, @filter_progress)
 
+    update_label_filter
+    filtered_by_label = filtered_tasks.filter_by_label(params[:label_id])
+
     # タスクのソート(デフォルトは作成日の昇順)
     @sort_by      = params[:sort].presence      || 'created_at'
     @direction    = params[:direction].presence || 'ASC'
-    sorted_tasks  = filtered_tasks.order("#{@sort_by} #{@direction}")
+    sorted_tasks  = filtered_by_label.order("#{@sort_by} #{@direction}")
     @tasks        = sorted_tasks.page(params[:page]).per(TASKS_NUM_PER_PAGE)
   end
   # rubocop:enable Metrics/AbcSize
@@ -110,6 +113,11 @@ class TasksController < ApplicationController
       @filter_priority = params.dig(:filter, :priority)
       @filter_progress = params.dig(:filter, :progress)
     end
+  end
+
+  def update_label_filter
+    label = Label.find_by(id: params[:label_id])
+    @filter_label = label.present? ? label.name : '選択してください'
   end
 
   def filter_params_all_blank?

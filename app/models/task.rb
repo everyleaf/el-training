@@ -30,6 +30,14 @@ class Task < ApplicationRecord
     end
   }
 
+  scope :filter_by_label, ->(label_id) {
+    if label_id.present?
+      joins(:labels).where(labels: { id: label_id })
+    else
+      all
+    end
+  }
+
   scope :search_task, ->(name, option) {
     if name.blank?
       all
