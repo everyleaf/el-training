@@ -1,0 +1,142 @@
+# RuboCop 万葉標準設定（Railsアプリ用）
+# - 各Copごとの設定は、グループ別に、アルファベット順に記述してください。
+#
+# Copyright 株式会社万葉
+
+require:
+  - rubocop-rails
+
+AllCops:
+  NewCops: enable
+  Exclude: # 自動生成ファイルを除外する
+    - 'Gemfile'
+    - 'bin/*'
+    - 'db/schema.rb'
+    - 'config/puma.rb'
+    - 'Rakefile'
+    - 'vendor/**/*'
+
+Layout/AccessModifierIndentation:
+  Enabled: false
+Layout/BeginEndAlignment:
+  Enabled: false
+Layout/DotPosition:
+  Enabled: false
+Layout/EndAlignment:
+  Enabled: false
+Layout/ExtraSpacing:
+  Exclude:
+    - 'db/migrate/**/*'
+Layout/HashAlignment:
+  Enabled: false
+Layout/LineContinuationLeadingSpace:
+  Enabled: false
+Layout/LineLength:
+  Max: 160
+Layout/SpaceBeforeFirstArg:
+  Exclude:
+    - 'db/migrate/**/*'
+Metrics/AbcSize:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+Metrics/BlockNesting:
+  Enabled: false
+Metrics/ClassLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
+Metrics/ParameterLists:
+  Max: 7
+  MaxOptionalParameters: 7
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Exclude:
+    - 'app/controllers/**/*'
+Naming/PredicateName:
+  NamePrefix:
+    - is_
+  ForbiddenPrefixes:
+    - is_
+Style/GuardClause:
+  Enabled: false
+Style/BlockDelimiters:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/ConditionalAssignment:
+  Enabled: false
+Style/DoubleNegation:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/EmptyElse:
+  Enabled: false
+Style/EmptyMethod:
+  Enabled: false
+Style/FetchEnvVar:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/GlobalStdStream:
+  Enabled: false
+Style/HashLikeCase:
+  Enabled: false
+Style/HashSyntax:
+  EnforcedShorthandSyntax: either
+Style/IfInsideElse:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Style/Lambda:
+  Enabled: false
+Style/NegatedIf:
+  Enabled: false
+Style/NumericPredicate:
+  Enabled: false
+Style/OptionalBooleanParameter:
+  Enabled: false
+Style/QuotedSymbols:
+  Enabled: false
+Style/StringLiterals:
+  Enabled: false
+Style/StringLiteralsInInterpolation:
+  Enabled: false
+Style/SymbolArray:
+  Enabled: false
+Style/TrailingCommaInArguments:
+  Enabled: false
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+Style/ZeroLengthPredicate:
+  Enabled: false
+Style/WordArray:
+  Enabled: false
+
+# rubocop-rails
+Rails/ActiveRecordCallbacksOrder:
+  Enabled: false
+Rails/Blank:
+  UnlessPresent: false
+Rails/BulkChangeTable:
+  Enabled: false
+Rails/Delegate:
+  Enabled: false
+Rails/I18nLocaleTexts:
+  Enabled: false
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+Rails/NotNullColumn:
+  Enabled: false
+Rails/SkipsModelValidations:
+  Enabled: false
+Rails/WhereExists:
+  Enabled: false
