@@ -1,0 +1,23 @@
+# RuboCop 万葉標準設定（RSpec）
+# - 各Copごとの設定は、グループ別に、アルファベット順に記述してください。
+#
+# Copyright 株式会社万葉
+
+require:
+  - rubocop-rspec
+
+RSpec/ContextWording:
+  Enabled: false
+RSpec/ExampleLength:
+  Enabled: false
+RSpec/InstanceVariable:
+  Exclude:
+    - 'spec/views/**/*'
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+RSpec/NestedGroups:
+  Max: 5
+RSpec/ScatteredSetup:
+  Enabled: false
