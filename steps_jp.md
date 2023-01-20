@@ -344,7 +344,8 @@ chrome://extensions/ を開いて右上のDeveloper modeをオンにして、RKG
   - dockerを利用して研修を行う場合、以下の設定が必要です。
     1. [Dockerfile](https://qiita.com/ngron/items/f61b8635b4d67f666d75#failed-to-read-the-sessionstorage-property-from-window-storage-is-disabled-inside-data-urls)
     2. [spec/rails_helper.rb](https://commis.hatenablog.com/entry/2018/11/16/171608)
-    3. （Mac M1チップの方のみ）docker-composeファイルのchrome部分をこう書き換えてください。
+    3. （Mac M1チップの方のみ）selenium/standalone-chromeはm1 macで動かないので、
+        `docker-compose.yml`ファイルの`chrome:`部分をこう書き換えてください。
         ```yml
         chrome:
           image: seleniarm/standalone-chromium
