@@ -9,6 +9,7 @@ services:
       - "3306:3306"
     volumes:
       - ./tmp/db:/var/lib/mysql
+    platform: linux/amd64
 
   web:
     build: .
@@ -19,3 +20,4 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    platform: linux/amd64
