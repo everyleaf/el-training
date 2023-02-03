@@ -74,7 +74,7 @@ has_many->tasks_labels
 | ---- | ---- | ---- |
 | index_labels_on_name | name | 1 |
 
-## ・tasks_labels 
+## ・task_labels 
 belongs_to->tasks  
 belongs_to->labels
   
@@ -90,5 +90,5 @@ belongs_to->labels
 ### index
 | インデックス名 | カラム | フィールド番号 
 | ---- | ---- | ---- |
-| index_tasks_labels_on_task_id | task_id | 1 |
-| index_tasks_labels_on_label_id | label_id | 1 |
+| index_task_labels_on_task_id | task_id | 1 |
+| index_task_labels_on_label_id | label_id | 1 |
