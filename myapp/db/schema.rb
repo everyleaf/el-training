@@ -20,8 +20,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_03_070748) do
   end
 
   create_table "task_labels", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "task_id", null: false
-    t.integer "label_id", null: false
+    t.bigint "task_id", null: false
+    t.bigint "label_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["label_id"], name: "index_task_labels_on_label_id"
@@ -29,7 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_03_070748) do
   end
 
   create_table "tasks", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "owner_id", null: false
+    t.bigint "owner_id", null: false
     t.string "status", null: false, comment: "[\"waiting\", \"doing\", \"completed\"]"
     t.string "title", null: false
     t.integer "priority", limit: 1, null: false, comment: "{1: \"high\", 2: \"middle\", 3: \"low\"}"
