@@ -6,45 +6,18 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: root
     ports:
-      - "3316:3306"
+      - "3306:3306"
     volumes:
-      - db-data:/var/lib/mysql
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+      - ./tmp/db:/var/lib/mysql
+    platform: linux/amd64
 
-  api:
+  web:
     build: .
-    command: >
-      bash -c "bundle install &&
-      yarn install &&
-      bundle exec rails webpacker:install &&
-      bundle exec rails db:create &&
-      bundle exec rails db:migrate &&
-      rm -f tmp/pids/server.pid &&
-      bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/myapp
-      - bundle-install:/usr/local/bundle:delegated
-      - node_modules:/myapp/node_modules:delegated
     ports:
-      - "3001:3000"
-    links:
-      - db
+      - "3000:3000"
     depends_on:
-      - chrome # Link to the chrome container
-    environment: # environment configs for config/database.yml, change here if you want to change db user and password
-      DB_USER: root
-      DB_NAME: myapp
-      DB_PASSWORD: password
-      DB_HOST: db
-
-  chrome:
-    image: selenium/standalone-chrome:latest
-    ports:
-      - 4444:4444
-
-volumes:
-  db-data:
-    driver: local
-  bundle-install:
-    driver: local
-  node_modules:
+      - db
+    platform: linux/amd64
