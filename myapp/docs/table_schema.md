@@ -32,7 +32,7 @@ has_many->tasks_labels
 | status | ステータス | varchar | - | - | - | × | ["waiting", "doing", "completed"] | 
 | title | タスク名 | varchar | - | - | - | × | |
 | priority | タスク優先度 | tiny int | - | - | - | × | {1: "high", 2: "middle", 3: "low"} |
-| description | タスクの説明文 | text | - | - | "" | × | |
+| description | タスクの説明文 | text | - | - | - | × | |
 | expires_at | タスク終了時刻 | datetime | - | - | null | ○ |  |
 | created_at | 作成時刻 | datetime | - | - | - | × |  |
 | updated_at | 更新時刻 | datetime | - | - | - | × |  |
@@ -46,8 +46,6 @@ has_many->tasks_labels
 | index_tasks_on_owner_id_and_status | status | 2 |
 | index_tasks_on_owner_id_and_title | owner_id | 1 |
 | index_tasks_on_owner_id_and_title | title | 2 |
-| index_tasks_on_owner_id_and_description | owner_id | 1 |
-| index_tasks_on_owner_id_and_description | description | 2 |
 | index_tasks_on_owner_id_and_priority | owner_id | 1 |
 | index_tasks_on_owner_id_and_priority | priority | 2 |
 | index_tasks_on_owner_id_and_expires_at | owner_id | 1 |
