@@ -5,8 +5,8 @@
 #  id         :bigint           not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  label_id   :bigint           not null
-#  task_id    :bigint           not null
+#  label_id   :integer          not null
+#  task_id    :integer          not null
 #
 # Indexes
 #
