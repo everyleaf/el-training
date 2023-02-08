@@ -1,0 +1,51 @@
+name: Test
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:14.4
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_PASSWORD: "${{ env.PGPASSWORD }}"
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      RAILS_ENV: test
+      PGUSER: postgres
+      PGPASSWORD: password
+      PGHOST: 127.0.0.1
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: DB create
+        run: bin/rails db:create
+      - name: DB migrate
+        run: bin/rails db:migrate
+      - name: Run test
+        run: bundle exec rspec
+      - name: Notify Slack when job failed
+        if: ${{ failure() }}
+        uses: slackapi/slack-github-action@v1.18.0
+        with:
+          payload: |
+            {
+              "url": "${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}"
+            }
+    timeout-minutes: 10
