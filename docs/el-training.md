@@ -151,8 +151,9 @@
 - Linter・Formatter として RuboCop を設定しましょう
   - 社内で広く使われている RuboCop の設定があれば、それを利用するか検討しましょう
   - 本研修カリキュラムのおすすめの設定を使っていただくこともできます。利用方法については [rubocop ディレクトリ](../rubocop)のREADMEを参照してください。
-- (サポーターに依頼)PR作成時に RuboCop が実行されるように、Circle CI を設定してもらいましょう
-  - CIの初期設定はカリキュラムで学んで欲しい項目からやや外れているため、サポーターがCIを設定するようにしてください
+- (サポーターに依頼)push時に RuboCop が実行されるように、GitHub Actions を設定してもらいましょう
+  - GitHub Actions の設定はカリキュラムで学んで欲しい項目からやや外れているため、サポーターが設定するようにしてください
+  - 設定の参考: https://github.com/everyleaf/el-training/tree/master/github_actions/.github/workflows/lint.yml
 - 以降、コーディング規約はサポーター・レビュワーと相談しながら必要に応じて更新していきましょう
 
 ### ステップ7: タスクモデルを作成しよう
@@ -225,8 +226,9 @@
 - model specをバリデーションに対して書いてみましょう
   - 実際はそれほどバリデーションのテストは書きませんが、model spec への理解を深めるためにやってみましょう
 - system specをタスク機能に対して書いてみましょう
-- Circle CI に RSpec を連携し、Slackに通知するようにしましょう
+- RuboCopの結果をSlackに通知するようにGitHub Actionsに設定しましょう
   - ステップ6と同様、サポーターが実施する形でも構いません
+  - 設定の参考: https://github.com/everyleaf/el-training/tree/master/github_actions/.github/workflows/test.yml
 - 参考書籍：https://leanpub.com/everydayrailsrspec-jp
 
 ### ステップ11: アプリの日本語部分を共通化しよう
