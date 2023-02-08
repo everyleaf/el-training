@@ -26,7 +26,7 @@ class TasksController < ApplicationController
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
-    @task.owner_id = 1
+    @task.owner_id = 1 # TODO ログイン機能実装後に修正する
     @now = Time.new
     @task.created_at = @now
     @task.updated_at = @now

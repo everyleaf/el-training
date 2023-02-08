@@ -12,13 +12,30 @@
   <% end %>
 
   <div>
-  <%= form_with model: @task do |form| %>
-    title: <%= form.text_field :title %><br>
-    description: <%= form.text_area :description %><br>
-    priority: <%= form.select :priority, @task_priority_list %><br>
-    status: <%= form.select :status, @task_status_list %><br>
-    expires date: <%= form.date_field :expires_at %><br> 
-    <%= form.submit %><br>
-  <% end %>
+    <%= form_with model: @task do |form| %>
+      <table>
+        <tr>
+          <td>title:</td>
+          <td><%= form.text_field :title %></td>
+        </tr>
+        <tr>
+          <td>description:</td>
+          <td><%= form.text_area :description %></td>
+        </tr>
+        <tr>
+          <td>priority:</td> 
+          <td><%= form.select :priority, @task_priority_list %></td>
+        </tr>
+        <tr>
+          <td>status:</td>
+          <td><%= form.select :status, @task_status_list %></td>
+        </tr>
+        <tr>
+          <td>expires date:</td> 
+          <td><%= form.date_field :expires_at %></td> 
+        </tr>
+      </table>
+      <%= form.submit %>
+    <% end %>
   </div>
 <% end %>
