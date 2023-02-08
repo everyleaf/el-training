@@ -24,4 +24,5 @@
 #  index_tasks_on_owner_id_and_title                  (owner_id,title)
 #
 class Task < ApplicationRecord
+    enum priority: { high: 1, middle: 2, low: 3}
 end
