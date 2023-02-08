@@ -4,7 +4,7 @@ class CreateTasks < ActiveRecord::Migration[7.0]
       t.bigint :owner_id, foreign_key: true, null: false
       t.string :status, null: false, comment: '["waiting", "doing", "completed"]'
       t.string :title, null: false
-      t.integer :priority, limit: 1, null: false, comment: '{1: "high", 2: "middle", 3: "low"}'
+      t.integer :priority, limit: 1, null: false, comment: '{0: "high", 1: "middle", 2: "low"}'
       t.text :description, null: false
       t.datetime :expires_at
       t.datetime :deleted_at
