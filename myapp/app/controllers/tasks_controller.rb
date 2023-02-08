@@ -13,15 +13,23 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
+    @task_status_list = Task::STATUS_LIST
+    @task_priority_list = Task::PRIORITY_LIST
   end
 
   # GET /tasks/1/edit
   def edit
+    @task_status_list = Task::STATUS_LIST
+    @task_priority_list = Task::PRIORITY_LIST
   end
 
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
+    @task.owner_id = 1
+    @now = Time.new
+    @task.created_at = @now
+    @task.updated_at = @now
 
     respond_to do |format|
       if @task.save
@@ -37,6 +45,7 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
     respond_to do |format|
+      @task.updated_at = Time.new
       if @task.update(task_params)
         format.html { redirect_to task_url(@task), notice: "Task was successfully updated." }
         format.json { render :show, status: :ok, location: @task }
@@ -65,6 +74,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.fetch(:task, {})
+      params.require(:task).permit(:title, :description, :status, :priority, :expires_at)
     end
 end
