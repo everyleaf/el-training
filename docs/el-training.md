@@ -154,6 +154,8 @@
 - (サポーターに依頼)push時に RuboCop が実行されるように、GitHub Actions を設定してもらいましょう
   - GitHub Actions の設定はカリキュラムで学んで欲しい項目からやや外れているため、サポーターが設定するようにしてください
   - 設定の参考: https://github.com/everyleaf/el-training/tree/master/github_actions/.github/workflows/lint.yml
+  - GitHub Actions はプランによって1月あたりの稼働時間に制限があるため、研修のために利用しても問題ないか確認してください
+  - 課金について: https://docs.github.com/ja/billing/managing-billing-for-github-actions/about-billing-for-github-actions
 - 以降、コーディング規約はサポーター・レビュワーと相談しながら必要に応じて更新していきましょう
 
 ### ステップ7: タスクモデルを作成しよう
