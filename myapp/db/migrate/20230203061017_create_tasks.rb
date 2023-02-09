@@ -12,11 +12,11 @@ class CreateTasks < ActiveRecord::Migration[7.0]
       t.timestamps
     end
     add_index :tasks, :owner_id
-    add_index :tasks, [:owner_id, :status]
-    add_index :tasks, [:owner_id, :title]
-    add_index :tasks, [:owner_id, :priority]
-    add_index :tasks, [:owner_id, :expires_at]
-    add_index :tasks, [:owner_id, :status, :expires_at]
-    add_index :tasks, [:owner_id, :status, :priority]
+    add_index :tasks, %i[owner_id status]
+    add_index :tasks, %i[owner_id title]
+    add_index :tasks, %i[owner_id priority]
+    add_index :tasks, %i[owner_id expires_at]
+    add_index :tasks, %i[owner_id status expires_at]
+    add_index :tasks, %i[owner_id status priority]
   end
 end

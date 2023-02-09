@@ -23,7 +23,7 @@
 #  index_tasks_on_owner_id_and_status_and_priority    (owner_id,status,priority)
 #  index_tasks_on_owner_id_and_title                  (owner_id,title)
 #
-require "test_helper"
+require 'test_helper'
 
 class TaskTest < ActiveSupport::TestCase
   # test "the truth" do

@@ -12,7 +12,7 @@
 #
 #  index_labels_on_name  (name)
 #
-require "test_helper"
+require 'test_helper'
 
 class LabelTest < ActiveSupport::TestCase
   # test "the truth" do

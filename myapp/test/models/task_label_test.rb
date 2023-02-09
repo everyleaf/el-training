@@ -13,7 +13,7 @@
 #  index_task_labels_on_label_id  (label_id)
 #  index_task_labels_on_task_id   (task_id)
 #
-require "test_helper"
+require 'test_helper'
 
 class TaskLabelTest < ActiveSupport::TestCase
   # test "the truth" do

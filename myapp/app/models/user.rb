@@ -16,5 +16,5 @@
 #  index_users_on_name   (name)
 #
 class User < ApplicationRecord
-    acts_as_paranoid
+  acts_as_paranoid
 end

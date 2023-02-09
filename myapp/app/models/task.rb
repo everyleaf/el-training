@@ -24,8 +24,8 @@
 #  index_tasks_on_owner_id_and_title                  (owner_id,title)
 #
 class Task < ApplicationRecord
-    acts_as_paranoid
-    enum priority: { high: 0, middle: 1, low: 2}
-    PRIORITY_LIST = [["middle", "middle"], ["high", "high"], ["low", "low"]]
-    STATUS_LIST = [["waiting", "waiting"], ["doing", "doing"], ["completed", "completed"]]
+  acts_as_paranoid
+  enum priority: { high: 0, middle: 1, low: 2 }
+  PRIORITY_LIST = [%w[middle middle], %w[high high], %w[low low]]
+  STATUS_LIST = [%w[waiting waiting], %w[doing doing], %w[completed completed]]
 end
