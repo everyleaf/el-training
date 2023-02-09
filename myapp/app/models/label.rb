@@ -13,4 +13,5 @@
 #  index_labels_on_name  (name)
 #
 class Label < ApplicationRecord
+    acts_as_paranoid
 end
