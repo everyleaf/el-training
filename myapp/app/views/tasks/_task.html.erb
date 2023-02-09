@@ -1,2 +1,23 @@
 <div id="<%= dom_id task %>">
+
+    <h1><%= task.title %></h1>
+    <hr>
+    <table>
+        <tr>
+            <td>priority: <td>
+            <td><%= task.priority %></td>
+        </tr>
+        <tr>
+            <td>status: <td>
+            <td><%= task.status %></td>
+        </tr>
+        <tr>
+            <td>expires date: <td>
+            <td><%= task.expires_at.strftime("%Y/%m/%d") %></td>
+        </tr>
+        <tr>
+            <td>description: <td>
+            <td><%= task.description %></td>
+        </tr>
+    </table>
 </div>
