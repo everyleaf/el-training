@@ -1,0 +1,41 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Tasks</h1>
+<hr>
+<%= link_to "+ ADD TASK", new_task_path %>
+<br>
+<br>
+
+<div id="tasks">
+  <table>
+    <tr>
+      <th></th>
+      <th>task name</th>
+      <th>priority</th>
+      <th>status</th>
+      <th>expires date</th>
+    </tr>
+    
+    <% @tasks.each do |task| %>
+      <tr>
+        <td>
+          <%= link_to "edit", edit_task_path(task) %>
+        </td>
+        <td>
+          <%= link_to task.title, task %>
+        </td>
+        <td>
+          <%= task.priority %>
+        </td>
+        <td>
+          <%= task.status %>
+        </td>
+        <td>
+          <%= task.expires_at.strftime("%Y/%m/%d") %>
+        </td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+
+

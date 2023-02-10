@@ -6,7 +6,7 @@
 #  deleted_at                                   :datetime
 #  description                                  :text(65535)      not null
 #  expires_at                                   :datetime
-#  priority({1: "high", 2: "middle", 3: "low"}) :integer          not null
+#  priority({0: "high", 1: "middle", 2: "low"}) :integer          not null
 #  status(["waiting", "doing", "completed"])    :string(255)      not null
 #  title                                        :string(255)      not null
 #  created_at                                   :datetime         not null
@@ -24,4 +24,8 @@
 #  index_tasks_on_owner_id_and_title                  (owner_id,title)
 #
 class Task < ApplicationRecord
+  acts_as_paranoid
+  enum priority: { high: 0, middle: 1, low: 2 }
+  PRIORITY_LIST = [%w[middle middle], %w[high high], %w[low low]]
+  STATUS_LIST = [%w[waiting waiting], %w[doing doing], %w[completed completed]]
 end
