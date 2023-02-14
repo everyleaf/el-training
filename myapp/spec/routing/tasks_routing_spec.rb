@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe TasksController, type: :routing do
-  describe 'routing' do
+  describe 'routing task' do
     let!(:task_id) { create(:task).id.to_s }
 
     it 'routes to /' do
