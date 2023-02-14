@@ -18,11 +18,12 @@ RSpec.describe "Tasks", type: :request do
   end
 
   describe 'GET /edit' do
+    let(:task) { create(:task) }
+
     it 'renders a successful response' do
-      get edit_task_url
+      get edit_task_url(task)
       expect(response).to have_http_status(:ok)
     end
   end
-
-
+  
 end
