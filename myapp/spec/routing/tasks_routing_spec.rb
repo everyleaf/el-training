@@ -4,14 +4,7 @@ require 'rails_helper'
 
 RSpec.describe TasksController, type: :routing do
   describe 'routing' do
-    let!(:task_id) { 
-        create(:task, 
-            owner_id: 1, 
-            status:"waiting", 
-            title: "task", 
-            priority:0, 
-            description:"taskです"
-        ).id.to_s }
+    let!(:task_id) { create(:task).id.to_s }
 
     it 'routes to /' do
       expect(get: '/').to route_to('tasks#index')
