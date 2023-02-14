@@ -13,6 +13,10 @@ RSpec.describe TasksController, type: :routing do
             description:"taskです"
         ).id.to_s }
 
+    it 'routes to /' do
+      expect(get: '/').to route_to('tasks#index')
+    end
+
     it 'routes to #index' do
       expect(get: '/tasks').to route_to('tasks#index')
     end
