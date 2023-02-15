@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "Tasks", type: :request do
-  describe "GET /index" do
+RSpec.describe 'Tasks', type: :request do
+  describe 'GET /index' do
     let(:tasks) { create_list(:task, 10) }
 
     it 'renders a successful response' do
@@ -34,9 +34,8 @@ RSpec.describe "Tasks", type: :request do
           priority: 'low',
           status: 'working',
           description: 'task desu',
-          expires_at: Time.now + 1.week,
-        } 
-      }
+          expires_at: Time.now + 1.week
+        } }
       end
       it 'creates a new Task' do
         expect do
@@ -44,7 +43,7 @@ RSpec.describe "Tasks", type: :request do
         end.to change(Task, :count).by(1)
       end
       it 'redirects to the new Task' do
-        post tasks_url, params: params
+        post(tasks_url, params:)
         expect(response).to redirect_to(task_url(Task.last))
       end
     end
@@ -52,7 +51,7 @@ RSpec.describe "Tasks", type: :request do
     describe 'PUT /update' do
       context 'with parameters' do
         let!(:task) { create(:task) }
-  
+
         let(:new_attributes) do
           {
             title: 'updated',
@@ -62,12 +61,12 @@ RSpec.describe "Tasks", type: :request do
             description: 'updated task'
           }
         end
-  
+
         it 'updates the requested task' do
           put task_url(task), params: { task: new_attributes }
           expect(task.reload).to have_attributes new_attributes.except(:expires_at)
         end
-  
+
         it 'redirects to the task' do
           put task_url(task), params: { task: new_attributes }
           expect(response).to redirect_to(task_url(task.reload))
@@ -77,16 +76,16 @@ RSpec.describe "Tasks", type: :request do
 
     describe 'DELETE /destroy' do
       let!(:task) { create(:task) }
-  
+
       it 'destroys the requested task' do
         expect do
           delete task_url(task)
         end.to change(Task, :count).by(-1)
       end
-  
+
       it 'redirects to the tasks list' do
         delete task_url(task)
-  
+
         expect(response).to redirect_to(tasks_url)
       end
     end
