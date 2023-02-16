@@ -1,8 +1,8 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Tasks</h1>
+<h1><%= I18n.t('tasks.index.title') %></h1>
 <hr>
-<%= link_to "+ ADD TASK", new_task_path %>
+<%= link_to I18n.t('tasks.index.add_task'), new_task_path %>
 <br>
 <br>
 
@@ -10,10 +10,10 @@
   <table>
     <tr>
       <th></th>
-      <th>task name</th>
-      <th>priority</th>
-      <th>status</th>
-      <th>expires date</th>
+      <th><%= I18n.t('activerecord.attributes.task.title') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.priority') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.status') %></th>
+      <th><%= I18n.t('activerecord.attributes.task.expires_at') %></th>
     </tr>
     
     <% @tasks.each do |task| %>
@@ -25,10 +25,10 @@
           <%= link_to task.title, task %>
         </td>
         <td>
-          <%= task.priority %>
+          <%= Task.priorities_i18n[task.priority] %>
         </td>
         <td>
-          <%= task.status %>
+          <%= Task.statuses_i18n[task.status] %>
         </td>
         <td>
           <%= task.expires_at.strftime("%Y/%m/%d") %>

@@ -4,19 +4,19 @@
     <hr>
     <table>
         <tr>
-            <td>priority: <td>
-            <td><%= task.priority %></td>
+            <td><%= I18n.t('activerecord.attributes.task.priority') %>: <td>
+            <td><%= Task.priorities_i18n[task.priority] %></td>
         </tr>
         <tr>
-            <td>status: <td>
-            <td><%= task.status %></td>
+            <td><%= I18n.t('activerecord.attributes.task.status') %>: <td>
+            <td><%= Task.statuses_i18n[task.status] %></td>
         </tr>
         <tr>
-            <td>expires date: <td>
+            <td><%= I18n.t('activerecord.attributes.task.expires_at') %>: <td>
             <td><%= task.expires_at.strftime("%Y/%m/%d") %></td>
         </tr>
         <tr>
-            <td>description: <td>
+            <td><%= I18n.t('activerecord.attributes.task.description') %>: <td>
             <td><%= task.description %></td>
         </tr>
     </table>

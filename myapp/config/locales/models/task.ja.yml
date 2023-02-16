@@ -1,0 +1,36 @@
+ja:
+  activerecord:
+    models:
+      task: タスク
+    attributes:
+      task:
+        title: タスク名
+        priority: 優先順位
+        status: ステータス
+        description: 詳細
+        expires_at: 期限日
+    errors:
+      messages:
+        count: "%{count}件のエラーが発生しました。"
+
+  enums:
+    task:
+      priority:
+        low: 低
+        middle: 中
+        high: 高
+      status:
+        waiting: 未着手
+        doing: 着手中
+        completed: 完了
+
+  select_form:
+    task:
+      priority:
+        - ['低', 'low']
+        - ['中', 'middle']
+        - ['高', 'high']
+      status:
+        - ['未着手', 'waiting']
+        - ['着手中', 'doing']
+        - ['完了', 'completed']
