@@ -228,7 +228,7 @@
 - model specをバリデーションに対して書いてみましょう
   - 実際はそれほどバリデーションのテストは書きませんが、model specへの理解を深めるためにやってみましょう
 - system specをタスク機能に対して書いてみましょう
-- RuboCopの結果をSlackに通知するようにGitHub Actionsに設定しましょう
+- RSpecの結果をSlackへ通知するようにGitHub Actionsに設定しましょう
   - ステップ6と同様、サポーターが実施する形でも構いません
   - 設定の参考: https://github.com/everyleaf/el-training/tree/master/github_actions/.github/workflows/test.yml
 - 参考書籍：https://leanpub.com/everydayrailsrspec-jp
