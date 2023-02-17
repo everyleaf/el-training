@@ -27,7 +27,7 @@ RSpec.describe 'Tasks', type: :request do
   end
 
   describe 'POST /create' do
-    context 'with parameters' do
+    context 'with valid parameters' do
       let(:params) do
         { task: {
           title: 'task',
@@ -44,14 +44,30 @@ RSpec.describe 'Tasks', type: :request do
         post(tasks_url, params:)
         expect(response).to redirect_to(task_url(Task.last))
       end
+
+      context 'with invalid parameters' do
+        let(:invalid_params) do
+          { task: {
+            title: 'task!' * 255,
+            priority: 'low',
+            status: 'working',
+            description: 'task desu!',
+            expires_at: 1.week.since
+          } }
+        end
+  
+        it 'does not create a new Task' do
+          expect { post tasks_url, params: invalid_params }.to raise_error(ActiveRecord::ValueTooLong)
+        end
+      end
     end
   
 
     describe 'PUT /update' do
-      context 'with parameters' do
+      context 'with valid parameters' do
         let!(:task) { create(:task) }
 
-        let(:test_attributes) do
+        let(:test_params) do
           {
             title: 'updated',
             expires_at: 1.week.since,
@@ -61,7 +77,7 @@ RSpec.describe 'Tasks', type: :request do
           }
         end
 
-        let(:expect_attributes) do
+        let(:expect_params) do
           {
             title: 'updated',
             expires_at: 1.week.since,
@@ -72,30 +88,53 @@ RSpec.describe 'Tasks', type: :request do
         end
 
         it 'updates the requested task' do
-          put task_url(task), params: { task: test_attributes }
-          expect(task.reload).to have_attributes expect_attributes.except(:expires_at)
+          put task_url(task), params: { task: test_params }
+          expect(task.reload).to have_attributes expect_params.except(:expires_at)
         end
 
         it 'redirects to the task' do
-          put task_url(task), params: { task: test_attributes }
+          put task_url(task), params: { task: test_params }
           expect(response).to redirect_to(task_url(task.reload))
+        end
+      end
+
+
+      context 'with invalid parameters' do
+        let!(:task) { create(:task) }
+        let(:invalid_params) do
+          { task: {
+            title: 'task!' * 255,
+            priority: 'low',
+            status: 'working',
+            description: 'task desu!',
+            expires_at: 1.week.since
+          } }
+        end
+  
+        it "does not update the task" do
+          expect{put task_url(task), params: invalid_params}.to raise_error(ActiveRecord::ValueTooLong)
         end
       end
     end
 
     describe 'DELETE /destroy' do
-      let!(:task) { create(:task) }
+      context 'normal delete' do
+        let!(:task) { create(:task) }
 
-      it 'destroys the requested task' do
-        expect do
+        it 'destroys the requested task' do
+          expect { delete task_url(task) }.to change(Task, :count).by(-1)
+        end
+
+        it 'redirects to the tasks list' do
           delete task_url(task)
-        end.to change(Task, :count).by(-1)
+          expect(response).to redirect_to(tasks_url)
+        end
       end
 
-      it 'redirects to the tasks list' do
-        delete task_url(task)
-
-        expect(response).to redirect_to(tasks_url)
+      context 'non-normal delete' do
+        it 'destroys the no exist task' do
+          expect { delete task_url(task) }.to raise_error(NameError)
+        end
       end
     end
   end
