@@ -29,4 +29,16 @@ class Task < ApplicationRecord
   enum status: { waiting: 0, doing: 1, completed: 2 }
   PRIORITY_LIST = [%w[middle middle], %w[high high], %w[low low]]
   STATUS_LIST = [%w[waiting waiting], %w[doing doing], %w[completed completed]]
+  SORT_TYPE = {
+    'created_at_asc' => 'created_at ASC',
+    'created_at_desc' => 'created_at DESC'
+  }.freeze
+
+  scope :sort_by_keyword, ->(sort) { order(SORT_TYPE[sort]) }
+
+  class << self
+    def check_approved_sort_params(sort)
+      SORT_TYPE.keys.include?(sort) ? sort : 'created_at_asc'
+    end
+  end
 end

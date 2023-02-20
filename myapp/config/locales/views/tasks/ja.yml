@@ -18,3 +18,7 @@ ja:
       to_show: 'タスク詳細'
       to_edit: 'このタスクを編集'
       to_delete: 'このタスクを削除'
+
+    form:
+      search_form:
+        sort: ソート

@@ -3,7 +3,10 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all
+    query = Task.all
+    query = query.sort_by_keyword(search_params[:sort]) if search_params[:sort].present?
+
+    @tasks = query
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -76,5 +79,10 @@ class TasksController < ApplicationController
   # Only allow a list of trusted parameters through.
   def task_params
     params.require(:task).permit(:title, :description, :status, :priority, :expires_at)
+  end
+
+  def search_params
+    params[:sort] = Task.check_approved_sort_params(params[:sort]) if params[:sort].present?
+    params.permit(:sort)
   end
 end
