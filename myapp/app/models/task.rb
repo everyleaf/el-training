@@ -28,4 +28,5 @@ class Task < ApplicationRecord
   enum priority: { high: 0, middle: 1, low: 2 }
   PRIORITY_LIST = [%w[middle middle], %w[high high], %w[low low]]
   STATUS_LIST = [%w[waiting waiting], %w[doing doing], %w[completed completed]]
+  validates :title, presence: true
 end

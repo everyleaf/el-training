@@ -48,21 +48,28 @@ RSpec.describe 'Tasks', type: :request do
       context 'with invalid parameters' do
         let(:invalid_params) do
           { task: {
-            title: 'task!' * 255,
+            title: nil,
             priority: 'low',
             status: 'working',
             description: 'task desu!',
             expires_at: 1.week.since
           } }
         end
+        # before { allow_any_instance_of(Task).to receive(:save).and_return(false) }
+        # before do
+        #   stub_task = spy(Task)
+
+        #   allow(Task).to receive(:new).and_return(stub_task)
+        #   allow(stub_task).to receive(:save).and_return(false)
+        # end
         
-        # it 'does not create a new Task' do
-        #   expect { post tasks_url, params: invalid_params }.to change(Task, :count).by(0)
-        # end
-        # it 'does not create a new Task' do
-        #   expect { post tasks_url, params: invalid_params }.to raise_error(ActiveRecord::ValueTooLong)
-        #   expect(response).to have_http_status(:unprocessable_entity)
-        # end
+        it 'does not create a new Task' do
+          expect { post tasks_url, params: invalid_params }.to change(Task, :count).by(0)
+        end
+        it 'does not create a new Task' do
+          # expect { post tasks_url, params: invalid_params }.to raise_error(Mysql2::Error)
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
       end
     end
   
