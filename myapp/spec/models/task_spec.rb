@@ -43,4 +43,10 @@ RSpec.describe Task, type: :model do
       )
     }
   end
+
+  describe 'methods' do
+    it {
+      expect(Task.new.sort_params_checker('created_at_asc')).to eq 'created_at ASC'
+    }
+  end
 end
