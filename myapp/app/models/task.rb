@@ -37,7 +37,7 @@ class Task < ApplicationRecord
   scope :sort_by_keyword, ->(sort) { order(SORT_TYPE[sort]) }
 
   class << self
-    def check_approved_sort_params(sort)
+    def sort_params_checker(sort)
       SORT_TYPE.keys.include?(sort) ? sort : 'created_at_asc'
     end
   end
