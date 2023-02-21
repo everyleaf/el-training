@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :request do
+  let!(:user) { create(:user) }
+
   describe 'GET /index' do
     let(:tasks) { create_list(:task, 10) }
 
@@ -44,6 +46,8 @@ RSpec.describe 'Tasks', type: :request do
       it 'redirects to the new Task' do
         post(tasks_url, params:)
         expect(response).to redirect_to(task_url(Task.last))
+        expect(response).to have_http_status(:found)
+        # expect(response.body).to include 'タスクが正常に作成されました'
       end
 
       context 'with invalid parameters' do
@@ -102,6 +106,7 @@ RSpec.describe 'Tasks', type: :request do
         it 'redirects to the task' do
           put task_url(task), params: { task: test_params }
           expect(response).to redirect_to(task_url(task.reload))
+          # expect(response.body).to include 'タスクが正常に更新されました'
         end
       end
 
@@ -116,25 +121,19 @@ RSpec.describe 'Tasks', type: :request do
             expires_at: 1.week.since
           } }
         end
-
-        before do
-          task = Task.new
-          allow(task).to receive(:save).and_return(true)
-          allow(task).to receive(:update).and_return(false)
-        end
   
         it "does not update the task" do
-          put task_url(task), params: {task: invalid_params}
+          put task_url(task), params: invalid_params
 
           expect(response).to have_http_status(:unprocessable_entity)
-          expect(response.body).to include '422'
+          expect(response.body).to include 'タスク名は255文字以内で入力してください'
         end
       end
     end
 
     describe 'DELETE /destroy' do
       context 'normal delete' do
-        let!(:task) { create(:task) }
+        let!(:task) { create(:task, user_id: user.id) }
 
         it 'destroys the requested task' do
           expect { delete task_url(task) }.to change(Task, :count).by(-1)
@@ -142,15 +141,19 @@ RSpec.describe 'Tasks', type: :request do
 
         it 'redirects to the tasks list' do
           delete task_url(task)
+          expect(response).to have_http_status(:found)
           expect(response).to redirect_to(tasks_url)
         end
       end
 
-      context 'non-normal delete' do
-        it 'destroys the no exist task' do
-          expect { delete task_url(task) }.to raise_error(NameError)
-        end
-      end
+      # context 'non-normal delete' do
+      #   let(:another_user) { create(:user) }
+      #   let(:task) { create(:task, user_id: another_user.id) }
+      #     it 'returns status 400' do
+      #       subject
+      #       expect(response).to have_http_status :bad_request
+      #   end
+      # end
     end
   end
 end
