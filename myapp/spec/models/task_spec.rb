@@ -34,5 +34,13 @@ RSpec.describe Task, type: :model do
         low: 2
       )
     }
+
+    it {
+      is_expected.to define_enum_for(:status).with_values(
+        waiting: 0,
+        doing: 1,
+        completed: 2
+      )
+    }
   end
 end
