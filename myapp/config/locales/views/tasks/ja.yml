@@ -21,4 +21,6 @@ ja:
 
     form:
       search_form:
-        sort: ソート
+        sort:
+          - ['作成日時昇順', 'created_at_asc']
+          - ['作成日時降順', 'created_at_desc']
