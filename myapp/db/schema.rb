@@ -10,51 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_230_203_070_748) do
-  create_table 'labels', charset: 'utf8mb4', force: :cascade do |t|
-    t.string 'name', null: false
-    t.datetime 'deleted_at'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['name'], name: 'index_labels_on_name'
+ActiveRecord::Schema[7.0].define(version: 2023_02_03_070748) do
+  create_table "labels", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_labels_on_name"
   end
 
-  create_table 'task_labels', charset: 'utf8mb4', force: :cascade do |t|
-    t.integer 'task_id', null: false
-    t.integer 'label_id', null: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['label_id'], name: 'index_task_labels_on_label_id'
-    t.index ['task_id'], name: 'index_task_labels_on_task_id'
+  create_table "task_labels", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "task_id", null: false
+    t.integer "label_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["label_id"], name: "index_task_labels_on_label_id"
+    t.index ["task_id"], name: "index_task_labels_on_task_id"
   end
 
-  create_table 'tasks', charset: 'utf8mb4', force: :cascade do |t|
-    t.bigint 'owner_id', null: false
-    t.integer 'status', limit: 1, null: false, comment: '["waiting", "doing", "completed"]'
-    t.string 'title', null: false
-    t.integer 'priority', limit: 1, null: false, comment: '{0: "high", 1: "middle", 2: "low"}'
-    t.text 'description', null: false
-    t.datetime 'expires_at'
-    t.datetime 'deleted_at'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index %w[owner_id expires_at], name: 'index_tasks_on_owner_id_and_expires_at'
-    t.index %w[owner_id priority], name: 'index_tasks_on_owner_id_and_priority'
-    t.index %w[owner_id status expires_at], name: 'index_tasks_on_owner_id_and_status_and_expires_at'
-    t.index %w[owner_id status priority], name: 'index_tasks_on_owner_id_and_status_and_priority'
-    t.index %w[owner_id status], name: 'index_tasks_on_owner_id_and_status'
-    t.index %w[owner_id title], name: 'index_tasks_on_owner_id_and_title'
-    t.index ['owner_id'], name: 'index_tasks_on_owner_id'
+  create_table "tasks", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "owner_id", null: false
+    t.integer "status", limit: 1, null: false, comment: "[\"waiting\", \"doing\", \"completed\"]"
+    t.string "title", null: false
+    t.integer "priority", limit: 1, null: false, comment: "{0: \"high\", 1: \"middle\", 2: \"low\"}"
+    t.text "description", null: false
+    t.datetime "expires_at"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id", "expires_at"], name: "index_tasks_on_owner_id_and_expires_at"
+    t.index ["owner_id", "priority"], name: "index_tasks_on_owner_id_and_priority"
+    t.index ["owner_id", "status", "expires_at"], name: "index_tasks_on_owner_id_and_status_and_expires_at"
+    t.index ["owner_id", "status", "priority"], name: "index_tasks_on_owner_id_and_status_and_priority"
+    t.index ["owner_id", "status"], name: "index_tasks_on_owner_id_and_status"
+    t.index ["owner_id", "title"], name: "index_tasks_on_owner_id_and_title"
+    t.index ["owner_id"], name: "index_tasks_on_owner_id"
   end
 
-  create_table 'users', charset: 'utf8mb4', force: :cascade do |t|
-    t.string 'name', null: false
-    t.string 'email', null: false
-    t.string 'encrypted_password', null: false
-    t.datetime 'deleted_at'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['email'], name: 'index_users_on_email', unique: true
-    t.index ['name'], name: 'index_users_on_name'
+  create_table "users", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "encrypted_password", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["name"], name: "index_users_on_name"
   end
+
 end
