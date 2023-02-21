@@ -58,7 +58,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_03_070748) do
     t.index ["name"], name: "index_users_on_name"
   end
 
-  add_foreign_key "task_labels", "labels"
-  add_foreign_key "task_labels", "tasks"
-  add_foreign_key "tasks", "users"
 end

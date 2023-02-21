@@ -23,10 +23,6 @@
 #  index_tasks_on_user_id_and_status_and_priority    (user_id,status,priority)
 #  index_tasks_on_user_id_and_title                  (user_id,title)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (user_id => users.id)
-#
 FactoryBot.define do
   factory :task do
     sequence(:title) { |i| "task_name_#{i}" }

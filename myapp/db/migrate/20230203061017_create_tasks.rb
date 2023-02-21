@@ -1,7 +1,7 @@
 class CreateTasks < ActiveRecord::Migration[7.0]
   def change
     create_table :tasks do |t|
-      t.references :user, null: false, foreign_key: true
+      t.references :user, null: false
       t.integer :status, limit: 1, null: false, comment: '["waiting", "doing", "completed"]'
       t.string :title, null: false
       t.integer :priority, limit: 1, null: false, comment: '{0: "high", 1: "middle", 2: "low"}'

@@ -23,10 +23,6 @@
 #  index_tasks_on_user_id_and_status_and_priority    (user_id,status,priority)
 #  index_tasks_on_user_id_and_title                  (user_id,title)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (user_id => users.id)
-#
 class Task < ApplicationRecord
   acts_as_paranoid
   enum priority: { high: 0, middle: 1, low: 2 }
