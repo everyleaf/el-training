@@ -20,7 +20,7 @@ class TasksController < ApplicationController
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
-    @task.owner_id = 1 # TODO: ログイン機能実装後に修正する
+    @task.user_id = 1 # TODO: ログイン機能実装後に修正する
 
     respond_to do |format|
       if @task.save
@@ -71,6 +71,6 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
-    params.require(:task).permit(:title, :description, :status, :priority, :expires_at, :owner_id)
+    params.require(:task).permit(:title, :description, :status, :priority, :expires_at, :user_id)
   end
 end

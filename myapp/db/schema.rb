@@ -20,8 +20,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_03_070748) do
   end
 
   create_table "task_labels", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "task_id", null: false
-    t.integer "label_id", null: false
+    t.bigint "task_id", null: false
+    t.bigint "label_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["label_id"], name: "index_task_labels_on_label_id"
@@ -29,7 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_03_070748) do
   end
 
   create_table "tasks", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "owner_id", null: false
+    t.bigint "user_id", null: false
     t.integer "status", limit: 1, null: false, comment: "[\"waiting\", \"doing\", \"completed\"]"
     t.string "title", null: false
     t.integer "priority", limit: 1, null: false, comment: "{0: \"high\", 1: \"middle\", 2: \"low\"}"
@@ -38,13 +38,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_03_070748) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["owner_id", "expires_at"], name: "index_tasks_on_owner_id_and_expires_at"
-    t.index ["owner_id", "priority"], name: "index_tasks_on_owner_id_and_priority"
-    t.index ["owner_id", "status", "expires_at"], name: "index_tasks_on_owner_id_and_status_and_expires_at"
-    t.index ["owner_id", "status", "priority"], name: "index_tasks_on_owner_id_and_status_and_priority"
-    t.index ["owner_id", "status"], name: "index_tasks_on_owner_id_and_status"
-    t.index ["owner_id", "title"], name: "index_tasks_on_owner_id_and_title"
-    t.index ["owner_id"], name: "index_tasks_on_owner_id"
+    t.index ["user_id", "expires_at"], name: "index_tasks_on_user_id_and_expires_at"
+    t.index ["user_id", "priority"], name: "index_tasks_on_user_id_and_priority"
+    t.index ["user_id", "status", "expires_at"], name: "index_tasks_on_user_id_and_status_and_expires_at"
+    t.index ["user_id", "status", "priority"], name: "index_tasks_on_user_id_and_status_and_priority"
+    t.index ["user_id", "status"], name: "index_tasks_on_user_id_and_status"
+    t.index ["user_id", "title"], name: "index_tasks_on_user_id_and_title"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
@@ -58,4 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_03_070748) do
     t.index ["name"], name: "index_users_on_name"
   end
 
+  add_foreign_key "task_labels", "labels"
+  add_foreign_key "task_labels", "tasks"
+  add_foreign_key "tasks", "users"
 end

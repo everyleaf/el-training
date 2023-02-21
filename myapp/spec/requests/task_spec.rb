@@ -35,7 +35,7 @@ RSpec.describe 'Tasks', type: :request do
           status: 'doing',
           description: 'task desu',
           expires_at: 1.week.since,
-          owner_id: 1,
+          user_id: 1,
         } }
       end
       it 'creates a new Task' do
@@ -54,15 +54,8 @@ RSpec.describe 'Tasks', type: :request do
             status: 'doing',
             description: 'task desu!',
             expires_at: 1.week.since,
-            owner_id: 1,
+            user_id: 1,
           } }
-        end
-        let(:task) {instance_double(Task) }
-
-        before do
-          allow(Task).to receive(:new).and_return(task)
-          allow(task).to receive(:save).and_return(false)
-          allow(task).to receive(:owner_id=)
         end
         
         it 'does not create a new Task' do

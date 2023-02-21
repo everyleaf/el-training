@@ -28,7 +28,7 @@ has_many->tasks_labels
 | 論理名 | 物理名 | type | PK | FK | default | not null | 備考 |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | id |  ID  | int | ○ | - | AUTO_INC | × | |
-| owner_id | タスク登録ユーザID | int | - | users.id | - | × | |
+| user_id | タスク登録ユーザID | int | - | users.id | - | × | |
 | status | ステータス | varchar | - | - | - | × | ["waiting", "doing", "completed"] | 
 | title | タスク名 | varchar | - | - | - | × | |
 | priority | タスク優先度 | tiny int | - | - | - | × | {1: "high", 2: "middle", 3: "low"} |
@@ -41,21 +41,21 @@ has_many->tasks_labels
 ### index
 | インデックス名 | カラム | フィールド番号 
 | ---- | ---- | ---- |
-| index_tasks_on_owner_id | owner_id | 1 |
-| index_tasks_on_owner_id_and_status | owner_id | 1 |
-| index_tasks_on_owner_id_and_status | status | 2 |
-| index_tasks_on_owner_id_and_title | owner_id | 1 |
-| index_tasks_on_owner_id_and_title | title | 2 |
-| index_tasks_on_owner_id_and_priority | owner_id | 1 |
-| index_tasks_on_owner_id_and_priority | priority | 2 |
-| index_tasks_on_owner_id_and_expires_at | owner_id | 1 |
-| index_tasks_on_owner_id_and_expires_at | expires_at | 2 |
-| index_tasks_on_owner_id_and_status_and_expire_at | owner_id | 1 |
-| index_tasks_on_owner_id_and_status_and_expire_at | status | 2 |
-| index_tasks_on_owner_id_and_status_and_expire_at | expires_at | 3 |
-| index_tasks_on_owner_id_and_status_and_priority | owner_id | 1 |
-| index_tasks_on_owner_id_and_status_and_priority | status | 2 |
-| index_tasks_on_owner_id_and_status_and_priority | priority | 3 |
+| index_tasks_on_user_id | user_id | 1 |
+| index_tasks_on_user_id_and_status | user_id | 1 |
+| index_tasks_on_user_id_and_status | status | 2 |
+| index_tasks_on_user_id_and_title | user_id | 1 |
+| index_tasks_on_user_id_and_title | title | 2 |
+| index_tasks_on_user_id_and_priority | user_id | 1 |
+| index_tasks_on_user_id_and_priority | priority | 2 |
+| index_tasks_on_user_id_and_expires_at | user_id | 1 |
+| index_tasks_on_user_id_and_expires_at | expires_at | 2 |
+| index_tasks_on_user_id_and_status_and_expire_at | user_id | 1 |
+| index_tasks_on_user_id_and_status_and_expire_at | status | 2 |
+| index_tasks_on_user_id_and_status_and_expire_at | expires_at | 3 |
+| index_tasks_on_user_id_and_status_and_priority | user_id | 1 |
+| index_tasks_on_user_id_and_status_and_priority | status | 2 |
+| index_tasks_on_user_id_and_status_and_priority | priority | 3 |
 
 ## ・labels
 has_many->tasks_labels  

@@ -11,17 +11,17 @@
 #  title                                        :string(255)      not null
 #  created_at                                   :datetime         not null
 #  updated_at                                   :datetime         not null
-#  owner_id                                     :bigint           not null
+#  user_id                                     :bigint           not null
 #
 # Indexes
 #
-#  index_tasks_on_owner_id                            (owner_id)
-#  index_tasks_on_owner_id_and_expires_at             (owner_id,expires_at)
-#  index_tasks_on_owner_id_and_priority               (owner_id,priority)
-#  index_tasks_on_owner_id_and_status                 (owner_id,status)
-#  index_tasks_on_owner_id_and_status_and_expires_at  (owner_id,status,expires_at)
-#  index_tasks_on_owner_id_and_status_and_priority    (owner_id,status,priority)
-#  index_tasks_on_owner_id_and_title                  (owner_id,title)
+#  index_tasks_on_user_id                            (user_id)
+#  index_tasks_on_user_id_and_expires_at             (user_id,expires_at)
+#  index_tasks_on_user_id_and_priority               (user_id,priority)
+#  index_tasks_on_user_id_and_status                 (user_id,status)
+#  index_tasks_on_user_id_and_status_and_expires_at  (user_id,status,expires_at)
+#  index_tasks_on_user_id_and_status_and_priority    (user_id,status,priority)
+#  index_tasks_on_user_id_and_title                  (user_id,title)
 #
 class Task < ApplicationRecord
   acts_as_paranoid
@@ -35,5 +35,7 @@ class Task < ApplicationRecord
   validates :priority, presence: true
   validates :status, presence: true
   validates :title, presence: true
-  validates :owner_id, presence: true
+  validates :user_id, presence: true
+
+  has_many: users
 end
