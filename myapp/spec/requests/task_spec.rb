@@ -57,9 +57,9 @@ RSpec.describe 'Tasks', type: :request do
             owner_id: 1,
           } }
         end
+        let(:task) {instance_double(Task) }
 
         before do
-          task = instance_double(Task)
           allow(Task).to receive(:new).and_return(task)
           allow(task).to receive(:save).and_return(false)
           allow(task).to receive(:owner_id=)
