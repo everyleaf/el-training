@@ -32,9 +32,10 @@ RSpec.describe 'Tasks', type: :request do
         { task: {
           title: 'task',
           priority: 'low',
-          status: 'working',
+          status: 'doing',
           description: 'task desu',
-          expires_at: 1.week.since
+          expires_at: 1.week.since,
+          owner_id: 1,
         } }
       end
       it 'creates a new Task' do
@@ -48,32 +49,34 @@ RSpec.describe 'Tasks', type: :request do
       context 'with invalid parameters' do
         let(:invalid_params) do
           { task: {
-            title: nil,
+            title: 'nagai' * 255,
             priority: 'low',
-            status: 'working',
+            status: 'doing',
             description: 'task desu!',
-            expires_at: 1.week.since
+            expires_at: 1.week.since,
+            owner_id: 1,
           } }
         end
-        # before { allow_any_instance_of(Task).to receive(:save).and_return(false) }
-        # before do
-        #   stub_task = spy(Task)
 
-        #   allow(Task).to receive(:new).and_return(stub_task)
-        #   allow(stub_task).to receive(:save).and_return(false)
-        # end
+        before do
+          task = instance_double(Task)
+          allow(Task).to receive(:new).and_return(task)
+          allow(task).to receive(:save).and_return(false)
+          allow(task).to receive(:owner_id=)
+        end
         
         it 'does not create a new Task' do
           expect { post tasks_url, params: invalid_params }.to change(Task, :count).by(0)
         end
+
         it 'does not create a new Task' do
-          # expect { post tasks_url, params: invalid_params }.to raise_error(Mysql2::Error)
+          post tasks_url, params: invalid_params
           expect(response).to have_http_status(:unprocessable_entity)
+          expect(response.body).to include 'タスク名は255文字以内で入力してください'
         end
       end
     end
   
-
     describe 'PUT /update' do
       context 'with valid parameters' do
         let!(:task) { create(:task) }
@@ -109,21 +112,29 @@ RSpec.describe 'Tasks', type: :request do
         end
       end
 
-
       context 'with invalid parameters' do
         let!(:task) { create(:task) }
         let(:invalid_params) do
           { task: {
-            title: 'task!' * 255,
+            title: 'nagai' * 255,
             priority: 'low',
-            status: 'working',
+            status: 'doing',
             description: 'task desu!',
             expires_at: 1.week.since
           } }
         end
+
+        before do
+          task = Task.new
+          allow(task).to receive(:save).and_return(true)
+          allow(task).to receive(:update).and_return(false)
+        end
   
         it "does not update the task" do
-          expect{put task_url(task), params: invalid_params}.to raise_error(ActiveRecord::ValueTooLong)
+          put task_url(task), params: {task: invalid_params}
+
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response.body).to include '422'
         end
       end
     end
