@@ -30,12 +30,10 @@ class Task < ApplicationRecord
   PRIORITY_LIST = [%w[middle middle], %w[high high], %w[low low]]
   STATUS_LIST = [%w[waiting waiting], %w[doing doing], %w[completed completed]]
 
-  validates :title, presence: true
+  validates :title, presence: true, length: { maximum: 255 }
   validates :description, presence: true
   validates :priority, presence: true
   validates :status, presence: true
   validates :title, presence: true
-  validates :created_at, presence: true
-  validates :updated_at, presence: true
   validates :owner_id, presence: true
 end
