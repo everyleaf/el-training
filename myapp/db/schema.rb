@@ -30,9 +30,9 @@ ActiveRecord::Schema[7.0].define(version: 20_230_203_070_748) do
 
   create_table 'tasks', charset: 'utf8mb4', force: :cascade do |t|
     t.bigint 'owner_id', null: false
-    t.string 'status', null: false, comment: '["waiting", "doing", "completed"]'
+    t.integer 'status', limit: 1, null: false, comment: '["waiting", "doing", "completed"]'
     t.string 'title', null: false
-    t.integer 'priority', limit: 1, null: false, comment: '{1: "high", 2: "middle", 3: "low"}'
+    t.integer 'priority', limit: 1, null: false, comment: '{0: "high", 1: "middle", 2: "low"}'
     t.text 'description', null: false
     t.datetime 'expires_at'
     t.datetime 'deleted_at'

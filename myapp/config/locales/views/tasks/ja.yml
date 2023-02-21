@@ -1,0 +1,20 @@
+ja:
+  tasks:
+
+    index:
+      title: 'タスク一覧'
+      add_task: 'タスク追加'
+
+    new:
+      title: '新規作成'
+
+    show:
+
+    edit:
+      title: '%{task_name}を編集'
+
+    common:
+      to_index: 'タスク一覧に戻る'
+      to_show: 'タスク詳細'
+      to_edit: 'このタスクを編集'
+      to_delete: 'このタスクを削除'

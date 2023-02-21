@@ -12,15 +12,10 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
-    @task_status_list = Task::STATUS_LIST
-    @task_priority_list = Task::PRIORITY_LIST
   end
 
   # GET /tasks/1/edit
-  def edit
-    @task_status_list = Task::STATUS_LIST
-    @task_priority_list = Task::PRIORITY_LIST
-  end
+  def edit; end
 
   # POST /tasks or /tasks.json
   def create
@@ -29,7 +24,9 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to task_url(@task), notice: 'Task was successfully created.' }
+        format.html do
+          redirect_to task_url(@task), notice: I18n.t('messages.create', model_name: I18n.t('activerecord.models.task'))
+        end
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +39,9 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to task_url(@task), notice: 'Task was successfully updated.' }
+        format.html do
+          redirect_to task_url(@task), notice: I18n.t('messages.update', model_name: I18n.t('activerecord.models.task'))
+        end
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -56,7 +55,9 @@ class TasksController < ApplicationController
     @task.destroy
 
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
+      format.html do
+        redirect_to tasks_url, notice: I18n.t('messages.delete', model_name: I18n.t('activerecord.models.task'))
+      end
       format.json { head :no_content }
     end
   end

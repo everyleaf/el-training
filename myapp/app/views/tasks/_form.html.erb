@@ -15,24 +15,24 @@
     <%= form_with model: @task do |form| %>
       <table>
         <tr>
-          <td>title:</td>
+          <td><%= I18n.t('activerecord.attributes.task.title') %>:</td>
           <td><%= form.text_field :title %></td>
         </tr>
         <tr>
-          <td>description:</td>
-          <td><%= form.text_area :description %></td>
+          <td><%= I18n.t('activerecord.attributes.task.priority') %>:</td> 
+          <td><%= form.select :priority, I18n.t('select_form.task.priority') %></td>
         </tr>
         <tr>
-          <td>priority:</td> 
-          <td><%= form.select :priority, @task_priority_list %></td>
+          <td><%= I18n.t('activerecord.attributes.task.status') %>:</td>
+          <td><%= form.select :status,  I18n.t('select_form.task.status') %></td>
         </tr>
         <tr>
-          <td>status:</td>
-          <td><%= form.select :status, @task_status_list %></td>
-        </tr>
-        <tr>
-          <td>expires date:</td> 
+          <td><%= I18n.t('activerecord.attributes.task.expires_at') %>:</td> 
           <td><%= form.date_field :expires_at %></td> 
+        </tr>
+        <tr>
+          <td><%= I18n.t('activerecord.attributes.task.description') %>:</td>
+          <td><%= form.text_area :description %></td>
         </tr>
       </table>
       <%= form.submit %>

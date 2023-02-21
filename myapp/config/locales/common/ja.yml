@@ -1,0 +1,9 @@
+ja:
+  time:
+    formats:
+      default: "%Y/%m/%d"
+
+  messages:
+    create: "%{model_name}が正常に作成されました"
+    update: "%{model_name}が正常に更新されました"
+    delete: "%{model_name}が正常に削除されました"

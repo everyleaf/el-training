@@ -90,6 +90,8 @@ GEM
     date (3.3.3)
     debug (1.7.1)
     diff-lcs (1.5.0)
+    enum_help (0.0.19)
+      activesupport (>= 3.0.0)
     erubi (1.12.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -167,6 +169,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.5.0)
       loofah (~> 2.19, >= 2.19.1)
+    rails-i18n (7.0.6)
+      i18n (>= 0.7, < 2)
+      railties (>= 6.0.0, < 8)
     railties (7.0.4.2)
       actionpack (= 7.0.4.2)
       activesupport (= 7.0.4.2)
@@ -259,6 +264,7 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
+  enum_help
   factory_bot_rails
   importmap-rails
   jbuilder
@@ -266,6 +272,7 @@ DEPENDENCIES
   paranoia
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.2)
+  rails-i18n
   rspec-rails
   rubocop
   rubocop-rails
@@ -281,4 +288,4 @@ RUBY VERSION
    ruby 3.2.1p31
 
 BUNDLED WITH
-   2.4.6
+   2.4.7
