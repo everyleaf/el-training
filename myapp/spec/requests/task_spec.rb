@@ -47,7 +47,7 @@ RSpec.describe 'Tasks', type: :request do
         post(tasks_url, params:)
         expect(response).to redirect_to(task_url(Task.last))
         expect(response).to have_http_status(:found)
-        # expect(response.body).to include 'タスクが正常に作成されました'
+        expect(flash[:notice])
       end
 
       context 'with invalid parameters' do
@@ -106,7 +106,7 @@ RSpec.describe 'Tasks', type: :request do
         it 'redirects to the task' do
           put task_url(task), params: { task: test_params }
           expect(response).to redirect_to(task_url(task.reload))
-          # expect(response.body).to include 'タスクが正常に更新されました'
+          expect(flash[:notice])
         end
       end
 
@@ -137,6 +137,7 @@ RSpec.describe 'Tasks', type: :request do
 
         it 'destroys the requested task' do
           expect { delete task_url(task) }.to change(Task, :count).by(-1)
+          expect(flash[:notice])
         end
 
         it 'redirects to the tasks list' do
@@ -145,15 +146,11 @@ RSpec.describe 'Tasks', type: :request do
           expect(response).to redirect_to(tasks_url)
         end
       end
-
-      # context 'non-normal delete' do
-      #   let(:another_user) { create(:user) }
-      #   let(:task) { create(:task, user_id: another_user.id) }
-      #     it 'returns status 400' do
-      #       subject
-      #       expect(response).to have_http_status :bad_request
-      #   end
-      # end
+      context 'nonormal delete' do
+        it 'destroys the requested task' do
+          expect { delete task_url() }.to raise_error(ActionController::UrlGenerationError)
+        end
+      end
     end
   end
 end
