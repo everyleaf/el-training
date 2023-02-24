@@ -32,7 +32,9 @@ class Task < ApplicationRecord
   STATUS_LIST = [%w[waiting waiting], %w[doing doing], %w[completed completed]]
   SORT_TYPE = {
     'created_at_asc' => 'created_at ASC',
-    'created_at_desc' => 'created_at DESC'
+    'created_at_desc' => 'created_at DESC',
+    'expires_at_asc' => 'expires_at ASC',
+    'expires_at_desc' => 'expires_at DESC',
   }.freeze
 
   validates :title, presence: true, length: { maximum: 255 }
