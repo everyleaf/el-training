@@ -37,11 +37,11 @@ RSpec.describe 'Tasks', type: :request do
           status: 'doing',
           description: 'task desu',
           expires_at: 1.week.since,
-          user_id: 1,
+          user_id: 1
         } }
       end
       it 'creates a new Task' do
-        expect { post tasks_url, params: params }.to change(Task, :count).by(1)
+        expect { post tasks_url, params: }.to change(Task, :count).by(1)
       end
       it 'redirects to the new Task' do
         post(tasks_url, params:)
@@ -58,10 +58,10 @@ RSpec.describe 'Tasks', type: :request do
             status: 'doing',
             description: 'task desu!',
             expires_at: 1.week.since,
-            user_id: 1,
+            user_id: 1
           } }
         end
-        
+
         it 'does not create a new Task' do
           expect { post tasks_url, params: invalid_params }.to change(Task, :count).by(0)
         end
@@ -73,7 +73,7 @@ RSpec.describe 'Tasks', type: :request do
         end
       end
     end
-  
+
     describe 'PUT /update' do
       context 'with valid parameters' do
         let!(:task) { create(:task) }
@@ -121,8 +121,8 @@ RSpec.describe 'Tasks', type: :request do
             expires_at: 1.week.since
           } }
         end
-  
-        it "does not update the task" do
+
+        it 'does not update the task' do
           put task_url(task), params: invalid_params
 
           expect(response).to have_http_status(:unprocessable_entity)
@@ -148,7 +148,7 @@ RSpec.describe 'Tasks', type: :request do
       end
       context 'nonormal delete' do
         it 'destroys the requested task' do
-          expect { delete task_url() }.to raise_error(ActionController::UrlGenerationError)
+          expect { delete task_url }.to raise_error(ActionController::UrlGenerationError)
         end
       end
     end
