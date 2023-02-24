@@ -25,7 +25,7 @@
 #
 class Task < ApplicationRecord
   acts_as_paranoid
-  has_many :users
+  belongs_to :user, optional: true
   enum priority: { high: 0, middle: 1, low: 2 }
   enum status: { waiting: 0, doing: 1, completed: 2 }
   PRIORITY_LIST = [%w[middle middle], %w[high high], %w[low low]]
