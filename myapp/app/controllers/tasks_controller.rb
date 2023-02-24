@@ -12,27 +12,21 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
-    @task_status_list = Task::STATUS_LIST
-    @task_priority_list = Task::PRIORITY_LIST
   end
 
   # GET /tasks/1/edit
-  def edit
-    @task_status_list = Task::STATUS_LIST
-    @task_priority_list = Task::PRIORITY_LIST
-  end
+  def edit; end
 
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
-    @task.owner_id = 1 # TODO: ログイン機能実装後に修正する
-    @now = Time.new
-    @task.created_at = @now
-    @task.updated_at = @now
+    @task.user_id = 1 # TODO: ログイン機能実装後に修正する
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to task_url(@task), notice: 'Task was successfully created.' }
+        format.html do
+          redirect_to task_url(@task), notice: I18n.t('messages.create', model_name: I18n.t('activerecord.models.task'))
+        end
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,9 +38,10 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
     respond_to do |format|
-      @task.updated_at = Time.new
       if @task.update(task_params)
-        format.html { redirect_to task_url(@task), notice: 'Task was successfully updated.' }
+        format.html do
+          redirect_to task_url(@task), notice: I18n.t('messages.update', model_name: I18n.t('activerecord.models.task'))
+        end
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -60,7 +55,9 @@ class TasksController < ApplicationController
     @task.destroy
 
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
+      format.html do
+        redirect_to tasks_url, notice: I18n.t('messages.delete', model_name: I18n.t('activerecord.models.task'))
+      end
       format.json { head :no_content }
     end
   end
@@ -74,6 +71,6 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
-    params.require(:task).permit(:title, :description, :status, :priority, :expires_at)
+    params.require(:task).permit(:title, :description, :status, :priority, :expires_at, :user_id)
   end
 end

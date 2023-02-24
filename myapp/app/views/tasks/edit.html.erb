@@ -1,4 +1,4 @@
-<h1>Editing task</h1>
+<h1><%= I18n.t('tasks.edit.title', task_name: @task.title) =%></h1>
 <hr>
 
 <%= render "form", task: @task %>
@@ -6,6 +6,6 @@
 <br>
 
 <div>
-  <%= link_to "Show this task", @task %> |
-  <%= link_to "Back to tasks", tasks_path %>
+  <%= link_to I18n.t('tasks.common.to_show'), @task %> |
+  <%= link_to I18n.t('tasks.common.to_index'), tasks_path %>
 </div>

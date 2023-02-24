@@ -15,7 +15,10 @@
 #  index_users_on_email  (email) UNIQUE
 #  index_users_on_name   (name)
 #
-class User < ApplicationRecord
-  acts_as_paranoid
-  belongs_to :task
+FactoryBot.define do
+  factory :user do
+    sequence(:name) { |i| "name_#{i}" }
+    encrypted_password { '098f6bcd4621d373cade4e832627b4f6' }
+    email { 'takasawa@rakuten.com' }
+  end
 end

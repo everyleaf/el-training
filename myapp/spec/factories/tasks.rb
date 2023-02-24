@@ -23,18 +23,13 @@
 #  index_tasks_on_user_id_and_status_and_priority    (user_id,status,priority)
 #  index_tasks_on_user_id_and_title                  (user_id,title)
 #
-class Task < ApplicationRecord
-  acts_as_paranoid
-  has_many :users
-  enum priority: { high: 0, middle: 1, low: 2 }
-  enum status: { waiting: 0, doing: 1, completed: 2 }
-  PRIORITY_LIST = [%w[middle middle], %w[high high], %w[low low]]
-  STATUS_LIST = [%w[waiting waiting], %w[doing doing], %w[completed completed]]
-
-  validates :title, presence: true, length: { maximum: 255 }
-  validates :description, presence: true
-  validates :priority, presence: true
-  validates :status, presence: true
-  validates :title, presence: true
-  validates :user_id, presence: true
+FactoryBot.define do
+  factory :task do
+    sequence(:title) { |i| "task_name_#{i}" }
+    expires_at { 1.week.since }
+    priority { %w[low middle high].sample }
+    status { %w[waiting doing completed].sample }
+    sequence(:description) { |i| "タスク説明文_#{i}" }
+    sequence(:user_id) { |i| i }
+  end
 end

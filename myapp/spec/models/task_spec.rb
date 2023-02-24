@@ -23,18 +23,16 @@
 #  index_tasks_on_user_id_and_status_and_priority    (user_id,status,priority)
 #  index_tasks_on_user_id_and_title                  (user_id,title)
 #
-class Task < ApplicationRecord
-  acts_as_paranoid
-  has_many :users
-  enum priority: { high: 0, middle: 1, low: 2 }
-  enum status: { waiting: 0, doing: 1, completed: 2 }
-  PRIORITY_LIST = [%w[middle middle], %w[high high], %w[low low]]
-  STATUS_LIST = [%w[waiting waiting], %w[doing doing], %w[completed completed]]
+require 'rails_helper'
 
-  validates :title, presence: true, length: { maximum: 255 }
-  validates :description, presence: true
-  validates :priority, presence: true
-  validates :status, presence: true
-  validates :title, presence: true
-  validates :user_id, presence: true
+RSpec.describe Task, type: :model do
+  describe 'enums' do
+    it 'convert params' do
+      is_expected.to define_enum_for(:priority).with_values(
+        high: 0,
+        middle: 1,
+        low: 2
+      )
+    end
+  end
 end
