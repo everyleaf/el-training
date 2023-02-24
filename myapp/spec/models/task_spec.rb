@@ -46,9 +46,9 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'sort_by_keyword' do
-    let!(:first_task) { create(:task, title: 'a', description: 'aaa', priority: 'low', status: 'waiting', user_id: user.id) }
-    let!(:second_task) { create(:task, title: 'b', description: 'bbb', priority: 'middle', status: 'doing', user_id: user.id) }
-    let!(:third_task) { create(:task, title: 'c', description: 'ccc', priority: 'high', status: 'completed', user_id: user.id) }
+    let!(:first_task) { create(:task, title: 'a', description: 'aaa', priority: 'low', status: 'waiting', user_id: user.id, expires_at: '2023/01/03 00:00') }
+    let!(:second_task) { create(:task, title: 'b', description: 'bbb', priority: 'middle', status: 'doing', user_id: user.id, expires_at: '2023/01/02 00:00') }
+    let!(:third_task) { create(:task, title: 'c', description: 'ccc', priority: 'high', status: 'completed', user_id: user.id, expires_at: '2023/01/01 00:00') }
 
     subject { Task.sort_by_keyword(sort) }
 
