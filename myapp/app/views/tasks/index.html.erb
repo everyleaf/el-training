@@ -33,7 +33,7 @@
           <%= Task.statuses_i18n[task.status] %>
         </td>
         <td>
-          <%= task.expires_at.strftime("%Y/%m/%d") %>
+          <%= task.expires_at ? task.expires_at.strftime("%Y/%m/%d") : '' %>
         </td>
     </tr>
     <% end %>

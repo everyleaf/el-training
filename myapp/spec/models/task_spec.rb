@@ -11,23 +11,24 @@
 #  title                                        :string(255)      not null
 #  created_at                                   :datetime         not null
 #  updated_at                                   :datetime         not null
-#  owner_id                                     :bigint           not null
+#  user_id                                      :bigint           not null
 #
 # Indexes
 #
-#  index_tasks_on_owner_id                            (owner_id)
-#  index_tasks_on_owner_id_and_expires_at             (owner_id,expires_at)
-#  index_tasks_on_owner_id_and_priority               (owner_id,priority)
-#  index_tasks_on_owner_id_and_status                 (owner_id,status)
-#  index_tasks_on_owner_id_and_status_and_expires_at  (owner_id,status,expires_at)
-#  index_tasks_on_owner_id_and_status_and_priority    (owner_id,status,priority)
-#  index_tasks_on_owner_id_and_title                  (owner_id,title)
+#  index_tasks_on_user_id                            (user_id)
+#  index_tasks_on_user_id_and_expires_at             (user_id,expires_at)
+#  index_tasks_on_user_id_and_priority               (user_id,priority)
+#  index_tasks_on_user_id_and_status                 (user_id,status)
+#  index_tasks_on_user_id_and_status_and_expires_at  (user_id,status,expires_at)
+#  index_tasks_on_user_id_and_status_and_priority    (user_id,status,priority)
+#  index_tasks_on_user_id_and_title                  (user_id,title)
 #
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
+  let!(:user) { create(:user) }
   describe 'enums' do
-    it {
+    it  {
       is_expected.to define_enum_for(:priority).with_values(
         high: 0,
         middle: 1,
@@ -44,9 +45,28 @@ RSpec.describe Task, type: :model do
     }
   end
 
-  describe 'methods' do
-    it {
-      expect(Task.new.sort_params_checker('created_at_asc')).to eq 'created_at ASC'
-    }
+  describe 'sort_by_keyword' do
+    let!(:first_task) { create(:task, title: 'a', description: 'aaa', priority: 'low', status: 'waiting', user_id: user.id) }
+    let!(:second_task) { create(:task, title: 'b', description: 'bbb', priority: 'middle', status: 'doing', user_id: user.id) }
+    let!(:third_task) { create(:task, title: 'c', description: 'ccc', priority: 'high', status: 'completed', user_id: user.id) }
+
+    subject { Task.sort_by_keyword(sort) }
+
+    context "When argument 'sort' is created_at_asc" do
+      let(:sort) { 'created_at_asc' }
+
+      it 'sort by specified sort type' do
+        is_expected.to eq [first_task, second_task, third_task]
+      end
+    end
+
+    context "When argument 'sort' is created_at_desc" do
+      let(:sort) { 'created_at_desc' }
+
+      it 'sort by specified sort type' do
+        is_expected.to eq [third_task, second_task, first_task]
+      end
+    end
   end
 end
+

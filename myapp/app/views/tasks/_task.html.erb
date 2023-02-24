@@ -13,7 +13,7 @@
         </tr>
         <tr>
             <td><%= I18n.t('activerecord.attributes.task.expires_at') %>: <td>
-            <td><%= task.expires_at.strftime("%Y/%m/%d") %></td>
+            <td><%= task.expires_at ? task.expires_at.strftime("%Y/%m/%d") : '' %></td>
         </tr>
         <tr>
             <td><%= I18n.t('activerecord.attributes.task.description') %>: <td>

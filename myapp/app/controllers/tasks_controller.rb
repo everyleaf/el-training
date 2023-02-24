@@ -23,10 +23,7 @@ class TasksController < ApplicationController
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
-    @task.owner_id = 1 # TODO: ログイン機能実装後に修正する
-    @now = Time.new
-    @task.created_at = @now
-    @task.updated_at = @now
+    @task.user_id = 1 # TODO: ログイン機能実装後に修正する
 
     respond_to do |format|
       if @task.save
@@ -44,7 +41,6 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
     respond_to do |format|
-      @task.updated_at = Time.new
       if @task.update(task_params)
         format.html do
           redirect_to task_url(@task), notice: I18n.t('messages.update', model_name: I18n.t('activerecord.models.task'))
@@ -78,7 +74,7 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
-    params.require(:task).permit(:title, :description, :status, :priority, :expires_at)
+    params.require(:task).permit(:title, :description, :status, :priority, :expires_at, :user_id)
   end
 
   def search_params
