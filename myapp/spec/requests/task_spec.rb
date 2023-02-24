@@ -9,6 +9,7 @@ RSpec.describe 'Tasks', type: :request do
     it 'renders a successful response' do
       get tasks_url
       expect(response).to have_http_status(:ok)
+      expect(response.body).to include 'タスク一覧'
     end
 
     context "When URL has argument 'sort'" do
@@ -47,6 +48,7 @@ RSpec.describe 'Tasks', type: :request do
     it 'renders a successful response' do
       get new_task_url
       expect(response).to have_http_status(:ok)
+      expect(response.body).to include '新規作成'
     end
   end
 
@@ -56,6 +58,7 @@ RSpec.describe 'Tasks', type: :request do
     it 'renders a successful response' do
       get edit_task_url(task)
       expect(response).to have_http_status(:ok)
+      expect(response.body).to include 'を編集'
     end
   end
 
