@@ -18,4 +18,7 @@
 class User < ApplicationRecord
   acts_as_paranoid
   has_many :tasks, inverse_of: :user, dependent: :destroy
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
+  validates :encrypted_password, presence: true
+  validates :name, presence: true
 end
