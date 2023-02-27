@@ -67,6 +67,22 @@ RSpec.describe Task, type: :model do
         is_expected.to eq [third_task, second_task, first_task]
       end
     end
+
+    context "When argument 'sort' is expires_at_asc" do
+      let(:sort) { 'expires_at_asc' }
+
+      it 'sort by specified sort type' do
+        is_expected.to eq [third_task, second_task, first_task]
+      end
+    end
+
+    context "When argument 'sort' is expires_at_desc" do
+      let(:sort) { 'expires_at_desc' }
+
+      it 'sort by specified sort type' do
+        is_expected.to eq [first_task, second_task, third_task]
+      end
+    end
   end
 end
 
