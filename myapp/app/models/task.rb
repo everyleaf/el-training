@@ -45,6 +45,8 @@ class Task < ApplicationRecord
   validates :user_id, presence: true
 
   scope :sort_by_keyword, ->(sort) { order(SORT_TYPE[sort]) }
+  scope :search_by_status, ->(status) { where(status:) }
+  scope :search_by_keyword, ->(keyword) { where('CONCAT(title, description) LIKE ?', "%#{Task.sanitize_sql_like(keyword)}%") }
 
   class << self
     def sort_params_checker(sort)
