@@ -27,6 +27,7 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   let!(:user) { create(:user) }
+
   describe 'enums' do
     it {
       is_expected.to define_enum_for(:priority).with_values(
@@ -93,6 +94,7 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+
   describe 'search_by_status' do
     let!(:first_task) do
       create(:task, title: 'a', description: 'aaa', priority: 'low', status: 'waiting', user_id: user.id,
@@ -121,26 +123,70 @@ RSpec.describe Task, type: :model do
 
     subject { Task.search_by_status(status) }
 
-    context "When 'waiting' tasks exit 2 records" do
+    context "When the tasks has status 'waiting' exit 2 records" do
       let(:status) { 'waiting' }
       it 'expects 2 records return' do
         is_expected.to have_attributes(size: 2)
         is_expected.to eq [first_task, second_task]
       end
     end
-    context "When 'doing' tasks exit 1 record" do
+
+    context "When the tasks has status 'doing' exit 1 record" do
       let(:status) { 'doing' }
       it 'expects 1 record return' do
         is_expected.to have_attributes(size: 1)
         is_expected.to eq [third_task]
       end
     end
-    context "When 'completed' tasks exit 3 records" do
+
+    context "When the tasks has status 'completed' exit 3 records" do
       let(:status) { 'completed' }
       it 'expects 3 record return' do
         is_expected.to have_attributes(size: 3)
         is_expected.to eq [fourth_task, fifth_task, sixth_task]
       end
     end
+  end
+
+  describe 'search_by_keyword' do
+    let!(:first_task) do
+      create(:task, title: 'a', description: 'abc', priority: 'low', status: 'waiting', user_id: user.id,
+                    expires_at: '2023/01/03 00:00')
+    end
+    let!(:second_task) do
+      create(:task, title: 'b', description: 'bbc', priority: 'middle', status: 'waiting', user_id: user.id,
+                    expires_at: '2023/01/02 00:00')
+    end
+    let!(:third_task) do
+      create(:task, title: 'c', description: 'ccc', priority: 'high', status: 'doing', user_id: user.id,
+                    expires_at: '2023/01/01 00:00')
+    end
+
+    subject { Task.search_by_keyword(keyword) }
+
+    context "When the tasks title or description has 'a' exit 1 record" do
+      let(:keyword) { 'a' }
+      it 'expects 1 records return' do
+        is_expected.to have_attributes(size: 1)
+        is_expected.to eq [first_task]
+      end
+    end
+
+    context "When the tasks title or description has 'b' exit 2 records" do
+      let(:keyword) { 'b' }
+      it 'expects 2 records return' do
+        is_expected.to have_attributes(size: 2)
+        is_expected.to eq [first_task, second_task]
+      end
+    end
+
+    context "When the tasks title or description has 'c' exit 3 records" do
+      let(:keyword) { 'c' }
+      it 'expects 3 records return' do
+        is_expected.to have_attributes(size: 3)
+        is_expected.to eq [first_task, second_task, third_task]
+      end
+    end
+    
   end
 end
