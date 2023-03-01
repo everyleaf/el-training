@@ -20,7 +20,7 @@ RSpec.describe 'Tasks', type: :request do
         end
 
         it 'renders a successful response' do
-          get tasks_url, params: params
+          get(tasks_url, params:)
 
           expect(response).to have_http_status(:ok)
           Task.all.slice(0..9).each { |task| expect(response.body).to include task.title.to_s }
@@ -33,7 +33,7 @@ RSpec.describe 'Tasks', type: :request do
         end
 
         it 'renders a successful response' do
-          get tasks_url, params: params
+          get(tasks_url, params:)
 
           expect(response).to have_http_status(:ok)
           Task.all.reverse.slice(0..9).each { |task| expect(response.body).to include task.title.to_s }
@@ -42,15 +42,15 @@ RSpec.describe 'Tasks', type: :request do
       end
       context "When URL has argument 'sort'" do
         let!(:tasks) { 11.times.map { create(:task, user_id: user.id) } }
-  
+
         context 'expires_at_asc' do
           let(:params) do
             { sort: 'expires_at_asc' }
           end
-  
+
           it 'renders a successful response' do
-            get tasks_url, params: params
-  
+            get(tasks_url, params:)
+
             expect(response).to have_http_status(:ok)
             Task.all.slice(0..9).each { |task| expect(response.body).to include task.title.to_s }
             expect(response.body).to include Task.all.last.title.to_s
@@ -60,10 +60,10 @@ RSpec.describe 'Tasks', type: :request do
           let(:params) do
             { sort: 'expires_at_desc' }
           end
-  
+
           it 'renders a successful response' do
-            get tasks_url, params: params
-  
+            get(tasks_url, params:)
+
             expect(response).to have_http_status(:ok)
             Task.all.reverse.slice(0..9).each { |task| expect(response.body).to include task.title.to_s }
             expect(response.body).to include Task.all.reverse.last.title.to_s

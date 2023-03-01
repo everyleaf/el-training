@@ -34,7 +34,7 @@ class Task < ApplicationRecord
     'created_at_asc' => 'created_at ASC',
     'created_at_desc' => 'created_at DESC',
     'expires_at_asc' => 'expires_at ASC',
-    'expires_at_desc' => 'expires_at DESC',
+    'expires_at_desc' => 'expires_at DESC'
   }.freeze
 
   validates :title, presence: true, length: { maximum: 255 }
@@ -46,7 +46,9 @@ class Task < ApplicationRecord
 
   scope :sort_by_keyword, ->(sort) { order(SORT_TYPE[sort]) }
   scope :search_by_status, ->(status) { where(status:) }
-  scope :search_by_keyword, ->(keyword) { where('CONCAT(title, description) LIKE ?', "%#{Task.sanitize_sql_like(keyword)}%") }
+  scope :search_by_keyword, lambda { |keyword|
+                              where('CONCAT(title, description) LIKE ?', "%#{Task.sanitize_sql_like(keyword)}%")
+                            }
 
   class << self
     def sort_params_checker(sort)

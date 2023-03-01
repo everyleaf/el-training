@@ -49,9 +49,9 @@ gem 'annotate'
 
 gem 'paranoia'
 
+gem 'fablicop', require: false
 gem 'rubocop', require: false
 gem 'rubocop-rails', require: false
-gem 'fablicop', require: false
 
 # Use Sass to process CSS
 # gem "sassc-rails"

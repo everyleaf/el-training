@@ -28,7 +28,7 @@ require 'rails_helper'
 RSpec.describe Task, type: :model do
   let!(:user) { create(:user) }
   describe 'enums' do
-    it  {
+    it {
       is_expected.to define_enum_for(:priority).with_values(
         high: 0,
         middle: 1,
@@ -46,9 +46,18 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'sort_by_keyword' do
-    let!(:first_task) { create(:task, title: 'a', description: 'aaa', priority: 'low', status: 'waiting', user_id: user.id, expires_at: '2023/01/03 00:00') }
-    let!(:second_task) { create(:task, title: 'b', description: 'bbb', priority: 'middle', status: 'doing', user_id: user.id, expires_at: '2023/01/02 00:00') }
-    let!(:third_task) { create(:task, title: 'c', description: 'ccc', priority: 'high', status: 'completed', user_id: user.id, expires_at: '2023/01/01 00:00') }
+    let!(:first_task) do
+      create(:task, title: 'a', description: 'aaa', priority: 'low', status: 'waiting', user_id: user.id,
+                    expires_at: '2023/01/03 00:00')
+    end
+    let!(:second_task) do
+      create(:task, title: 'b', description: 'bbb', priority: 'middle', status: 'doing', user_id: user.id,
+                    expires_at: '2023/01/02 00:00')
+    end
+    let!(:third_task) do
+      create(:task, title: 'c', description: 'ccc', priority: 'high', status: 'completed', user_id: user.id,
+                    expires_at: '2023/01/01 00:00')
+    end
 
     subject { Task.sort_by_keyword(sort) }
 
@@ -85,14 +94,33 @@ RSpec.describe Task, type: :model do
     end
   end
   describe 'search_by_status' do
-    let!(:first_task) { create(:task, title: 'a', description: 'aaa', priority: 'low', status: 'waiting', user_id: user.id, expires_at: '2023/01/03 00:00') }
-    let!(:second_task) { create(:task, title: 'b', description: 'bbb', priority: 'middle', status: 'waiting', user_id: user.id, expires_at: '2023/01/02 00:00') }
-    let!(:third_task) { create(:task, title: 'c', description: 'ccc', priority: 'high', status: 'doing', user_id: user.id, expires_at: '2023/01/01 00:00') }
-    let!(:fourth_task) { create(:task, title: 'd', description: 'ddd', priority: 'middle', status: 'completed', user_id: user.id, expires_at: '2023/01/04 00:00') }
-    let!(:fifth_task) { create(:task, title: 'e', description: 'eee', priority: 'low', status: 'completed', user_id: user.id, expires_at: '2023/01/05 00:00') }
-    let!(:sixth_task) { create(:task, title: 'f', description: 'fff', priority: 'high', status: 'completed', user_id: user.id, expires_at: '2023/01/06 00:00') }
+    let!(:first_task) do
+      create(:task, title: 'a', description: 'aaa', priority: 'low', status: 'waiting', user_id: user.id,
+                    expires_at: '2023/01/03 00:00')
+    end
+    let!(:second_task) do
+      create(:task, title: 'b', description: 'bbb', priority: 'middle', status: 'waiting', user_id: user.id,
+                    expires_at: '2023/01/02 00:00')
+    end
+    let!(:third_task) do
+      create(:task, title: 'c', description: 'ccc', priority: 'high', status: 'doing', user_id: user.id,
+                    expires_at: '2023/01/01 00:00')
+    end
+    let!(:fourth_task) do
+      create(:task, title: 'd', description: 'ddd', priority: 'middle', status: 'completed', user_id: user.id,
+                    expires_at: '2023/01/04 00:00')
+    end
+    let!(:fifth_task) do
+      create(:task, title: 'e', description: 'eee', priority: 'low', status: 'completed', user_id: user.id,
+                    expires_at: '2023/01/05 00:00')
+    end
+    let!(:sixth_task) do
+      create(:task, title: 'f', description: 'fff', priority: 'high', status: 'completed', user_id: user.id,
+                    expires_at: '2023/01/06 00:00')
+    end
 
     subject { Task.search_by_status(status) }
+
     context "When 'waiting' tasks exit 2 records" do
       let(:status) { 'waiting' }
       it 'expects 2 records return' do
@@ -116,4 +144,3 @@ RSpec.describe Task, type: :model do
     end
   end
 end
-
