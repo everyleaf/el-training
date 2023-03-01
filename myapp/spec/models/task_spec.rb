@@ -87,14 +87,31 @@ RSpec.describe Task, type: :model do
   describe 'search_by_status' do
     let!(:first_task) { create(:task, title: 'a', description: 'aaa', priority: 'low', status: 'waiting', user_id: user.id, expires_at: '2023/01/03 00:00') }
     let!(:second_task) { create(:task, title: 'b', description: 'bbb', priority: 'middle', status: 'waiting', user_id: user.id, expires_at: '2023/01/02 00:00') }
-    let!(:third_task) { create(:task, title: 'c', description: 'ccc', priority: 'high', status: 'completed', user_id: user.id, expires_at: '2023/01/01 00:00') }
+    let!(:third_task) { create(:task, title: 'c', description: 'ccc', priority: 'high', status: 'doing', user_id: user.id, expires_at: '2023/01/01 00:00') }
+    let!(:fourth_task) { create(:task, title: 'd', description: 'ddd', priority: 'middle', status: 'completed', user_id: user.id, expires_at: '2023/01/04 00:00') }
+    let!(:fifth_task) { create(:task, title: 'e', description: 'eee', priority: 'low', status: 'completed', user_id: user.id, expires_at: '2023/01/05 00:00') }
+    let!(:sixth_task) { create(:task, title: 'f', description: 'fff', priority: 'high', status: 'completed', user_id: user.id, expires_at: '2023/01/06 00:00') }
 
     subject { Task.search_by_status(status) }
-    context "When 'waiting' tasks counts 2 " do
+    context "When 'waiting' tasks exit 2 records" do
       let(:status) { 'waiting' }
       it 'expects 2 records return' do
+        is_expected.to have_attributes(size: 2)
         is_expected.to eq [first_task, second_task]
-        is_expected.to change(Task, :count).to(2)
+      end
+    end
+    context "When 'doing' tasks exit 1 record" do
+      let(:status) { 'doing' }
+      it 'expects 1 record return' do
+        is_expected.to have_attributes(size: 1)
+        is_expected.to eq [third_task]
+      end
+    end
+    context "When 'completed' tasks exit 3 records" do
+      let(:status) { 'completed' }
+      it 'expects 3 record return' do
+        is_expected.to have_attributes(size: 3)
+        is_expected.to eq [fourth_task, fifth_task, sixth_task]
       end
     end
   end
