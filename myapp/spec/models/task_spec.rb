@@ -84,5 +84,19 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+  describe 'search_by_status' do
+    let!(:first_task) { create(:task, title: 'a', description: 'aaa', priority: 'low', status: 'waiting', user_id: user.id, expires_at: '2023/01/03 00:00') }
+    let!(:second_task) { create(:task, title: 'b', description: 'bbb', priority: 'middle', status: 'waiting', user_id: user.id, expires_at: '2023/01/02 00:00') }
+    let!(:third_task) { create(:task, title: 'c', description: 'ccc', priority: 'high', status: 'completed', user_id: user.id, expires_at: '2023/01/01 00:00') }
+
+    subject { Task.search_by_status(status) }
+    context "When 'waiting' tasks counts 2 " do
+      let(:status) { 'waiting' }
+      it 'expects 2 records return' do
+        is_expected.to eq [first_task, second_task]
+        is_expected.to change(Task, :count).to(2)
+      end
+    end
+  end
 end
 
