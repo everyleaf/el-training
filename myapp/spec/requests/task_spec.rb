@@ -172,8 +172,28 @@ RSpec.describe 'Tasks', type: :request do
           expect(response.body).not_to include 'さしすせそ'
         end
       end
-      context "When there are over 10 tasks and using pagenation" do
+    end
+    context "When there are over 10 tasks and using pagenation" do
+      let!(:tasks) { Kaminari.paginate_array(create_list(:task, 20)).page(page) }
 
+      context 'page:1' do
+        let(:page) { 1 }
+
+        it 'renders a successful response' do
+          get tasks_url
+
+          expect(response).to have_http_status(:ok)
+          tasks.each { |task| expect(response.body).to include task.title.to_s }
+        end
+      end
+      context 'page:2' do
+        let(:page) { 2 }
+
+        it 'renders a successful response' do
+          get tasks_url + "/?page=#{page}"
+          expect(response).to have_http_status(:ok)
+          tasks.each { |task| expect(response.body).to include task.title.to_s }
+        end
       end
     end
   end
