@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Tasks', type: :request do
-  let!(:user) { create(:user) }
+  let(:user) { create(:user) }
 
   describe 'GET /index' do
     let(:tasks) { create_list(:task, 10) }
@@ -13,8 +13,14 @@ RSpec.describe 'Tasks', type: :request do
     end
 
     context "When URL has argument 'sort'" do
-      let!(:tasks) { 11.times.map { create(:task, user_id: user.id) } }
-
+      let!(:first_task) do
+        create(:task, title: '1st', description: 'aaa', priority: 'low', status: 'waiting', user_id: user.id, 
+                      created_at: '2023/01/01 00:00')
+      end
+      let!(:second_task) do
+        create(:task, title: '2nd', description: 'bbb', priority: 'middle', status: 'waiting', user_id: user.id,
+                      created_at: '2023/01/02 00:00')
+      end
       context 'created_at_asc' do
         let(:params) do
           { sort: 'created_at_asc' }
@@ -24,8 +30,7 @@ RSpec.describe 'Tasks', type: :request do
           get tasks_url, params: params
 
           expect(response).to have_http_status(:ok)
-          Task.all.slice(0..9).each { |task| expect(response.body).to include task.title.to_s }
-          expect(response.body).to include Task.all.last.title.to_s
+          expect(response.body).to match(/#{first_task.title}[\s\S]*#{second_task.title}/)
         end
       end
       context 'created_at_desc' do
@@ -37,8 +42,7 @@ RSpec.describe 'Tasks', type: :request do
           get tasks_url, params: params
 
           expect(response).to have_http_status(:ok)
-          Task.all.reverse.slice(0..9).each { |task| expect(response.body).to include task.title.to_s }
-          expect(response.body).to include Task.all.reverse.last.title.to_s
+          expect(response.body).to match(/#{second_task.title}[\s\S]*#{first_task.title}/)
         end
       end
     end
