@@ -26,13 +26,47 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
+  let!(:user) { create(:user) }
   describe 'enums' do
-    it 'convert params' do
+    it  {
       is_expected.to define_enum_for(:priority).with_values(
         high: 0,
         middle: 1,
         low: 2
       )
+    }
+
+    it {
+      is_expected.to define_enum_for(:status).with_values(
+        waiting: 0,
+        doing: 1,
+        completed: 2
+      )
+    }
+  end
+
+  describe 'sort_by_keyword' do
+    let!(:first_task) { create(:task, title: 'a', description: 'aaa', priority: 'low', status: 'waiting', user_id: user.id) }
+    let!(:second_task) { create(:task, title: 'b', description: 'bbb', priority: 'middle', status: 'doing', user_id: user.id) }
+    let!(:third_task) { create(:task, title: 'c', description: 'ccc', priority: 'high', status: 'completed', user_id: user.id) }
+
+    subject { Task.sort_by_keyword(sort) }
+
+    context "When argument 'sort' is created_at_asc" do
+      let(:sort) { 'created_at_asc' }
+
+      it 'sort by specified sort type' do
+        is_expected.to eq [first_task, second_task, third_task]
+      end
+    end
+
+    context "When argument 'sort' is created_at_desc" do
+      let(:sort) { 'created_at_desc' }
+
+      it 'sort by specified sort type' do
+        is_expected.to eq [third_task, second_task, first_task]
+      end
     end
   end
 end
+

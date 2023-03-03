@@ -51,6 +51,7 @@ gem 'paranoia'
 
 gem 'rubocop', require: false
 gem 'rubocop-rails', require: false
+gem 'fablicop', require: false
 
 # Use Sass to process CSS
 # gem "sassc-rails"

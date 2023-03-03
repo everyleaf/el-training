@@ -29,7 +29,7 @@ FactoryBot.define do
     expires_at { 1.week.since }
     priority { %w[low middle high].sample }
     status { %w[waiting doing completed].sample }
-    sequence(:description) { |i| "タスク説明文_#{i}" }
+    sequence(:description) { |i| "task_description_#{i}" }
     sequence(:user_id) { |i| i }
   end
 end
