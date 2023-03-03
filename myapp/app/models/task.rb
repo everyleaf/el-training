@@ -46,7 +46,7 @@ class Task < ApplicationRecord
 
   class << self
     def sort_params_checker(sort)
-      SORT_TYPE.keys.include?(sort) ? sort : 'created_at_asc' if sort.present?
+      SORT_TYPE.keys.include?(sort) ? sort : 'created_at_asc' 
     end
   end
 end
