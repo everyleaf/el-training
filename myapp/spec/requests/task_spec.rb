@@ -172,6 +172,9 @@ RSpec.describe 'Tasks', type: :request do
           expect(response.body).not_to include 'さしすせそ'
         end
       end
+      context "When there are over 10 tasks and using pagenation" do
+
+      end
     end
   end
 
