@@ -1,18 +1,21 @@
-<%= form_with(url: tasks_path, method: :get, local: true) do |form| %>
-  <div>
-    <%= form.label :keyword, 'キーワード検索', style: "display: block" %>
-    <%= form.text_field :keyword, placeholder: I18n.t('tasks.form.search_form.placeholder'), value: params['keyword'] %>
-  </div>
-   <div>
-    <%= form.label :status, 'ステータスで絞り込む', style: "display: block" %>
-    <%= form.select :status, I18n.t('select_form.task.status'), include_blank: I18n.t('tasks.form.search_form.include_blank'), selected: params['status'] %>
-  <div>
-    <%= form.label :sort, 'ソート', style: "display: block" %>
-    <%= form.select :sort, I18n.t('tasks.form.search_form.sort')  %>
-  </div>
-  <br>
+<div class="container-sm border rounded-2" style="padding:10px;">
+  <%= form_with(url: tasks_path, method: :get, local: true) do |form| %>
+    <div>
+      <%= form.label :keyword, 'キーワード検索', style: "display: block" %>
+      <%= form.text_field :keyword, placeholder: I18n.t('tasks.form.search_form.placeholder'), value: params['keyword'] %>
+    </div>
+    <div>
+      <%= form.label :status, 'ステータスで絞り込む', style: "display: block" %>
+      <%= form.select :status, I18n.t('select_form.task.status'), include_blank: I18n.t('tasks.form.search_form.include_blank'), selected: params['status'] %>
+    <div>
+      <%= form.label :sort, 'ソート', style: "display: block" %>
+      <%= form.select :sort, I18n.t('tasks.form.search_form.sort')  %>
+    </div>
+    <br>
 
-  <div>
-    <%= form.submit 'submit' %>
-  </div>
-<% end %>
+    <div>
+      <%= form.submit 'submit', class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+
