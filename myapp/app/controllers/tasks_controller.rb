@@ -46,7 +46,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.update(task_params)
         format.html do
-          redirect_to task_url(@task), notice: I18n.t('messages.update', model_name: I18n.t('activerecord.models.task'))
+          redirect_to task_url(@task), flash: { success: I18n.t('messages.update', model_name: I18n.t('activerecord.models.task')) }
         end
         format.json { render :show, status: :ok, location: @task }
       else
@@ -62,7 +62,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to tasks_url, notice: I18n.t('messages.delete', model_name: I18n.t('activerecord.models.task'))
+        redirect_to tasks_url, flash: { success: I18n.t('messages.delete', model_name: I18n.t('activerecord.models.task')) }
       end
       format.json { head :no_content }
     end

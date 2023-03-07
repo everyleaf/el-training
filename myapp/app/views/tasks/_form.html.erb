@@ -13,7 +13,7 @@
 
   <div class="container-sm border rounded-3" style="padding:10px;">
     <%= form_with model: @task do |form| %>
-      <table>
+      <table class="table table-striped table-bordered">
         <tr>
           <td><%= I18n.t('activerecord.attributes.task.title') %>:</td>
           <td><%= form.text_field :title %></td>
