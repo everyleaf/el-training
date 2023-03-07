@@ -31,7 +31,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         format.html do
-          redirect_to task_url(@task), notice: I18n.t('messages.create', model_name: I18n.t('activerecord.models.task'))
+          redirect_to task_url(@task), flash: { success: I18n.t('messages.create', model_name: I18n.t('activerecord.models.task')) }
         end
         format.json { render :show, status: :created, location: @task }
       else
