@@ -15,10 +15,7 @@
 #  index_users_on_email  (email) UNIQUE
 #  index_users_on_name   (name)
 #
-class User < ApplicationRecord
-  acts_as_paranoid
-  has_many :tasks, inverse_of: :user, dependent: :destroy
-  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
-  validates :encrypted_password, presence: true
-  validates :name, presence: true
+require 'rails_helper'
+
+RSpec.describe User, type: :model do
 end

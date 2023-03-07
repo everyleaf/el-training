@@ -28,7 +28,7 @@ require 'rails_helper'
 RSpec.describe Task, type: :model do
   let!(:user) { create(:user) }
   describe 'enums' do
-    it  {
+    it {
       is_expected.to define_enum_for(:priority).with_values(
         high: 0,
         middle: 1,
@@ -46,9 +46,18 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'sort_by_keyword' do
-    let!(:first_task) { create(:task, title: 'a', description: 'aaa', priority: 'low', status: 'waiting', user_id: user.id) }
-    let!(:second_task) { create(:task, title: 'b', description: 'bbb', priority: 'middle', status: 'doing', user_id: user.id) }
-    let!(:third_task) { create(:task, title: 'c', description: 'ccc', priority: 'high', status: 'completed', user_id: user.id) }
+    let!(:first_task) do
+      create(:task, title: 'a', description: 'aaa', priority: 'low', status: 'waiting', user_id: user.id,
+                    expires_at: '2023/01/03 00:00')
+    end
+    let!(:second_task) do
+      create(:task, title: 'b', description: 'bbb', priority: 'middle', status: 'doing', user_id: user.id,
+                    expires_at: '2023/01/02 00:00')
+    end
+    let!(:third_task) do
+      create(:task, title: 'c', description: 'ccc', priority: 'high', status: 'completed', user_id: user.id,
+                    expires_at: '2023/01/01 00:00')
+    end
 
     subject { Task.sort_by_keyword(sort) }
 
@@ -67,6 +76,21 @@ RSpec.describe Task, type: :model do
         is_expected.to eq [third_task, second_task, first_task]
       end
     end
+
+    context "When argument 'sort' is expires_at_asc" do
+      let(:sort) { 'expires_at_asc' }
+
+      it 'sort by specified sort type' do
+        is_expected.to eq [third_task, second_task, first_task]
+      end
+    end
+
+    context "When argument 'sort' is expires_at_desc" do
+      let(:sort) { 'expires_at_desc' }
+
+      it 'sort by specified sort type' do
+        is_expected.to eq [first_task, second_task, third_task]
+      end
+    end
   end
 end
-
