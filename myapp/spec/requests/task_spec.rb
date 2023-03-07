@@ -14,7 +14,7 @@ RSpec.describe 'Tasks', type: :request do
 
     context "When URL has argument 'sort'" do
       let!(:first_task) do
-        create(:task, title: '1st', description: 'aaa', priority: 'low', status: 'waiting', user_id: user.id, 
+        create(:task, title: '1st', description: 'aaa', priority: 'low', status: 'waiting', user_id: user.id,
                       created_at: '2023/01/01 00:00', expires_at: '2023/02/02 00:00')
       end
       let!(:second_task) do

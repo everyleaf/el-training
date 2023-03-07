@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   def render_404(e = nil)
     logger.error "Rendering 404 with excaption: #{e.message}" if e
-    
+
     if request.format.to_sym == :json
       render json: { error: '404 Not Found' }, status: :not_found
     else
