@@ -31,10 +31,10 @@ class Task < ApplicationRecord
   PRIORITY_LIST = [%w[middle middle], %w[high high], %w[low low]]
   STATUS_LIST = [%w[waiting waiting], %w[doing doing], %w[completed completed]]
   SORT_TYPE = {
-    'created_at_asc' => 'created_at ASC',
-    'created_at_desc' => 'created_at DESC',
-    'expires_at_asc' => 'expires_at ASC',
-    'expires_at_desc' => 'expires_at DESC'
+    created_at_asc: 'created_at ASC',
+    created_at_desc: 'created_at DESC',
+    expires_at_asc: 'expires_at ASC',
+    expires_at_desc: 'expires_at DESC'
   }.freeze
 
   validates :title, presence: true, length: { maximum: 255 }
@@ -44,15 +44,26 @@ class Task < ApplicationRecord
   validates :title, presence: true
   validates :user_id, presence: true
 
-  scope :sort_by_keyword, ->(sort) { order(SORT_TYPE[sort]) }
-  scope :search_by_status, ->(status) { where(status:) }
-  scope :search_by_keyword, lambda { |keyword|
-                              where('CONCAT(title, description) LIKE ?', "%#{Task.sanitize_sql_like(keyword)}%")
-                            }
-
   class << self
     def sort_params_checker(sort)
-      SORT_TYPE.keys.include?(sort) ? sort : 'created_at_asc' 
+      if sort.present? && SORT_TYPE.has_key?(sort.to_sym)
+        sort
+      else
+        'created_at_asc'
+      end
     end
+
+    def sort_by_keyword(sort)
+      order(SORT_TYPE[sort.to_sym])
+    end 
+
+    def search_by_status(status)
+      where(status:)
+    end 
+
+    def search_by_keyword(keyword)
+      where('CONCAT(title, description) LIKE ?', "%#{Task.sanitize_sql_like(keyword)}%")
+    end 
+
   end
 end
