@@ -27,7 +27,7 @@ RSpec.describe 'Tasks', type: :request do
         end
 
         it 'renders a successful response' do
-          get tasks_url, params: params
+          get(tasks_url, params:)
 
           expect(response).to have_http_status(:ok)
           expect(response.body).to match(/#{first_task.title}[\s\S]*#{second_task.title}/)
@@ -39,7 +39,7 @@ RSpec.describe 'Tasks', type: :request do
         end
 
         it 'renders a successful response' do
-          get tasks_url, params: params
+          get(tasks_url, params:)
 
           expect(response).to have_http_status(:ok)
           expect(response.body).to match(/#{second_task.title}[\s\S]*#{first_task.title}/)
@@ -68,6 +68,108 @@ RSpec.describe 'Tasks', type: :request do
 
           expect(response).to have_http_status(:ok)
           expect(response.body).to match(/#{first_task.title}[\s\S]*#{second_task.title}/)
+        end
+      end
+    end
+    context "When URL has argument 'status'" do
+      let!(:first_task) do
+        create(:task, title: 'test1', description: 'aaa', priority: 'low', status: 'waiting', user_id: user.id,
+                      expires_at: '2023/01/03 00:00')
+      end
+      let!(:second_task) do
+        create(:task, title: 'test2', description: 'bbb', priority: 'middle', status: 'waiting', user_id: user.id,
+                      expires_at: '2023/01/02 00:00')
+      end
+      let!(:third_task) do
+        create(:task, title: 'test3', description: 'ccc', priority: 'high', status: 'doing', user_id: user.id,
+                      expires_at: '2023/01/01 00:00')
+      end
+      let!(:fourth_task) do
+        create(:task, title: 'test4', description: 'ddd', priority: 'middle', status: 'completed', user_id: user.id,
+                      expires_at: '2023/01/04 00:00')
+      end
+      let!(:fifth_task) do
+        create(:task, title: 'test5', description: 'eee', priority: 'low', status: 'completed', user_id: user.id,
+                      expires_at: '2023/01/05 00:00')
+      end
+      let!(:sixth_task) do
+        create(:task, title: 'test6', description: 'fff', priority: 'high', status: 'completed', user_id: user.id,
+                      expires_at: '2023/01/06 00:00')
+      end
+
+      context 'status: waiting' do
+        let(:params) do
+          { status: 'waiting' }
+        end
+        it 'renders a successful response' do
+          get(tasks_url, params:)
+
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include 'test1'
+          expect(response.body).to include 'test2'
+          expect(response.body).not_to include 'test3'
+          expect(response.body).not_to include 'test4'
+          expect(response.body).not_to include 'test5'
+          expect(response.body).not_to include 'test6'
+        end
+      end
+      context 'status: doing' do
+        let(:params) do
+          { status: 'doing' }
+        end
+        it 'renders a successful response' do
+          get(tasks_url, params:)
+
+          expect(response).to have_http_status(:ok)
+          expect(response.body).not_to include 'test1'
+          expect(response.body).not_to include 'test2'
+          expect(response.body).to include 'test3'
+          expect(response.body).not_to include 'test4'
+          expect(response.body).not_to include 'test5'
+          expect(response.body).not_to include 'test6'
+        end
+      end
+      context 'status: completed' do
+        let(:params) do
+          { status: 'completed' }
+        end
+        it 'renders a successful response' do
+          get(tasks_url, params:)
+
+          expect(response).to have_http_status(:ok)
+          expect(response.body).not_to include 'test1'
+          expect(response.body).not_to include 'test2'
+          expect(response.body).not_to include 'test3'
+          expect(response.body).to include 'test4'
+          expect(response.body).to include 'test5'
+          expect(response.body).to include 'test6'
+        end
+      end
+    end
+    context "When URL has argument 'keyword'" do
+      let!(:first_task) do
+        create(:task, title: 'あいうえお', description: 'a', priority: 'low', status: 'waiting', user_id: user.id,
+                      expires_at: '2023/01/03 00:00')
+      end
+      let!(:second_task) do
+        create(:task, title: 'かきくけこ', description: 'b', priority: 'middle', status: 'waiting', user_id: user.id,
+                      expires_at: '2023/01/02 00:00')
+      end
+      let!(:third_task) do
+        create(:task, title: 'さしすせそ', description: 'c', priority: 'high', status: 'doing', user_id: user.id,
+                      expires_at: '2023/01/01 00:00')
+      end
+      context "keyword: 'a'" do
+        let(:params) do
+          { keyword: 'a' }
+        end
+        it 'renders a successful response' do
+          get(tasks_url, params:)
+
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include 'あいうえお'
+          expect(response.body).not_to include 'かきくけこ'
+          expect(response.body).not_to include 'さしすせそ'
         end
       end
     end

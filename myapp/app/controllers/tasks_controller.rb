@@ -3,7 +3,12 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all.sort_by_keyword(search_params[:sort])
+    query = Task.all
+    query = query.sort_by_keyword(search_params[:sort]) if search_params[:sort].present?
+    query = query.search_by_status(search_params[:status]) if search_params[:status].present?
+    query = query.search_by_keyword(search_params[:keyword]) if search_params[:keyword].present?
+
+    @tasks = query  
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -76,6 +81,6 @@ class TasksController < ApplicationController
 
   def search_params
     params[:sort] = Task.sort_params_checker(params[:sort])
-    params.permit(:sort)
+    params.permit(:keyword, :status, :sort)
   end
 end
