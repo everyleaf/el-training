@@ -2,11 +2,4 @@
 
 <%= render @task %>
 <br>
-<div>
-  <%= link_to I18n.t('tasks.common.to_edit'), edit_task_path(@task) %> |
-  <%= link_to I18n.t('tasks.common.to_index'), tasks_path %>
-</div>
-<br>
-<div>
-  <%= button_to I18n.t('tasks.common.to_delete'), @task, method: :delete,  class: "btn btn-sm btn-danger" %>
-</div>
+<%= render 'footer', task: @task %>

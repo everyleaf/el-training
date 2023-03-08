@@ -1,14 +1,13 @@
 <p style="color: green"><%= notice %></p>
-
-<h1><%= I18n.t('tasks.index.title') %></h1>
-<hr>
-<%= link_to I18n.t('tasks.index.add_task'), new_task_path %>
-<br>
-<br>
+<div class="container-sm rounded-2" style="padding:10px;">
+  <h1><%= I18n.t('tasks.index.title') %></h1>
+  <hr>
+  <%= link_to I18n.t('tasks.index.add_task'), new_task_path %>
+</div>
 
   <%= render 'search_form', task: @task %>
 
-<div id="tasks">
+<div id="tasks" class="container-sm border rounded-2" style="padding:10px;">
   <table>
     <tr>
       <th></th>
@@ -39,5 +38,8 @@
     <% end %>
   </table>
 </div>
-<%= paginate @tasks %>
+<div>
+  <%= paginate @tasks %>
+</div>
+
 

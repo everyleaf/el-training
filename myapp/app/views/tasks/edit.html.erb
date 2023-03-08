@@ -5,7 +5,4 @@
 
 <br>
 
-<div>
-  <%= link_to I18n.t('tasks.common.to_show'), @task %> |
-  <%= link_to I18n.t('tasks.common.to_index'), tasks_path %>
-</div>
+<%= render 'footer', task: @task %>
