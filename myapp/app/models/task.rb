@@ -44,12 +44,6 @@ class Task < ApplicationRecord
   validates :title, presence: true
   validates :user_id, presence: true
 
-  scope :sort_by_keyword, ->(sort) { order(SORT_TYPE[sort.to_sym]) }
-  scope :search_by_status, ->(status) { where(status:) }
-  scope :search_by_keyword, lambda { |keyword|
-                              where('CONCAT(title, description) LIKE ?', "%#{Task.sanitize_sql_like(keyword)}%")
-                            }
-
   class << self
     def sort_params_checker(sort)
       if sort.present? && SORT_TYPE.has_key?(sort.to_sym)
@@ -58,5 +52,18 @@ class Task < ApplicationRecord
         'created_at_asc'
       end
     end
+
+    def sort_by_keyword(sort)
+      order(SORT_TYPE[sort.to_sym])
+    end 
+
+    def search_by_status(status)
+      where(status:)
+    end 
+
+    def search_by_keyword(keyword)
+      where('CONCAT(title, description) LIKE ?', "%#{Task.sanitize_sql_like(keyword)}%")
+    end 
+
   end
 end
