@@ -1,11 +1,13 @@
-<h1><%= I18n.t('tasks.new.title') =%></h1>
-<hr>
+<div class="container-sm rounded-2" style="padding:10px;">
+  <h1><%= I18n.t('tasks.new.title') =%></h1>
+  <hr>
+</div>
 
 <br>
 </div>
   <%= render 'form', task: @task %>
 </div>
 <br>
-<div>
+<div class="container-sm rounded-2 text-center" style="padding:10px;">
   <%= link_to I18n.t('tasks.common.to_index'), tasks_path %>
 <div>
