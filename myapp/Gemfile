@@ -54,6 +54,7 @@ gem 'rubocop', require: false
 gem 'rubocop-rails', require: false
 
 gem 'kaminari'
+gem 'bootstrap4-kaminari-views'
 
 gem "sassc-rails"
 gem 'bootstrap', '~> 5.1.3'

@@ -81,6 +81,9 @@ GEM
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 2.9.3, < 3)
       sassc-rails (>= 2.0.0)
+    bootstrap4-kaminari-views (1.0.1)
+      kaminari (>= 0.13)
+      rails (>= 3.1)
     builder (3.2.4)
     capybara (3.38.0)
       addressable
@@ -132,6 +135,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
+    libv8-node (16.10.0.0-aarch64-linux)
     libv8-node (16.10.0.0-x86_64-linux)
     loofah (2.19.1)
       crass (~> 1.0.2)
@@ -300,6 +304,7 @@ DEPENDENCIES
   annotate
   bootsnap
   bootstrap (~> 5.1.3)
+  bootstrap4-kaminari-views
   capybara
   debug
   enum_help
