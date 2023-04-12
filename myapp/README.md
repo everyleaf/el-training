@@ -1,24 +1,44 @@
-# README
+# Database
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## user table
 
-Things you may want to cover:
+| Column             | Type    | Options                   |
+|--------------------|---------|---------------------------|
+|  name              | string  | null: false               |
+|  email             | string  | null: false, unique: true |
+|  password_digest   | string  | null: false               |
+|  remenber_token    | string  | null: false               |
 
-* Ruby version
+### Assciation
 
-* System dependencies
+- has_many : user_tasks
+- has_many : tasks, through: :user_tasks
 
-* Configuration
+## user_task table
 
-* Database creation
+| Column   | Type        | Options                        |
+|----------|-------------|--------------------------------|
+|  user_id | references  | null: false, foreign_key: true |
+|  task_id | references  | null: false, foreign_key: true |
 
-* Database initialization
+### Assciation
 
-* How to run the test suite
+- belongs_to : task
+- belongs_to : user
 
-* Services (job queues, cache servers, search engines, etc.)
+## task table
 
-* Deployment instructions
+| Column             | Type    | Options     |
+|--------------------|---------|-------------|
+|  title             | string  | null: false |
+|  outline           | string  | null: false |
+|  task_limit        | data    | null: false |
+|  task_status_id    | integer | null: false |
+|  task_priority_id  | integer | null: false |
 
-* ...
+### Assciation
+
+- has_many : user_tasks
+- has_many : users, through: :user_tasks
+- belongs_to : task_statustask_priority_id
+- belongs_to : task_priority_id
