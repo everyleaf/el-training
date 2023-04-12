@@ -1,6 +1,8 @@
 FROM ruby:2.6
 ENV NODE_VERSION 12
 
+ENV DOCKER_DEFAULT_PLATFORM=linux/amd64
+
 ENV LANG C.UTF-8
 
 RUN apt-get update -qq && \
