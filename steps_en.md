@@ -2,18 +2,9 @@
 
 ## About this curriculum
 
-This document is for those who needs fundamental trainings like Ruby on Rails and related technologies.
-Regardless of your skills, you must take every lecture we offer.
-Our training program period is unspecified.
-Once you have finished a series of steps, the training programs will be completed.
+This is a curriculum for new employees designed to acquire the fundamentals of Ruby on Rails and its surrounding technologies, necessary for working at Rakuma.
 
-The roles for this curriculum should be below.
-
-- NewComer(Mentee): Attendee of this program
-- Mentor: Trainer
-  - As for reviews for programs they make, we recommend team to share it in order to reduce workloads of their mentor.
-
-It is up to the mentor to decide how much the mentor is involved in teaching. In addition, regarding the training period, the mentor will set a guideline in advance, taking into consideration the skill level of new employees and the status of ongoing  projects.
+It primarily targets beginners in Rails. Please consider your own prior experience and discuss with your mentor to determine feasibility and proceed accordingly. If you have already worked with Rails, you may not need to go through this curriculum.
 
 ## License
 
@@ -21,9 +12,7 @@ This curriculum is under [Attribution-NonCommercial-ShareAlike 4.0 International
 
 [![creative commons license](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)
 
-## Overview
-
-### System requirements
+## System requirements
 
 In this curriculum, you have to develop "task management system" as an assignment.
 the requirement should be like this.
@@ -37,23 +26,17 @@ the requirement should be like this.
 - Want to list the tasks. I want to sort on the list screen (based on priority, expiration date, etc.)
 - Want to label tasks and classify them
 - Want to register as a user so that I can see only the tasks I registered
+- User Admin Tool
 - Want to be able to carry out maintenance
 
-We also want the following management functions to meet the above requirements.
-
-- User Admin Tool
-
-** *However, the mentor may ask you to skip the implementation of a specific function **
-  **Please implement the steps marked with "★" under the direction of the mentor.**
-
-**(Mentors should decide whether to skip based on the development experience of the mentee and the quality of implementation of each step)**
+You can skip implementing some features in consultation with your mentor.
 
 
-### Support browser
+## Supported browser
 
-- Support browser is suppose to be the latest version of macOS / Chrome
+- Supported browser is suppose to be the latest version of macOS / Chrome
 
-### About Application server arrangement
+## Application server arrangement
 
 I would like you to build using the following languages and middleware (both are the latest stable versions).
 
@@ -63,7 +46,7 @@ I would like you to build using the following languages and middleware (both are
 
 **Performance requirements and security requirements are not specified, but please make with general quality. If the site you made is too slow, we would ask you to fix it.**
 
-## The ultimate goal of this curriculum
+## Goals
 
 At the end of this curriculum, you'll be able to reach following levels.
 
@@ -75,6 +58,8 @@ At the end of this curriculum, you'll be able to reach following levels.
   - Being able to write a proper PR description
   - Being able to respond to reviews and fix errors
 - Being able to ask questions to team members and related parties (this time I will be a mentor) verbally or chat at the right time
+
+---
 
 ## Assignment steps
 
@@ -99,7 +84,7 @@ Open chrome: // extensions /, turn on Developer mode in the upper right, and ins
 #### 1-1: Ruby installation
 
 - Please use [rbenv](https://github.com/rbenv/rbenv) to install the latest version of Ruby
-  - `gem install bundler`を実行して下記のようなエラーが出るときは、System Prefernces → network 
+  - `gem install bundler`を実行して下記のようなエラーが出るときは、System Prefernces → network
   　 `ERROR:  Could not find a valid gem 'bundler' (>= 0), here is why:Unable to download data from https://rubygems.org/ - timed out (https://api.rubygems.org/specs.4.8.gz)`
   - If you get the following error after executing `gem install bundler` , change the ipv6 setting of System Prefernces -> network -> Advanced -> TCP / IP to link-local only.
   　 `ERROR:  Could not find a valid gem 'bundler' (>= 0), here is why:Unable to download data from https://rubygems.org/ - timed out (https://api.rubygems.org/specs.4.8.gz)`
@@ -187,10 +172,10 @@ Create CRUD to manage the tasks. First of all, let's make it with a simple struc
     gem 'selenium-webdriver'
   end
   ```
-  **Note**: Remove the `webdrivers` gem from your Gemfile. If `webdrivers` is present, it will attempt to  find Chrome in your application’s container. 
+  **Note**: Remove the `webdrivers` gem from your Gemfile. If `webdrivers` is present, it will attempt to  find Chrome in your application’s container.
   As Chrome isn’t installed  in the Dockerfile, the spec will fail.
-  
-- Before start testing we need to register a new driver with Capybara that is configured to use the Selenium container, add the below codes to 
+
+- Before start testing we need to register a new driver with Capybara that is configured to use the Selenium container, add the below codes to
   `spec/rails_helper.rb`
   ```
   Capybara.register_driver :remote_chrome do |app|
