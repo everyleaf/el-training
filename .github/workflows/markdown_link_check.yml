@@ -3,6 +3,7 @@ name: Markdown Link Check
 on:
   schedule:
     - cron: '30 1 * * 1' # 毎週月曜日の1:30（UTC） -> 毎週月曜日の10:30（JST）
+  workflow_dispatch:
 
 jobs:
   markdown-link-check:
