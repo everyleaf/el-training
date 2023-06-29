@@ -4,11 +4,11 @@
 
 ## ドキュメントの構成
 
-- [docs/el-training.md](/docs/el-training.md)
+- [docs/el-training.md](https://github.com/everyleaf/el-training/blob/master/docs/el-training.md)
   - 新入社員教育用カリキュラムのドキュメントです
-- [docs/topics.md](/docs/topics.md)
+- [docs/topics.md](https://github.com/everyleaf/el-training/blob/master/docs/topics.md)
   - カリキュラムに具体的には含まれていませんが、知ってほしいトピックをまとめたドキュメントです
-- [docs/optional_issues.md](/docs//optional_issues.md)
+- [docs/optional_issues.md](https://github.com/everyleaf/el-training/blob/master/docs/optional_issues.md)
   - オプション課題をまとめたドキュメントです
 
 ## ライセンス
