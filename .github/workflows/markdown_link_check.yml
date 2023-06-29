@@ -21,7 +21,7 @@ jobs:
       - name: Check links
         run: |
           npm install -g markdown-link-check
-          find . -name \*.md -print0 | xargs -0 -n1 markdown-link-check --config markdown-link-check-config.json
+          find . -name \*.md -print0 | xargs -0 -n1 markdown-link-check
 
       - name: Notify Slack
         if: ${{ failure() }}
