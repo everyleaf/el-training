@@ -10,18 +10,18 @@
 - ステップ5: `README.md` に環境構築手順をまとめる項目を追加しました
 
 ### Changed
-- 概要: デプロイ先のサービスを Render へ変更しました
+- 概要: デプロイ先のサービスをRenderへ変更しました
 - ステップ4:
   - 図形描画ツールの案内を追加しました
   - 「テーブル図」という表現は一般的ではないので「ER図」に変更しました
 - ステップ6:
-  - カリキュラムで使う RuboCop のおすすめ設定を変更しました
+  - カリキュラムで使うRuboCopのおすすめ設定を変更しました
   - RuboCopがpush時に実行されるようにGitHub Actionsを設定するような記述を追加しました
-  - 使用する CI を Circle CI から GitHub Actions へ変更しました
+  - 使用するCIをCircle CIからGitHub Actionsへ変更しました
 - ステップ7: Circle CIからGitHub Actionsに変更し、RSpecの結果をSlackに通知する設定を追加しました
-- ステップ10: RSpec の実行結果を通知する仕組みを Circle CI から GitHub Actions へ変更しました
+- ステップ10: RSpecの実行結果を通知する仕組みをCircle CIからGitHub Actionsへ変更しました
 - ステップ14: 
-  - デプロイ先を Heroku から Render へ変更しました
+  - デプロイ先をHerokuからRenderへ変更しました
   - Renderの使用方法や注意点を追加しました
 - ステップ16: 
   - 検索機能の実装方法をRansackからFormオブジェクトを推奨するように変更しました
