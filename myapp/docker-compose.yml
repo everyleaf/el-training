@@ -1,7 +1,7 @@
 services:
   db:
     platform: linux/amd64
-    image: mysql:5.7
+    image: mysql:8.4
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: root
@@ -10,9 +10,8 @@ services:
     volumes:
       - db-data:/var/lib/mysql
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-
+  
   api:
-    platform: linux/amd64
     build: .
     command: >
       bash -c "bundle install &&
@@ -37,6 +36,7 @@ services:
       DB_NAME: myapp
       DB_PASSWORD: password
       DB_HOST: db
+    platform: linux/amd64
 
   chrome:
     platform: linux/amd64
