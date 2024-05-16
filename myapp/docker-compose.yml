@@ -26,7 +26,7 @@ services:
       - bundle-install:/usr/local/bundle:delegated
       - node_modules:/myapp/node_modules:delegated
     ports:
-      - "3001:3000"
+      - "3000:3000"
     links:
       - db
     depends_on:
