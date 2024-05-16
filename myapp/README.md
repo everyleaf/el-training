@@ -12,7 +12,7 @@
         
     ### User
     | Column | DataType | Remarks |
-    |:---|:---:|:---|
+    |:---|:---|:---|
     | id | INT(11) | PK, Auto-increment |
     | username | VARCHAR(255) | unique |
     | password | VARCHAR(255) | hashed |
@@ -20,7 +20,7 @@
 
     ### Task
     | Column | DataType | Remarks |
-    |:---|:---:|:---|
+    |:---|:---|:---|
     | id | INT(11) | PK, Auto-increment |
     | title | VARCHAR(255) | |
     | details | TEXT | |
@@ -28,20 +28,20 @@
     | priority | ENUM('Low', 'Medium', 'High') | Default: 'Medium' |
     | status | ENUM('Not Started', 'In Progress', 'Completed') | Default: 'Not Started' |
     | user_id | INT(11) | FK->User(id) |
-    | create_date | DATETIME | |
-    | create_user | VARCHAR(255) | |
-    | update_date | DATETIME | |
-    | update_user | VARCHAR(255) | |
+    | created_at | DATETIME | |
+    | created_by | VARCHAR(255) |store username|
+    | updated_at | DATETIME | |
+    | updated_by | VARCHAR(255) |store username|
 
     ### Label
     | Column | DataType | Remarks |
-    |:---|:---:|:---|
+    |:---|:---|:---|
     | id | INT(11) | PK, Auto-increment |
     | name | VARCHAR(255) | |
 
-    ### TableLabel
+    ### TaskLabel
     | Column | DataType | Remarks |
-    |:---|:---:|:---|
+    |:---|:---|:---|
     | task_id | INT(11) | PK, FK->Task(id) |
     | label_id | INT(11) | PK, FK->Label(id) |
         
