@@ -1,0 +1,67 @@
+<div class="container mt-4">
+  <h1>New</h1>
+  <%= form_with model: @task, local: true do |form| %>
+    <div class="form-group">
+      <%= form.label :title, "Title" %>
+      <%= form.text_field :title, class: "form-control", placeholder: "Title" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :assignee, "Assignee" %>
+      <%= form.text_field :assignee, class: "form-control", placeholder: "Assignee" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :label, "Label" %>
+      <%= form.text_field :label, class: "form-control", placeholder: "Label" %>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <%= form.label :start_date, "Start Date" %>
+        <div class="input-group">
+          <%= form.date_field :start_date, class: "form-control" %>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <%= form.label :due_date, "Due Date" %>
+        <div class="input-group">
+          <%= form.date_field :due_date, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= form.label :status, "Status" %>
+      <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
+        <label class="btn btn-outline-primary flex-fill">
+          <%= form.radio_button :status, "Not Started", id: "status_not_started" %> Not Started
+        </label>
+        <label class="btn btn-outline-primary flex-fill">
+          <%= form.radio_button :status, "In Progress", id: "status_in_progress" %> In Progress
+        </label>
+        <label class="btn btn-outline-primary flex-fill">
+          <%= form.radio_button :status, "Completed", id: "status_completed" %> Completed
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= form.label :priority, "Priority" %>
+      <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
+        <label class="btn btn-outline-primary flex-fill">
+          <%= form.radio_button :priority, "High", id: "priority_high" %> High
+        </label>
+        <label class="btn btn-outline-primary flex-fill">
+          <%= form.radio_button :priority, "Middle", id: "priority_middle" %> Middle
+        </label>
+        <label class="btn btn-outline-primary flex-fill">
+          <%= form.radio_button :priority, "Low", id: "priority_low" %> Low
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= form.label :details, "Details" %>
+      <%= form.text_area :details, class: "form-control", rows: 5, placeholder: "Summary/概要" %>
+    </div>
+    <div class="form-group d-flex justify-content-between">
+      <%= link_to 'Cancel', tasks_path, class: "btn btn-secondary" %>
+      <%= form.submit 'Create', class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,12 @@
+{
+    "ruby.rubocop.executePath": "/Users/seungwoo.ryu/.rbenv/shims/",
+    "ruby.rubocop.configFilePath": ".rubocop.yml",
+    "rubyLsp.formatter": "auto",
+    "editor.formatOnSave": true,
+    "files.associations": {
+        "*.html.erb": "erb"
+    },
+    "[erb]": {
+        "editor.defaultFormatter": "aliariff.vscode-erb-beautify"
+    }
+}
