@@ -23,37 +23,34 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
 
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to task_url(@task), notice: "Task was successfully created." }
-        format.json { render :show, status: :created, location: @task }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    if @task.save
+      flash[:notice] = "タスク登録に成功しました。"
+      redirect_to task_url(@task)
+    else
+      flash.now[:alert] = 'タスク登録に失敗しました' # 追加
+      render :new, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to task_url(@task), notice: "Task was successfully updated." }
-        format.json { render :show, status: :ok, location: @task }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    if @task.update(task_params)
+      flash[:notice] = "タスク更新に成功しました。"
+      redirect_to task_url(@task)
+    else
+      flash.now[:alert] = "タスク更新に失敗しました。"
+      render :edit, status: :unprocessable_entity
     end
   end
 
   # DELETE /tasks/1 or /tasks/1.json
   def destroy
-    @task.destroy
-
-    respond_to do |format|
-      format.html { redirect_to tasks_url, notice: "Task was successfully destroyed." }
-      format.json { head :no_content }
+    if @task.destroy
+      flash[:notice] = "タスク削除に成功しました。"
+      redirect_to tasks_url
+    else
+      flash.now[:alert] = "タスク削除に失敗しました。"
+      render :index, status: :unprocessable_entity
     end
   end
 
@@ -65,6 +62,9 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.fetch(:task, {})
+      params.require(:task).permit(
+        :title,
+        :details
+      )
     end
 end
