@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between align-items-center">
     <h1>New</h1>
   </div>
-  <%= form_with model: task, local: true do |form| %>
+  <%= form_with model: @task, local: true do |form| %>
     <%= render "form", form: form %>
     <div class="d-flex justify-content-between">
       <%= link_to 'Cancel' , tasks_path, class: "btn btn-secondary" %>
