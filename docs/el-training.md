@@ -152,7 +152,7 @@
 ### ステップ6: RuboCopを設定しよう
 - Linter・FormatterとしてRuboCopを設定しましょう
   - 社内で広く使われているRuboCopの設定があれば、それを利用するか検討しましょう
-  - 本研修カリキュラムのおすすめの設定を使っていただくこともできます。利用方法については [rubocop ディレクトリ](../rubocop)のREADMEを参照してください。
+  - 本研修カリキュラムのおすすめの設定を使っていただくこともできます。利用方法については [rubocop ディレクトリ](https://github.com/everyleaf/el-training/tree/master/rubocop)のREADMEを参照してください。
 - (サポーターに依頼)push時にRuboCopが実行されるように、GitHub Actionsを設定してもらいましょう
   - GitHub Actionsの設定はカリキュラムで学んで欲しい項目からやや外れているため、サポーターが設定するようにしてください
   - 設定の参考: https://github.com/everyleaf/el-training/tree/master/github_actions/.github/workflows/lint.yml
