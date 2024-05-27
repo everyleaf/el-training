@@ -27,7 +27,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     if @task.save
       flash[:notice] = "タスク登録に成功しました。"
-      redirect_to task_url(@task)
+      redirect_to tasks_url
     else
       @edit_mode = true
       flash.now[:alert] = "タスク登録に失敗しました。"
