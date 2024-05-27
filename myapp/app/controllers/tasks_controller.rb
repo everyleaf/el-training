@@ -8,26 +8,29 @@ class TasksController < ApplicationController
 
   # GET /tasks/1 or /tasks/1.json
   def show
+    @edit_mode = false
   end
 
   # GET /tasks/new
   def new
     @task = Task.new
+    @edit_mode = true
   end
 
   # GET /tasks/1/edit
   def edit
+    @edit_mode = true
   end
 
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
-
     if @task.save
       flash[:notice] = "タスク登録に成功しました。"
       redirect_to task_url(@task)
     else
-      flash.now[:alert] = 'タスク登録に失敗しました' # 追加
+      @edit_mode = true
+      flash.now[:alert] = "タスク登録に失敗しました。"
       render :new, status: :unprocessable_entity
     end
   end
@@ -36,8 +39,9 @@ class TasksController < ApplicationController
   def update
     if @task.update(task_params)
       flash[:notice] = "タスク更新に成功しました。"
-      redirect_to task_url(@task)
+      redirect_to tasks_url
     else
+      @edit_mode = true
       flash.now[:alert] = "タスク更新に失敗しました。"
       render :edit, status: :unprocessable_entity
     end

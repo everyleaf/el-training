@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  <h1 class="mb-4">Tasks</h1>
+  <h1>Tasks</h1>
   <div class="d-flex justify-content-between align-items-center mb-3">
     <input type="text" class="form-control w-25" placeholder="Search" id="search">
     <button id="logout" class="btn btn-outline-secondary">Logout</button>
@@ -19,7 +19,7 @@
       <% @tasks.each do |task| %>
         <tr>
           <td>Labels</td>
-          <td><%= task.title %></td>
+          <td><%= link_to task.title, task_path(task) %></td>
           <td>Ryu</td>
           <td>0000/00/00</td>
           <td>Not started</td>

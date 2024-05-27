@@ -1,15 +1,53 @@
-<%= form_with(model: task) do |form| %>
-  <% if task.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
-      <ul>
-        <% task.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div>
-    <%= form.submit %>
+  
+<div class="mb-3">
+  <%= form.label :title, "Title(Required)", class: "form-label" %>
+  <%= form.text_field :title, class: "form-control", readonly: !@edit_mode %>
+</div>
+<div class="mb-3">
+  <%= form.label :assignee, "Assignee", class: "form-label" %>
+  <%= form.text_field :assignee, class: "form-control", readonly: !@edit_mode %>
+</div>
+<div class="mb-3">
+  <%= form.label :label, "Label", class: "form-label" %>
+  <%= form.text_field :label, class: "form-control", placeholder: "Label", readonly: !@edit_mode %>
+</div>
+<div class="mb-3">
+  <%= form.label :start_date, "Start Date", class: "form-label" %>
+  <%= form.date_field :start_date, class: "form-control", readonly: !@edit_mode %>
+</div>
+<div class="mb-3">
+  <%= form.label :due_date, "Due Date", class: "form-label" %>
+  <%= form.date_field :due_date, class: "form-control", readonly: !@edit_mode %>
+</div>
+<div class="mb-3">
+  <%= form.label :status, "Status", class: "form-label" %>
+  <div class="btn-group d-flex">
+    <label class="btn btn-outline-primary">
+      <%= form.radio_button :status, "Not Started", id: "status_not_started", class: "btn-check", disabled: !@edit_mode %>Not Started
+    </label>
+    <label class="btn btn-outline-primary">
+      <%= form.radio_button :status, "In Progress", id: "status_in_progress", class: "btn-check", disabled: !@edit_mode %>In Progress
+    </label>
+    <label class="btn btn-outline-primary">
+      <%= form.radio_button :status, "Completed", id: "status_completed", class: "btn-check", disabled: !@edit_mode %>Completed
+    </label>
   </div>
-<% end %>
+</div>
+<div class="mb-3">
+  <%= form.label :priority, "Priority", class: "form-label" %>
+  <div class="btn-group d-flex">
+    <label class="btn btn-outline-primary">
+      <%= form.radio_button :priority, "High", id: "priority_high", class: "btn-check", disabled: !@edit_mode %>High
+    </label>
+    <label class="btn btn-outline-primary">
+      <%= form.radio_button :priority, "Middle", id: "priority_middle", class: "btn-check", disabled: !@edit_mode %>Middle
+    </label>
+    <label class="btn btn-outline-primary">
+      <%= form.radio_button :priority, "Low", id: "priority_low", class: "btn-check", disabled: !@edit_mode %>Low
+    </label>
+  </div>
+</div>
+<div class="mb-3">
+  <%= form.label :details, "Details", class: "form-label" %>
+  <%= form.text_area :details, class: "form-control" , rows: 5, placeholder: "Summary/概要", readonly: !@edit_mode %>
+</div>

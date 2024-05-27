@@ -1,10 +1,13 @@
-<%= render @task %>
-<div>
-  <%= link_to "Edit this task", edit_task_path(@task) %> |
-  <%= link_to "Back to tasks", tasks_path %>
-  <br>
-  Title : <%= @task.title %>
-  <br>
-  Details : <%= @task.details %>
-  <%= button_to "delete", @task, method: :delete %>
+<div class="container-sm mt-4">
+  <div class="d-flex justify-content-between align-items-center">
+    <h1>Show</h1>
+    <%= button_to "Delete", task_path(@task), method: :delete, form: { data: { turbo_confirm: "本当ですか？" }}, class: "btn btn-danger ml-auto" %>
+  </div>
+  <%= form_with model: @task, local: true do |form| %>
+    <%= render "form", form: form %>
+  <% end %>
+  <div class="d-flex justify-content-between">
+    <%= link_to 'Cancel' , tasks_path, class: "btn btn-secondary" %>
+    <%= link_to "Edit", edit_task_path(@task), class: "btn btn-primary" %>
+  </div>
 </div>
