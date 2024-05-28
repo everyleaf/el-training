@@ -20,4 +20,5 @@
         "erb": "html",
         "ruby": "html"
     },
+    "files.insertFinalNewline": true
 }
