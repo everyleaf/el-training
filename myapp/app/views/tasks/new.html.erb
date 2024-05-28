@@ -5,7 +5,7 @@
   <%= form_with model: @task, local: true do |form| %>
     <%= render "form", form: form %>
     <div class="d-flex justify-content-between">
-      <%= link_to 'Cancel' , tasks_path, class: "btn btn-secondary" %>
+      <%= link_to "Cancel" , tasks_path, class: "btn btn-secondary" %>
       <%= form.submit "Create", class: "btn btn-primary" %>
     </div>
   <% end %>

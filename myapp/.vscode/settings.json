@@ -19,5 +19,6 @@
     "emmet.includeLanguages": {
         "erb": "html",
         "ruby": "html"
-    }
+    },
+    "files.insertFinalNewline": true
 }
