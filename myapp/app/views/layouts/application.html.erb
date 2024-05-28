@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Myapp</title>
+    <title>Seungwoo-Ryu</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
   <body>
-    <%= yield %>
+    <div class = "container">
+      <% if flash[:notice] %>
+        <div class = "alert alert-success" role = "alert" >
+          <%=flash[:notice]%>
+        </div>
+      <%end%>
+      <% if flash[:alert] %>
+        <div class = "alert alert-danger" role= "alert">
+          <%=flash[:alert]%>
+        </div>
+      <%end%>
+      <%= yield %>
+    </div>
   </body>
 </html>
