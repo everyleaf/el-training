@@ -6,15 +6,6 @@
     "files.associations": {
         "*.html.erb": "erb"
     },
-    "solargraph.diagnostics": true,
-    "solargraph.hover": true,
-    "solargraph.completion": true,
-    "solargraph.references": true,
-    "solargraph.rename": true,
-    "solargraph.autoformat": true,
-    "solargraph.formatting": true,
-    "solargraph.symbols": true,
-    "solargraph.checkGemVersion": true,
     "emmet.showSuggestionsAsSnippets": true,
     "emmet.includeLanguages": {
         "erb": "html",

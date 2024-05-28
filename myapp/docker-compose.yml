@@ -10,17 +10,11 @@ services:
     volumes:
       - db-data:/var/lib/mysql
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-  
+
   api:
     build: .
     command: >
-      bash -c "bundle install &&
-      yarn install &&
-      bundle exec rails webpacker:install &&
-      bundle exec rails db:create &&
-      bundle exec rails db:migrate &&
-      rm -f tmp/pids/server.pid &&
-      bundle exec rails s -p 3000 -b '0.0.0.0'"
+      bash -c "bundle install && yarn install && bundle exec rails webpacker:install && bundle exec rails db:create && bundle exec rails db:migrate && rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/myapp
       - bundle-install:/usr/local/bundle:delegated
@@ -31,7 +25,8 @@ services:
       - db
     depends_on:
       - chrome # Link to the chrome container
-    environment: # environment configs for config/database.yml, change here if you want to change db user and password
+    environment:
+      # environment configs for config/database.yml, change here if you want to change db user and password
       DB_USER: root
       DB_NAME: myapp
       DB_PASSWORD: password
@@ -40,9 +35,11 @@ services:
 
   chrome:
     platform: linux/amd64
-    image: selenium/standalone-chrome:latest
+    image: seleniarm/standalone-chromium
     ports:
       - 4444:4444
+    environment:
+      TZ: Asia/Tokyo
 
 volumes:
   db-data:
