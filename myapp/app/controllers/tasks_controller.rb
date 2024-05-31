@@ -49,13 +49,9 @@ class TasksController < ApplicationController
 
   # DELETE /tasks/1 or /tasks/1.json
   def destroy
-    if @task.destroy
-      flash[:notice] = "タスク削除に成功しました。"
-      redirect_to tasks_url
-    else
-      flash.now[:alert] = "タスク削除に失敗しました。"
-      render :index, status: :unprocessable_entity
-    end
+    @task.destroy
+    flash[:notice] = "タスク削除に成功しました。"
+    redirect_to tasks_url
   end
 
   private

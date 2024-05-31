@@ -11,5 +11,13 @@
         "erb": "html",
         "ruby": "html"
     },
-    "files.insertFinalNewline": true
+    "files.insertFinalNewline": true,
+    "solargraph.diagnostics": true,
+    "solargraph.formatting": true,
+    "solargraph.completion": true,
+    "solargraph.hover": true,
+    "solargraph.references": true,
+    "solargraph.rename": true,
+    "solargraph.symbols": true,
+    "solargraph.useBundler": false,
 }

@@ -165,3 +165,7 @@ Style/StringLiterals:
 # URISchemes: http, https
 Layout/LineLength:
   Max: 198
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
