@@ -90,7 +90,7 @@
 <text text-anchor="start" x="469.094" y="-218.9" font-family="Arial" font-size="14.00" fill="#666666">[bigint(20) unsigned]</text>
 <polygon fill="none" stroke="#000000" points="417,-177.5 417,-207.5 605,-207.5 605,-177.5 417,-177.5"/>
 <text text-anchor="start" x="424" y="-188.9" font-family="Arial" font-size="14.00" fill="#000000">name    </text>
-<text text-anchor="start" x="493.2132" y="-188.9" font-family="Arial" font-size="14.00" fill="#666666">[varchar(100)]</text>
+<text text-anchor="start" x="493.2132" y="-188.9" font-family="Arial" font-size="14.00" fill="#666666">[varchar(20)]</text>
 <polygon fill="none" stroke="#000000" points="417,-147.5 417,-177.5 605,-177.5 605,-147.5 417,-147.5"/>
 <text text-anchor="start" x="424" y="-158.9" font-family="Arial" font-size="14.00" fill="#000000">created_at    </text>
 <text text-anchor="start" x="524.3422" y="-158.9" font-family="Arial" font-size="14.00" fill="#666666">[timestamp]</text>

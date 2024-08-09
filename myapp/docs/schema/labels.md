@@ -8,7 +8,7 @@
 ```sql
 CREATE TABLE `labels` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
@@ -22,7 +22,7 @@ CREATE TABLE `labels` (
 | Name | Type | Default | Nullable | Extra Definition | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | ---------------- | -------- | ------- | ------- |
 | id | bigint(20) unsigned |  | false | auto_increment | [tasks_labels](tasks_labels.md) |  |  |
-| name | varchar(100) |  | false |  |  |  |  |
+| name | varchar(20) |  | false |  |  |  |  |
 | created_at | timestamp | CURRENT_TIMESTAMP | false |  |  |  |  |
 
 ## Constraints

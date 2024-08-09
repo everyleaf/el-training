@@ -22,7 +22,7 @@
 <text text-anchor="start" x="90.7798" y="-116.9" font-family="Arial" font-size="14.00" fill="#666666">[bigint(20) unsigned]</text>
 <polygon fill="none" stroke="#000000" points="69,-75.5 69,-105.5 257,-105.5 257,-75.5 69,-75.5"/>
 <text text-anchor="start" x="76" y="-86.9" font-family="Arial" font-size="14.00" fill="#000000">name </text>
-<text text-anchor="start" x="114.899" y="-86.9" font-family="Arial" font-size="14.00" fill="#666666">[varchar(100)]</text>
+<text text-anchor="start" x="114.899" y="-86.9" font-family="Arial" font-size="14.00" fill="#666666">[varchar(20)]</text>
 <polygon fill="none" stroke="#000000" points="69,-45.5 69,-75.5 257,-75.5 257,-45.5 69,-45.5"/>
 <text text-anchor="start" x="76" y="-56.9" font-family="Arial" font-size="14.00" fill="#000000">created_at </text>
 <text text-anchor="start" x="146.028" y="-56.9" font-family="Arial" font-size="14.00" fill="#666666">[timestamp]</text>
