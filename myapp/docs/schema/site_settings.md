@@ -8,7 +8,7 @@
 ```sql
 CREATE TABLE `site_settings` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `is_maintenance` tinyint(3) unsigned DEFAULT '0' COMMENT '0 = off, 1 = on',
+  `is_maintenance` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0 = off, 1 = on',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -22,7 +22,7 @@ CREATE TABLE `site_settings` (
 | Name | Type | Default | Nullable | Extra Definition | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | ---------------- | -------- | ------- | ------- |
 | id | int(11) unsigned |  | false | auto_increment |  |  |  |
-| is_maintenance | tinyint(3) unsigned | 0 | true |  |  |  | 0 = off, 1 = on |
+| is_maintenance | tinyint(3) unsigned | 0 | false |  |  |  | 0 = off, 1 = on |
 | created_at | timestamp | CURRENT_TIMESTAMP | false |  |  |  |  |
 | updated_at | timestamp | CURRENT_TIMESTAMP | false | on update CURRENT_TIMESTAMP |  |  |  |
 
