@@ -1,3 +1,6 @@
 myapp/tmp/
 
 .vscode/
+
+# OS-generated files
+.DS_Store
