@@ -1,5 +1,7 @@
 myapp/tmp/
+myapp/log/
 
+# IDE
 .vscode/
 
 # OS-generated files
