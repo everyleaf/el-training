@@ -11,7 +11,7 @@ The schemas are designged as general RDMS standard and for the requirements. It 
 | [site_settings](site_settings.md) | 4 |  | BASE TABLE |
 | [tasks](tasks.md) | 10 |  | BASE TABLE |
 | [tasks_labels](tasks_labels.md) | 4 |  | BASE TABLE |
-| [users](users.md) | 7 |  | BASE TABLE |
+| [users](users.md) | 8 |  | BASE TABLE |
 
 ## Relations
 

@@ -10,8 +10,8 @@ CREATE TABLE `tasks` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `description` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0=not yet started,1 = completed, 2=in-progress',
-  `priority` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0 = not yet started, 1 = completed, 2 = in-progress',
+  `priority` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0 = low, 1 = med, 2 = high',
   `user_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `due_date_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -38,8 +38,8 @@ CREATE TABLE `tasks` (
 | id | bigint(20) unsigned |  | false | auto_increment | [tasks_labels](tasks_labels.md) |  |  |
 | name | varchar(50) |  | false |  |  |  |  |
 | description | varchar(500) |  | true |  |  |  |  |
-| status | tinyint(3) unsigned | 0 | false |  |  |  | 0=not yet started,1 = completed, 2=in-progress |
-| priority | tinyint(3) unsigned | 0 | false |  |  |  |  |
+| status | tinyint(3) unsigned | 0 | false |  |  |  | 0 = not yet started, 1 = completed, 2 = in-progress |
+| priority | tinyint(3) unsigned | 0 | false |  |  |  | 0 = low, 1 = med, 2 = high |
 | user_id | bigint(20) unsigned | 0 | false |  |  | [users](users.md) |  |
 | due_date_at | timestamp |  | true |  |  |  |  |
 | created_at | timestamp | CURRENT_TIMESTAMP | false |  |  |  |  |

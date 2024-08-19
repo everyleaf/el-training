@@ -10,6 +10,7 @@ CREATE TABLE `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `password` varchar(72) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `role` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0=normal, 1=admin',
   `last_logged_in_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -28,6 +29,7 @@ CREATE TABLE `users` (
 | id | bigint(20) unsigned |  | false | auto_increment | [tasks](tasks.md) |  |  |
 | username | varchar(20) |  | false |  |  |  |  |
 | password | varchar(72) |  | false |  |  |  |  |
+| role | tinyint(3) unsigned | 0 | false |  |  |  | 0=normal, 1=admin |
 | last_logged_in_at | timestamp |  | true |  |  |  |  |
 | created_at | timestamp | CURRENT_TIMESTAMP | false |  |  |  |  |
 | updated_at | timestamp | CURRENT_TIMESTAMP | false | on update CURRENT_TIMESTAMP |  |  |  |
