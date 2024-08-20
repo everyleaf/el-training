@@ -1,47 +1,70 @@
-  [1m[35m (2.0ms)[0m  [1m[35mCREATE DATABASE `myapp_development` DEFAULT COLLATE `utf8mb4_general_ci`[0m
-  [1m[35m (0.4ms)[0m  [1m[35mCREATE DATABASE `myapp_test` DEFAULT COLLATE `utf8mb4_general_ci`[0m
-  [1m[35m (23.6ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
-  [1m[35m (7.8ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
-  [1m[35m (1.1ms)[0m  [1m[34mSELECT GET_LOCK('7864839756650184315', 0)[0m
-  [1m[35m (2.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
-  [1m[36mActiveRecord::InternalMetadata Load (2.6ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
-  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mActiveRecord::InternalMetadata Create (3.3ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2023-04-12 03:03:17.723257', '2023-04-12 03:03:17.723257')[0m
-  [1m[35m (1.9ms)[0m  [1m[35mCOMMIT[0m
-  [1m[35m (0.6ms)[0m  [1m[34mSELECT RELEASE_LOCK('7864839756650184315')[0m
-  [1m[35m (0.6ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
-  [1m[35m (3.3ms)[0m  [1m[35mCREATE DATABASE `myapp_development` DEFAULT COLLATE `utf8mb4_general_ci`[0m
-  [1m[35m (0.9ms)[0m  [1m[35mCREATE DATABASE `myapp_test` DEFAULT COLLATE `utf8mb4_general_ci`[0m
-  [1m[35m (0.8ms)[0m  [1m[34mSELECT GET_LOCK('7864839756650184315', 0)[0m
-  [1m[35m (2.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
-  [1m[36mActiveRecord::InternalMetadata Load (3.1ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
-  [1m[35m (0.5ms)[0m  [1m[34mSELECT RELEASE_LOCK('7864839756650184315')[0m
-  [1m[35m (0.6ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
-Started GET "/" for 172.22.0.1 at 2023-04-12 04:00:24 +0000
-Cannot render console from 172.22.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
-Processing by Rails::WelcomeController#index as HTML
-  Rendering /usr/local/bundle/gems/railties-6.0.6.1/lib/rails/templates/rails/welcome/index.html.erb
-  Rendered /usr/local/bundle/gems/railties-6.0.6.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 22.1ms | Allocations: 471)
-Completed 200 OK in 123ms (Views: 47.6ms | ActiveRecord: 0.0ms | Allocations: 4260)
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE DATABASE `myapp_development` DEFAULT COLLATE `utf8mb4_general_ci`[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE DATABASE `myapp_test` DEFAULT COLLATE `utf8mb4_general_ci`[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT GET_LOCK('7864839756650184315', 0)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.1ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('7864839756650184315')[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Started GET "/" for 192.168.65.1 at 2024-08-20 03:03:17 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by TasksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 7.9ms | Allocations: 1631)
+  [1m[36mTask Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1[0m
+  ↳ app/views/tasks/index.html.erb:11
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:13
+  Rendered tasks/index.html.erb within layouts/application (Duration: 14.9ms | Allocations: 6857)
+Importmap skipped missing path: popper.js
+Importmap skipped missing path: popper.js
+  Rendered layout layouts/application.html.erb (Duration: 22.2ms | Allocations: 12751)
+Completed 200 OK in 48ms (Views: 25.0ms | ActiveRecord: 1.6ms | Allocations: 21487)
 
 
-  [1m[35m (1.9ms)[0m  [1m[35mCREATE DATABASE `myapp_development` DEFAULT COLLATE `utf8mb4_general_ci`[0m
-  [1m[35m (0.3ms)[0m  [1m[35mCREATE DATABASE `myapp_test` DEFAULT COLLATE `utf8mb4_general_ci`[0m
-  [1m[35m (24.8ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
-  [1m[35m (7.0ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
-  [1m[35m (0.9ms)[0m  [1m[34mSELECT GET_LOCK('7864839756650184315', 0)[0m
-  [1m[35m (2.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
-  [1m[36mActiveRecord::InternalMetadata Load (2.4ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
-  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mActiveRecord::InternalMetadata Create (3.4ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2023-04-12 04:32:29.985369', '2023-04-12 04:32:29.985369')[0m
-  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
-  [1m[35m (0.5ms)[0m  [1m[34mSELECT RELEASE_LOCK('7864839756650184315')[0m
-  [1m[35m (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
-Started GET "/" for 172.23.0.1 at 2023-04-12 04:32:51 +0000
-Cannot render console from 172.23.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
-Processing by Rails::WelcomeController#index as HTML
-  Rendering /usr/local/bundle/gems/railties-6.0.6.1/lib/rails/templates/rails/welcome/index.html.erb
-  Rendered /usr/local/bundle/gems/railties-6.0.6.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 18.1ms | Allocations: 312)
-Completed 200 OK in 79ms (Views: 27.2ms | ActiveRecord: 0.0ms | Allocations: 2689)
+Started GET "/" for 192.168.65.1 at 2024-08-20 03:03:24 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 1.9ms | Allocations: 581)
+  [1m[36mTask Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1[0m
+  ↳ app/views/tasks/index.html.erb:11
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:13
+  Rendered tasks/index.html.erb within layouts/application (Duration: 10.0ms | Allocations: 4344)
+  Rendered layout layouts/application.html.erb (Duration: 11.4ms | Allocations: 4974)
+Completed 200 OK in 15ms (Views: 11.2ms | ActiveRecord: 1.1ms | Allocations: 5264)
+
+
+Started POST "/tasks" for 192.168.65.1 at 2024-08-20 03:03:31 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "task"=>{"title"=>"t 1", "description"=>"t 2"}, "commit"=>"Create"}
+params => {"authenticity_token"=>"BShhD6Q1Vaf8hv1Nqfn1SxezOto-znhxOXduhMnyrz47GVhS84_oC48NLCC3GBSXpDlKhd5s-1B0XII8NnXdDw", "task"=>{"title"=>"t 1", "description"=>"t 2"}, "commit"=>"Create", "controller"=>"tasks", "action"=>"create"}
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/tasks_controller.rb:17:in `create'
+  [1m[36mTask Create (7.7ms)[0m  [1m[32mINSERT INTO `tasks` (`title`, `description`, `created_at`, `updated_at`) VALUES ('t 1', 't 2', '2024-08-20 03:03:31.725327', '2024-08-20 03:03:31.725327')[0m
+  ↳ app/controllers/tasks_controller.rb:17:in `create'
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/tasks_controller.rb:17:in `create'
+Redirected to http://localhost:3001/
+Completed 302 Found in 23ms (ActiveRecord: 9.4ms | Allocations: 3495)
+
+
+Started GET "/" for 192.168.65.1 at 2024-08-20 03:03:31 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as TURBO_STREAM
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 1.0ms | Allocations: 611)
+  [1m[36mTask Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1[0m
+  ↳ app/views/tasks/index.html.erb:11
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:13
+  Rendered tasks/index.html.erb within layouts/application (Duration: 5.7ms | Allocations: 4697)
+  Rendered layout layouts/application.html.erb (Duration: 6.6ms | Allocations: 5331)
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 0.6ms | Allocations: 5666)
 
 
