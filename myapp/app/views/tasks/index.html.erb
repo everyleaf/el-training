@@ -1,0 +1,29 @@
+<%= render "form", task: @new_task, btn_label: "Create" %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">title</th>
+      <th scope="col">description</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+<% if @tasks.any? %>
+  <tbody>
+<% @tasks.each do |task| %>
+    <tr>
+      <td><%= link_to task.title, task_path(task) %></td>
+      <td><%= task.description %></td>
+      <td>
+      <%= button_to "Delete",
+      task_path(task),
+      method: :delete,
+      class: "btn btn-danger btn-xs del-btn",
+      data: { "turbo-method": :delete, "turbo-confirm": 'Are you sure?' }
+      %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+<% end %>
+</table>

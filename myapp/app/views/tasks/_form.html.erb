@@ -1,0 +1,17 @@
+<div class="task-form">
+<%= form_with model: task do |f| %>
+
+  <div class="mb-3">
+    <%= f.text_field :title, class: "form-control", placeholder: "title" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.text_area :description, class: "form-control", placeholder: "desscription" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.submit btn_label, class: "btn btn-primary" %>
+  </div>
+
+<% end %>
+</div>
