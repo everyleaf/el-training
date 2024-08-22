@@ -9,7 +9,7 @@
     </tr>
   </thead>
 <% if @tasks.any? %>
-  <tbody id="task_list">
+  <tbody>
 <% @tasks.each do |task| %>
     <tr>
       <td><%= link_to task.title, task_path(task) %></td>
