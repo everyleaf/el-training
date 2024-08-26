@@ -24,9 +24,7 @@ RSpec.describe Task, type: :system do
     end
 
     context 'when multiple tasks exist' do
-      let!(:task_1) { create(:task) }
-      let!(:task_2) { create(:task, title: 'title 2', description: 'description 2') }
-      let!(:task_3) { create(:task, title: 'title 3', description: 'description 3') }
+      let!(:tasks) { create_list(:task, 3) }
       before { visit root_path }
 
       it 'shows task list' do
