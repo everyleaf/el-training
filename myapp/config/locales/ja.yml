@@ -29,8 +29,8 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
-en:
-  title: "title"
-  description: "description"
-  created_at: "created"
-  updated_at: "updated"
+ja:
+  title: "タイトル"
+  description: "詳細"
+  created_at: "作成日時"
+  updated_at: "更新日時"

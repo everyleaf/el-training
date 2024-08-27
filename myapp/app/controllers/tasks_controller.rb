@@ -28,17 +28,17 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find_by(id: params[:id])
-    redirect_to root_path if @task.nil?
+    redirect_to error_path(404) if @task.nil?
   end
 
   def edit
     @task = Task.find_by(id: params[:id])
-    redirect_to root_path if @task.nil?
+    redirect_to error_path(404) if @task.nil?
   end
 
   def update
     @task = Task.find_by(id: params[:id])
-    redirect_to root_path if @task.nil?
+    redirect_to error_path(404) if @task.nil?
 
     data = {title: params[:task][:title], description: params[:task][:description]}
     if @task.update(data)

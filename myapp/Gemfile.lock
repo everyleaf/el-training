@@ -303,6 +303,7 @@ DEPENDENCIES
   capybara
   debug
   factory_bot_rails
+  i18n
   importmap-rails
   jbuilder
   mysql2 (~> 0.5)
