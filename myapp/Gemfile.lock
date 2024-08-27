@@ -89,7 +89,13 @@ GEM
     debug (1.9.2)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    diff-lcs (1.5.1)
     erubi (1.13.0)
+    factory_bot (6.4.6)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.5)
@@ -197,6 +203,23 @@ GEM
       io-console (~> 0.5)
     rexml (3.3.5)
       strscan
+    rspec-core (3.13.0)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-rails (6.1.4)
+      actionpack (>= 6.1)
+      activesupport (>= 6.1)
+      railties (>= 6.1)
+      rspec-core (~> 3.13)
+      rspec-expectations (~> 3.13)
+      rspec-mocks (~> 3.13)
+      rspec-support (~> 3.13)
+    rspec-support (3.13.1)
     rubocop (1.65.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -279,11 +302,13 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
+  factory_bot_rails
   importmap-rails
   jbuilder
   mysql2 (~> 0.5)
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.3)
+  rspec-rails
   rubocop (~> 1.65)
   rubocop-performance
   rubocop-rails
