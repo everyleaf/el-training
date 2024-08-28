@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe Task, type: :system do
   describe '#index' do
 
-    context "when task doesn't exists" do
+    context "when task doesn't exist" do
       before { visit root_path }
 
-      it "doens't show any task" do
+      it "doesn't show any task" do
         expect(page).to have_no_button "Delete"
       end
     end
@@ -29,8 +29,11 @@ RSpec.describe Task, type: :system do
 
       before { visit root_path }
 
-      it 'shows task list' do
-        expect(all('tbody tr').count).to eq(3)
+      it 'shows task list in created_at descending order' do
+        expect(page).to have_selector('tbody tr', count: 3)
+        expect(page.all('tbody tr')[0]).to have_content(tasks[2].title)
+        expect(page.all('tbody tr')[1]).to have_content(tasks[1].title)
+        expect(page.all('tbody tr')[2]).to have_content(tasks[0].title)
       end
     end
   end

@@ -1,6 +1,10 @@
 FactoryBot.define do
   factory :task do
-    title { 'ThisIsTitle1' }
-    description { 'ThisIsDescription1' }
+    sequence(:title) { |n| "ThisIsTitle#{n}" }
+    sequence(:description) { |n| "ThisIsDescription#{n}" }
+
+    # title { 'ThisIsTitle1' }
+    # description { 'ThisIsDescription1' }
   end
+
 end

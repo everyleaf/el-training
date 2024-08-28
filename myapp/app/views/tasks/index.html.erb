@@ -5,6 +5,7 @@
     <tr>
       <th scope="col"><%= t "title" %></th>
       <th scope="col"><%= t "description" %></th>
+      <th scope="col">created_at</th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -14,6 +15,7 @@
     <tr>
       <td><%= link_to task.title, task_path(task) %></td>
       <td><%= task.description %></td>
+      <td><%= task.created_at %></td>
       <td>
       <%= button_to "Delete",
       task_path(task),

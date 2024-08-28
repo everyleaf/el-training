@@ -9,7 +9,7 @@ class TasksController < ApplicationController
 
   def index
     @new_task = Task.new
-    @tasks = Task.all
+    @tasks = Task.order("created_at DESC")
   end
 
   def show
@@ -18,7 +18,6 @@ class TasksController < ApplicationController
   end
 
   def create
-    logger.debug { "params => #{params}" }
     data = { title: params[:task][:title], description: params[:task][:description]
 }
     @task = Task.new(data)
