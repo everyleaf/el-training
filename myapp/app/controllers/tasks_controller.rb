@@ -12,6 +12,11 @@ class TasksController < ApplicationController
     @tasks = Task.all
   end
 
+  def show
+    @task = Task.find_by(id: params[:id])
+    redirect_to error_path(404) if @task.nil?
+  end
+
   def create
     logger.debug { "params => #{params}" }
     data = { title: params[:task][:title], description: params[:task][:description]
@@ -24,11 +29,6 @@ class TasksController < ApplicationController
     end
 
     redirect_to root_path
-  end
-
-  def show
-    @task = Task.find_by(id: params[:id])
-    redirect_to error_path(404) if @task.nil?
   end
 
   def edit

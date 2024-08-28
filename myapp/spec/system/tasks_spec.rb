@@ -13,6 +13,7 @@ RSpec.describe Task, type: :system do
 
     context 'when one task exists' do
       let!(:task_1) { create(:task) }
+
       before { visit root_path }
 
       it 'shows one task' do
@@ -25,6 +26,7 @@ RSpec.describe Task, type: :system do
 
     context 'when multiple tasks exist' do
       let!(:tasks) { create_list(:task, 3) }
+
       before { visit root_path }
 
       it 'shows task list' do

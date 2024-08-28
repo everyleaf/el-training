@@ -3,11 +3,11 @@ class ErrorsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
   def not_found
-    redirect_to "/errors/404"
+    redirect_to '/errors/404'
   end
 
   def internal_server_error
-    redirect_to "/errors/500"
+    redirect_to '/errors/500'
   end
 
   def show
@@ -17,11 +17,11 @@ class ErrorsController < ApplicationController
     if status_codes.key?(@status_code.to_i)
       @msg = status_codes[@status_code.to_i]
     else
-      @status_code = ""
-      @msg = "Unknown Error Occurred"
+      @status_code = ''
+      @msg = 'Unknown Error Occurred'
     end
 
-    render template: "errors/status_error", layout: "error"
+    render template: 'errors/status_error', layout: 'error'
   end
 end
 
