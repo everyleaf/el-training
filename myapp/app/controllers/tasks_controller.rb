@@ -22,12 +22,15 @@ class TasksController < ApplicationController
 }
     @task = Task.new(data)
     if @task.save
-      flash[:notice] = MSG_CREATE_SUCCESS
+      flash[:success] = MSG_CREATE_SUCCESS
+      redirect_to root_path
     else
-      flash[:notice] = MSG_CREATE_FAILURE
-    end
+      flash.now[:danger] = MSG_CREATE_FAILURE
 
-    redirect_to root_path
+      @new_task = @task
+      @tasks = Task.order("created_at DESC")
+      render :index, status: :unprocessable_entity
+    end
   end
 
   def edit
@@ -41,17 +44,20 @@ class TasksController < ApplicationController
 
     data = {title: params[:task][:title], description: params[:task][:description]}
     if @task.update(data)
-      flash[:notice] = MSG_UPDATE_SUCCESS
+      flash[:success] = MSG_UPDATE_SUCCESS
+      redirect_to root_path
     else
-      flash[:notice] = MSG_UPDATE_FAILURE
+      flash.now[:danger] = MSG_UPDATE_FAILURE
+      render :edit, status: :unprocessable_entity
     end
-
-    redirect_to root_path
   end
 
   def destroy
     @task = Task.find_by(id: params[:id])
-    redirect_to root_path if @task.nil?
+    if @task.nil?
+      flash[:danger] = MSG_DELETE_FAILURE
+      redirect_to root_path
+    end
 
     @task.destroy
     flash[:notice] = MSG_DELETE_SUCCESS

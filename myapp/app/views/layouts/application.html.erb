@@ -20,7 +20,7 @@
       <% end %>
     </header>
       <% flash.each do |message_type, message| %>
-      <div class="flash-message <%= message_type %> alert alert-success"><%= message %></div>
+      <div class="flash-message alert alert-<%= message_type %>"><%= message %></div>
       <% end %>
       <%= yield %>
     </div>

@@ -58,7 +58,32 @@ RSpec.describe Task, type: :system do
         expect(page).to have_content new_description
       end
 
-      # Failure case will be added when validation is added.
+      it "failed to create a task due to blank title" do
+        fill_in 'title', with: ""
+        fill_in 'description', with: "ThisIsDescription"
+        click_on 'Create'
+
+        expect(current_path).to eq tasks_path
+        expect(page).to have_content TasksController::MSG_CREATE_FAILURE
+      end
+
+      it "failed to create a task due to too long title" do
+        fill_in 'title', with: SecureRandom.alphanumeric(51)
+        fill_in 'description', with: "ThisIsDescription"
+        click_on 'Create'
+
+        expect(current_path).to eq tasks_path
+        expect(page).to have_content TasksController::MSG_CREATE_FAILURE
+      end
+
+      it "failed to create a task due to too long description" do
+        fill_in 'title', with: "ThisIsTitle"
+        fill_in 'description', with: SecureRandom.alphanumeric(501)
+        click_on 'Create'
+
+        expect(current_path).to eq tasks_path
+        expect(page).to have_content TasksController::MSG_CREATE_FAILURE
+      end
     end
   end
 
@@ -121,6 +146,7 @@ RSpec.describe Task, type: :system do
     context "when update a task" do
       let!(:task_1) { create(:task) }
 
+      # success case
       it "updated a task successfully" do
         visit edit_task_path(task_1)
 
@@ -140,7 +166,39 @@ RSpec.describe Task, type: :system do
         expect(page).to have_content updated_description
       end
 
-      # Failure case will be added when validation is added.
+      # failure cases
+      it "failed to update a task due to blank title" do
+        visit edit_task_path(task_1)
+
+        fill_in 'title', with: ""
+        fill_in 'description', with: task_1.description
+        click_on 'Update'
+
+        expect(current_path).to eq task_path(task_1)
+        expect(page).to have_content TasksController::MSG_UPDATE_FAILURE
+      end
+
+      it "failed to update a task due to too long title" do
+        visit edit_task_path(task_1)
+
+        fill_in 'title', with: SecureRandom.alphanumeric(51)
+        fill_in 'description', with: "ThisIsDescription"
+        click_on 'Update'
+
+        expect(current_path).to eq task_path(task_1)
+        expect(page).to have_content TasksController::MSG_UPDATE_FAILURE
+      end
+
+      it "failed to update a task due to too long description" do
+        visit edit_task_path(task_1)
+
+        fill_in 'title', with: "ThisIsTitle"
+        fill_in 'description', with: SecureRandom.alphanumeric(501)
+        click_on 'Update'
+
+        expect(current_path).to eq task_path(task_1)
+        expect(page).to have_content TasksController::MSG_UPDATE_FAILURE
+      end
     end
   end
 

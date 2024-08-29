@@ -1,3 +1,11 @@
+<% if task.errors.full_messages.any? %>
+<ul>
+    <% task.errors.full_messages.each do |message| %>
+    <li class="text-danger small"><%= message %></li>
+    <% end %>
+</ul>
+<% end %>
+
 <div class="task-form">
 <%= form_with model: task do |f| %>
 
