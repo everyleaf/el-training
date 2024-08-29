@@ -1,11 +1,11 @@
 # TaskController is a controller to handle basic CRUD operations for "task"
 class TasksController < ApplicationController
-  MSG_CREATE_SUCCESS = 'Created a task successfully.'
-  MSG_CREATE_FAILURE = 'Failed to create a task.'
-  MSG_UPDATE_SUCCESS = 'Updated a task successfully.'
-  MSG_UPDATE_FAILURE = 'Failed to update a task.'
-  MSG_DELETE_SUCCESS = 'Deleted a task successfully.'
-  MSG_DELETE_FAILURE = 'Failed to delete a task.' # not in used
+  MSG_CREATE_SUCCESS = I18n.t 'msg_create_success'
+  MSG_CREATE_FAILURE = I18n.t 'msg_create_failure'
+  MSG_UPDATE_SUCCESS = I18n.t 'msg_update_success'
+  MSG_UPDATE_FAILURE = I18n.t 'msg_update_failure'
+  MSG_DELETE_SUCCESS = I18n.t 'msg_delete_success'
+  MSG_DELETE_FAILURE = I18n.t 'msg_delete_failure'
 
   def index
     @new_task = Task.new
@@ -23,7 +23,7 @@ class TasksController < ApplicationController
 }
     @task = Task.new(data)
     if @task.save
-      flash[:notice] =  MSG_CREATE_SUCCESS
+      flash[:notice] = MSG_CREATE_SUCCESS
     else
       flash[:notice] = MSG_CREATE_FAILURE
     end

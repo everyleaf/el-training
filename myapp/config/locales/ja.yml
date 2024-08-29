@@ -34,3 +34,9 @@ ja:
   description: "詳細"
   created_at: "作成日時"
   updated_at: "更新日時"
+  msg_create_success: '作成に成功しました'
+  msg_create_failure: '作成に失敗しました'
+  msg_update_success: '更新に成功しました'
+  msg_update_failure: '更新に失敗しました'
+  msg_delete_success: '削除に成功しました'
+  msg_delete_failure: '削除に失敗しました'
