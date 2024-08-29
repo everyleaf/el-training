@@ -9,7 +9,7 @@ class TasksController < ApplicationController
 
   def index
     @new_task = Task.new
-    @tasks = Task.order("created_at DESC")
+    @tasks = Task.order('created_at DESC')
   end
 
   def show
@@ -28,7 +28,7 @@ class TasksController < ApplicationController
       flash.now[:danger] = MSG_CREATE_FAILURE
 
       @new_task = @task
-      @tasks = Task.order("created_at DESC")
+      @tasks = Task.order('created_at DESC')
       render :index, status: :unprocessable_entity
     end
   end

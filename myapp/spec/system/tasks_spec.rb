@@ -7,7 +7,7 @@ RSpec.describe Task, type: :system do
       before { visit root_path }
 
       it "doesn't show any task" do
-        expect(page).to have_no_button "Delete"
+        expect(page).to have_no_button 'Delete'
       end
     end
 
@@ -20,7 +20,7 @@ RSpec.describe Task, type: :system do
         expect(page).to have_content task_1.title
         expect(page).to have_content task_1.description
         expect(page).to have_link task_1.title, href: task_path(task_1)
-        expect(page).to have_button "Delete"
+        expect(page).to have_button 'Delete'
       end
     end
 
@@ -38,11 +38,11 @@ RSpec.describe Task, type: :system do
     end
   end
 
-  describe "#create" do
+  describe '#create' do
     context 'when submit a new task' do
       before { visit root_path }
 
-      it "creates a task successfully" do
+      it 'creates a task successfully' do
         new_title = 'test title 1'
         new_description = 'test description 1'
         fill_in 'task_title', with: new_title
@@ -58,26 +58,26 @@ RSpec.describe Task, type: :system do
         expect(page).to have_content new_description
       end
 
-      it "failed to create a task due to blank title" do
-        fill_in 'title', with: ""
-        fill_in 'description', with: "ThisIsDescription"
+      it 'failed to create a task due to blank title' do
+        fill_in 'title', with: ''
+        fill_in 'description', with: 'ThisIsDescription'
         click_on 'Create'
 
         expect(current_path).to eq tasks_path
         expect(page).to have_content TasksController::MSG_CREATE_FAILURE
       end
 
-      it "failed to create a task due to too long title" do
+      it 'failed to create a task due to too long title' do
         fill_in 'title', with: SecureRandom.alphanumeric(51)
-        fill_in 'description', with: "ThisIsDescription"
+        fill_in 'description', with: 'ThisIsDescription'
         click_on 'Create'
 
         expect(current_path).to eq tasks_path
         expect(page).to have_content TasksController::MSG_CREATE_FAILURE
       end
 
-      it "failed to create a task due to too long description" do
-        fill_in 'title', with: "ThisIsTitle"
+      it 'failed to create a task due to too long description' do
+        fill_in 'title', with: 'ThisIsTitle'
         fill_in 'description', with: SecureRandom.alphanumeric(501)
         click_on 'Create'
 
@@ -87,67 +87,67 @@ RSpec.describe Task, type: :system do
     end
   end
 
-  describe "#show" do
-    context "when there is a valid task" do
+  describe '#show' do
+    context 'when there is a valid task' do
       let!(:task_1) { create(:task) }
 
-      it "shows details and edit link" do
+      it 'shows details and edit link' do
         visit task_path(task_1)
         expect(page).to have_content task_1.title
         expect(page).to have_content task_1.description
-        expect(page).to have_link "Edit", href: edit_task_path(task_1)
+        expect(page).to have_link 'Edit', href: edit_task_path(task_1)
         expect(current_path).to eq task_path(task_1)
-        click_link "Edit"
+        click_link 'Edit'
         expect(current_path).to eq edit_task_path(task_1)
       end
     end
 
-    context "when record not found" do
-      it "redirected to root path due to not existing id" do
+    context 'when record not found' do
+      it 'redirected to root path due to not existing id' do
         visit task_path(99999)
         expect(current_path).to eq error_path(404)
       end
 
-      it "redirected to root path due to invalid id format" do
-        visit task_path("invalid_path")
+      it 'redirected to root path due to invalid id format' do
+        visit task_path('invalid_path')
         expect(current_path).to eq error_path(404)
       end
     end
   end
 
-  describe "#edit" do
-    context "when there is a valid task" do
+  describe '#edit' do
+    context 'when there is a valid task' do
       let!(:task_1) { create(:task) }
 
-      it "shows edit form" do
+      it 'shows edit form' do
         visit edit_task_path(task_1)
-        expect(page).to have_field("task_title", with: task_1.title)
-        expect(page).to have_field("task_description", with: task_1.description)
-        expect(page).to have_button "Update"
+        expect(page).to have_field('title', with: task_1.title)
+        expect(page).to have_field('description', with: task_1.description)
+        expect(page).to have_button 'Update'
 
         expect(current_path).to eq edit_task_path(task_1)
       end
     end
 
-    context "when record not found" do
-      it "redirected to root path due to not existing id" do
+    context 'when record not found' do
+      it 'redirected to root path due to not existing id' do
         visit edit_task_path(99999)
         expect(current_path).to eq error_path(404)
       end
 
-      it "redirected to root path due to invalid id format" do
-        visit edit_task_path("invalid_path")
+      it 'redirected to root path due to invalid id format' do
+        visit edit_task_path('invalid_path')
         expect(current_path).to eq error_path(404)
       end
     end
   end
 
-  describe "#update" do
-    context "when update a task" do
+  describe '#update' do
+    context 'when update a task' do
       let!(:task_1) { create(:task) }
 
       # success case
-      it "updated a task successfully" do
+      it 'updated a task successfully' do
         visit edit_task_path(task_1)
 
         # update a task
@@ -155,7 +155,7 @@ RSpec.describe Task, type: :system do
         updated_description = 'description 1 updated'
         fill_in 'task_title', with: updated_title
         fill_in 'task_description', with: updated_description
-        click_on "Update"
+        click_on 'Update'
 
         # redirected to root
         expect(current_path).to eq root_path
@@ -167,10 +167,10 @@ RSpec.describe Task, type: :system do
       end
 
       # failure cases
-      it "failed to update a task due to blank title" do
+      it 'failed to update a task due to blank title' do
         visit edit_task_path(task_1)
 
-        fill_in 'title', with: ""
+        fill_in 'title', with: ''
         fill_in 'description', with: task_1.description
         click_on 'Update'
 
@@ -178,21 +178,21 @@ RSpec.describe Task, type: :system do
         expect(page).to have_content TasksController::MSG_UPDATE_FAILURE
       end
 
-      it "failed to update a task due to too long title" do
+      it 'failed to update a task due to too long title' do
         visit edit_task_path(task_1)
 
         fill_in 'title', with: SecureRandom.alphanumeric(51)
-        fill_in 'description', with: "ThisIsDescription"
+        fill_in 'description', with: 'ThisIsDescription'
         click_on 'Update'
 
         expect(current_path).to eq task_path(task_1)
         expect(page).to have_content TasksController::MSG_UPDATE_FAILURE
       end
 
-      it "failed to update a task due to too long description" do
+      it 'failed to update a task due to too long description' do
         visit edit_task_path(task_1)
 
-        fill_in 'title', with: "ThisIsTitle"
+        fill_in 'title', with: 'ThisIsTitle'
         fill_in 'description', with: SecureRandom.alphanumeric(501)
         click_on 'Update'
 
@@ -202,7 +202,7 @@ RSpec.describe Task, type: :system do
     end
   end
 
-  describe "#destroy" do
+  describe '#destroy' do
     let!(:task_1) { create(:task) }
     before { visit root_path }
 
@@ -219,9 +219,8 @@ RSpec.describe Task, type: :system do
         # make sure the task was deleted
         expect(page).to have_no_content task_1.title
         expect(page).to have_no_content task_1.description
-        expect(page).to have_no_button "Delete"
+        expect(page).to have_no_button 'Delete'
       end
     end
   end
-
 end
