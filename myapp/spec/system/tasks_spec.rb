@@ -13,6 +13,7 @@ RSpec.describe Task, type: :system do
 
     context 'when one task exists' do
       let!(:task_1) { create(:task) }
+
       before { visit root_path }
 
       it 'shows one task' do
@@ -25,6 +26,7 @@ RSpec.describe Task, type: :system do
 
     context 'when multiple tasks exist' do
       let!(:tasks) { create_list(:task, 3) }
+
       before { visit root_path }
 
       it 'shows task list' do
@@ -40,8 +42,8 @@ RSpec.describe Task, type: :system do
       it "creates a task successfully" do
         new_title = 'test title 1'
         new_description = 'test description 1'
-        fill_in 'title', with: new_title
-        fill_in 'description', with: new_description
+        fill_in 'task_title', with: new_title
+        fill_in 'task_description', with: new_description
         click_on 'Create'
 
         # redirected back to root page
@@ -75,12 +77,12 @@ RSpec.describe Task, type: :system do
     context "when record not found" do
       it "redirected to root path due to not existing id" do
         visit task_path(99999)
-        expect(current_path).to eq root_path
+        expect(current_path).to eq error_path(404)
       end
 
       it "redirected to root path due to invalid id format" do
         visit task_path("invalid_path")
-        expect(current_path).to eq root_path
+        expect(current_path).to eq error_path(404)
       end
     end
   end
@@ -91,8 +93,8 @@ RSpec.describe Task, type: :system do
 
       it "shows edit form" do
         visit edit_task_path(task_1)
-        expect(page).to have_field("title", with: task_1.title)
-        expect(page).to have_field("description", with: task_1.description)
+        expect(page).to have_field("task_title", with: task_1.title)
+        expect(page).to have_field("task_description", with: task_1.description)
         expect(page).to have_button "Update"
 
         expect(current_path).to eq edit_task_path(task_1)
@@ -102,12 +104,12 @@ RSpec.describe Task, type: :system do
     context "when record not found" do
       it "redirected to root path due to not existing id" do
         visit edit_task_path(99999)
-        expect(current_path).to eq root_path
+        expect(current_path).to eq error_path(404)
       end
 
       it "redirected to root path due to invalid id format" do
         visit edit_task_path("invalid_path")
-        expect(current_path).to eq root_path
+        expect(current_path).to eq error_path(404)
       end
     end
   end
@@ -122,8 +124,8 @@ RSpec.describe Task, type: :system do
         # update a task
         updated_title = 'title 1 updated'
         updated_description = 'description 1 updated'
-        fill_in 'title', with: updated_title
-        fill_in 'description', with: updated_description
+        fill_in 'task_title', with: updated_title
+        fill_in 'task_description', with: updated_description
         click_on "Update"
 
         # redirected to root

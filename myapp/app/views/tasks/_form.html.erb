@@ -2,11 +2,11 @@
 <%= form_with model: task do |f| %>
 
   <div class="mb-3">
-    <%= f.text_field :title, class: "form-control", placeholder: "title" %>
+    <%= f.text_field :title, class: "form-control", placeholder: (t "title") %>
   </div>
 
   <div class="mb-3">
-    <%= f.text_area :description, class: "form-control", placeholder: "description" %>
+    <%= f.text_area :description, class: "form-control", placeholder: (t "description") %>
   </div>
 
   <div class="mb-3">

@@ -12,7 +12,7 @@
 #
 # To use a different locale, set it with `I18n.locale`:
 #
-#     I18n.locale:  :es
+#     I18n.locale = :es
 #
 # This would use the information in config/locales/es.yml.
 #
@@ -29,14 +29,14 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
-en:
-  title: "title"
-  description: "description"
-  created_at: "created"
-  updated_at: "updated"
-  msg_create_success: 'Created a task successfully.'
-  msg_create_failure: 'Failed to create a task.'
-  msg_update_success: 'Updated a task successfully.'
-  msg_update_failure: 'Failed to update a task.'
-  msg_delete_success: 'Deleted a task successfully.'
-  msg_delete_failure: 'Failed to delete a task.'
+ja:
+  title: "タイトル"
+  description: "詳細"
+  created_at: "作成日時"
+  updated_at: "更新日時"
+  msg_create_success: '作成に成功しました'
+  msg_create_failure: '作成に失敗しました'
+  msg_update_success: '更新に成功しました'
+  msg_update_failure: '更新に失敗しました'
+  msg_delete_success: '削除に成功しました'
+  msg_delete_failure: '削除に失敗しました'
