@@ -45,13 +45,15 @@ RSpec.describe Task, type: :system do
       it 'creates a task successfully' do
         new_title = 'test title 1'
         new_description = 'test description 1'
-        fill_in 'task_title', with: new_title
-        fill_in 'task_description', with: new_description
+        new_due_date_at = '2024/08/31'
+        fill_in 'task[title]', with: new_title
+        fill_in 'task[description]', with: new_description
+        fill_in 'task[due_date_at]', with: new_due_date_at
         click_on 'Create'
 
         # redirected back to root page
         expect(current_path).to eq root_path
-        expect(page).to have_content I18n.t 'msg_create_success'
+        expect(page).to have_content '作成に成功しました'
 
         # make sure new task is there
         expect(page).to have_content new_title
@@ -59,30 +61,46 @@ RSpec.describe Task, type: :system do
       end
 
       it 'failed to create a task due to blank title' do
-        fill_in 'task_title', with: ''
-        fill_in 'task_description', with: 'ThisIsDescription'
+        fill_in 'task[title]', with: ''
         click_on 'Create'
 
         expect(current_path).to eq tasks_path
-        expect(page).to have_content I18n.t 'msg_create_failure'
+        expect(page).to have_content '作成に失敗しました'
       end
 
       it 'failed to create a task due to too long title' do
-        fill_in 'task_title', with: SecureRandom.alphanumeric(51)
-        fill_in 'task_description', with: 'ThisIsDescription'
+        fill_in 'task[title]', with: SecureRandom.alphanumeric(51)
         click_on 'Create'
 
         expect(current_path).to eq tasks_path
-        expect(page).to have_content I18n.t 'msg_create_failure'
+        expect(page).to have_content '作成に失敗しました'
       end
 
       it 'failed to create a task due to too long description' do
-        fill_in 'task_title', with: 'ThisIsTitle'
-        fill_in 'task_description', with: SecureRandom.alphanumeric(501)
+        fill_in 'task[title]', with: 'ThisIsTitle'
+        fill_in 'task[description]', with: SecureRandom.alphanumeric(501)
         click_on 'Create'
 
         expect(current_path).to eq tasks_path
-        expect(page).to have_content I18n.t 'msg_create_failure'
+        expect(page).to have_content '作成に失敗しました'
+      end
+
+      it 'failed to create a task due to invalid due date' do
+        fill_in 'task[title]', with: 'ThisIsTitle'
+        fill_in 'task[due_date_at]', with: '2024/99/99'
+        click_on 'Create'
+
+        expect(current_path).to eq tasks_path
+        expect(page).to have_content '作成に失敗しました'
+      end
+
+      it 'failed to create a task due to invalid due date format' do
+        fill_in 'task[title]', with: 'ThisIsTitle'
+        fill_in 'task[due_date_at]', with: 'invalid_format!?'
+        click_on 'Create'
+
+        expect(current_path).to eq tasks_path
+        expect(page).to have_content '作成に失敗しました'
       end
     end
   end
@@ -121,8 +139,8 @@ RSpec.describe Task, type: :system do
 
       it 'shows edit form' do
         visit edit_task_path(task_1)
-        expect(page).to have_field('task_title', with: task_1.title)
-        expect(page).to have_field('task_description', with: task_1.description)
+        expect(page).to have_field('task[title]', with: task_1.title)
+        expect(page).to have_field('task[description]', with: task_1.description)
         expect(page).to have_button 'Update'
 
         expect(current_path).to eq edit_task_path(task_1)
@@ -153,13 +171,15 @@ RSpec.describe Task, type: :system do
         # update a task
         updated_title = 'title 1 updated'
         updated_description = 'description 1 updated'
-        fill_in 'task_title', with: updated_title
-        fill_in 'task_description', with: updated_description
+        updated_due_date_at = '2024/08/31'
+        fill_in 'task[title]', with: updated_title
+        fill_in 'task[description]', with: updated_description
+        fill_in 'task[due_date_at]', with: updated_due_date_at
         click_on 'Update'
 
         # redirected to root
         expect(current_path).to eq root_path
-        expect(page).to have_content I18n.t 'msg_update_success'
+        expect(page).to have_content '更新に成功しました'
 
         # make sure the task was updated
         expect(page).to have_content updated_title
@@ -170,34 +190,51 @@ RSpec.describe Task, type: :system do
       it 'failed to update a task due to blank title' do
         visit edit_task_path(task_1)
 
-        fill_in 'task_title', with: ''
-        fill_in 'task_description', with: task_1.description
+        fill_in 'task[title]', with: ''
         click_on 'Update'
 
         expect(current_path).to eq task_path(task_1)
-        expect(page).to have_content I18n.t 'msg_update_failure'
+        expect(page).to have_content '更新に失敗しました'
       end
 
       it 'failed to update a task due to too long title' do
         visit edit_task_path(task_1)
-
-        fill_in 'task_title', with: SecureRandom.alphanumeric(51)
-        fill_in 'task_description', with: 'ThisIsDescription'
+        fill_in 'task[title]', with: SecureRandom.alphanumeric(51)
+        fill_in 'task[description]', with: 'ThisIsDescription'
         click_on 'Update'
 
         expect(current_path).to eq task_path(task_1)
-        expect(page).to have_content I18n.t 'msg_update_failure'
+        expect(page).to have_content '更新に失敗しました'
       end
 
       it 'failed to update a task due to too long description' do
         visit edit_task_path(task_1)
 
-        fill_in 'task_title', with: 'ThisIsTitle'
-        fill_in 'task_description', with: SecureRandom.alphanumeric(501)
+        fill_in 'task[title]', with: 'ThisIsTitle'
+        fill_in 'task[description]', with: SecureRandom.alphanumeric(501)
         click_on 'Update'
-
         expect(current_path).to eq task_path(task_1)
-        expect(page).to have_content I18n.t 'msg_update_failure'
+        expect(page).to have_content '更新に失敗しました'
+      end
+
+      it 'failed to update a task due to invalid due date' do
+        visit edit_task_path(task_1)
+
+        fill_in 'task[title]', with: 'ThisIsTitle'
+        fill_in 'task[due_date_at]', with: '2024/99/99'
+        click_on 'Update'
+        expect(current_path).to eq task_path(task_1)
+        expect(page).to have_content '更新に失敗しました'
+      end
+
+      it 'failed to update a task due to invalid due date format' do
+        visit edit_task_path(task_1)
+
+        fill_in 'task[title]', with: 'ThisIsTitle'
+        fill_in 'task[due_date_at]', with: 'invalid_format!?'
+        click_on 'Update'
+        expect(current_path).to eq task_path(task_1)
+        expect(page).to have_content '更新に失敗しました'
       end
     end
   end
@@ -214,7 +251,7 @@ RSpec.describe Task, type: :system do
 
         # redirected to root
         expect(current_path).to eq root_path
-        expect(page).to have_content I18n.t 'msg_delete_success'
+        expect(page).to have_content '削除に成功しました'
 
         # make sure the task was deleted
         expect(page).to have_no_content task_1.title
