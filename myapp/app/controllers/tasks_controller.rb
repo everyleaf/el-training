@@ -1,8 +1,18 @@
 # TaskController is a controller to handle basic CRUD operations for "task"
 class TasksController < ApplicationController
   def index
+    sort_param = params[:sort].to_s.downcase
+    case sort_param
+    when 'due_date_at'
+      sort = sort_param
+    else
+      sort = 'created_at'
+    end
+    # TODO: support ascending
+    sort += ' DESC'
+
     @new_task = Task.new
-    @tasks = Task.order('created_at DESC')
+    @tasks = Task.order(sort)
   end
 
   def show
@@ -11,7 +21,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    data = { title: params[:task][:title], description: params[:task][:description] }
+    data = task_data(params)
     @task = Task.new(data)
     if @task.save
       flash[:success] = I18n.t 'msg_create_success'
@@ -34,7 +44,7 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
     redirect_to error_path(404) if @task.nil?
 
-    data = { title: params[:task][:title], description: params[:task][:description] }
+    data = task_data(params)
     if @task.update(data)
       flash[:success] = I18n.t 'msg_update_success'
       redirect_to root_path
@@ -54,5 +64,15 @@ class TasksController < ApplicationController
     @task.destroy
     flash[:notice] = I18n.t 'msg_delete_success'
     redirect_to root_path
+  end
+
+  private
+
+  def task_data(form_params)
+    {
+      title: form_params[:task][:title],
+      description: form_params[:task][:description],
+      due_date_at: form_params[:task][:due_date_at],
+    }
   end
 end

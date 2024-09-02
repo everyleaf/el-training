@@ -10,11 +10,17 @@
 <%= form_with model: task do |f| %>
 
   <div class="mb-3">
-    <%= f.text_field :title, class: "form-control", placeholder: (t "title") %>
+    <%= f.text_field :title, class: "form-control", placeholder: (t 'title') %>
   </div>
 
   <div class="mb-3">
-    <%= f.text_area :description, class: "form-control", placeholder: (t "description") %>
+    <%= f.text_area :description, class: "form-control", placeholder: (t 'description') %>
+  </div>
+
+  <div class="mb-3 row">
+    <div class="col-3">
+    <%= f.text_field :due_date_at, class: "form-control", placeholder: (t 'due_date_at') + ': yyyy/mm/dd' %>
+    </div>
   </div>
 
   <div class="mb-3">
@@ -23,3 +29,10 @@
 
 <% end %>
 </div>
+<script>
+
+
+new TempusDominus(document.getElementById('datetimepicker1'), {
+  //put your config here
+});
+</script>
