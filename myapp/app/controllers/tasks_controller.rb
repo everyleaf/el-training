@@ -1,6 +1,23 @@
+require 'uri'
+
 # TaskController is a controller to handle basic CRUD operations for "task"
 class TasksController < ApplicationController
+  STATUS_NOT_STARTED = 0
+  STATUS_IN_PROGRESS = 1
+  STATUS_COMPLETED = 2
+
   def index
+    q = Task
+
+    unless params[:query].to_s.empty?
+      # TODO: fix this. this fuzzy search might cause performance degradation.
+      q = q.where('title LIKE ?', "%#{params[:query]}%")
+    end
+
+    unless params[:status].to_s.empty?
+      q = q.where(status: params[:status])
+    end
+
     sort_param = params[:sort].to_s.downcase
     case sort_param
     when 'due_date_at'
@@ -11,8 +28,11 @@ class TasksController < ApplicationController
     # TODO: support ascending
     sort += ' DESC'
 
+    @tasks = q.order(sort)
+
+    # for new form
     @new_task = Task.new
-    @tasks = Task.order(sort)
+    @status_map = get_status_map
   end
 
   def show
@@ -31,6 +51,7 @@ class TasksController < ApplicationController
       flash.now[:danger] = I18n.t 'msg_create_failure'
 
       @new_task = @task
+      @status_map = get_status_map
       @tasks = Task.order('created_at DESC')
       render :index, status: :unprocessable_entity
     end
@@ -77,7 +98,7 @@ class TasksController < ApplicationController
       description: form_params[:task][:description],
       due_date_at: form_params[:task][:due_date_at],
       status: form_params[:task][:status],
-   }
+    }
   end
 
   def get_status_map
@@ -87,4 +108,11 @@ class TasksController < ApplicationController
       STATUS_COMPLETED => I18n.t('status_completed'),
     }
   end
+end
+
+def build_request_uri(url, param, value)
+  uri = URI(url)
+  nested_query = Rack::Utils.parse_nested_query(uri.query)
+  new_query = Rack::Utils.build_nested_query(nested_query.merge({ param => value }))
+  URI::HTTP.build(path: uri.path, query: new_query).request_uri
 end

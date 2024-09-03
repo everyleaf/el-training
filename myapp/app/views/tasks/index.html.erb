@@ -1,32 +1,33 @@
 <div class="row">
-  <div class="col-2">
-    <%# <form> %>
-      <div class="mb-3">
+  <div class="col-2 bg-white rounded">
+    <%= form_with url: root_path, method: :get do |f| %>
+      <div class="mb-3 mt-3">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="タイトルで検索">
-          <button class="btn btn-light border-light-subtle" type="button"><i class="bi bi-search"></i></button>
+          <%= f.text_field :query, class: "form-control", placeholder: t('search_by_title'), value: params[:query] %>
+          <%= f.button raw('<i class="bi bi-search"></i>'), name: nil, class: "btn btn-light border-light-subtle" %>
+          <% unless params[:sort].to_s.empty? %>
+          <%= f.hidden_field :sort, value: params[:sort] %>
+          <% end %>
         </div>
       </div>
-
       <div class="mb-3">
-        <%= select_tag( :status, options_for_select(@status_map.invert), { class: "form-select" }) %>
+      <%= select_tag( :status, options_for_select(@status_map.invert, params[:status]), { include_blank: t('status_all'), class: "form-select", onchange: "submit(this.form)" }) %>
       </div>
-    <%# </form> %>
+    <% end %>
   </div>
 
   <div class="col-10">
     <%= render "form", task: @new_task, status_map: @status_map, btn_label: "Create" %>
-    <table class="table">
+    <table class="table table-hover">
       <thead>
         <tr>
           <th scope="col"><%= t "title" %></th>
-          <th scope="col"><%= t "description" %></th>
           <th scope="col"><%= t "status" %></th>
           <th scope="col">
-          <%= link_to_unless(params[:sort].eql?('created_at'), raw(t 'created_at' ) + raw('<i class="bi bi-sort-up"></i>'), root_path(:sort => 'created_at')) %>
+          <%= link_to_unless(params[:sort].eql?('created_at'), raw(t 'created_at' ) + raw('<i class="bi bi-sort-up"></i>'), build_request_uri(request.url, 'sort', 'created_at')) %>
           </th>
           <th scope="col">
-          <%= link_to_unless(params[:sort].eql?('due_date_at'), raw(t 'due_date_at' ) + raw('<i class="bi bi-sort-up"></i>'), root_path(:sort => 'due_date_at')) %>
+          <%= link_to_unless(params[:sort].eql?('due_date_at'), raw(t 'due_date_at' ) + raw('<i class="bi bi-sort-up"></i>'), build_request_uri(request.url, 'sort', 'due_date_at')) %>
           </th>
           <th scope="col"></th>
         </tr>
@@ -36,15 +37,14 @@
     <% @tasks.each do |task| %>
         <tr>
           <td><%= link_to task.title, task_path(task) %></td>
-          <td><%= task.description %></td>
-          <td><%= task.created_at %></td>
-          <td><%= task.due_date_at.to_s.split[0] %></td>
           <td><%= @status_map[task.status] %></td>
+          <td><%= task.created_at.to_s.split[0] %></td>
+          <td><%= task.due_date_at.to_s.split[0] %></td>
           <td>
           <%= button_to "Delete",
           task_path(task),
           method: :delete,
-          class: "btn btn-danger btn-xs del-btn",
+          class: "btn btn-danger btn-sm",
           data: { "turbo-method": :delete, "turbo-confirm": 'Are you sure?' }
           %>
           </td>

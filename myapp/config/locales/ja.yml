@@ -42,6 +42,16 @@ ja:
   msg_update_failure: '更新に失敗しました'
   msg_delete_success: '削除に成功しました'
   msg_delete_failure: '削除に失敗しました'
+  status_all: 'ステータス全て'
   status_not_started: '未着手'
   status_in_progress: '着手中'
   status_completed: '完了'
+  search_by_title: 'タイトルで検索'
+
+  activerecord:
+    errors:
+      models:
+        task: "Task"
+      attributes:
+        title: "title"
+        description: "Description"

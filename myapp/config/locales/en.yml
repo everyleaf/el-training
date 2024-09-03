@@ -42,6 +42,18 @@ en:
   msg_update_failure: 'Failed to update a task.'
   msg_delete_success: 'Deleted a task successfully.'
   msg_delete_failure: 'Failed to delete a task.'
+  status_all: 'Status All'
   status_not_started: 'Not Started'
   status_in_progress: 'In Progress'
   status_completed: 'Completed'
+  search_by_title: 'Search by title'
+
+  # activerecord:
+  #   errors:
+  #     models:
+  #       task: "Task"
+  #     attributes:
+  #       title:
+  #         blank: "blank"
+  #       description:
+  #         blank: "blank"
