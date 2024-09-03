@@ -30,10 +30,11 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  title: "title"
-  description: "description"
-  created_at: "created"
-  updated_at: "updated"
+  title: 'title'
+  description: 'description'
+  created_at: 'created'
+  updated_at: 'updated'
+  due_date_at: 'due date'
   msg_create_success: 'Created a task successfully.'
   msg_create_failure: 'Failed to create a task.'
   msg_update_success: 'Updated a task successfully.'

@@ -30,10 +30,11 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 ja:
-  title: "タイトル"
-  description: "詳細"
-  created_at: "作成日時"
-  updated_at: "更新日時"
+  title: 'タイトル'
+  description: '詳細'
+  created_at: '作成日時'
+  updated_at: '更新日時'
+  due_date_at: '期限'
   msg_create_success: '作成に成功しました'
   msg_create_failure: '作成に失敗しました'
   msg_update_success: '更新に成功しました'

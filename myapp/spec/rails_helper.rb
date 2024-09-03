@@ -84,4 +84,9 @@ RSpec.configure do |config|
   end
 
   config.include FactoryBot::Syntax::Methods
+
+  # reset sequence before each test
+  config.before(:each) do
+    FactoryBot.rewind_sequences
+  end
 end

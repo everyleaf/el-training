@@ -2,9 +2,15 @@
 
 <table class="table table-hover">
   <thead>
-    <tr>
-      <th scope="col"><%= t "title" %></th>
-      <th scope="col"><%= t "description" %></th>
+    <tr class="small">
+      <th scope="col"><%= t 'title' %></th>
+      <th scope="col"><%= t 'description' %></th>
+      <th scope="col">
+        <%= link_to_unless(params[:sort].eql?('created_at'), raw(t 'created_at' ) + raw('<i class="bi bi-sort-up"></i>'), root_path(:sort => 'created_at')) %>
+      </th>
+      <th scope="col">
+        <%= link_to_unless(params[:sort].eql?('due_date_at'), raw(t 'due_date_at' ) + raw('<i class="bi bi-sort-up"></i>'), root_path(:sort => 'due_date_at')) %>
+      </th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -14,6 +20,8 @@
     <tr>
       <td><%= link_to task.title, task_path(task) %></td>
       <td><%= task.description %></td>
+      <td><%= task.created_at %></td>
+      <td><%= task.due_date_at.to_s.split[0] %></td>
       <td>
       <%= button_to "Delete",
       task_path(task),

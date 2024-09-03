@@ -1,15 +1,18 @@
 # TaskController is a controller to handle basic CRUD operations for "task"
 class TasksController < ApplicationController
-  MSG_CREATE_SUCCESS = I18n.t 'msg_create_success'
-  MSG_CREATE_FAILURE = I18n.t 'msg_create_failure'
-  MSG_UPDATE_SUCCESS = I18n.t 'msg_update_success'
-  MSG_UPDATE_FAILURE = I18n.t 'msg_update_failure'
-  MSG_DELETE_SUCCESS = I18n.t 'msg_delete_success'
-  MSG_DELETE_FAILURE = I18n.t 'msg_delete_failure'
-
   def index
+    sort_param = params[:sort].to_s.downcase
+    case sort_param
+    when 'due_date_at'
+      sort = sort_param
+    else
+      sort = 'created_at'
+    end
+    # TODO: support ascending
+    sort += ' DESC'
+
     @new_task = Task.new
-    @tasks = Task.all
+    @tasks = Task.order(sort)
   end
 
   def show
@@ -18,17 +21,18 @@ class TasksController < ApplicationController
   end
 
   def create
-    logger.debug { "params => #{params}" }
-    data = { title: params[:task][:title], description: params[:task][:description]
-}
+    data = task_data(params)
     @task = Task.new(data)
     if @task.save
-      flash[:notice] = MSG_CREATE_SUCCESS
+      flash[:success] = I18n.t 'msg_create_success'
+      redirect_to root_path
     else
-      flash[:notice] = MSG_CREATE_FAILURE
-    end
+      flash.now[:danger] = I18n.t 'msg_create_failure'
 
-    redirect_to root_path
+      @new_task = @task
+      @tasks = Task.order('created_at DESC')
+      render :index, status: :unprocessable_entity
+    end
   end
 
   def edit
@@ -40,22 +44,35 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
     redirect_to error_path(404) if @task.nil?
 
-    data = {title: params[:task][:title], description: params[:task][:description]}
+    data = task_data(params)
     if @task.update(data)
-      flash[:notice] = MSG_UPDATE_SUCCESS
+      flash[:success] = I18n.t 'msg_update_success'
+      redirect_to root_path
     else
-      flash[:notice] = MSG_UPDATE_FAILURE
+      flash.now[:danger] = I18n.t 'msg_update_failure'
+      render :edit, status: :unprocessable_entity
     end
-
-    redirect_to root_path
   end
 
   def destroy
     @task = Task.find_by(id: params[:id])
-    redirect_to root_path if @task.nil?
+    if @task.nil?
+      flash[:danger] = I18n.t 'msg_delete_failure'
+      redirect_to root_path
+    end
 
     @task.destroy
-    flash[:notice] = MSG_DELETE_SUCCESS
+    flash[:notice] = I18n.t 'msg_delete_success'
     redirect_to root_path
+  end
+
+  private
+
+  def task_data(form_params)
+    {
+      title: form_params[:task][:title],
+      description: form_params[:task][:description],
+      due_date_at: form_params[:task][:due_date_at],
+    }
   end
 end
