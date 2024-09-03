@@ -23,6 +23,10 @@
     </div>
   </div>
 
+  <div class="mb-3 col-3">
+    <%= f.select :status, status_map.invert, { label: "status" }, { class: "form-select" } %>
+  </div>
+
   <div class="mb-3">
     <%= f.submit btn_label, class: "btn btn-primary" %>
   </div>

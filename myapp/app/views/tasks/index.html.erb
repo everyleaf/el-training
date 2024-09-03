@@ -1,37 +1,57 @@
-<%= render "form", task: @new_task, btn_label: "Create" %>
+<div class="row">
+  <div class="col-2">
+    <%# <form> %>
+      <div class="mb-3">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="タイトルで検索">
+          <button class="btn btn-light border-light-subtle" type="button"><i class="bi bi-search"></i></button>
+        </div>
+      </div>
 
-<table class="table table-hover">
-  <thead>
-    <tr class="small">
-      <th scope="col"><%= t 'title' %></th>
-      <th scope="col"><%= t 'description' %></th>
-      <th scope="col">
-        <%= link_to_unless(params[:sort].eql?('created_at'), raw(t 'created_at' ) + raw('<i class="bi bi-sort-up"></i>'), root_path(:sort => 'created_at')) %>
-      </th>
-      <th scope="col">
-        <%= link_to_unless(params[:sort].eql?('due_date_at'), raw(t 'due_date_at' ) + raw('<i class="bi bi-sort-up"></i>'), root_path(:sort => 'due_date_at')) %>
-      </th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-<% if @tasks.any? %>
-  <tbody>
-<% @tasks.each do |task| %>
-    <tr>
-      <td><%= link_to task.title, task_path(task) %></td>
-      <td><%= task.description %></td>
-      <td><%= task.created_at %></td>
-      <td><%= task.due_date_at.to_s.split[0] %></td>
-      <td>
-      <%= button_to "Delete",
-      task_path(task),
-      method: :delete,
-      class: "btn btn-danger btn-xs del-btn",
-      data: { "turbo-method": :delete, "turbo-confirm": 'Are you sure?' }
-      %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-<% end %>
-</table>
+      <div class="mb-3">
+        <%= select_tag( :status, options_for_select(@status_map.invert), { class: "form-select" }) %>
+      </div>
+    <%# </form> %>
+  </div>
+
+  <div class="col-10">
+    <%= render "form", task: @new_task, status_map: @status_map, btn_label: "Create" %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col"><%= t "title" %></th>
+          <th scope="col"><%= t "description" %></th>
+          <th scope="col"><%= t "status" %></th>
+          <th scope="col">
+          <%= link_to_unless(params[:sort].eql?('created_at'), raw(t 'created_at' ) + raw('<i class="bi bi-sort-up"></i>'), root_path(:sort => 'created_at')) %>
+          </th>
+          <th scope="col">
+          <%= link_to_unless(params[:sort].eql?('due_date_at'), raw(t 'due_date_at' ) + raw('<i class="bi bi-sort-up"></i>'), root_path(:sort => 'due_date_at')) %>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+    <% if @tasks.any? %>
+      <tbody>
+    <% @tasks.each do |task| %>
+        <tr>
+          <td><%= link_to task.title, task_path(task) %></td>
+          <td><%= task.description %></td>
+          <td><%= task.created_at %></td>
+          <td><%= task.due_date_at.to_s.split[0] %></td>
+          <td><%= @status_map[task.status] %></td>
+          <td>
+          <%= button_to "Delete",
+          task_path(task),
+          method: :delete,
+          class: "btn btn-danger btn-xs del-btn",
+          data: { "turbo-method": :delete, "turbo-confirm": 'Are you sure?' }
+          %>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    <% end %>
+    </table>
+  </div>
+</div>
