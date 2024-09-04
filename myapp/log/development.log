@@ -68,3 +68,816 @@ Processing by TasksController#index as TURBO_STREAM
 Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 0.6ms | Allocations: 5666)
 
 
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE DATABASE `myapp_development` DEFAULT COLLATE `utf8mb4_general_ci`[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE DATABASE `myapp_test` DEFAULT COLLATE `utf8mb4_general_ci`[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT GET_LOCK('7864839756650184315', 0)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.1ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('7864839756650184315')[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Started GET "/" for 192.168.65.1 at 2024-09-04 07:13:51 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by TasksController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 8.4ms | Allocations: 5919)
+  [1m[36mTask Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 0[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (1.0ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY created_at DESC LIMIT 10 OFFSET 0[0m
+  ↳ app/views/tasks/index.html.erb:37
+  [1m[36mTask Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:56
+  Rendered tasks/index.html.erb within layouts/application (Duration: 25.5ms | Allocations: 18057)
+  Rendered layout layouts/application.html.erb (Duration: 37.8ms | Allocations: 20465)
+Completed 200 OK in 62ms (Views: 38.9ms | ActiveRecord: 3.2ms | Allocations: 31080)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:13:51 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 1.4ms | Allocations: 246)
+  Rendered layout layouts/error.html.erb (Duration: 3.3ms | Allocations: 1293)
+Completed 200 OK in 8ms (Views: 6.0ms | ActiveRecord: 0.0ms | Allocations: 1960)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:13:51 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.1ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.1ms | Allocations: 791)
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.0ms | Allocations: 1028)
+
+
+Started GET "/?page=2" for 192.168.65.1 at 2024-09-04 07:13:59 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Parameters: {"page"=>"2"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 1.7ms | Allocations: 897)
+  [1m[36mTask Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (0.7ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY created_at DESC LIMIT 10 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:37
+  [1m[36mTask Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:56
+  Rendered tasks/index.html.erb within layouts/application (Duration: 20.0ms | Allocations: 9675)
+  Rendered layout layouts/application.html.erb (Duration: 21.6ms | Allocations: 10299)
+Completed 200 OK in 26ms (Views: 20.5ms | ActiveRecord: 1.8ms | Allocations: 10686)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:13:59 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.1ms | Allocations: 785)
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.0ms | Allocations: 1022)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:13:59 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.2ms | Allocations: 786)
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.0ms | Allocations: 1032)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:13:59 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.2ms | Allocations: 785)
+Completed 200 OK in 3ms (Views: 1.9ms | ActiveRecord: 0.0ms | Allocations: 1029)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:13:59 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.0ms | Allocations: 785)
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.0ms | Allocations: 1022)
+
+
+Started GET "/?page=3" for 192.168.65.1 at 2024-09-04 07:14:01 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Parameters: {"page"=>"3"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 1.9ms | Allocations: 887)
+  [1m[36mTask Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 20[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (0.7ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY created_at DESC LIMIT 10 OFFSET 20[0m
+  ↳ app/views/tasks/index.html.erb:37
+  Rendered tasks/index.html.erb within layouts/application (Duration: 13.2ms | Allocations: 6567)
+  Rendered layout layouts/application.html.erb (Duration: 14.6ms | Allocations: 7191)
+Completed 200 OK in 19ms (Views: 14.0ms | ActiveRecord: 1.4ms | Allocations: 7573)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:01 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.1ms | Allocations: 791)
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.0ms | Allocations: 1028)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:01 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.2ms | Allocations: 791)
+Completed 200 OK in 3ms (Views: 1.8ms | ActiveRecord: 0.0ms | Allocations: 1034)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:01 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.1ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.0ms | Allocations: 791)
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.0ms | Allocations: 1034)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:01 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.1ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 8.2ms | Allocations: 794)
+Completed 200 OK in 10ms (Views: 8.6ms | ActiveRecord: 0.0ms | Allocations: 1032)
+
+
+Started GET "/?page=3" for 192.168.65.1 at 2024-09-04 07:14:03 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Parameters: {"page"=>"3"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 0.8ms | Allocations: 896)
+  [1m[36mTask Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 20[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY created_at DESC LIMIT 10 OFFSET 20[0m
+  ↳ app/views/tasks/index.html.erb:37
+  Rendered tasks/index.html.erb within layouts/application (Duration: 6.4ms | Allocations: 6572)
+  Rendered layout layouts/application.html.erb (Duration: 7.2ms | Allocations: 7195)
+Completed 200 OK in 9ms (Views: 7.0ms | ActiveRecord: 0.5ms | Allocations: 7570)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:03 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.1ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.0ms | Allocations: 782)
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.0ms | Allocations: 1019)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:03 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.1ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.1ms | Allocations: 782)
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.0ms | Allocations: 1026)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:03 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.1ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.0ms | Allocations: 794)
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.0ms | Allocations: 1031)
+
+
+Started GET "/?page=3" for 192.168.65.1 at 2024-09-04 07:14:04 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Parameters: {"page"=>"3"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 1.8ms | Allocations: 902)
+  [1m[36mTask Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 20[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY created_at DESC LIMIT 10 OFFSET 20[0m
+  ↳ app/views/tasks/index.html.erb:37
+  Rendered tasks/index.html.erb within layouts/application (Duration: 11.7ms | Allocations: 6579)
+  Rendered layout layouts/application.html.erb (Duration: 13.1ms | Allocations: 7202)
+Completed 200 OK in 17ms (Views: 12.9ms | ActiveRecord: 1.1ms | Allocations: 7576)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:04 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.2ms | Allocations: 782)
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.0ms | Allocations: 1020)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:04 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.2ms | Allocations: 782)
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.0ms | Allocations: 1025)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:04 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.1ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.2ms | Allocations: 782)
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.0ms | Allocations: 1025)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:04 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.4ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.3ms | Allocations: 797)
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.0ms | Allocations: 1034)
+
+
+Started GET "/?page=2" for 192.168.65.1 at 2024-09-04 07:14:07 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Parameters: {"page"=>"2"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 1.9ms | Allocations: 887)
+  [1m[36mTask Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY created_at DESC LIMIT 10 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:37
+  [1m[36mTask Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:56
+  Rendered tasks/index.html.erb within layouts/application (Duration: 15.9ms | Allocations: 9038)
+  Rendered layout layouts/application.html.erb (Duration: 17.1ms | Allocations: 9661)
+Completed 200 OK in 21ms (Views: 16.4ms | ActiveRecord: 1.5ms | Allocations: 10041)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:07 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 3.1ms | Allocations: 788)
+Completed 200 OK in 5ms (Views: 3.6ms | ActiveRecord: 0.0ms | Allocations: 1026)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:07 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.2ms | Allocations: 788)
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.0ms | Allocations: 1031)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:07 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.2ms | Allocations: 788)
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.0ms | Allocations: 1031)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:07 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.1ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.2ms | Allocations: 800)
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.0ms | Allocations: 1037)
+
+
+Started GET "/?page=2" for 192.168.65.1 at 2024-09-04 07:14:40 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Parameters: {"page"=>"2"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 1.7ms | Allocations: 893)
+  [1m[36mTask Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (2.5ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY created_at DESC LIMIT 10 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:37
+  [1m[36mTask Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:56
+  Rendered tasks/index.html.erb within layouts/application (Duration: 17.0ms | Allocations: 9044)
+  Rendered layout layouts/application.html.erb (Duration: 18.1ms | Allocations: 9667)
+Completed 200 OK in 22ms (Views: 15.4ms | ActiveRecord: 3.5ms | Allocations: 10046)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:40 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.2ms | Allocations: 803)
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.0ms | Allocations: 1040)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:40 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.1ms | Allocations: 803)
+Completed 200 OK in 3ms (Views: 1.6ms | ActiveRecord: 0.0ms | Allocations: 1046)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:40 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.1ms | Allocations: 803)
+Completed 200 OK in 4ms (Views: 2.8ms | ActiveRecord: 0.0ms | Allocations: 1047)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:40 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.1ms | Allocations: 776)
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.0ms | Allocations: 1013)
+
+
+Started GET "/?page=2" for 192.168.65.1 at 2024-09-04 07:14:41 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Parameters: {"page"=>"2"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 1.5ms | Allocations: 911)
+  [1m[36mTask Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY created_at DESC LIMIT 10 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:37
+  [1m[36mTask Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:56
+  Rendered tasks/index.html.erb within layouts/application (Duration: 14.7ms | Allocations: 9058)
+  Rendered layout layouts/application.html.erb (Duration: 16.0ms | Allocations: 9681)
+Completed 200 OK in 19ms (Views: 15.6ms | ActiveRecord: 1.2ms | Allocations: 10055)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:41 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:41 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.1ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.2ms | Allocations: 798)
+Completed 200 OK in 3ms (Views: 1.8ms | ActiveRecord: 0.0ms | Allocations: 1149)
+
+
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.2ms | Allocations: 799)
+Completed 200 OK in 4ms (Views: 2.4ms | ActiveRecord: 0.0ms | Allocations: 1530)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:41 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.3ms | Allocations: 776)
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.0ms | Allocations: 1013)
+
+
+Started GET "/?page=2" for 192.168.65.1 at 2024-09-04 07:14:42 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Parameters: {"page"=>"2"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 1.7ms | Allocations: 893)
+  [1m[36mTask Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY created_at DESC LIMIT 10 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:37
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:56
+  Rendered tasks/index.html.erb within layouts/application (Duration: 14.6ms | Allocations: 9040)
+  Rendered layout layouts/application.html.erb (Duration: 15.7ms | Allocations: 9663)
+Completed 200 OK in 19ms (Views: 15.0ms | ActiveRecord: 1.3ms | Allocations: 10038)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:42 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:42 +0000
+Processing by ErrorsController#show as HTML
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.1ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.6ms | Allocations: 826)
+Completed 200 OK in 6ms (Views: 3.3ms | ActiveRecord: 0.0ms | Allocations: 1490)
+
+
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.1ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.1ms | Allocations: 794)
+Completed 200 OK in 3ms (Views: 1.5ms | ActiveRecord: 0.0ms | Allocations: 1412)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:42 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.2ms | Allocations: 767)
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.0ms | Allocations: 1004)
+
+
+Started GET "/?page=2" for 192.168.65.1 at 2024-09-04 07:14:55 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Parameters: {"page"=>"2"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 1.8ms | Allocations: 890)
+  [1m[36mTask Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY created_at DESC LIMIT 10 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:37
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:56
+  Rendered tasks/index.html.erb within layouts/application (Duration: 15.2ms | Allocations: 9037)
+  Rendered layout layouts/application.html.erb (Duration: 16.3ms | Allocations: 9660)
+Completed 200 OK in 20ms (Views: 16.1ms | ActiveRecord: 1.5ms | Allocations: 10035)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:55 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.1ms | Allocations: 803)
+Completed 200 OK in 3ms (Views: 1.5ms | ActiveRecord: 0.0ms | Allocations: 1041)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:55 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.2ms | Allocations: 803)
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.0ms | Allocations: 1046)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:55 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.1ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.0ms | Allocations: 803)
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.0ms | Allocations: 1046)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:55 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.1ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.1ms | Allocations: 785)
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.0ms | Allocations: 1022)
+
+
+Started GET "/?page=2" for 192.168.65.1 at 2024-09-04 07:14:57 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Parameters: {"page"=>"2"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 1.6ms | Allocations: 890)
+  [1m[36mTask Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY created_at DESC LIMIT 10 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:37
+  [1m[36mTask Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:56
+  Rendered tasks/index.html.erb within layouts/application (Duration: 15.0ms | Allocations: 9037)
+  Rendered layout layouts/application.html.erb (Duration: 16.3ms | Allocations: 9660)
+Completed 200 OK in 20ms (Views: 15.8ms | ActiveRecord: 1.3ms | Allocations: 10035)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:57 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.3ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.4ms | Allocations: 785)
+Completed 200 OK in 3ms (Views: 1.8ms | ActiveRecord: 0.0ms | Allocations: 1023)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:57 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.1ms | Allocations: 785)
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.0ms | Allocations: 1029)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:57 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.0ms | Allocations: 782)
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.0ms | Allocations: 1019)
+
+
+Started GET "/?page=2" for 192.168.65.1 at 2024-09-04 07:14:57 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Parameters: {"page"=>"2"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 1.8ms | Allocations: 905)
+  [1m[36mTask Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY created_at DESC LIMIT 10 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:37
+  [1m[36mTask Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:56
+  Rendered tasks/index.html.erb within layouts/application (Duration: 13.8ms | Allocations: 9052)
+  Rendered layout layouts/application.html.erb (Duration: 15.1ms | Allocations: 9675)
+Completed 200 OK in 18ms (Views: 14.3ms | ActiveRecord: 1.4ms | Allocations: 10050)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:58 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.1ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.1ms | Allocations: 782)
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.0ms | Allocations: 1019)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:58 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.1ms | Allocations: 782)
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.0ms | Allocations: 1025)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:58 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as */*
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.0ms | Allocations: 782)
+Completed 200 OK in 3ms (Views: 1.5ms | ActiveRecord: 0.0ms | Allocations: 1027)
+
+
+Started GET "/errors/404" for 192.168.65.1 at 2024-09-04 07:14:58 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ErrorsController#show as HTML
+  Parameters: {"status"=>"404"}
+  Rendering layout layouts/error.html.erb
+  Rendering errors/status_error.html.erb within layouts/error
+  Rendered errors/status_error.html.erb within layouts/error (Duration: 0.2ms | Allocations: 55)
+  Rendered layout layouts/error.html.erb (Duration: 1.2ms | Allocations: 785)
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.0ms | Allocations: 1023)
+
+
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE DATABASE `myapp_development` DEFAULT COLLATE `utf8mb4_general_ci`[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE DATABASE `myapp_test` DEFAULT COLLATE `utf8mb4_general_ci`[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT GET_LOCK('7864839756650184315', 0)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.0ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('7864839756650184315')[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Started GET "/?page=2" for 192.168.65.1 at 2024-09-04 07:16:18 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by TasksController#index as HTML
+  Parameters: {"page"=>"2"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 7.5ms | Allocations: 1913)
+  [1m[36mTask Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (1.0ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY created_at DESC LIMIT 10 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:37
+  [1m[36mTask Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:56
+  Rendered tasks/index.html.erb within layouts/application (Duration: 26.6ms | Allocations: 15202)
+  Rendered layout layouts/application.html.erb (Duration: 356.1ms | Allocations: 98992)
+Completed 200 OK in 381ms (Views: 357.2ms | ActiveRecord: 3.4ms | Allocations: 109604)
+
+
+Started GET "/?page=2&sort=created_at" for 192.168.65.1 at 2024-09-04 07:22:10 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Parameters: {"page"=>"2", "sort"=>"created_at"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 1.3ms | Allocations: 899)
+  [1m[36mTask Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY created_at DESC LIMIT 10 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:37
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:56
+  Rendered tasks/index.html.erb within layouts/application (Duration: 30.9ms | Allocations: 25646)
+  Rendered layout layouts/application.html.erb (Duration: 34.9ms | Allocations: 26948)
+Completed 200 OK in 39ms (Views: 34.6ms | ActiveRecord: 1.0ms | Allocations: 27333)
+
+
+Started GET "/?page=2&sort=due_date_at" for 192.168.65.1 at 2024-09-04 07:22:12 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Parameters: {"page"=>"2", "sort"=>"due_date_at"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 1.8ms | Allocations: 899)
+  [1m[36mTask Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (1.0ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY due_date_at DESC LIMIT 10 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:37
+  [1m[36mTask Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:56
+  Rendered tasks/index.html.erb within layouts/application (Duration: 17.5ms | Allocations: 9573)
+  Rendered layout layouts/application.html.erb (Duration: 22.0ms | Allocations: 10861)
+Completed 200 OK in 26ms (Views: 20.6ms | ActiveRecord: 2.3ms | Allocations: 11240)
+
+
+Started GET "/?page=2&sort=created_at" for 192.168.65.1 at 2024-09-04 07:22:13 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Parameters: {"page"=>"2", "sort"=>"created_at"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 2.8ms | Allocations: 911)
+  [1m[36mTask Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY created_at DESC LIMIT 10 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:37
+  [1m[36mTask Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:56
+  Rendered tasks/index.html.erb within layouts/application (Duration: 16.0ms | Allocations: 9627)
+  Rendered layout layouts/application.html.erb (Duration: 20.1ms | Allocations: 10915)
+Completed 200 OK in 24ms (Views: 19.6ms | ActiveRecord: 1.4ms | Allocations: 11287)
+
+
+Started GET "/?page=2&sort=due_date_at" for 192.168.65.1 at 2024-09-04 07:22:15 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Parameters: {"page"=>"2", "sort"=>"due_date_at"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 0.9ms | Allocations: 884)
+  [1m[36mTask Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY due_date_at DESC LIMIT 10 OFFSET 10[0m
+  ↳ app/views/tasks/index.html.erb:37
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:56
+  Rendered tasks/index.html.erb within layouts/application (Duration: 8.5ms | Allocations: 9559)
+  Rendered layout layouts/application.html.erb (Duration: 11.5ms | Allocations: 10861)
+Completed 200 OK in 13ms (Views: 11.1ms | ActiveRecord: 0.7ms | Allocations: 11240)
+
+
+Started GET "/?sort=due_date_at" for 192.168.65.1 at 2024-09-04 07:22:21 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Parameters: {"sort"=>"due_date_at"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 1.8ms | Allocations: 899)
+  [1m[36mTask Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 0[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY due_date_at DESC LIMIT 10 OFFSET 0[0m
+  ↳ app/views/tasks/index.html.erb:37
+  [1m[36mTask Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:56
+  Rendered tasks/index.html.erb within layouts/application (Duration: 16.7ms | Allocations: 9116)
+  Rendered layout layouts/application.html.erb (Duration: 21.1ms | Allocations: 10405)
+Completed 200 OK in 25ms (Views: 20.3ms | ActiveRecord: 1.6ms | Allocations: 10786)
+
+
+Started GET "/?sort=created_at" for 192.168.65.1 at 2024-09-04 07:22:26 +0000
+Cannot render console from 192.168.65.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by TasksController#index as HTML
+  Parameters: {"sort"=>"created_at"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  Rendered tasks/_form.html.erb (Duration: 1.8ms | Allocations: 899)
+  [1m[36mTask Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `tasks` LIMIT 1 OFFSET 0[0m
+  ↳ app/views/tasks/index.html.erb:35
+  [1m[36mTask Load (0.6ms)[0m  [1m[34mSELECT `tasks`.* FROM `tasks` ORDER BY created_at DESC LIMIT 10 OFFSET 0[0m
+  ↳ app/views/tasks/index.html.erb:37
+  [1m[36mTask Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM `tasks`[0m
+  ↳ app/views/tasks/index.html.erb:56
+  Rendered tasks/index.html.erb within layouts/application (Duration: 14.9ms | Allocations: 9060)
+  Rendered layout layouts/application.html.erb (Duration: 21.9ms | Allocations: 10348)
+Completed 200 OK in 26ms (Views: 21.2ms | ActiveRecord: 1.4ms | Allocations: 10723)
+
+

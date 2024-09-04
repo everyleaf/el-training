@@ -13,3 +13,28 @@
  *= require_tree .
  *= require_self
  */
+a {
+    text-decoration: none !important;
+}
+
+.pagination{
+    margin: 0 auto 0;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    span{
+        text-align: center;
+        width: 25px;
+        :hover{
+            background-color:#f3f3f3;
+        }
+        a{
+            display: block;
+            width: 100%;
+            height: 100%;
+            :hover{
+                background-color: #f3f3f3;
+            }
+        }
+    }
+}

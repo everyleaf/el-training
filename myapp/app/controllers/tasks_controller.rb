@@ -26,7 +26,7 @@ class TasksController < ApplicationController
     # TODO: support ascending
     sort += ' DESC'
 
-    @tasks = q.order(sort)
+    @tasks = q.order(sort).page(params[:page])
 
     # for new form
     @new_task = Task.new
@@ -109,10 +109,3 @@ class TasksController < ApplicationController
   end
 
 end
-
-# def build_request_uri(url, param, value)
-#   uri = URI(url)
-#   nested_query = Rack::Utils.parse_nested_query(uri.query)
-#   new_query = Rack::Utils.build_nested_query(nested_query.merge({ param => value }))
-#   URI::HTTP.build(path: uri.path, query: new_query).request_uri
-# end
