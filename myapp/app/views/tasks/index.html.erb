@@ -4,14 +4,14 @@
       <div class="mb-3 mt-3">
         <div class="input-group">
           <%= f.text_field :query, class: "form-control", placeholder: t('search_by_title'), value: params[:query] %>
-          <%= f.button raw('<i class="bi bi-search"></i>'), name: nil, class: "btn btn-light border-light-subtle" %>
+          <%= f.button raw('<i class="bi bi-search"></i>'), name: nil, class: "btn btn-light border-light-subtle", id: "btn-search" %>
           <% unless params[:sort].to_s.empty? %>
           <%= f.hidden_field :sort, value: params[:sort] %>
           <% end %>
         </div>
       </div>
       <div class="mb-3">
-      <%= select_tag( :status, options_for_select(@status_map.invert, params[:status]), { include_blank: t('status_all'), class: "form-select", onchange: "submit(this.form)" }) %>
+      <%= select_tag( :status, options_for_select(@status_map.invert, params[:status]), { include_blank: t('status_all'), class: "form-select", id: "search-status", onchange: "submit(this.form)" }) %>
       </div>
     <% end %>
   </div>

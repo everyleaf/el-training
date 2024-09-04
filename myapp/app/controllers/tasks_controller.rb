@@ -2,9 +2,7 @@ require 'uri'
 
 # TaskController is a controller to handle basic CRUD operations for "task"
 class TasksController < ApplicationController
-  STATUS_NOT_STARTED = 0
-  STATUS_IN_PROGRESS = 1
-  STATUS_COMPLETED = 2
+  include ApplicationHelper
 
   def index
     q = Task
@@ -74,6 +72,7 @@ class TasksController < ApplicationController
       redirect_to root_path
     else
       flash.now[:danger] = I18n.t 'msg_update_failure'
+      @status_map = get_status_map
       render :edit, status: :unprocessable_entity
     end
   end
@@ -90,6 +89,14 @@ class TasksController < ApplicationController
     redirect_to root_path
   end
 
+  def get_status_map
+    {
+      Constants::STATUS_NOT_STARTED => I18n.t('status_not_started'),
+      Constants::STATUS_IN_PROGRESS => I18n.t('status_in_progress'),
+      Constants::STATUS_COMPLETED => I18n.t('status_completed')
+    }
+  end
+
   private
 
   def task_data(form_params)
@@ -101,18 +108,11 @@ class TasksController < ApplicationController
     }
   end
 
-  def get_status_map
-    {
-      STATUS_NOT_STARTED => I18n.t('status_not_started'),
-      STATUS_IN_PROGRESS => I18n.t('status_in_progress'),
-      STATUS_COMPLETED => I18n.t('status_completed'),
-    }
-  end
 end
 
-def build_request_uri(url, param, value)
-  uri = URI(url)
-  nested_query = Rack::Utils.parse_nested_query(uri.query)
-  new_query = Rack::Utils.build_nested_query(nested_query.merge({ param => value }))
-  URI::HTTP.build(path: uri.path, query: new_query).request_uri
-end
+# def build_request_uri(url, param, value)
+#   uri = URI(url)
+#   nested_query = Rack::Utils.parse_nested_query(uri.query)
+#   new_query = Rack::Utils.build_nested_query(nested_query.merge({ param => value }))
+#   URI::HTTP.build(path: uri.path, query: new_query).request_uri
+# end
