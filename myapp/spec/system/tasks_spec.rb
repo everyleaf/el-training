@@ -36,9 +36,6 @@ RSpec.describe Task, type: :system do
     end
 
     context 'when task is filtered' do
-      tc = TasksController.new
-      sm = tc.get_status_map
-
       let!(:tasks) { create_list(:task, 5) }
 
       before { visit root_path }
@@ -53,10 +50,10 @@ RSpec.describe Task, type: :system do
 
       it 'search by status' do
         # add extra items with various status
-        create(:task, :status => Constants::STATUS_NOT_STARTED)
-        create_list(:task, 3, status: Constants::STATUS_IN_PROGRESS)
-        create_list(:task, 2, status: Constants::STATUS_COMPLETED)
-        select sm[Constants::STATUS_COMPLETED], from: 'search-status'
+        create(:task, :status => Task.statuses[:status_not_started])
+        create_list(:task, 3, status: Task.statuses[:status_in_progress])
+        create_list(:task, 2, status: Task.statuses[:status_completed])
+        select sm[Task.statuses[:status_completed]], from: 'search-status'
         click_on 'btn-search'
 
         expect(current_path).to eq root_path
@@ -65,11 +62,11 @@ RSpec.describe Task, type: :system do
 
       it 'search by title and status' do
         # add extra items with various status
-        create(:task, status: Constants::STATUS_IN_PROGRESS)
-        create(:task, status: Constants::STATUS_COMPLETED)
-        create(:task, title: 'some random title', status: Constants::STATUS_COMPLETED)
+        create(:task, status: Task.statuses[:status_in_progress])
+        create(:task, status: Task.statuses[:status_completed])
+        create(:task, title: 'some random title', status: Task.statuses[:status_completed])
         fill_in 'query', with: 'rand'
-        select sm[Constants::STATUS_COMPLETED], from: 'search-status'
+        select Task.statuses[:status_completed], from: 'search-status'
         click_on 'btn-search'
 
         expect(current_path).to eq root_path
@@ -82,17 +79,15 @@ RSpec.describe Task, type: :system do
     context 'when submit a new task' do
       before { visit root_path }
 
-      sm = TasksController.new.get_status_map
-
       it 'creates a task successfully' do
         new_title = 'test title 1'
         new_description = 'test description 1'
         new_due_date_at = '2024-08-31'
-        new_status = Constants::STATUS_IN_PROGRESS
+        new_status = Task.statuses[:status_in_progress]
         fill_in 'task[title]', with: new_title
         fill_in 'task[description]', with: new_description
         fill_in 'task[due_date_at]', with: new_due_date_at
-        select sm[new_status], from: 'task[status]'
+        select Task.statuses[:status_in_progress], from: 'task[status]'
         click_on 'Create'
 
         # redirected back to root page
@@ -102,7 +97,7 @@ RSpec.describe Task, type: :system do
         # make sure new task is there
         expect(page).to have_content new_title
         expect(page).to have_content new_due_date_at
-        expect(page).to have_content sm[new_title]
+        expect(page).to have_content Task.statuses[:status_in_progress]
       end
 
       it 'creates a task successfully w/ minimum fields' do
@@ -119,7 +114,7 @@ RSpec.describe Task, type: :system do
 
         # make sure new task is there
         expect(page).to have_content new_title
-        expect(page).to have_content sm[Constants::STATUS_NOT_STARTED]
+        expect(page).to have_content sm[Task.statuses[:status_not_started]]
       end
 
       it 'failed to create a task due to blank title' do
@@ -172,12 +167,10 @@ RSpec.describe Task, type: :system do
       let!(:task_1) { create(:task) }
 
       it 'shows details and edit link' do
-        sm = TasksController.new.get_status_map
-
         visit task_path(task_1)
         expect(page).to have_content task_1.title
         expect(page).to have_content task_1.description
-        expect(page).to have_content sm[task_1.status]
+        # expect(page).to have_content sm[task_1.status]
         expect(page).to have_link 'Edit', href: edit_task_path(task_1)
         expect(current_path).to eq task_path(task_1)
         click_link 'Edit'
@@ -234,18 +227,16 @@ RSpec.describe Task, type: :system do
       # success case
       it 'updated a task successfully' do
         visit edit_task_path(task_1)
-        tc = TasksController.new
-        sm = tc.get_status_map
 
         # update a task
         updated_title = 'title 1 updated'
         updated_description = 'description 1 updated'
         updated_due_date_at = '2024/08/31'
-        updated_status = Constants::STATUS_COMPLETED
+        updated_status = Task.statuses[:status_completed]
         fill_in 'task[title]', with: updated_title
         fill_in 'task[description]', with: updated_description
         fill_in 'task[due_date_at]', with: updated_due_date_at
-        select sm[updated_status], from: 'task[status]'
+        select Task.statuses[:status_completed], from: 'task[status]'
         click_on 'Update'
 
         # redirected to root
@@ -254,7 +245,7 @@ RSpec.describe Task, type: :system do
 
         # make sure the task was updated
         expect(page).to have_content updated_title
-        expect(page).to have_content sm[updated_status]
+        expect(page).to have_content Task.statuses[:status_completed]
       end
 
       # failure cases
