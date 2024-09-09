@@ -85,13 +85,10 @@ RSpec.describe Task, type: :model do
         expect(t).to be_valid
       end
       it 'failed when it is invalid status' do
-        t = Task.new(
+        expect{ Task.new(
           title: 'ThisIsTitle',
           status: '999',
-        )
-        t.valid?
-
-        expect(t.errors[:status]).to include('は不正な値です')
+        ) }.to raise_error(ArgumentError)
       end
     end
   end

@@ -22,7 +22,7 @@
       <%= f.text_field :due_date_at, class: "form-control", placeholder: (t 'due_date_at'), onfocus: "this.type='date'" %>
       </div>
       <div class="col-3">
-      <%= f.select :status, status_map.invert, {}, { class: "form-select" } %>
+      <%= f.select :status, options_for_select(Task.statuses.invert.map{ |k, v| [ I18n.t(v), k ] }, Task.statuses[task[:status]]), { }, { class: "form-select" } %>
       </div>
     </div>
 

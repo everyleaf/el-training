@@ -53,7 +53,7 @@ RSpec.describe Task, type: :system do
         create(:task, :status => Task.statuses[:status_not_started])
         create_list(:task, 3, status: Task.statuses[:status_in_progress])
         create_list(:task, 2, status: Task.statuses[:status_completed])
-        select sm[Task.statuses[:status_completed]], from: 'search-status'
+        select I18n.t(:status_completed), from: 'search-status'
         click_on 'btn-search'
 
         expect(current_path).to eq root_path
@@ -66,7 +66,7 @@ RSpec.describe Task, type: :system do
         create(:task, status: Task.statuses[:status_completed])
         create(:task, title: 'some random title', status: Task.statuses[:status_completed])
         fill_in 'query', with: 'rand'
-        select Task.statuses[:status_completed], from: 'search-status'
+        select I18n.t(:status_completed), from: 'search-status'
         click_on 'btn-search'
 
         expect(current_path).to eq root_path
@@ -87,7 +87,7 @@ RSpec.describe Task, type: :system do
         fill_in 'task[title]', with: new_title
         fill_in 'task[description]', with: new_description
         fill_in 'task[due_date_at]', with: new_due_date_at
-        select Task.statuses[:status_in_progress], from: 'task[status]'
+        select I18n.t(:status_in_progress), from: 'task[status]'
         click_on 'Create'
 
         # redirected back to root page
@@ -114,7 +114,7 @@ RSpec.describe Task, type: :system do
 
         # make sure new task is there
         expect(page).to have_content new_title
-        expect(page).to have_content sm[Task.statuses[:status_not_started]]
+        expect(page).to have_content Task.statuses[:status_not_started]
       end
 
       it 'failed to create a task due to blank title' do
@@ -200,7 +200,7 @@ RSpec.describe Task, type: :system do
         expect(page).to have_field('task[title]', with: task_1.title)
         expect(page).to have_field('task[description]', with: task_1.description)
         expect(page).to have_field('task[due_date_at]', with: task_1.due_date_at)
-        expect(page).to have_field('task[status]', with: task_1.status)
+        expect(page).to have_field('task[status]', with: Task.statuses[task_1.status])
         expect(page).to have_button 'Update'
 
         expect(current_path).to eq edit_task_path(task_1)
@@ -236,7 +236,7 @@ RSpec.describe Task, type: :system do
         fill_in 'task[title]', with: updated_title
         fill_in 'task[description]', with: updated_description
         fill_in 'task[due_date_at]', with: updated_due_date_at
-        select Task.statuses[:status_completed], from: 'task[status]'
+        select I18n.t(:status_completed), from: 'task[status]'
         click_on 'Update'
 
         # redirected to root

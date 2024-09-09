@@ -11,13 +11,13 @@
         </div>
       </div>
       <div class="mb-3">
-      <%= select_tag( :status, options_for_select(@status_map.invert, params[:status]), { include_blank: t('status_all'), class: "form-select", id: "search-status", onchange: "submit(this.form)" }) %>
+      <%= f.select :status, options_for_select(Task.statuses.invert.map{ |k, v| [ I18n.t(v), k ] }, params[:status]), { include_blank: t('status_all') }, {class: "form-select", id: "search-status", onchange: "submit(this.form)" } %>
       </div>
     <% end %>
   </div>
 
   <div class="col-10">
-    <%= render "form", task: @new_task, status_map: @status_map, btn_label: "Create" %>
+    <%= render "form", task: @new_task, btn_label: "Create" %>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -37,7 +37,7 @@
     <% @tasks.each do |task| %>
         <tr>
           <td><%= link_to task.title, task_path(task) %></td>
-          <td><%= @status_map[task.status] %></td>
+          <td><%= t task.status %></td>
           <td><%= task.created_at.to_s.split[0] %></td>
           <td><%= task.due_date_at.to_s.split[0] %></td>
           <td>

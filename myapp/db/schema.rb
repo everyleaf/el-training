@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_02_041012) do
-  create_table "tasks", charset: "utf8mb4", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2024_09_05_031406) do
+  create_table "tasks", id: { type: :bigint, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
     t.string "title", limit: 50, null: false
     t.string "description", limit: 500
     t.datetime "created_at", null: false
@@ -21,6 +21,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_02_041012) do
     t.index ["due_date_at"], name: "index_tasks_on_due_date_at"
     t.index ["status"], name: "index_tasks_on_status"
     t.index ["title"], name: "index_tasks_on_title"
+  end
+
+  create_table "users", id: { type: :bigint, unsigned: true }, charset: "utf8mb4", force: :cascade do |t|
+    t.string "name", limit: 20, null: false
+    t.string "password", limit: 72, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_users_on_name", unique: true
   end
 
 end

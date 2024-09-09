@@ -30,12 +30,10 @@ class TasksController < ApplicationController
 
     # for new form
     @new_task = Task.new
-    @status_map = get_status_map
   end
 
   def show
     @task = Task.find_by(id: params[:id])
-    @status_map = get_status_map
     redirect_to error_path(404) if @task.nil?
   end
 
@@ -49,8 +47,7 @@ class TasksController < ApplicationController
       flash.now[:danger] = I18n.t 'msg_create_failure'
 
       @new_task = @task
-      @status_map = get_status_map
-      @tasks = Task.order('created_at DESC')
+      @tasks = Task.order('created_at DESC').page(params[:page])
       render :index, status: :unprocessable_entity
     end
   end
@@ -59,7 +56,6 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
     redirect_to error_path(404) if @task.nil?
 
-    @status_map = get_status_map
   end
 
   def update
@@ -72,7 +68,6 @@ class TasksController < ApplicationController
       redirect_to root_path
     else
       flash.now[:danger] = I18n.t 'msg_update_failure'
-      @status_map = get_status_map
       render :edit, status: :unprocessable_entity
     end
   end
@@ -89,14 +84,6 @@ class TasksController < ApplicationController
     redirect_to root_path
   end
 
-  def get_status_map
-    {
-      Constants::STATUS_NOT_STARTED => I18n.t('status_not_started'),
-      Constants::STATUS_IN_PROGRESS => I18n.t('status_in_progress'),
-      Constants::STATUS_COMPLETED => I18n.t('status_completed')
-    }
-  end
-
   private
 
   def task_data(form_params)
@@ -104,7 +91,7 @@ class TasksController < ApplicationController
       title: form_params[:task][:title],
       description: form_params[:task][:description],
       due_date_at: form_params[:task][:due_date_at],
-      status: form_params[:task][:status],
+      status: form_params[:task][:status].to_i,
     }
   end
 

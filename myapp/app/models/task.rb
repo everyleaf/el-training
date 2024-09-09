@@ -13,11 +13,14 @@ class DateTimeValidator < ActiveModel::EachValidator
 end
 
 class Task < ApplicationRecord
+  enum :status, { status_not_started: 0, status_in_progress: 1, status_completed: 2 }, validate: true
+
   validates :title, presence: true, length: { maximum: 50 }
   validates :description, length: { maximum: 500 }
   validates :due_date_at_before_type_cast, date_time: true
   validates :status, inclusion: {
-    in: [Constants::STATUS_NOT_STARTED, Constants::STATUS_IN_PROGRESS, Constants::STATUS_COMPLETED],
+    in: Task.statuses.keys,
     message: :invalid
   }
+
 end
