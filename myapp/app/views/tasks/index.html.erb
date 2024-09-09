@@ -24,7 +24,7 @@
           <th scope="col"><%= t "title" %></th>
           <th scope="col"><%= t "status" %></th>
           <th scope="col">
-          <%= link_to_unless(params[:sort].eql?('created_at'), raw(t 'created_at' ) + raw('<i class="bi bi-sort-up"></i>'), build_request_uri(request.url, 'sort', 'created_at')) %>
+          <%= link_to_unless(params[:sort].eql?('created_at'), raw(t 'created_at' ) + raw('<i class="bi bi-sort-up"></i>'), root_path(request.parameters.merge(sort: 'created_at'))) %>
           </th>
           <th scope="col">
           <%= link_to_unless(params[:sort].eql?('due_date_at'), raw(t 'due_date_at' ) + raw('<i class="bi bi-sort-up"></i>'), root_path(sort: 'due_date_at'))) %>
