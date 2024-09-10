@@ -1,6 +1,21 @@
+require 'uri'
+
 # TaskController is a controller to handle basic CRUD operations for "task"
 class TasksController < ApplicationController
+  include ApplicationHelper
+
   def index
+    q = Task
+
+    unless params[:query].to_s.empty?
+      # TODO: fix this. this fuzzy search might cause performance degradation.
+      q = q.where('title LIKE ?', "%#{ActiveRecord::Base.sanitize_sql_like(params[:query].to_s)}%")
+    end
+
+    unless params[:status].to_s.empty?
+      q = q.where(status: params[:status])
+    end
+
     sort_param = params[:sort].to_s.downcase
     case sort_param
     when 'due_date_at'
@@ -11,8 +26,10 @@ class TasksController < ApplicationController
     # TODO: support ascending
     sort += ' DESC'
 
+    @tasks = q.order(sort).page(params[:page])
+
+    # for new form
     @new_task = Task.new
-    @tasks = Task.order(sort)
   end
 
   def show
@@ -30,7 +47,7 @@ class TasksController < ApplicationController
       flash.now[:danger] = I18n.t 'msg_create_failure'
 
       @new_task = @task
-      @tasks = Task.order('created_at DESC')
+      @tasks = Task.order('created_at DESC').page(params[:page])
       render :index, status: :unprocessable_entity
     end
   end
@@ -38,6 +55,7 @@ class TasksController < ApplicationController
   def edit
     @task = Task.find_by(id: params[:id])
     redirect_to error_path(404) if @task.nil?
+
   end
 
   def update
@@ -73,6 +91,8 @@ class TasksController < ApplicationController
       title: form_params[:task][:title],
       description: form_params[:task][:description],
       due_date_at: form_params[:task][:due_date_at],
+      status: form_params[:task][:status].to_i,
     }
   end
+
 end

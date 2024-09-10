@@ -1,38 +1,34 @@
-<% if task.errors.full_messages.any? %>
-<ul>
-    <% task.errors.full_messages.each do |message| %>
-    <li class="text-danger small"><%= message %></li>
-    <% end %>
-</ul>
-<% end %>
+<div class="bg-white rounded p-3 mb-3">
+  <% if task.errors.full_messages.any? %>
+  <ul>
+      <% task.errors.full_messages.each do |message| %>
+      <li class="text-danger small"><%= message %></li>
+      <% end %>
+  </ul>
+  <% end %>
 
-<div class="task-form">
-<%= form_with model: task do |f| %>
-
-  <div class="mb-3">
-    <%= f.text_field :title, class: "form-control", placeholder: (t 'title') %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.text_area :description, class: "form-control", placeholder: (t 'description') %>
-  </div>
-
-  <div class="mb-3 row">
-    <div class="col-3">
-    <%= f.text_field :due_date_at, class: "form-control", placeholder: (t 'due_date_at') + ': yyyy/mm/dd' %>
+  <div class="task-form">
+  <%= form_with model: task do |f| %>
+    <div class="mb-3">
+      <%= f.text_field :title, class: "form-control", placeholder: (t 'title') %>
     </div>
-  </div>
 
-  <div class="mb-3">
-    <%= f.submit btn_label, class: "btn btn-primary" %>
-  </div>
+    <div class="mb-3">
+      <%= f.text_area :description, class: "form-control", placeholder: (t 'description') %>
+    </div>
 
-<% end %>
+    <div class="mb-3 row">
+      <div class="col-3">
+      <%= f.text_field :due_date_at, class: "form-control", placeholder: (t 'due_date_at'), onfocus: "this.type='date'" %>
+      </div>
+      <div class="col-3">
+      <%= f.select :status, options_for_select(Task.statuses.invert.map{ |k, v| [ I18n.t(v), k ] }, Task.statuses[task[:status]]), { }, { class: "form-select" } %>
+      </div>
+    </div>
+
+    <div class="">
+      <%= f.submit btn_label, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+  </div>
 </div>
-<script>
-
-
-new TempusDominus(document.getElementById('datetimepicker1'), {
-  //put your config here
-});
-</script>

@@ -9,9 +9,14 @@
             <td><%= @task.description %></td>
         </tr>
         <tr>
+            <th><%= t 'status' %></th>
+            <td><%= t @task.status %></td>
+        </tr>
+        <tr>
             <th><%= t 'due_date_at' %></th>
             <td><%= @task.due_date_at %></td>
         </tr>
+
         <tr>
             <th><%= t 'created_at' %></th>
             <td><%= @task.created_at %></td>

@@ -15,7 +15,7 @@ RSpec.describe Task, type: :model do
           title: '',
         )
         t.valid?
-        expect(t.errors[:title]).to include("can't be blank")
+        expect(t.errors[:title]).to include('を入力してください')
       end
 
       it 'failed when it is too long' do
@@ -23,7 +23,7 @@ RSpec.describe Task, type: :model do
           title: SecureRandom.alphanumeric(51),
         )
         t.valid?
-        expect(t.errors[:title]).to include('is too long (maximum is 50 characters)')
+        expect(t.errors[:title]).to include('は50文字以内で入力してください')
       end
     end
 
@@ -42,7 +42,7 @@ RSpec.describe Task, type: :model do
           description: SecureRandom.alphanumeric(501),
         )
         t.valid?
-        expect(t.errors[:description]).to include('is too long (maximum is 500 characters)')
+        expect(t.errors[:description]).to include('は500文字以内で入力してください')
       end
     end
 
@@ -62,7 +62,7 @@ RSpec.describe Task, type: :model do
         )
         t.valid?
 
-        expect(t.errors[:due_date_at]).to include('is not a valid datetime')
+        expect(t.errors[:due_date_at]).to include('は不正な値です')
       end
 
       it 'failed when it is invalid format' do
@@ -72,7 +72,23 @@ RSpec.describe Task, type: :model do
         )
         t.valid?
 
-        expect(t.errors[:due_date_at]).to include('is not a valid datetime')
+        expect(t.errors[:due_date_at]).to include('は不正な値です')
+      end
+    end
+
+    context 'status column' do
+      it 'success.' do
+        t = Task.new(
+          title: 'ThisIsTitle',
+          status: 2,
+        )
+        expect(t).to be_valid
+      end
+      it 'failed when it is invalid status' do
+        expect{ Task.new(
+          title: 'ThisIsTitle',
+          status: '999',
+        ) }.to raise_error(ArgumentError)
       end
     end
   end
