@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'date'
 
 class DateTimeValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    if attribute.to_s.eql?('due_date_at_before_type_cast') && !value.to_s.empty?
-      begin
-        DateTime.parse(value.to_s)
-      rescue
-        record.errors.add 'due_date_at', (options[:message] || :invalid)
-      end
+    return unless attribute.to_s.eql?('due_date_at_before_type_cast') && !value.to_s.empty?
+
+    begin
+      DateTime.parse(value.to_s)
+    rescue StandardError
+      record.errors.add 'due_date_at', (options[:message] || :invalid)
     end
   end
 end
@@ -22,5 +24,4 @@ class Task < ApplicationRecord
     in: Task.statuses.keys,
     message: :invalid
   }
-
 end

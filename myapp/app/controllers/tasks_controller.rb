@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'uri'
 
 # TaskController is a controller to handle basic CRUD operations for "task"
@@ -12,17 +14,15 @@ class TasksController < ApplicationController
       q = q.where('title LIKE ?', "%#{ActiveRecord::Base.sanitize_sql_like(params[:query].to_s)}%")
     end
 
-    unless params[:status].to_s.empty?
-      q = q.where(status: params[:status])
-    end
+    q = q.where(status: params[:status]) unless params[:status].to_s.empty?
 
     sort_param = params[:sort].to_s.downcase
-    case sort_param
-    when 'due_date_at'
-      sort = sort_param
-    else
-      sort = 'created_at'
-    end
+    sort = case sort_param
+           when 'due_date_at'
+             sort_param
+           else
+             'created_at'
+           end
     # TODO: support ascending
     sort += ' DESC'
 
@@ -55,7 +55,6 @@ class TasksController < ApplicationController
   def edit
     @task = Task.find_by(id: params[:id])
     redirect_to error_path(404) if @task.nil?
-
   end
 
   def update
@@ -91,8 +90,7 @@ class TasksController < ApplicationController
       title: form_params[:task][:title],
       description: form_params[:task][:description],
       due_date_at: form_params[:task][:due_date_at],
-      status: form_params[:task][:status].to_i,
+      status: form_params[:task][:status].to_i
     }
   end
-
 end

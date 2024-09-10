@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Task, type: :system do
@@ -50,7 +52,7 @@ RSpec.describe Task, type: :system do
 
       it 'search by status' do
         # add extra items with various status
-        create(:task, :status => Task.statuses[:status_not_started])
+        create(:task, status: Task.statuses[:status_not_started])
         create_list(:task, 3, status: Task.statuses[:status_in_progress])
         create_list(:task, 2, status: Task.statuses[:status_completed])
         select I18n.t(:status_completed), from: 'search-status'
@@ -83,7 +85,7 @@ RSpec.describe Task, type: :system do
         new_title = 'test title 1'
         new_description = 'test description 1'
         new_due_date_at = '2024-08-31'
-        new_status = Task.statuses[:status_in_progress]
+        Task.statuses[:status_in_progress]
         fill_in 'task[title]', with: new_title
         fill_in 'task[description]', with: new_description
         fill_in 'task[due_date_at]', with: new_due_date_at
@@ -103,7 +105,6 @@ RSpec.describe Task, type: :system do
       it 'creates a task successfully w/ minimum fields' do
         new_title = 'test title 1'
         new_description = 'test description 1'
-        new_due_date_at = '2024/08/31'
         fill_in 'task[title]', with: new_title
         fill_in 'task[description]', with: new_description
         click_on 'Create'
@@ -180,7 +181,7 @@ RSpec.describe Task, type: :system do
 
     context 'when record not found' do
       it 'redirected to root path due to not existing id' do
-        visit task_path(99999)
+        visit task_path(99_999)
         expect(current_path).to eq error_path(404)
       end
 
@@ -209,7 +210,7 @@ RSpec.describe Task, type: :system do
 
     context 'when record not found' do
       it 'redirected to root path due to not existing id' do
-        visit edit_task_path(99999)
+        visit edit_task_path(99_999)
         expect(current_path).to eq error_path(404)
       end
 
@@ -232,7 +233,7 @@ RSpec.describe Task, type: :system do
         updated_title = 'title 1 updated'
         updated_description = 'description 1 updated'
         updated_due_date_at = '2024/08/31'
-        updated_status = Task.statuses[:status_completed]
+        Task.statuses[:status_completed]
         fill_in 'task[title]', with: updated_title
         fill_in 'task[description]', with: updated_description
         fill_in 'task[due_date_at]', with: updated_due_date_at

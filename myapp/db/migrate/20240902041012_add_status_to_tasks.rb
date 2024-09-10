@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddStatusToTasks < ActiveRecord::Migration[7.0]
   def up
     add_column :tasks, :status, :integer, limit: 1, null: false, default: 0, unsigned: true, if_not_exists: true

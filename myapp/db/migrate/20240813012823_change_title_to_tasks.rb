@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeTitleToTasks < ActiveRecord::Migration[7.0]
   def up
     add_index :tasks, :title

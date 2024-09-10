@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddDueDateAtToTasks < ActiveRecord::Migration[7.0]
   def up
     add_column :tasks, :due_date_at, :datetime, if_not_exists: true
