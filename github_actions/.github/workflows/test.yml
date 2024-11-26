@@ -46,6 +46,6 @@ jobs:
         with:
           payload: |
             {
-              "url": "${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}"
+              "text": "テストが失敗しているよ！\n${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}"
             }
     timeout-minutes: 10
