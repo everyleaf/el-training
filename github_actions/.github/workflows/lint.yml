@@ -8,9 +8,6 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
     steps:
       - uses: actions/checkout@v4
       - name: Set up Ruby
@@ -22,10 +19,12 @@ jobs:
         run: bundle exec rubocop
       - name: Notify Slack when job failed
         if: ${{ failure() }}
-        uses: slackapi/slack-github-action@v1.26.0
+        uses: slackapi/slack-github-action@v2.0.0
         with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
           payload: |
             {
-              "url": "${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}"
+              "text": "Rubocop lint job failed. Check the details here: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             }
     timeout-minutes: 3
