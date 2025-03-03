@@ -114,16 +114,23 @@
 
 ### ステップ3: Railsプロジェクトを作成しよう
 
-- まずGitで新たにトピックブランチを切りましょう
-  - 以降、トピックブランチ上で作業をしてコミットをしていきます
-- `rails new` コマンドでアプリケーションに最低限必要なディレクトリやファイルを作成しましょう
-  - 必要最低限の機能のみを追加する方法を調べ、rails newコマンドの役割と取り除く予定の機能についてサポーターに説明してみましょう
-- `rails new` してできたプロジェクトのディレクトリ（アプリ名のディレクトリ）の直下に `docs` というディレクトリを作り、この文書ファイルをコミットしましょう
-  - このアプリの仕様を管理下に置き、いつでも見られるようにするためです
-- バージョンを明示するため、利用するRubyのバージョンを `Gemfile` に記載しましょう（Railsは既にバージョンが記載されていることを確認しましょう）
-- GitHub上でPRを作成してレビューしてもらいましょう
-  - 必要に応じて WIP（Work In Progress) で PR を出すようにしましょう。詳しくはトピック集を参照してください
-  - コメントが付いたらその対応を行ってください。2人からapproveされたらmainブランチにマージしましょう
+- `rails new` コマンドでアプリケーションに必要なディレクトリやファイルを作成しましょう
+  - `rails new --help` でオプションを確認し、適切なオプションで作成しましょう
+  - 以下のおすすめのオプションを参考にしてください
+    - いろいろな機能を追加したい人向け：
+      - `--database=postgresql --skip-action-mailbox`
+    - カリキュラムのことだけをすすめたい人向け：
+      - `--database=postgresql --skip-action-mailer --skip-action-mailbox --skip-action-text --skip-active-job --skip-active-storage --skip-action-cable --skip-jbuilder`
+- `rails db:create` で、ローカル環境にデータベースを作り、`rails db:migrate` で `db/schema.rb` が生成されたことを確認しましょう
+- バージョンを明示するため、利用するRubyのバージョンを `Gemfile` に記載しましょう
+  - 例) `ruby "3.4.1"`
+- アプリケーションディレクトリで `git status` を打ってみましょう
+  - ローカルにリポジトリが作成されているのを確認できます
+- `git add .` で作成したファイルをgitのstageに追加しましょう
+- `git commit -m "initial commit"` などとして変更をコミットしましょう
+- `git remote add origin https://github.com/{GitHubアカウント名}/{リポジトリ名}.git` として、ステップ2で作成したリモートリポジトリをローカルのgitに`origin`という名前で登録しましょう
+- `git push origin main` でGitHubにpushしましょう
+- GitHubへ見に行って、ファイルが登録されていることを確認しましょう
 
 ### ステップ4: 作りたいアプリケーションのイメージを考えよう
 
