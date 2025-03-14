@@ -149,6 +149,10 @@
   - 必要に応じて WIP（Work In Progress) で PR を出すようにしましょう。詳しくは[トピック集](https://github.com/everyleaf/el-training/blob/master/docs/topics.md#github-%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%83%88%E3%83%94%E3%83%83%E3%82%AF)を参照してください
   - コメントが付いたらその対応を行ってください。2人から approve されたら main ブランチにマージしましょう
 
+#### Depandabot の通知について
+
+GitHubが自動的に gem などのバージョンアップ等の PR を作ってくれる `dependabot` の機能については、トレイニーが自分で適切に判断しながらレビューをしてもらったり、PRを並列的に処理したりすることが難しいので、研修中は[オフにする](https://docs.github.com/ja/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates#disabling-dependabot-version-updates)ことも検討しましょう（研修を行う組織ごとのポリシーに応じて進めてください）。ファイル操作が必要になるため、新しく PR を作成して対応しましょう。
+
 ### ステップ4: 作りたいアプリケーションのイメージを考えよう
 
 - 設計を進める前に、どのようなアプリになるか完成イメージ（画面設計）をサポーターと一緒に考えてみましょう
