@@ -177,16 +177,10 @@ GitHubが自動的に gem などのバージョンアップ等の PR を作っ�
 - `README.md` にDBセットアップも含めた環境構築の手順をまとめましょう
 - GitHub上でPRを作成してレビューしてもらいましょう
 
-### ステップ6: RuboCopを設定しよう
-- Linter・FormatterとしてRuboCopを設定しましょう
-  - 社内で広く使われているRuboCopの設定があれば、それを利用するか検討しましょう
-  - 本研修カリキュラムのおすすめの設定を使っていただくこともできます。利用方法については [rubocop ディレクトリ](https://github.com/everyleaf/el-training/tree/master/rubocop)のREADMEを参照してください。
-- (サポーターに依頼)push時にRuboCopが実行されるように、GitHub Actionsを設定してもらいましょう
-  - GitHub Actionsの設定はカリキュラムで学んで欲しい項目からやや外れているため、サポーターが設定するようにしてください
-  - 設定の参考: https://github.com/everyleaf/el-training/tree/master/github_actions/.github/workflows/lint.yml
-  - GitHub Actionsはプランによって1月あたりの稼働時間に制限があるため、研修のために利用しても問題ないか確認してください
-  - 課金について: https://docs.github.com/ja/billing/managing-billing-for-github-actions/about-billing-for-github-actions
-- 以降、コーディング規約はサポーター・レビュワーと相談しながら必要に応じて更新していきましょう
+### ステップ6: ※削除予定
+
+> [!NOTE]
+> 本ステップは削除予定ですが、カリキュラム全体の更新作業が終わるまで、ステップ番号のズレを防ぐため、ステップの枠を残しています。
 
 ### ステップ7: タスクモデルを作成しよう
 
