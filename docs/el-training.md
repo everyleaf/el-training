@@ -184,6 +184,14 @@ GitHubが自動的に gem などのバージョンアップ等の PR を作っ�
 
 ### ステップ7: タスクモデルを作成しよう
 
+ここではモデルファイルを Rails の generator を使って自動作成しますが、その前に自動テストコードが自動生成されないようにします。（自動テストについてはステップ10で取り組みます。）config/application.rb に以下の設定を追加してください。
+
+```ruby
+   config.generators do |g|
+     g.test_framework nil # TODO: RSpecを入れるまで生成されないようにしておく
+   end
+```
+
 タスクを管理するためのCRUDを作成します。
 まずは名前と詳細だけが登録できるシンプルな構成で作りましょう。
 
@@ -247,6 +255,8 @@ GitHubが自動的に gem などのバージョンアップ等の PR を作っ�
 
 ### ステップ10: テストを書こう
 
+- [rspec](https://github.com/rspec/rspec-rails) を導入しましょう
+- ステップ7で config/application.rb に加えた変更を元に戻しましょう（test_framework の設定を消す）
 - specを書くための準備をしましょう
   - `spec/spec_helper.rb` 、 `spec/rails_helper.rb` を用意しましょう
 - model specをバリデーションに対して書いてみましょう
