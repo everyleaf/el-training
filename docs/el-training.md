@@ -123,11 +123,13 @@
 
 - `rails new` コマンドでアプリケーションに必要なディレクトリやファイルを作成しましょう
   - `rails new --help` でオプションを確認し、適切なオプションで作成しましょう
+  - [Tailwind CSS](https://tailwindcss.com/) の導入を必須とします
+  - DBは PostgreSQL を推奨としますが、サポーターと相談の上、他のDBを使うことも可能です
   - 以下のおすすめのオプションを参考にしてください
     - いろいろな機能を追加したい人向け：
-      - `--database=postgresql --skip-action-mailbox`
+      - `--css=tailwind --database=postgresql --skip-action-mailbox`
     - カリキュラムのことだけをすすめたい人向け：
-      - `--database=postgresql --skip-action-mailer --skip-action-mailbox --skip-action-text --skip-active-job --skip-active-storage --skip-action-cable --skip-jbuilder`
+      - `--css=tailwind --database=postgresql --skip-action-mailer --skip-action-mailbox --skip-action-text --skip-active-job --skip-active-storage --skip-action-cable --skip-jbuilder`
 - `rails db:create` で、ローカル環境にデータベースを作り、`rails db:migrate` で `db/schema.rb` が生成されたことを確認しましょう
 - バージョンを明示するため、利用するRubyのバージョンを `Gemfile` に記載しましょう
   - 例) `ruby "3.4.1"`
@@ -212,6 +214,8 @@ GitHubが自動的に gem などのバージョンアップ等の PR を作っ�
 
 サブステップに分けているのは、全部を１つの巨大なPRにすると開発もレビューも大変になってしまうからで、実案件でもこのように、小さくわけて開発することが普通になっています。
 今後のステップでも、PRが大きくなりそうな場合は2つ以上に分けてPRを出せないか検討しましょう。
+
+なお、画面(ビュー)を作る際には適宜CSS(Tailwind CSS の class)を整えながら進めましょう。
 
 #### ステップ8-1: タスクの一覧画面、詳細画面を作成しましょう
 
