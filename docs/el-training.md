@@ -274,16 +274,16 @@ Rails7以降、削除については次の2点が従来と書き方が変わっ�
   - 設定の参考: https://github.com/everyleaf/el-training/tree/master/github_actions/.github/workflows/test.yml
 - 参考書籍：https://leanpub.com/everydayrailsrspec-jp
 
-### ステップ11: アプリの日本語部分を共通化しよう
+### ステップ10: アプリの日本語部分を共通化しよう
 
 - Railsのi18nの仕組みを利用して、モデル名・属性名やバリデーションエラーメッセージを日本語で表示できるようにしましょう
   - その際、[rails-i18が提供するロケールファイル](https://github.com/svenfuchs/rails-i18n/blob/master/rails/locale/ja.yml) と独自に追加したモデルへのロケールファイルはわけて管理するようにしましょう
 
-### ステップ12: Railsのタイムゾーンを設定しよう
+### ステップ11: Railsのタイムゾーンを設定しよう
 
 - Railsのタイムゾーンを日本（東京）に設定しましょう
 
-### ステップ13: デプロイをしよう
+### ステップ12: デプロイをしよう
 
 - mainブランチにシンプルなタスク管理システムができたので、デプロイしてみましょう。
 - [Render](https://render.com/)にデプロイを実施してみましょう
