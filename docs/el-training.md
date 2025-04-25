@@ -179,11 +179,6 @@ GitHubが自動的に gem などのバージョンアップ等の PR を作っ�
 - `README.md` にDBセットアップも含めた環境構築の手順をまとめましょう
 - GitHub上でPRを作成してレビューしてもらいましょう
 
-### ステップ6: ※削除予定
-
-> [!NOTE]
-> 本ステップは削除予定ですが、カリキュラム全体の更新作業が終わるまで、ステップ番号のズレを防ぐため、ステップの枠を残しています。
-
 ### ステップ7: タスクモデルを作成しよう
 
 ここではモデルファイルを Rails の generator を使って自動作成しますが、その前に自動テストコードが自動生成されないようにします。（自動テストについてはステップ10で取り組みます。）config/application.rb に以下の設定を追加してください。
@@ -275,7 +270,7 @@ Rails7以降、削除については次の2点が従来と書き方が変わっ�
   - 実際はそれほどバリデーションのテストは書きませんが、model specへの理解を深めるためにやってみましょう
 - system specをタスク機能に対して書いてみましょう
 - RSpecの結果をSlackへ通知するようにGitHub Actionsに設定しましょう
-  - ステップ6と同様、サポーターが実施する形でも構いません
+  - サポーターが実施する形でも構いません
   - 設定の参考: https://github.com/everyleaf/el-training/tree/master/github_actions/.github/workflows/test.yml
 - 参考書籍：https://leanpub.com/everydayrailsrspec-jp
 
