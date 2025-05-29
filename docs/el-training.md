@@ -78,6 +78,15 @@
 
 また、本研修ではカバーしきれなかった内容や、チーム開発の進め方についても解説されています。ぜひ参考にしてみてください。
 
+## 技術情報を調べるための基本的なサイト
+
+初めて使うメソッドなどについては、必ず下記のサイトで調べて進めるようにしましょう。
+
+- [オブジェクト指向スクリプト言語 Ruby リファレンスマニュアル](https://docs.ruby-lang.org/ja/latest/doc/index.html)
+- [Ruby on Rails API(リファレンス)](https://api.rubyonrails.org/)
+- [Ruby on Rails Guides](https://guides.rubyonrails.org/)
+  - [(日本語版)](https://railsguides.jp/)
+
 ## 開発に役立つトピック集
 
 特定の課題ステップには含められませんでしたが、活用してほしいトピックについて topics.md にまとめています。カリキュラムを実施する上で、必要に応じて参照して活用してください。
