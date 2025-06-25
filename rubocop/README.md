@@ -13,7 +13,7 @@
 ## RubocopのSuggestionについて
 研修を進めていくうちに`capybara`などのgemをインストールすることがあると思います。
 それぞれのgem専用に対応したcopがある場合、rubocop実行時に以下のようなメッセージでおすすめしてくれます。
-
+メッセージに記載されているgemを追加して、研修を進めていきましょう。
 ```
 Tip: Based on detected gems, the following RuboCop extension libraries might be helpful:
   * rubocop-capybara (https://rubygems.org/gems/rubocop-capybara)
@@ -22,12 +22,4 @@ Tip: Based on detected gems, the following RuboCop extension libraries might be 
 You can opt out of this message by adding the following to your config (see https://docs.rubocop.org/rubocop/extensions.html#extension-suggestions for more options):
   AllCops:
     SuggestExtensions: false
-```
-
-ところがこのメッセージは、おすすめのcopを導入するまでずっと表示されてしまいます。本来の rubocop 実行結果に集中しづらくなるため、
-メッセージに書かれている通りに、`SuggestExtensions: false` を .rubocop.yml に追記しましょう。
-
-```yml
-  AllCops:
-    SuggestExtensions: false 
 ```
