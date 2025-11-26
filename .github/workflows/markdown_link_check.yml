@@ -10,26 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 21
-
-      - name: Check links
-        run: |
-          npm install -g markdown-link-check
-          find . -name \*.md -print0 | xargs -0 -n1 markdown-link-check
-
-      - name: Notify Slack
-        if: ${{ failure() }}
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          text: ":x: Markdown link check failed. See the details at ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          author_name: Link Checker
-          fields: repo,commit,action,eventName,ref,workflow,job,took
+    - uses: actions/checkout@v4
+    - uses: tcort/github-action-markdown-link-check@v1
+      with:
+        use-quiet-mode: 'yes'
+        folder-path: 'docs, rubocop'
+        file-path: './README.md'
+    - name: Notify Slack
+      if: ${{ failure() }}
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        text: ":x: Markdown link check failed. See the details at ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        author_name: Link Checker
+        fields: repo,commit,action,eventName,ref,workflow,job,took
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
