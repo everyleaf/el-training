@@ -1,3 +1,12 @@
+## 対応 Issue
+<!-- 対応するIssueがあれば記載してください。なければ項目ごと削除してください -->
+<!-- 以下のように記載することでPRとIssueをリンクさせることができます。ref: https://docs.github.com/ja/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword -->
+<!-- closes #10 -->
+
+
+## このPRがマージされるとうれしい理由
+<!-- このPRによってユーザーにとってどんな利益があるか、あるいはどんな課題が解決されるか等を記載してください。 -->
+
 ## やったこと
 <!-- 何がどう変わったのかを説明してください。必要に応じてスクリーンショットや動画も利用し、レビュワーが簡単に理解できるように工夫してください。 -->
 
